@@ -1,6 +1,5 @@
 require 'mongrel_cluster/recipes'
 
-set :use_sudo, false
 
 set :application, "Ublip"
 set :repository, "file:///home/svn/repos/#{application}/trunk"
