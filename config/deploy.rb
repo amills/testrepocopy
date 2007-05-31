@@ -1,7 +1,7 @@
 require 'mongrel_cluster/recipes'
 
 set :application, "Ublip"
-set :repository, "file:////svn.ublip.com/home/svn/repos/#{application}/trunk"
+set :repository, "file:///home/svn/repos/#{application}/trunk"
 set :user, "cappy"
 
 role :web, "dev1.ublip.com", "dev2.ublip.com", "dev3.ublip.com"
