@@ -5,6 +5,7 @@ set :repository, "file:///home/svn/repos/#{application}/trunk"
 set :user, "cappy"
 set :svn, "/opt/csw/bin/svn"
 set :sudo, "/opt/csw/bin/sudo"
+set :mongrel_rails "/opt/csw/bin/mongrel_rails"
 
 role :web, "dev2.ublip.com"
 role :app, "dev2.ublip.com"
