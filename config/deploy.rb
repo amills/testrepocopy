@@ -3,7 +3,7 @@ require 'mongrel_cluster/recipes'
 
 set :application, "Ublip"
 #set :repository, "file:///home/svn/repos/#{application}/trunk"
-set :repository, "svn ssh://svn.ublip.com/home/svn/repos/#{application}/trunk"
+set :repository, "svn+ssh://svn.ublip.com/home/svn/repos/#{application}/trunk"
 set :user, "cappy"
 set :svn, "/opt/csw/bin/svn"
 set :sudo, "/opt/csw/bin/sudo"
