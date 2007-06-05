@@ -16,6 +16,6 @@ role :app, application
 role :db, application, :primary => true
 role :db, application
 
-set :deploy_to, "/opt/www/dev/apps/#{application}" 
+set :deploy_to, "/opt/www/apps/#{application}" 
 
 set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
