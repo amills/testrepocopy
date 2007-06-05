@@ -11,7 +11,7 @@ ssh_options[:paranoid] = false
 
 role :web, "dev2.ublip.com"
 role :app, "dev2.ublip.com"
-role :db, "dev2.ublip.com", :primary => true
+role :db, "dev2.ublip.com"
 
 set :deploy_to, "/opt/www/dev/#{application}" 
 
