@@ -2,7 +2,7 @@ require 'mongrel_cluster/recipes'
 
 
 set :svnstring, "Ublip"
-set :application, "dev2.ublip.com"
+set :application, "dev3.ublip.com"
 set :rails_env, "production"
 set :deploy_to, "/opt/www/apps/#{application}"
 
