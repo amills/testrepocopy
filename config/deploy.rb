@@ -1,6 +1,6 @@
 require 'mongrel_cluster/recipes'
 
-
+#test comment
 set :svnstring, "Ublip"
 set :application, "dev3.ublip.com"
 set :rails_env, "production"
