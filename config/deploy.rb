@@ -35,7 +35,7 @@ task :production do
  role :web, '65.74.139.2:8049'
  role :app, '65.74.139.2:8049'
  role :db, '65.74.139.2:8049', :primary => true
- role :app, '65.74.139.2:8050', :no_release => true, :no_symlink => true
+ role :app, '65.74.139.2:8050', :no_release => true, :no_symlink => true, :no_daemons => true
  set :environment_database, Proc.new { production_database }
 end
 
@@ -61,6 +61,8 @@ after "deploy:migrations", "deploy:cleanup"
 after "deploy:update_code","deploy:symlink_configs"
 # uncomment the following to have a database backup done before every migration
 # before "deploy:migrate", "db:dump"
+before "deploy", "daemons:stop"
+after "deploy", "daemons:start"
 
 # =============================================================================
 namespace :mongrel do
@@ -221,5 +223,17 @@ namespace :db do
  task :dump, :roles => :db, :only => {:primary => true} do
    backup_name
    run "mysqldump --add-drop-table -u #{sql_user} -h #{sql_host} -p#{sql_pass} #{environment_database} | bzip2 -c > #{backup_file}.bz2"
+ end
+end 
+
+namespace :daemons do
+ desc "Start all daemons"
+ task :start, :roles => :app, :except => {:no_daemons => true} do
+   run "#{current_path}/script/daemons start"
+ end
+  
+ desc "Stop all daemons"
+ task :stop, :roles => :app, :except => {:no_daemons => true} do
+   run "#{current_path}/script/daemons stop"
  end
 end
