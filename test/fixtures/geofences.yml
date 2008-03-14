@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+fenceOne:
+  id: 1
+  fence_num: 1
+  device_id: 1
+  name: home
+  bounds: 32.833785,-96.756807,0.25
+fenceTwo:
+  id: 2
+  fence_num: 3
+  device_id: 1
+  name: work
+  bounds: 32.940955,-96.822224,0.25
