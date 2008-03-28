@@ -1,8 +1,8 @@
-cwd: "/opt/ublip/rapid/current"
+cwd: "/opt/ublip/rails/current"
 port: "8000"
 num_procs: "2"
 address: "127.0.0.1"
-pid_file: "/opt/ublip/rapid/mongrel-ublip-rapid.pid"
-log_file: "/opt/ublip/rapid/mongrel-ublip-rapid.log"
+pid_file: "/opt/ublip/rails/mongrel-ublip.pid"
+log_file: "/opt/ublip/rails/mongrel-ublip.log"
 servers: 2
 environment: production
