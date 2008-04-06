@@ -191,7 +191,7 @@ end
 set :production_database,'ublip_prod'
 set :sql_user, 'ublip_db'
 set :sql_pass, 'pr1c7lic6'
-set :sql_host, 'mysql50-2'
+set :sql_host, 'mysql50-3'
 
 namespace :db do
  task :backup_name do
