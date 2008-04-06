@@ -8,7 +8,7 @@
 
 set :keep_releases, 5
 set :application,   'ublip'
-set :repository,    'https://ublip.svn.ey01.engineyard.com/Ublip_v2/trunk'
+set :repository,    'https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/rapid'
 set :scm_username,  'deploy'
 set :scm_password,  'wucr5ch8v0'
 set :user,          'ublip'
@@ -32,18 +32,10 @@ ssh_options[:paranoid] = false
 # be used to single out a specific subset of boxes in a particular role, like
 # :primary => true.
 task :production do
- role :web, '65.74.139.2:8049'
- role :app, '65.74.139.2:8049'
- role :db, '65.74.139.2:8049', :primary => true
- role :app, '65.74.139.2:8050', :no_release => true, :no_symlink => true, :no_daemons => true
- set :environment_database, Proc.new { production_database }
-end
-
-task :staging do
  role :web, '65.74.139.2:8477'
  role :app, '65.74.139.2:8477'
  role :db, '65.74.139.2:8477', :primary => true
- set :environment_database, Proc.new { stage_database }
+ set :environment_database, Proc.new { production_database }
 end
 
 # =============================================================================
@@ -197,7 +189,6 @@ end
 
 # =============================================================================
 set :production_database,'ublip_prod'
-set :stage_database, 'ublip_stage'
 set :sql_user, 'ublip_db'
 set :sql_pass, 'pr1c7lic6'
 set :sql_host, 'mysql50-2'
