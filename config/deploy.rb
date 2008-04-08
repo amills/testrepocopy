@@ -10,7 +10,7 @@ set :deploy_to,     "/opt/ublip/rails"
 set :rails_env, "production"
 set :svn, "/usr/bin/svn"
 set :sudo, "/usr/bin/sudo"
-after "deploy:update_code", "symlink_configs"
+#after "deploy:update_code", "symlink_configs"
 
 ssh_options[:paranoid] = false
 
