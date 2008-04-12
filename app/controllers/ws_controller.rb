@@ -79,7 +79,5 @@ class WsController < ApplicationController
     else
       render_text "We're sorry, this device does not exist"
     end
-      
-    end
   end
 end
