@@ -83,6 +83,10 @@ function getRecentReadings(redrawMap,id) {
 				if(addresses[i].firstChild != undefined)
 					address = addresses[i].firstChild.nodeValue;
 					
+				var h = "N/A";
+				if(haccuracy[i].firstChild != undefined)
+					h = haccuracy[i].firstChild.nodeValue;
+					
 			 // check for the group image
 			
 			 var icon_id_1
@@ -114,7 +118,7 @@ function getRecentReadings(redrawMap,id) {
 				if(notes[i].firstChild != undefined)
 					note = notes[i].firstChild.nodeValue;
 					
-				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, haccuracy: haccuracy[i].firstChild.nodeValue};
+				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, haccuracy: h};
 				devices.push(device);
 				
 				// Populate the table
