@@ -48,6 +48,7 @@ class WsController < ApplicationController
       rmc = rmc.split(",")
       lat = rmc[3]
       lng = rmc[5]
+      spd = rmc[7]
 
       lat_deg = lat.slice(0,2)
       lng_deg = lng.slice(1,2)
@@ -65,6 +66,7 @@ class WsController < ApplicationController
       reading.latitude = lat
       reading.longitude = "-" + lng.to_s
       reading.device_id = device.id
+      reading.speed = spd
       
       # Save the reading
       if reading.save
