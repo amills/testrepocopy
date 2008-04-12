@@ -63,7 +63,7 @@ class WsController < ApplicationController
       
       reading = Reading.new
       reading.latitude = lat
-      reading.longitude = "-" + lng
+      reading.longitude = "-" + lng.to_s
       reading.device_id = device.id
       
       # Save the reading
