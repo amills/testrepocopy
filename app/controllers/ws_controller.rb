@@ -67,6 +67,7 @@ class WsController < ApplicationController
       reading.longitude = "-" + lng.to_s
       reading.device_id = device.id
       reading.speed = spd
+      reading.event_type = "DEFAULT"
       
       # Save the reading
       if reading.save
