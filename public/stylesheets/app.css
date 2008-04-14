@@ -17,7 +17,7 @@ div#header {
 	padding: 0;
 	margin: 0;
 	height: 80px;
-	background-color: #0066FF;
+	background-color: #990000;
 	position: relative;
 }
 
@@ -47,7 +47,7 @@ div#subnav {
 }
 
 #nav_tabs {
-	background-color: #0066FF;
+	background-color: #990000;
 	padding: 0 15px;
 	position: absolute;
 	bottom: 0px;
@@ -62,7 +62,7 @@ div#subnav {
 	float: left;
 	list-style-type: none;
 	display: inline;
-	background-color: #003366;
+	background-color: #000000;
 	padding: 4px 0; /* 1px less padding for IE */
 	margin: 0 1px;
 }
@@ -76,31 +76,31 @@ div#subnav {
 
 #nav_tabs a:hover {
 	background-color: #FFFFFF;
-    color: #003366;
+    color: #000000;
     padding: 5px 10px;
 }
 
 #nav_tabs .selected a {
 	font-weight: bold;
-	color: #0066CC;
+	color: #000000;
 	background-color: #FFFFFF;
 	padding: 5px 10px;
 }
 
 #nav_tabs .selected a:hover {
 	font-weight: bold;
-	color: #0066CC;
+	color: #000000;
 }
 
 #nav_tabs .selected_subnav a {
 	font-weight: bold;
-	color: #0066CC;
+	color: #000000;
 	background-color: #EEEEEE;
 	padding: 5px 10px;
 }
 
 #nav_tabs .selected_subnav a:hover {
-	color: #0066CC;
+	color: #000000;
 	background-color: #EEEEEE;
 }
 
@@ -229,7 +229,7 @@ div#updating {
 
 .panel_table th {
 	background-color: #CCCCCC;
-	color: #003366;
+	color: #000000;
 	padding: 5px;
 	border: 1px solid #FFFFFF;
 }
@@ -240,7 +240,7 @@ div#updating {
 }
 
 .panel_table .header {
-	background-color: #6699CC;
+	background-color: #990000;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;

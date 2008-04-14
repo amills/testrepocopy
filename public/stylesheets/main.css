@@ -3,14 +3,14 @@ body {
 	font-size: 15px;
 	color: #666666;
 	background-color: #FFFFFF;
-	background-image: url(/images/header_bg.png);
-	background-repeat: repeat-x;
+	border-top: 10px solid #000000;
+	margin: 0;
+	padding: 0;
 }
 
 div#header {
-	margin: 0 auto;
+	margin: 15px auto;
 	width: 900px;
-	margin-top: 30px;
 	vertical-align: middle;
 }
 
@@ -27,6 +27,7 @@ div#content {
 .form_table th {
 	font-size: 13px;
 	text-align: right;
+	color: #FFFFFF;
 }
 
 .form_table td {
@@ -35,15 +36,14 @@ div#content {
 
 .form_table input {
 	font-weight: bold;
-	color: #006699;
 }
 /***** End login form ******/
 
 /******** Login form styles ***********/
 div#login_form_container {
 	padding: 10px;
-	border: 6px solid #336699;
-	background-color: #DEE8F3;
+	border: 6px solid #000000;
+	background-color: #990000;
 }
 
 div#login_form_container {
