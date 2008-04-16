@@ -28,7 +28,7 @@ test:
   password: ublip_dev
   socket: /tmp/mysql.sock
   
-development:
+production:
   adapter: mysql
   database: ublip_prod
   username: root
