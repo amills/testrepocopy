@@ -1,7 +1,7 @@
 require 'mongrel_cluster/recipes'
 
-set :application, "slicehost.ublip.com"
-set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/slicehost"
+set :application, "k1tracking.ublip.com"
+set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/k1tracking"
 set :scm_username,  "deploy"
 set :scm_password,  "wucr5ch8v0"
 set :user,        "root"
@@ -10,7 +10,7 @@ set :deploy_to,     "/opt/ublip/rails"
 set :rails_env, "production"
 set :svn, "/usr/bin/svn"
 set :sudo, "/usr/bin/sudo"
-#after "deploy:update_code", "symlink_configs"
+after "deploy:update_code", "symlink_configs"
 
 ssh_options[:paranoid] = false
 
