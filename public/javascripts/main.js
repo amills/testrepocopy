@@ -271,6 +271,9 @@ function getReportBreadcrumbs() {
 			gmap.openInfoWindowHtml(point, createReadingHtml(id));
 			highlightRow(id);
 		}
+		
+		drawGeofence(point, parseFloat(readings[i].haccuracy));
+		
 	}
 	
 	// Display geofences if viewing geofence reports
