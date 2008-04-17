@@ -155,6 +155,8 @@ function getRecentReadings(redrawMap,id) {
 
 // Draw geofence
 function drawGeofence(p, r) {
+	alert(p);
+	alert(r + ":" + isNaN(r));
 	var cColor = "#0066FF";
 	var cWidth = 5;
 	var Cradius = r;   
