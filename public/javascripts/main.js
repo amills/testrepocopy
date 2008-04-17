@@ -130,6 +130,9 @@ function getRecentReadings(redrawMap,id) {
 				
 		        var point = new GLatLng(device.lat, device.lng);
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
+				// Draw the fence around the point
+				var r = parseFloat(device.haccuracy)/1609.344;
+				drawGeofence(point, r);
 		        bounds.extend(point);
 			}
 		}
@@ -148,6 +151,29 @@ function getRecentReadings(redrawMap,id) {
 		// Hide the action panel
 		// document.getElementById("action_panel").style.visibility = "hidden";
     });
+}
+
+// Draw geofence
+function drawGeofence(p, r) {
+	var cColor = "#0066FF";
+	var cWidth = 5;
+	var Cradius = r;   
+ 	var d2r = Math.PI/180; 
+ 	var r2d = 180/Math.PI; 
+ 	var Clat = (Cradius/3963)*r2d; 
+	var Clng = Clat/Math.cos(p.lat()*d2r); 
+	var Cpoints = []; 
+	
+	for (var i=0; i < 33; i++)
+	{ 
+    	var theta = Math.PI * (i/16); 
+    	var CPlng = p.lng() + (Clng * Math.cos(theta)); 
+    	var CPlat = p.lat() + (Clat * Math.sin(theta)); 
+    	var P = new GLatLng(CPlat,CPlng);
+    	Cpoints.push(P); 
+  	}
+  
+  	gmap.addOverlay(new GPolyline(Cpoints,cColor,cWidth)); 
 }
 
 // Center map on device and show details
