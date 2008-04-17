@@ -1,0 +1,45 @@
+<h3>Editing geofence for <%= @geofence.device.name %></h3>
+<div style="background-color: #FFFFCC; padding:10px; width: 580px;">
+	<ol>
+		<li>Rename your geofence if you'd like</li>
+		<li>Enter an address, city, or zip in the address field or click on the map</li>
+		<li>Select a geofence radius</li>
+		<li>Preview your geofence by clicking "preview"</li>
+		<li>Save your geofence</li>
+	</ol>
+</div>
+<br />
+<div id="geofence_map" style="width: 600px; height: 350px;"></div>
+
+<form method="post" style="margin-top: 10px; margin-bottom: 10px;" id="geofence_form" onSubmit="return validate();">
+	Name: <input type="text" size="15" name="name" value="<%= @geofence.name %>" />
+	Address: <input type="text" name="address" size="20" value="<%= @geofence.address %>" id="address" />
+	&nbsp;&nbsp;Radius: 
+	<% radius = @geofence.bounds.split(',')[2] %>
+	<select id="radius">
+		<option value="0.1" <%if radius == '0.1'%>selected="selected"<%end%>>0.1</option>
+		<option value="0.25" <%if radius == '0.25'%>selected="selected"<%end%>>0.25</option>
+		<option value="0.5" <%if radius == '0.5'%>selected="selected"<%end%>>0.5</option>
+		<option value="1" <%if radius == '1'%>selected="selected"<%end%>>1</option>
+		<option value="5" <%if radius == '5'%>selected="selected"<%end%>>5</option>
+		<option value="10" <%if radius == '10'%>selected="selected"<%end%>>10</option>
+		<option value="25" <%if radius == '25'%>selected="selected"<%end%>>25</option>
+	</select> (miles)
+	&nbsp;&nbsp;&nbsp;<input type="submit" value="preview" onclick="geocode(address.value); return false;" /><br />
+	<hr />
+	<input type="submit" value="save" />&nbsp;&nbsp;<a href="/geofence/view/<%=params[:id]%>">cancel</a>
+	<input type="hidden" name="device_id" value="<%= @geofence.device.id %>" />
+	<input type="hidden" name="geofence_id" value="<%= @geofence.id %>" />
+	<input type="hidden" name="bounds" />
+</form>
+<hr />
+<form method="post" action="/geofence/delete" onsubmit="return confirm('Are you sure you want to delete this geofence?');">
+	<input type="submit" value="delete" />
+	<input type="hidden" name="device_id" value="<%= @geofence.device.id %>" />
+	<input type="hidden" name="geofence_id" value="<%= @geofence.id %>" />
+</form>
+
+<script>
+	var device = {name: '<%= escape_javascript @geofence.device.name %>', lat: <%= @geofence.device.readings[0].latitude %>, lng: <%= @geofence.device.readings[0].longitude %>};
+	geofences.push({id: <%= @geofence.id %>, name: '<%= escape_javascript(@geofence.name) %>', bounds: '<%= @geofence.bounds %>'})
+</script>
