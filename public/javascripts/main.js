@@ -275,15 +275,6 @@ function getReportBreadcrumbs() {
 		drawGeofence(point, parseFloat(readings[i].haccuracy));
 		
 	}
-	
-	// Display geofences if viewing geofence reports
-	if(document.location.href.split("/")[4] == 'geofence' && geofences.length) {
-		for(var i = 0; i < geofences.length; i++) {
-			var bounds = geofences[i].bounds.split(',');
-			var point = new GLatLng(parseFloat(bounds[0]), parseFloat(bounds[1]));
-			drawGeofence(point, parseFloat(bounds[2]));
-		}
-	}
 }
 
 // Determines which icon to display based on event or display numbered icon
