@@ -272,7 +272,7 @@ function getReportBreadcrumbs() {
 			highlightRow(id);
 		}
 		
-		drawGeofence(point, parseFloat(readings[i].haccuracy));
+		drawGeofence(point, parseFloat(readings[i].haccuracy)/1609.344);
 		
 	}
 }
