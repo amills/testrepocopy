@@ -175,8 +175,6 @@ function drawGeofence(p, r) {
   
   	gmap.addOverlay(new GPolyline(Cpoints,cColor,cWidth)); 
 
-	alert('done drawing');
-
 }
 
 // Center map on device and show details
