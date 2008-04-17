@@ -17,6 +17,7 @@ class WsController < ApplicationController
       reading.speed = params[:spd]
       reading.direction = params[:dir]
       reading.note = params[:note]
+      reading.horizontal_accuracy = params[:haccuracy]
       reading.device_id = device.id
       reading.event_type = "DEFAULT"
       
