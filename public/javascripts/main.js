@@ -155,8 +155,6 @@ function getRecentReadings(redrawMap,id) {
 
 // Draw geofence
 function drawGeofence(p, r) {
-	alert(p);
-	alert(r + ":" + isNaN(r));
 	var cColor = "#0066FF";
 	var cWidth = 5;
 	var Cradius = r;   
@@ -176,6 +174,9 @@ function drawGeofence(p, r) {
   	}
   
   	gmap.addOverlay(new GPolyline(Cpoints,cColor,cWidth)); 
+
+	alert('done drawing');
+
 }
 
 // Center map on device and show details
