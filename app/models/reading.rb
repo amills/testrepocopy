@@ -8,7 +8,11 @@ class Reading < ActiveRecord::Base
                     :lng_column_name => :longitude
                    
   def speed
-    read_attribute(:speed).round
+    unless read_attribute(:speed).nil?
+      read_attribute(:speed).round
+    else
+      "N/A"
+    end
   end
   
   def get_fence_name
