@@ -46,12 +46,12 @@ class WsController < ApplicationController
       
       # Convert lat lng from degrees minutes to decimal degrees
       rmc = rmc.split(",")
-      lat = rmc[3]
-      lng = rmc[5]
+      lat = rmc[3].to_f.to_s
+      lng = rmc[5].to_f.to_s
       spd = rmc[7]
 
       lat_deg = lat.slice(0,2)
-      lng_deg = lng.slice(1,2)
+      lng_deg = lng.slice(0,2)
 
       lat_min = lat.slice(2, lat.length-2)
       lng_min = lng.slice(2, lng.length-2)
