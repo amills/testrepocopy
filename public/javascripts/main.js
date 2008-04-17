@@ -128,7 +128,7 @@ function getRecentReadings(redrawMap,id) {
 				tds[3].innerHTML = device.haccuracy;
 				tds[4].innerHTML = device.dt;
 				
-		        var point = new GLatLng(device.lat, device.lng);
+		        var point = new GLatLng(parseFloat(device.lat), parseFloat(device.lng));
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
 				// Draw the fence around the point
 				var r = parseFloat(device.haccuracy)/1609.344;
@@ -154,7 +154,7 @@ function getRecentReadings(redrawMap,id) {
 }
 
 // Draw geofence
-function drawGeofence(p, r) {
+function drawGeofence2(p, r) {
 	var cColor = "#0066FF";
 	var cWidth = 5;
 	var Cradius = r;   
