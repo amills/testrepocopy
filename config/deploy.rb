@@ -1,7 +1,7 @@
 require 'mongrel_cluster/recipes'
 
 set :application, "digi.ublip.com"
-set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_digi_demo/trunk"
+set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/digi"
 set :scm_username,  "deploy"
 set :scm_password,  "wucr5ch8v0"
 set :user,        "admin"
