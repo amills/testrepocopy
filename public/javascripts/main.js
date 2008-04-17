@@ -132,8 +132,7 @@ function getRecentReadings(redrawMap,id) {
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
 				// Draw the fence around the point
 				var r = parseFloat(device.haccuracy)/1609.344;
-				alert(r);
-				drawGeofence(point, r);
+				drawGeofence(point, parseFloat(r));
 		        bounds.extend(point);
 			}
 		}
