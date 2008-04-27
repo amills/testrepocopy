@@ -24,7 +24,7 @@ xml.devices do
         xml.temp(device.readings[0].temp)
         xml.humid_relative(device.readings[0].humid_relative)
         xml.speed(device.readings[0].accel_xforce)
-        xml.note(device.readings[0].accel_force)
+        xml.note(device.readings[0].accel_yforce)
       end
       
     end
