@@ -12,19 +12,19 @@ xml.devices do
         xml.lng
         xml.address
         xml.dt
-        xml.odometer
-        xml.fuel_rate
-        xml.speed
-        xml.note
+        xml.temp
+        xml.humid_relative
+        xml.accel_xforce
+        xml.accel_yforce
       else # We got data
         xml.lat(device.readings[0].latitude)
         xml.lng(device.readings[0].longitude)
         xml.address(device.readings[0].shortAddress)
         xml.dt((time_ago_in_words device.readings[0].created_at) + ' ago')
-        xml.odometer(device.readings[0].odometer)
-        xml.fuel_rate(device.readings[0].fuel_rate)
-        xml.speed(device.readings[0].speed)
-        xml.note(device.readings[0].note)
+        xml.temp(device.readings[0].temp)
+        xml.humid_relative(device.readings[0].humid_relative)
+        xml.speed(device.readings[0].accel_xforce)
+        xml.note(device.readings[0].accel_force)
       end
       
     end
