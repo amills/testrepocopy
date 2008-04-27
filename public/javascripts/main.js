@@ -75,7 +75,7 @@ function getRecentReadings(redrawMap,id) {
 		var icon_id = xml.documentElement.getElementsByTagName("icon_id");
 		var humid_relative = xml.documentElement.getElementsByTagName("humid_relative");
 		var accel_xforce = xml.documentElement.getElementsByTagName("accel_xforce");
-		var acccel_yforce = xml.documentElement.getElementsByTagName("accel_yforce");
+		var accel_yforce = xml.documentElement.getElementsByTagName("accel_yforce");
 		
 		for(var i = 0; i < lats.length; i++) {
 			if(lats[i].firstChild) {
