@@ -71,11 +71,11 @@ function getRecentReadings(redrawMap,id) {
         var lngs = xml.documentElement.getElementsByTagName("lng");
 		var dts = xml.documentElement.getElementsByTagName("dt");
 		var addresses = xml.documentElement.getElementsByTagName("address");
-		var notes = xml.documentElement.getElementsByTagName("note");
+		var temps = xml.documentElement.getElementsByTagName("temp");
 		var icon_id = xml.documentElement.getElementsByTagName("icon_id");
-		var rpms = xml.documentElement.getElementsByTagName("odometer");
-		var fuel_rates = xml.documentElement.getElementsByTagName("fuel_rate");
-		var speeds = xml.documentElement.getElementsByTagName("speed");
+		var humid_relative = xml.documentElement.getElementsByTagName("humid_relative");
+		var accel_xforce = xml.documentElement.getElementsByTagName("accel_xforce");
+		var acccel_yforce = xml.documentElement.getElementsByTagName("accel_yforce");
 		
 		for(var i = 0; i < lats.length; i++) {
 			if(lats[i].firstChild) {
@@ -109,36 +109,36 @@ function getRecentReadings(redrawMap,id) {
                     else
                     
                     iconALL.image = "/icons/ublip_marker.png";
-			  
-				// Check for existence of note
-				var note = '';
-				if(notes[i].firstChild != undefined)
-					note = notes[i].firstChild.nodeValue;
 				
-				var rpm = "N/A";
-				var rate = "N/A";
-				var speed = "N/A";
+				var temp = "N/A";
+				var humid = "N/A";
+				var accelx = "N/A";
+				var accely = "N/A";
 				
-				if(rpms[i].firstChild != undefined)
-					rpm = rpms[i].firstChild.nodeValue;
+				if(temps[i].firstChild != undefined)
+					temp = temps[i].firstChild.nodeValue;
 					
-				if(fuel_rates[i].firstChild != undefined)
-					rate = fuel_rates[i].firstChild.nodeValue;
+				if(humid_relative[i].firstChild != undefined)
+					humid = humid_relative[i].firstChild.nodeValue;
 					
-				if(speeds[i].firstChild != undefined)
-					speed = speeds[i].firstChild.nodeValue;
+				if(accel_xforce[i].firstChild != undefined)
+					accelx = accel_xforce[i].firstChild.nodeValue;
 					
-				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, speed: speed, rpm: rpm, rate: rate, dt: dts[i].firstChild.nodeValue, note: note};
+				if(accel_yforce[i].firstChild != undefined)
+					accely = accel_yforce[i].firstChild.nodeValue;
+					
+				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, temp: temp, humid:humid, accelx: accelx, accely: accely, dt: dts[i].firstChild.nodeValue};
 				devices.push(device);
 				
 				// Populate the table
 				var row = $("row" + device.id);
 				var tds = row.getElementsByTagName("td");
 				tds[2].innerHTML = device.address;
-				tds[3].innerHTML = device.speed;
-				tds[4].innerHTML = device.rpm;
-				tds[5].innerHTML = device.rate;
-				tds[6].innerHTML = device.dt;
+				tds[3].innerHTML = device.temp;
+				tds[4].innerHTML = device.humid;
+				tds[5].innerHTML = device.accelx;
+				tds[6].innerHTML = device.accely;
+				tds[7].innerHTML = 
 				
 		        var point = new GLatLng(device.lat, device.lng);
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));

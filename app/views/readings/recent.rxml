@@ -23,8 +23,8 @@ xml.devices do
         xml.dt((time_ago_in_words device.readings[0].created_at) + ' ago')
         xml.temp(device.readings[0].temp)
         xml.humid_relative(device.readings[0].humid_relative)
-        xml.speed(device.readings[0].accel_xforce)
-        xml.note(device.readings[0].accel_yforce)
+        xml.accel_xforce(device.readings[0].accel_xforce)
+        xml.accel_yforce(device.readings[0].accel_yforce)
       end
       
     end
