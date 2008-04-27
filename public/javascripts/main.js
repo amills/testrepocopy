@@ -138,7 +138,7 @@ function getRecentReadings(redrawMap,id) {
 				tds[4].innerHTML = device.humid;
 				tds[5].innerHTML = device.accelx;
 				tds[6].innerHTML = device.accely;
-				tds[7].innerHTML = 
+				tds[7].innerHTML = device.dt;
 				
 		        var point = new GLatLng(device.lat, device.lng);
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
