@@ -73,9 +73,6 @@ function getRecentReadings(redrawMap,id) {
 		var addresses = xml.documentElement.getElementsByTagName("address");
 		var temps = xml.documentElement.getElementsByTagName("temp");
 		var icon_id = xml.documentElement.getElementsByTagName("icon_id");
-		var humid_relative = xml.documentElement.getElementsByTagName("humid_relative");
-		var accel_xforce = xml.documentElement.getElementsByTagName("accel_xforce");
-		var accel_yforce = xml.documentElement.getElementsByTagName("accel_yforce");
 		
 		for(var i = 0; i < lats.length; i++) {
 			if(lats[i].firstChild) {
@@ -118,16 +115,7 @@ function getRecentReadings(redrawMap,id) {
 				if(temps[i].firstChild != undefined)
 					temp = temps[i].firstChild.nodeValue;
 					
-				if(humid_relative[i].firstChild != undefined)
-					humid = humid_relative[i].firstChild.nodeValue;
-					
-				if(accel_xforce[i].firstChild != undefined)
-					accelx = accel_xforce[i].firstChild.nodeValue;
-					
-				if(accel_yforce[i].firstChild != undefined)
-					accely = accel_yforce[i].firstChild.nodeValue;
-					
-				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, temp: temp, humid:humid, accelx: accelx, accely: accely, dt: dts[i].firstChild.nodeValue};
+				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, temp: temp, dt: dts[i].firstChild.nodeValue};
 				devices.push(device);
 				
 				// Populate the table
@@ -135,10 +123,7 @@ function getRecentReadings(redrawMap,id) {
 				var tds = row.getElementsByTagName("td");
 				tds[2].innerHTML = device.address;
 				tds[3].innerHTML = device.temp;
-				tds[4].innerHTML = device.humid;
-				tds[5].innerHTML = device.accelx;
-				tds[6].innerHTML = device.accely;
-				tds[7].innerHTML = device.dt;
+				tds[4].innerHTML = device.dt;
 				
 		        var point = new GLatLng(device.lat, device.lng);
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));

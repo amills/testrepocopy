@@ -1,7 +1,7 @@
 require 'mongrel_cluster/recipes'
 
 set :application, "digi.ublip.com"
-set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/digi"
+set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/digi_one_sensor"
 set :scm_username,  "deploy"
 set :scm_password,  "wucr5ch8v0"
 set :user,        "admin"
@@ -38,5 +38,9 @@ end
 task :determine_env do
   if app == "ublip"
     set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/trunk"
+  elsif app == "digi1"
+    set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/digi_one_sensor"
+  elsif app == "digi2"
+    set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/digi_multi_sensor"
   end
 end
