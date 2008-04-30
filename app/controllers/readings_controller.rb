@@ -89,7 +89,6 @@ class ReadingsController < ApplicationController
     render_xml reading.to_xml
   end
 end
-class ReadingsController < ApplicationController
  
   
   before_filter :authorize_http, :only => ['last']
