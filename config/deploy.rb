@@ -28,3 +28,9 @@ task :symlink_configs, :roles => :app, :except => {:no_symlink => true} do
      ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml
    CMD
  end
+ 
+namespace :deploy do
+  task :restart, :roles => :app do
+    run "cd /opt/ublip/rails/current; mongrel_rails cluster::restart;"
+  end
+end
