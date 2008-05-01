@@ -1,6 +1,6 @@
 require 'mongrel_cluster/recipes'
 
-set :application, "demo2.ublip.com"
+set :application, "demo.ublip.com"
 set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/demo.ublip.com"
 set :scm_username,  "deploy"
 set :scm_password,  "wucr5ch8v0"
