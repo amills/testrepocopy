@@ -58,8 +58,3 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
-ActionMailer::Base.server_settings = {
-  :address  => "localhost",
-  :port  => 25,
-  :domain => "my.cliptrac.com"
-}
