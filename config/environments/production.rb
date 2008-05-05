@@ -19,5 +19,5 @@ config.action_controller.perform_caching             = true
 ActionMailer::Base.smtp_settings = {
   :address  => "localhost",
   :port  => 25, 
-  :domain  => "cliptrac.com",
+  :domain  => "ublip.com",
 }
