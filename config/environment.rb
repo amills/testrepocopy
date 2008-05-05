@@ -60,6 +60,5 @@ end
 # Include your application configuration below
 ActionMailer::Base.smtp_settings = {
   :address  => "localhost",
-  :port  => 25, 
-  :domain  => "ublip.com",
+  :port  => 25
 }
