@@ -58,3 +58,8 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+ActionMailer::Base.smtp_settings = {
+  :address  => "localhost",
+  :port  => 25, 
+  :domain  => "ublip.com",
+}
