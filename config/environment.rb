@@ -58,7 +58,7 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
-ActionMailer::Base.smtp_settings = {
+ActionMailer::Base.server_settings = {
   :address  => "localhost",
   :port  => 25
 }
