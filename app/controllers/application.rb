@@ -68,6 +68,6 @@ class ApplicationController < ActionController::Base
     end
     
     def set_page_title
-      @page_title = "Rapid ETrac"
+      @page_title = "ClipTRAC"
     end
 end

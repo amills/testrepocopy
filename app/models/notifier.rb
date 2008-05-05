@@ -58,8 +58,8 @@ def forgot_password(user, url=nil)
   # Send email to support from contact page
   def app_feedback(email, subdomain, feedback)
     @from = "support@ublip.com"
-    @recipients = "butch@rapidenergyservices.com"
-    @subject = "Feedback from #{subdomain}.rapidetrac.com"
+    @recipients = "dennisbaldwin@gmail.com"
+    @subject = "Feedback from #{subdomain}.cliptrac.com"
     @body["feedback"] = feedback
     @body["sender"] = email
   end
