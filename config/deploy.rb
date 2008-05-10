@@ -1,11 +1,11 @@
 require 'mongrel_cluster/recipes'
 
-set :application, "staging.ublip.com"
-set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/trunk"
+set :application, "mapufacture.ublip.com"
+set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/mapufacture"
 set :scm_username,  "deploy"
 set :scm_password,  "wucr5ch8v0"
-set :user,        "root"
-set :password,    "inv0mqkbDM"
+set :user,        "ublip"
+set :password,    "2urEThU3"
 set :deploy_to,     "/opt/ublip/rails"
 set :rails_env, "production"
 set :svn, "/usr/bin/svn"
@@ -20,12 +20,6 @@ role :db, application, :primary => true
 role :db, application
 
 set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
-
-namespace :deploy do
-  task :restart, :roles => :app do
-    run "cd /opt/ublip/rails/current; mongrel_rails cluster::restart;"
-  end
-end
 
 task :symlink_configs, :roles => :app, :except => {:no_symlink => true} do
    run <<-CMD
