@@ -1,11 +1,11 @@
 require 'mongrel_cluster/recipes'
 
-set :application, "staging.ublip.com"
-set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/trunk"
-set :scm_username,  "deploy"
-set :scm_password,  "wucr5ch8v0"
-set :user,        "root"
-set :password,    "inv0mqkbDM"
+set :application, "betterlabs.ublip.com"
+set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/betterlabs"
+set :scm_username,  "sdate"
+set :scm_password,  "ntend5tr"
+set :user,        "ublip"
+set :password,    "tAq3kuFe"
 set :deploy_to,     "/opt/ublip/rails"
 set :rails_env, "production"
 set :svn, "/usr/bin/svn"
