@@ -2,8 +2,8 @@ require 'mongrel_cluster/recipes'
 
 set :application, "staging.ublip.com"
 set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/staging.ublip.com"
-set :scm_username,  "deploy"
-set :scm_password,  "wucr5ch8v0"
+set :scm_username,  "sdate"
+set :scm_password,  "ntend5tr"
 set :user,        "root"
 set :password,    "inv0mqkbDM"
 set :deploy_to,     "/opt/ublip/rails"
