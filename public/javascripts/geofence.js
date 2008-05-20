@@ -130,6 +130,29 @@ function validate() {
 	return true;
 }
 
+function validate_form() {
+	
+	form = document.getElementById('geofence_form1');
+	
+	if(form.name.value == '') {
+		alert('Please specify a name for your geofence');
+		return false;	
+	}
+	return true;
+}
+
+function geocode1(address) {
+	var geocoder = new GClientGeocoder();
+	geocoder.getLatLng(
+    	address,
+		function(point) {
+      		if (!point) {
+        		alert("We're sorry, this address cannot be located");
+			}
+		}
+	);
+}
+
 // Display a geofence when selected from the view list
 function displayGeofence(index) {
 	var bounds = geofences[index].bounds.split(",");
@@ -149,4 +172,12 @@ function displayGeofence(index) {
 
 function go(url) {
 	document.location.href = url + '?geofence_id=' + currSelectedGeofenceId;
+}
+
+function enableDevice(id) {
+	if(document.getElementById("radio").value == '1' && document.getElementById("radio").checked == true) {
+		document.getElementById("device").disabled = true;
+	} else {
+		document.getElementById("device").disabled = false;
+	}
 }
