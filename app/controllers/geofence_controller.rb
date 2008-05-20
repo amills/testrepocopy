@@ -2,8 +2,33 @@ class GeofenceController < ApplicationController
   before_filter :authorize
 
   def index
-    
+    device_ids = Device.get_devices(session[:account_id]).map{|x| x.id}
+    @geofences_pages,@geofences = paginate :geofences,:conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]], :order => "name",:per_page => 3
   end
+  
+  # Adding new method for adding geofences for a device.
+  def new
+    @devices = Device.get_devices(session[:account_id])
+    if request.post?
+      add = params[:address].split(',')
+      lat = add[0]
+      lng = add[1]
+      geofence = Geofence.new
+      geofence.name = params[:name]
+      geofence.latitude= lat
+      geofence.longitude = lng
+      geofence.radius = params[:radius]
+      geofence.address = params[:address]
+      geofence.account_id = session[:account_id] if params[:radio] == "1"
+      geofence.device_id = params[:radio] == "2" ? params[:device]  : 0
+      if geofence.save
+      flash[:message] = 'Geofence created succesfully'
+      redirect_to :controller => 'geofence', :action => 'index'
+      else
+        flash[:message] = 'Geofence not created'
+      end  
+    end  
+  end  
 
   def add
     if request.post?
@@ -79,25 +104,31 @@ class GeofenceController < ApplicationController
     end
   end
   
+  #~ def delete
+    #~ if request.post?
+      #~ begin
+        #~ geofence = Geofence.find(params[:geofence_id], :conditions => ["device_id = ?", params[:device_id]])
+        #~ device = Device.get_device(params[:device_id], session[:account_id])
+        #~ if(!device.online?) 
+          #~ flash[:message] = 'Device appears offline, please try again later'
+          #~ redirect_to :controller => 'geofence', :action => 'view', :id => device.id
+          #~ return
+        #~ end
+        #~ Middleware_Gateway.send_AT_cmd('AT%24GEOFNC='+ geofence.fence_num.to_s + ',0,0,0', device)
+        #~ Middleware_Gateway.send_AT_cmd('AT%26w', device)
+        #~ geofence.destroy
+        #~ flash[:message] = 'Geofence deleted successfully'
+      #~ rescue
+        #~ flash[:message] = 'Error deleting geofence'
+      #~ end
+      #~ redirect_to :controller => 'geofence', :action => 'view', :id => params[:device_id]
+    #~ end
+  #~ end
+  
   def delete
-    if request.post?
-      begin
-        geofence = Geofence.find(params[:geofence_id], :conditions => ["device_id = ?", params[:device_id]])
-        device = Device.get_device(params[:device_id], session[:account_id])
-        if(!device.online?) 
-          flash[:message] = 'Device appears offline, please try again later'
-          redirect_to :controller => 'geofence', :action => 'view', :id => device.id
-          return
-        end
-        Middleware_Gateway.send_AT_cmd('AT%24GEOFNC='+ geofence.fence_num.to_s + ',0,0,0', device)
-        Middleware_Gateway.send_AT_cmd('AT%26w', device)
-        geofence.destroy
-        flash[:message] = 'Geofence deleted successfully'
-      rescue
-        flash[:message] = 'Error deleting geofence'
-      end
-      redirect_to :controller => 'geofence', :action => 'view', :id => params[:device_id]
-    end
-  end
+    Geofence.delete(params[:id])
+    flash[:message] = 'Geofence deleted successfully'
+    redirect_to :back
+  end  
   
 end
