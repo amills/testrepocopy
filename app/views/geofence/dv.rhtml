@@ -1,99 +1,22 @@
 <div class="container" >
-	<div id="margin-t-b" style="height:20px;">
-		<div class="fl" style="width:460px ;"  id="link-grey">Device # 1  </div>
-		<div  class="fn" style="width:480px; text-align:right;background-color:#FFFFFF;">
-		  <a  class="link-all"href="#">All Geofences</a></div>
-	</div>
-	<div style="width:955px; "> 
-		<div id="width30-all" class="fl"> 
-		
-		<div  class="fl" id="width30t" style=" padding-left:5px;background-color:#e5f1f4;font-weight:bold; line-height:30px;height:30px ">All Geofences</div>
-		<div  class="fl">
-		<div id="width30-all" class="fl"><a  class="link-all"href="#">Home Location</a></div>
-		<div id="width40-blue-bdr" class="fl">
-		<div id="width30-blue-in">Office Location<br />
-123 Main St. <br />
- San Jose, CA 85135<br />
-Radius: 0.25 miles</div>
-<div id="width30-grey-in">Device Level: <br />Device # 1</div>
-<div id="width30-in" class="fl"><input  class="btn-b" name="Edit" type="button" value="Edit" /> <input class="btn-s" name="Delete" type="button" value="Delete" />
+ <div id="margin-t-b" style="height:20px;">
+  <div class="fl" style="width:480px ;"  id="link-grey"> <%= @level_type %> </div>
+  <div  class="fn" style="width:480px; text-align:right;background-color:#FFFFFF;"><a  class="link-all"href="#">All Geofences</a></div>
+ </div>
+ <div style="width:960px; background-color:#CCCCCC "> 
+  <div id="width30-all" class="fl"> 
+  
+  <div  class="fl" id="width30t" style="background-color:#e5f1f4;font-weight:bold; line-height:30px;height:30px ">All Geofence</div>
+  <% @geofences.each do |geofence| %>
+      <div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> <%= geofence.name %> </a></div>
+  <% end %>
+  
+  </div>
+  <div class="fn" id="width10t">&nbsp;<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
+  <div class="fn" id="width695t" >&nbsp;<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 </div>
+    
+ </div>  
+ <div id="margin-t-b" class="fl"><a  class="link-all"href="#">1</a> <a  class="link-all"href="#">2</a> <a  class="link-all"href="#">3</a> <a  class="link-all"href="#">4</a> <a  class="link-all"href="#">5</a> <a  class="link-all"href="#">6</a> <a  class="link-all"href="#">7</a> <a  class="link-all"href="#">8</a> <a  class="link-all"href="#">9</a></div>
+ 
 </div>
-</div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Office Location</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#">  Chinese Restaurant</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Play Area </a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Home Location</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Office Location</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#">  Chinese Restaurant</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Play Area </a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Home Location</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Office Location</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#">  Chinese Restaurant</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Play Area </a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Home Location</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Office Location</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#">  Chinese Restaurant</a></div>
-		<div  class="fl" id="width30-bdr"><a  class="link-all"href="#"> Play Area </a></div>
-		
-		</div>
-		<div class="fn"  id="width10t">&nbsp;<br />
-<br /><br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br /><br />
-<br /></div>
-		<div  class="fn" id="width695t" style=" ">&nbsp;<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br /><br /><br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-</div>
-				
-	</div>		
-	<div id="margin-t-b" class="fl"><a  class="link-all"href="#">1</a> <a  class="link-all"href="#">2</a> <a  class="link-all"href="#">3</a> <a  class="link-all"href="#">4</a> <a  class="link-all"href="#">5</a> <a  class="link-all"href="#">6</a> <a  class="link-all"href="#">7</a> <a  class="link-all"href="#">8</a> <a  class="link-all"href="#">9</a></div>
-	
-</div>
-<div class="footer"></div>
