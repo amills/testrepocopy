@@ -9,7 +9,7 @@ body{ font-family:verdana; font-size:9pt; margin:0px; background-image:url(../im
 .border-btm{border-bottom:1px solid #cccccc; height:23px;}
 
 .txt-box{ border:1px solid #cccccc; padding:2px 5px 2px 5px; color:#666666; width:350px;}
-.txt-box-s{ border:1px solid #cccccc; padding:2px 5px 2px 5px; color:#666666; width:50px;}
+.txt-box-s{ border:1px solid #cccccc; padding:2px 5px 2px 5px; color:#666666; width:75px;}
 .btn-b{  border:1px solid #ABD5FE; padding:6px 7px 5px 6px; color:#666666; background-color:#E5F1F4;}
 .btn-s{  border:1px solid #FFCC99; padding:6px 7px 5px 6px; color:#666666; background-color:#FFE5F2;}
 /*******************************8header************/
