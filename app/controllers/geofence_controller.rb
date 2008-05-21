@@ -22,13 +22,13 @@ class GeofenceController < ApplicationController
       geofence.account_id = session[:account_id] if params[:radio] == "1"
       geofence.device_id = params[:radio] == "2" ? params[:device]  : 0
       if geofence.save
-      flash[:message] = 'Geofence created succesfully'
-      redirect_to :controller => 'geofence', :action => 'index'
+        flash[:message] = 'Geofence created succesfully'
+        redirect_to :controller => 'geofence', :action => 'index'
       else
         flash[:message] = 'Geofence not created'
-      end  
-    end  
-  end  
+      end
+    end
+  end
 
   def add
     if request.post?
@@ -100,7 +100,7 @@ class GeofenceController < ApplicationController
       end
       redirect_to :controller => 'geofence', :action => 'view', :id => params[:device_id]
     else
-      @geofence = Geofence.find(params[:geofence_id], :conditions => ["device_id = ?", params[:id ]])
+      @geofence = Geofence.find(params[:id]) #params[:geofence_id], :conditions => ["device_id = ?", params[:id ]])
     end
   end
   
