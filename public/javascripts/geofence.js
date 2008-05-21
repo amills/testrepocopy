@@ -12,7 +12,7 @@ function load() {
 		map = document.getElementById("geofence_map");
 	    gmap = new GMap2(map);
 	    gmap.addControl(new GLargeMapControl());
-	    gmap.addControl(new GMapTypeControl());
+	    //gmap.addControl(new GMapTypeControl());
 	    gmap.setCenter(new GLatLng(37.0625, -95.677068), zoom);
 		
 		icon = new GIcon();
@@ -47,6 +47,8 @@ function load() {
 				}
 			});
 			displayGeofence(0);
+			//alert(geofences[0]);
+			
 			currSelectedGeofenceId = geofences[0].id;
 			var point = new GLatLng(device.lat, device.lng);
 			gmap.addOverlay(createMarker(point));
