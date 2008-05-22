@@ -22,7 +22,7 @@ production:
   adapter: mysql
   database: ublip_prod
   username: root
-  password: savvy2
+  password: Was9A6ay
   host: localhost
 
 # Warning: The database defined as 'test' will be erased and
