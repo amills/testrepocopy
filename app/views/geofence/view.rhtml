@@ -14,14 +14,16 @@
                <div  class="fl" id="width30t" style="background-color:#e5f1f4;font-weight:bold; line-height:30px;height:30px ">All Geofences</div>
                <% @geofences.each_with_index do |geofence,i| %>
 			        <script type="text/javascript">
-						<% if @gf.id == geofence.id %>
+						<% if @gf && @gf.id == geofence.id %>
 						  var gf_index = <%= i %>;
+						<% else %>
+						  var gf_index = 0;
 						<% end %>
 					</script>
                     <div  class="fl" id="width30-bdr">
 						<a onclick="hide_div(); new Ajax.Request('/geofence/view_detail?id=<%= geofence.id %>',{asynchronous:true}); displayGeofence(<%= i %>);" class="link-all"><span style="cursor:pointer;"><%= geofence.name %></span></a>
 					</div>
-					<div id="detail_id<%= geofence.id %>" <% if @gf.id != geofence.id %>style="display:none;"<% end %>>
+					<div id="detail_id<%= geofence.id %>" <% if @gf && @gf.id != geofence.id %>style="display:none;"<% end %>>
 						<%= render :partial => "detail",:locals => {:geofence => geofence} %>
 					</div>	
                <% end %>
@@ -35,7 +37,7 @@
 <script>
   <% if @device && @device.readings[0] %>
 	var device = {name: '<%= escape_javascript @device.name %>', lat: <%= @device.readings[0].latitude %>, lng: <%= @device.readings[0].longitude %>};
-  <% else %> 	
+  <% elsif @account && @gf %> 	
     var device = {name: '<%= escape_javascript @account.subdomain %>', lat: <%= @gf.latitude %>, lng: <%= @gf.longitude %>}; 
   <% end %>
 	<% @geofences.each_with_index do |geofence,i| %>

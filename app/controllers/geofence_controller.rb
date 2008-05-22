@@ -41,14 +41,24 @@ class GeofenceController < ApplicationController
   end  
   
   def view   # Added new view method ===========@better
-    @gf = Geofence.find(:first,:conditions => ["id = ?",params[:gf]])
+    
     if (params[:id] =~ /account/)
       id = params[:id].gsub(/account/, '')
       @account = Account.find_by_id(id)
+      if params[:gf]
+        @gf = Geofence.find(:first,:conditions => ["id = ?",params[:gf]])
+      else
+        @gf = Geofence.find(:first,:conditions => ["account_id = ?",id])
+      end
       @geofences_pages, @geofences = paginate :geofences, :conditions=> ["account_id=?", id], :order => "name",:per_page => 15      
     else
       id = params[:id].gsub(/device/, '')
       @device = Device.find_by_id(id)
+      if params[:gf]
+        @gf = Geofence.find(:first,:conditions => ["id = ?",params[:gf]])
+      else
+        @gf = Geofence.find(:first,:conditions => ["device_id = ?",id])
+      end
       @geofences_pages, @geofences = paginate :geofences, :conditions=> ["device_id=?", id], :order => "name",:per_page => 15
     end
     @gf_ids = @geofences.map{|x| x.id}
