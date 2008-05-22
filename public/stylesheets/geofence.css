@@ -64,7 +64,7 @@ body{ font-family:verdana; font-size:9pt; margin:0px; background-image:url(../im
 #padding-t7{padding-top:7px;}
 #padding-t{padding-top:4px;}
 #padding-b{padding-bottom:4px;}
-#margin-t-b{margin-top:25px; margin-bottom:5px;}
+#margin-t-b{margin-top:10px; margin-bottom:5px;}
 /************container ends***********/
 /******************footer starts*******************************************************/
 .footer{width:960px; clear:both;}

@@ -6,6 +6,7 @@ var form;
 var geofences = [];
 var currSelectedDeviceId;
 var currSelectedGeofenceId;
+var gf_index;
 
 function load() {
 	if (GBrowserIsCompatible()) {
@@ -46,8 +47,8 @@ function load() {
 	          		geocode(latlng);
 				}
 			});
-			displayGeofence(0);
-			//alert(geofences[0]);
+			//displayGeofence(0);
+			displayGeofence(gf_index);
 			
 			currSelectedGeofenceId = geofences[0].id;
 			var point = new GLatLng(device.lat, device.lng);
