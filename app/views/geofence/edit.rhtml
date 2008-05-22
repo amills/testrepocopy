@@ -1,9 +1,8 @@
 <div class="container">
-
   <div id="margin-t-b">
     <div class="fl" style="width:480px"  id="link-grey">Edit Geofence</div>
   </div>
-  <form method="post" style="margin-top: 10px; margin-bottom: 10px;" id="geofence_form1" onSubmit="return validate_form();">
+  <form method="post" style="margin-top:10px; margin-bottom:10px;" id="geofence_form1" onSubmit="return validate_form();">
   <div id="margin-t-b">
     <div  class="fl" id="margin-t-b"> <input type="radio" id="radio" name="radio" value="1" onclick="enableDevice(this);" <% if @geofence.account_id != 0 %>checked<% end %>/> Account Level   <input type="radio" id="radio" name="radio" onclick="enableDevice(this);" value="2" <%= "checked='checked'" if @geofence.device_id != 0 %>/> Device Level</div>
     <div id="padding-t7" class="fl" >Choose the device: </div>
@@ -42,8 +41,8 @@
   <input type="hidden" name="bounds" />
   
   <div id="padding-t7" class="fl" >
-    <input  class="btn-b" name="Create geofence" type="submit" value="Update Geofence" />
-    <input class="btn-s" name="Cancel" type="button" onclick="javascript:history.go(-1);" value="Cancel" />
+    <input  class="btn-b" name="Create geofence" type="submit" value="Update Geofence" style="cursor:pointer;"/>
+    <input class="btn-s" name="Cancel" type="button" onclick="javascript:history.go(-1);" value="Cancel" style="cursor:pointer;"/>
   </div>
   </form>
 </div>
