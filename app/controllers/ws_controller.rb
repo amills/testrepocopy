@@ -35,4 +35,51 @@ class WsController < ApplicationController
        render_text "We're sorry, this device does not exist"
     end
   end
+  
+  def sanav
+      device = Device.find_by_imei(params[:imei])
+
+      if device
+        rmc = params[:rmc]
+
+        # Convert lat lng from degrees minutes to decimal degrees
+        rmc = rmc.split(",")
+        lat = rmc[3].to_f.to_s
+        lng = rmc[5].to_f.to_s
+        spd = rmc[7]
+
+        lat_deg = lat.slice(0,2)
+        lng_deg = lng.slice(0,2)
+
+        lat_min = lat.slice(2, lat.length-2)
+        lng_min = lng.slice(2, lng.length-2)
+
+        lat_min = lat_min.to_f/60
+        lng_min = lng_min.to_f/60
+
+        lat = lat_deg.to_f+lat_min.to_f
+        lng = lng_deg.to_f+lng_min.to_f
+
+        reading = Reading.new
+        reading.latitude = lat
+        reading.longitude = "-" + lng.to_s
+        reading.device_id = device.id
+        reading.speed = spd
+        reading.event_type = "DEFAULT"
+
+        # Save the reading
+        if reading.save
+          # Save the reading id with the device
+          device.recent_reading_id = reading.id
+          device.save
+          render_text "Success"
+        else
+          render_text "Error saving data"
+        end
+      # Error finding device
+
+      else
+        render_text "We're sorry, this device does not exist"
+      end
+    end
 end
