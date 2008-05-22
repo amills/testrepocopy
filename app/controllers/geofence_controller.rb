@@ -66,8 +66,7 @@ class GeofenceController < ApplicationController
       #~ redirect_to :controller => 'geofence', :action => 'add', :id => @device and return
     #~ end
   #~ end
-  
-  
+
   
   def detail
     @geofence = Geofence.find(:first,:conditions => ["id = ?",params[:id]])
@@ -89,15 +88,17 @@ class GeofenceController < ApplicationController
   end  
   
   def view   # Added new view method ===========@better
-    if (params[:id] =~ /device.*/) == 0
+
+    if (params[:id] =~ /account/)
+      id = params[:id].gsub(/account/, '')
+      @account = Account.find_by_id(id)
+      @geofences_pages, @geofences = paginate :geofences, :conditions=> ["account_id=?", id], :order => "name",:per_page => 15      
+    else
       id = params[:id].gsub(/device/, '')
       @device = Device.find_by_id(id)
       @geofences_pages, @geofences = paginate :geofences, :conditions=> ["device_id=?", id], :order => "name",:per_page => 15
-    else
-      id = params[:id].gsub(/account/, '')
-      @account = Account.find_by_id(id)
-      @geofences_pages, @geofences = paginate :geofences, :conditions=> ["account_id=?", id], :order => "name",:per_page => 15
     end
+
   end
   
   # TODO Protect this so the user can't specify an arbritray device and geofence id, tie it to account_id
@@ -154,6 +155,8 @@ class GeofenceController < ApplicationController
     flash[:message] = 'Geofence deleted successfully'
     redirect_to :action => "index"
   end  
+
+private
   
   def add_and_edit(geofence)
     add = params[:address].split(',')

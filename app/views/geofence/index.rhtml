@@ -1,8 +1,8 @@
-<!--<h3>Geofences</h3>-->
+
 <div class="container" >
 
 	<div id="margin-t-b" style="height:20px;">
-		<div class="fl" style="width:460px ;"  id="link-grey">All Geofence </div> 
+		<div class="fl" style="width:460px ;"  id="link-grey">All Geofences</div> 
 		<div  class="fn" style="width:480px; text-align:right;background-color:#FFFFFF;"><a href="/geofence/new" class="link-all" title="Create new geofence">Add New Geofence</a></div>
 	</div>
 	
@@ -12,9 +12,9 @@
 
   <div style=" background-color:#e5f1f4; font-weight:bold; width:955px; line-height:30px;height:30px"> 
 		<div  class="fl" id="width38t" style=" padding-left:5px;">Geofence</div>
-		<div class="fn" id="width7t">For</div>
+		<div  class="fn" id="width7t">For</div>
 		<div  class="fn" id="width38t2">Address</div>
-		<div class="fn"  id="width7t">Radius</div>
+		<div  class="fn" id="width7t">Radius</div>
 		<div  class="fn" id="width7t">Action</div>
 				
 	</div>
@@ -24,7 +24,10 @@
 		<div class="fn" id="width7"><a  class="link-all"href="/geofence/view/<% if !geofence.device.nil? %>device<%= geofence.device_id %><% else %>account<%= geofence.account_id %><% end %>"><% if !geofence.device.nil? %><%= geofence.device.name %><% else %><%= geofence.account.subdomain %><% end %></a></div>
 		<div  class="fn" id="width40-2"><%= geofence.address %></div>
 		<div class="fn"  id="width7"><%= geofence.radius.to_s + ' ' + 'miles' %></div>
-		<div  class="fn" id="width7"><a  class="link-all"href="/geofence/edit/<%= geofence.id %>">E</a>&nbsp;<a  class="link-all" href="/geofence/delete/<%= geofence.id %>" onclick="return confirm('Are you sure you want to delete this geofence ?');">D</a></div>
+		<div  class="fn" id="width7">
+		  <a  class="link-all"href="/geofence/edit/<%= geofence.id %>">E</a>&nbsp;
+		  <a  class="link-all" href="/geofence/delete/<%= geofence.id %>" onclick="return confirm('Are you sure you want to delete this geofence ?');">D</a>
+		</div>
 	</div>
   <% end %>
 
