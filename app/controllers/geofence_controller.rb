@@ -60,6 +60,7 @@ class GeofenceController < ApplicationController
       @geofences_pages, @geofences = paginate :geofences, :conditions=> ["account_id=?", id], :order => "name",:per_page => 15      
     else
       id = params[:id].gsub(/device/, '')
+      @account = Account.find_by_id(session[:account_id])
       @device = Device.find_by_id(id)
       if params[:gf]
         @gf = Geofence.find(:first,:conditions => ["id = ?",params[:gf]])
