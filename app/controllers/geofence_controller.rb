@@ -6,8 +6,7 @@ class GeofenceController < ApplicationController
     @geofences_pages,@geofences = paginate :geofences,:conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]], :order => "name",:per_page => 3
   end
   
-  # Adding new method for adding geofences for a device =========@better
-  def new
+  def new 
     @devices = Device.get_devices(session[:account_id])
     if request.post?
       geofence = Geofence.new
@@ -25,7 +24,7 @@ class GeofenceController < ApplicationController
     @geofence = Geofence.find(:first,:conditions => ["id = ?",params[:id]])
   end  
   
-  def edit # Added new edit method ===========@better
+  def edit 
     @devices = Device.get_devices(session[:account_id])
     @geofence = Geofence.find(params[:id])
     if request.post?
@@ -40,8 +39,7 @@ class GeofenceController < ApplicationController
     end  
   end  
   
-  def view   # Added new view method ===========@better
-    
+  def view  
     if (params[:id] =~ /account/)
       id = params[:id].gsub(/account/, '')
       @account = Account.find_by_id(id)
@@ -64,7 +62,7 @@ class GeofenceController < ApplicationController
     @gf_ids = @geofences.map{|x| x.id}
   end
   
-  def view_detail #Added for updating partial on view page =========@better
+  def view_detail 
     geofence = Geofence.find(:first,:conditions => ["id = ?",params[:id]])
     render :update do |page|
       page.replace_html "detail_id#{geofence.id}",:partial => "geofence/detail",:locals => {:geofence => geofence}
@@ -72,7 +70,7 @@ class GeofenceController < ApplicationController
     end
   end  
   
-  def delete #New delete method ===========@better
+  def delete 
     Geofence.delete(params[:id])
     flash[:message] = 'Geofence deleted successfully'
     redirect_to :action => "index"
@@ -80,7 +78,7 @@ class GeofenceController < ApplicationController
 
 private
   
-  def add_and_edit(geofence) #Method used for adding or editing the geofence. =========@better
+  def add_and_edit(geofence) 
     add = params[:address].split(',')
     lat = add[0]
     lng = add[1]
