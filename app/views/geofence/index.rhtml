@@ -28,7 +28,7 @@
                     <% if !geofence.device.nil? %><%= geofence.device.name %><% else %><%= geofence.account.subdomain %><% end %>
                 </a>
             </div>
-            <div class="fn" id="width40-2"><%= geofence.get_address%></div>
+            <div class="fn" id="width40-2"><%= geofence.get_lat_lng %></div>
             <div class="fn"  id="width7"><%= geofence.radius.to_s + ' ' + 'miles' %></div>
             <div class="fn" id="width7">
               <a class="link-all"href="<%= edit_url(:id=>geofence.id)%>">E</a>&nbsp;

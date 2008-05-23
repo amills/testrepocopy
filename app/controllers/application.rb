@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
 end
 
    def check_action_for_user
-       if !@geofence.nil? && (session[:account_id] == @geofence.account_id || (@geofence.device_id !=0 && @geofence.device.account_id == session[:account_id]))
+       if !@geofence.nil? && (session[:account_id] == @geofence.account_id || (@geofence.device_id !=0 && @geofence.device.account_id == session[:account_id].to_i))
            true
        else
            false
