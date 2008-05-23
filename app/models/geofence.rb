@@ -22,7 +22,7 @@ class Geofence < ActiveRecord::Base
     latitude.to_s + "," + longitude.to_s + "," + radius.to_s
   end
 
-  def get_address      
+  def get_lat_lng      
      (self.address.nil? || self.address.empty?) ? "-----" : "#{self.latitude.round(2)}, #{self.longitude.round(2)}" 
   end
   
