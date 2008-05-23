@@ -12,7 +12,7 @@
      <div style="width:960px; background-color:#ffffff;"> 
           <div id="width30-all" class="fl"> 
                <div  class="fl" id="width30t" style="background-color:#e5f1f4;font-weight:bold; line-height:30px;height:30px ">All Geofences</div>
-               <% @geofences.each_with_index do |geofence,i| %>
+               <% (@geofences||[]).each_with_index do |geofence,i| %>
 			        <script type="text/javascript">
 						<% if @gf && @gf.id == geofence.id %>
 						  var gf_index = <%= i %>;

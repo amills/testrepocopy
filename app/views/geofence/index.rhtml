@@ -19,7 +19,7 @@
 		<div  class="fn" id="width7t">Action</div>
 				
 	</div>
-   <% @geofences.each do |geofence| %>
+   <% (@geofences||[]).each do |geofence| %>
 	<div id="border-btm" style=""> 
 		<div  class="fl" id="width40-1"><a class="link-all"href="/geofence/detail/<%= geofence.id %>"><%= geofence.name %></a></div>
 		<div class="fn" id="width7">
