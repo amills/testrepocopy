@@ -25,6 +25,7 @@ class GeofenceController < ApplicationController
   end
 
   def detail
+    @account = Account.find_by_id(session[:account_id])
     @geofence = Geofence.find(:first,:conditions => ["id = ?",params[:id]])
   end  
   
