@@ -68,6 +68,6 @@ class ApplicationController < ActionController::Base
     end
     
     def set_page_title
-      @page_title = "Ublip - Location Matters"
+      @page_title = "K1 Tracking :: They can run. But they can't hide."
     end
 end
