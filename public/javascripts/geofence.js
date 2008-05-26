@@ -143,7 +143,7 @@ return false;
 }
 
 if(form.bounds.value == '') {
-alert('Please check your entered address before saving');
+alert('Please click Preview before saving');
 return false;
 }
 
