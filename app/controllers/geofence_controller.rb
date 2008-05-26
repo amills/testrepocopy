@@ -4,9 +4,9 @@ class GeofenceController < ApplicationController
   def index
     device_ids = Device.get_devices(session[:account_id]).map{|x| x.id}        
     if device_ids.empty?       
-      @geofences_pages,@geofences = paginate :geofences,:conditions => ["account_id = ?",session[:account_id]], :order => "name",:per_page => 25  
+      @geofences_pages,@geofences = paginate :geofences,:conditions => ["account_id = ?",session[:account_id]], :order => "name DESC", :per_page => 25  
     else
-      @geofences_pages,@geofences = paginate :geofences,:conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]], :order => "name",:per_page => 25  
+      @geofences_pages,@geofences = paginate :geofences,:conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]], :order => "name DESC", :per_page => 25  
     end    
   end
   
