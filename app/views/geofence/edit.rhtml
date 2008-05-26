@@ -38,7 +38,8 @@
   <input type="hidden" name="bounds" />
   
   <div id="padding-t7" class="fl"  style="width:400px">
-    <input  class="btn-b" name="Create geofence" type="submit" value="Update Geofence" style="cursor:pointer;"/> <input class="btn-s" name="Cancel" type="button" onclick="javascript:history.go(-1);" value="Cancel" style="cursor:pointer;"/>
+    <input  class="btn-b" name="Create geofence" type="submit" value="Update Geofence" style="cursor:pointer;"/>     
+    <a href="<%= session[:referral_url] %>"  class="btn-s" style="text-decoration:none; height: 25px; padding:8px 7px 7px 6px;">Cancel</a>
   </div>
   </form>
 </div>

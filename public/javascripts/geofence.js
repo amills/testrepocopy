@@ -134,20 +134,20 @@ function validate() {
 }
 
 function validate_form() {
-	
-	form = document.getElementById('geofence_form1');
-	
-	if(form.name.value == '') {
-		alert('Please specify a name for your geofence');
-		return false;	
-	}
-	
-	if(form.bounds.value == '') {
-		alert('Please check your entered address before saving');
-		return false;
-	}
-	
-	return true;
+
+form = document.getElementById('geofence_form1');
+
+if(form.name.value == '') {
+alert('Please specify a name for your geofence');
+return false;
+}
+
+if(form.bounds.value == '') {
+alert('Please check your entered address before saving');
+return false;
+}
+
+return true;
 }
 
 
