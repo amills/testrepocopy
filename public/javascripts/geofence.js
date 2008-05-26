@@ -150,17 +150,6 @@ function validate_form() {
 	return true;
 }
 
-function geocode1(address) {
-	var geocoder = new GClientGeocoder();
-	geocoder.getLatLng(
-    	address,
-		function(point) {
-      		if (!point) {
-        		alert("We're sorry, this address cannot be located");
-			}
-		}
-	);
-}
 
 // Display a geofence when selected from the view list
 function displayGeofence(index) {
