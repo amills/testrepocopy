@@ -21,7 +21,7 @@
                               var gf_index = <%= @geofences.index(@gf) %>; /// added
                             <% end %>
                         </script>
-                        <div  class="fl" id="width30-bdr">
+                        <div  id="width30-bdr">
                             <a onclick="hide_div(); new Ajax.Request('/geofence/view_detail?id=<%= geofence.id %>',{asynchronous:true}); displayGeofence(<%= i %>);" class="link-all"><span style="cursor:pointer;"><%= geofence.name %></span></a>
                         </div>
                         <div id="detail_id<%= geofence.id %>" <% if @gf && @gf.id != geofence.id %>style="display:none;"<% end %>>
