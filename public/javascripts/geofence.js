@@ -34,25 +34,28 @@ function load() {
 			gmap.openInfoWindowHtml(point, 'Last location for <strong>' + device.name + '</strong>');
 			gmap.setCenter(point, 15);
 			
+      if(remove_listener == 'false'){ //added
 			GEvent.addListener(gmap, "click", function(overlay, point) {
 				var latlng = point.lat() + ',' + point.lng();
 				document.getElementById('address').value = latlng;
           		geocode(latlng);
-         	});
+         	});}
 		} else {
+      if(remove_listener == 'false'){ //added
 			GEvent.addListener(gmap, "click", function(overlay, point) {
 				if(point) {
 					var latlng = point.lat() + ',' + point.lng();
 					document.getElementById('address').value = latlng;
 	          		geocode(latlng);
 				}
-			});
+			});}
 			//displayGeofence(0);
-			displayGeofence(gf_index);
-			
-			currSelectedGeofenceId = geofences[0].id;
-			var point = new GLatLng(device.lat, device.lng);
-			gmap.addOverlay(createMarker(point));
+            if (device_flag == 1){
+                displayGeofence(gf_index);
+                currSelectedGeofenceId = geofences[0].id;
+                var point = new GLatLng(device.lat, device.lng);
+                gmap.addOverlay(createMarker(point));
+            }
 		}
 	}
 }
@@ -120,6 +123,7 @@ function createMarker(p) {
 
 // Validation for geofence creation form
 function validate() {
+     form = document.getElementById('geofence_form');  
 	if(form.name.value == '') {
 		alert('Please specify a name for your geofence');
 		return false;	
@@ -131,23 +135,6 @@ function validate() {
 	}
 	
 	return true;
-}
-
-function validate_form() {
-
-form = document.getElementById('geofence_form1');
-
-if(form.name.value == '') {
-alert('Please specify a name for your geofence');
-return false;
-}
-
-if(form.bounds.value == '') {
-alert('Please click Preview before saving');
-return false;
-}
-
-return true;
 }
 
 

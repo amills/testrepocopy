@@ -3,7 +3,7 @@
   <div id="margin-t-b">
     <div class="fl" style="width:480px"  id="link-grey">Add New Geofences </div>
   </div>
-  <form method="post" style="margin-top: 10px; margin-bottom: 10px;" id="geofence_form1" onSubmit="return validate_form();">
+  <form method="post" style="margin-top: 10px; margin-bottom: 10px;" id="geofence_form" onsubmit="return validate();">
   <div id="margin-t-b">
     <div  class="fl" id="margin-t-b"> <input type="radio" id="radio" name="radio" value="1" checked onclick="enableDevice(this);"/> Account Level   <input type="radio" id="radio" name="radio" onclick="<%if @devices.empty?%>alert('You can\'t create device level geofence.');<%else%>enableDevice(this);<%end%>" value="2"/> Device Level</div>
     <div id="padding-t7" class="fl" >Choose the device:</div>
@@ -22,7 +22,7 @@
 	
     <div id="padding-t7" class="fl" >Geofence address:</div>
     <div id="padding-t" class="fl" >
-      <input  class="txt-box" id="address" name="address" type="text" />&nbsp;<a onclick="geocode(document.getElementById('address').value); return false;" class="link-all" /><span style="cursor:pointer;">Preview</span></a> 
+      <input  class="txt-box" id="address" name="address" type="text" />&nbsp;<a onclick="geocode(document.getElementById('address').value); return false;" class="btn-b" style=" text-decoration:none; cursor:pointer;" /><span>Preview</span></a> 
     </div>
 	
     <div id="padding-t7" class="fl" >Radius: </div>
@@ -37,7 +37,7 @@
   <input type="hidden" name="bounds"/>
   <div id="padding-t7" class="fl" style="width:400px">
     <input  class="btn-b" name="Create geofence" type="submit" value="Create Geofence" style="cursor:pointer;" />
-    <input class="btn-s" name="Cancel" type="button" onclick="javascript:history.go(-1);" value="Cancel" style="cursor:pointer;"/>
+    <a href="<%= session[:referral_url] %>"  class="btn-s" style="text-decoration:none; height: 25px; padding:8px 7px 7px 6px;">Cancel</a>
   </div>
   </form>
   </div>
@@ -51,6 +51,8 @@
 
 <% if !@devices[0].nil? && !@devices[0].readings[0].nil? %>
 <script>
+  var device_flag = 1
+  var remove_listener = 'false'
 	var device = {name: '<%= escape_javascript(@devices[0].name) %>', lat: <%= @devices[0].readings[0].latitude %>, lng: <%= @devices[0].readings[0].longitude %>, address: '<%= @devices[0].readings[0].shortAddress %>'};
 	var gf_index = 0;
 	<% if !@devices[0].geofences[0].nil? %>

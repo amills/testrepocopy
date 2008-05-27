@@ -18,7 +18,7 @@
                             <% if @gf && @gf.id == geofence.id %>
                               var gf_index = <%= i %>;
                             <% else %>
-                              var gf_index = 0;
+                              var gf_index = <%= @geofences.index(@gf) %>; /// added
                             <% end %>
                         </script>
                         <div  class="fl" id="width30-bdr">
@@ -41,14 +41,21 @@
 </div>
 
 <script>
+  var device_flag
+  var remove_listener = 'true'
   <% if @device && @device.readings[0] %>
-	var device = {name: '<%= escape_javascript @device.name %>', lat: <%= @device.readings[0].latitude %>, lng: <%= @device.readings[0].longitude %>};
+    var device = {name: '<%= escape_javascript @device.name %>', lat: <%= @device.readings[0].latitude %>, lng: <%= @device.readings[0].longitude %>};
   <% elsif @account && @gf %> 	
     var device = {name: '<%= escape_javascript @account.subdomain %>', lat: <%= @gf.latitude %>, lng: <%= @gf.longitude %>}; 
   <% end %>
-	<% @geofences.each_with_index do |geofence,i| %>
-		geofences.push({id: <%= geofence.id %>, name: '<%= escape_javascript(geofence.name) %>', bounds: '<%= geofence.bounds %>'});
-	<% end %>
+    <% if !@geofences.empty? %>
+        device_flag = 1
+        <% @geofences.each_with_index do |geofence,i| %>
+            geofences.push({id: <%= geofence.id %>, name: '<%= escape_javascript(geofence.name) %>', bounds: '<%= geofence.bounds %>'});
+        <% end %>   
+    <% else %>   
+       device_flag = 0;
+    <%end%>
    var div_ids = <%= @gf_ids.inspect %>;
    function hide_div()
    { 

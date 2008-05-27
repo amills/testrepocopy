@@ -6,11 +6,11 @@ class GeofenceController < ApplicationController
     if device_ids.empty?       
       @geofences_pages,@geofences = paginate :geofences,
                                              :conditions => ["account_id = ?",session[:account_id]],
-                                             :order => "id DESC", :per_page => 25
+                                             :order => "name", :per_page => 25
     else
       @geofences_pages,@geofences = paginate :geofences,
                                              :conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]], 
-                                             :order => "id DESC", :per_page => 25
+                                             :order => "name", :per_page => 25
     end
   end
   
@@ -20,7 +20,7 @@ class GeofenceController < ApplicationController
       geofence = Geofence.new
       add_and_edit(geofence)
       if geofence.save
-        flash[:message] = 'Geofence created succesfully'
+        flash[:message] = "#{geofence.name} created succesfully"
         redirect_to geofence_url
       else
         flash[:message] = 'Geofence not created'
@@ -40,10 +40,10 @@ class GeofenceController < ApplicationController
       if request.post?           
        add_and_edit(@geofence)
        if @geofence.save
-          flash[:message] = 'Geofence updated succesfully'
+          flash[:message] = "#{@geofence.name} updated succesfully"
          redirect_to geofence_url
        else
-         flash[:message] = 'Geofence not updated'
+         flash[:message] = "#{@geofence.name} not updated"
        end
       end  
      else
@@ -98,7 +98,7 @@ class GeofenceController < ApplicationController
      @geofence=Geofence.find_by_id(params[:id]) 
      if check_action_for_user 
         Geofence.delete(params[:id])
-        flash[:message] = 'Geofence deleted successfully'
+        flash[:message] = "#{@geofence.name} deleted successfully"
      else
         flash[:message] = 'Invalid action.'   
      end    
