@@ -49,12 +49,12 @@ class WsController < ApplicationController
       lat = rmc[3].to_f.to_s
       lng = rmc[5].to_f.to_s
       spd = rmc[7]
-
-      lat_deg = lat.slice(0,2)
-      lng_deg = lng.slice(0,2)
+      
+      lat_deg = lat.slice(0,2).to_f
+      lng_deg = lng.slice(0,3).to_f
 
       lat_min = lat.slice(2, lat.length-2)
-      lng_min = lng.slice(2, lng.length-2)
+      lng_min = lng.slice(3, lng.length-2)
 
       lat_min = lat_min.to_f/60
       lng_min = lng_min.to_f/60
