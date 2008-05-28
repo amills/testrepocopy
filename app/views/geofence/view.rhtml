@@ -1,7 +1,7 @@
 <div class="container">
      <div id="margin-t-b" style="height:20px;">
         <div class="fl" style="width:480px ;" id="link-grey">
-		  	<% if @device %><%= @device.name %><% else %><%= @account.subdomain %><% end %>
+		  	<a class="f2"><% if @device %><%= @device.name %><% else %><%= @account.subdomain %><% end %></a>
 		</div>
 		
         <div  class="fn" style="width:472px; text-align:right;background-color:#FFFFFF;">

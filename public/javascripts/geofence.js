@@ -13,7 +13,7 @@ function load() {
 		map = document.getElementById("geofence_map");
 	    gmap = new GMap2(map);
 	    gmap.addControl(new GLargeMapControl());
-	    //gmap.addControl(new GMapTypeControl());
+	    gmap.addControl(new GMapTypeControl());
 	    gmap.setCenter(new GLatLng(37.0625, -95.677068), zoom);
 		
 		icon = new GIcon();

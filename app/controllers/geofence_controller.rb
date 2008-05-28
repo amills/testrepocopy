@@ -1,16 +1,25 @@
 class GeofenceController < ApplicationController
   before_filter :authorize
-
+  ResultCount = 25 # Number of results per page
+  
   def index
+    unless params[:p]
+      params[:p] = 1
+    end 
+    @page = params[:p].to_i
+    @result_count = ResultCount
+    
     device_ids = Device.get_devices(session[:account_id]).map{|x| x.id}
     if device_ids.empty?       
-      @geofences_pages,@geofences = paginate :geofences,
+      @geofences = Geofence.find(:all,
                                              :conditions => ["account_id = ?",session[:account_id]],
-                                             :order => "name", :per_page => 25
+                                             :order => "name",:limit => @result_count,:offset => ((@page-1)*@result_count))
+      @record_count = Geofence.count(:all,:conditions => ["account_id = ?",session[:account_id]])
     else
-      @geofences_pages,@geofences = paginate :geofences,
+      @geofences = Geofence.find(:all,
                                              :conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]], 
-                                             :order => "name", :per_page => 25
+                                             :order => "name",:limit => @result_count,:offset => ((@page-1)*@result_count))
+      @record_count = Geofence.count(:all,:conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]])
     end
   end
   
@@ -123,12 +132,12 @@ private
   end
   
   def add_and_edit(geofence) 
-     fence = params[:bounds].split(",")
-     geofence.latitude, geofence.longitude, geofence.radius = fence[0], fence[1], fence[2]       
-     geofence.name = params[:name]       
-     geofence.address = params[:address]
-     geofence.account_id = params[:radio] == "1" ? session[:account_id] : 0
-     geofence.device_id = params[:radio] == "2" ? params[:device]  : 0
+    fence = params[:bounds].split(",")
+    geofence.latitude, geofence.longitude, geofence.radius = fence[0], fence[1], fence[2]       
+    geofence.name = params[:name]       
+    geofence.address = params[:address]
+    geofence.account_id = params[:radio] == "1" ? session[:account_id] : 0
+    geofence.device_id = params[:radio] == "2" ? params[:device]  : 0
   end  
   
 end
