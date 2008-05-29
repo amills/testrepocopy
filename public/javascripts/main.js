@@ -20,10 +20,10 @@ function load()
 	
 	
    // iconALL.image = "/icons/ublip_marker.png";
-    iconALL.shadow = "/images/ublip_marker_shadow.png";
-    iconALL.iconSize = new GSize(23, 34);
-    iconALL.iconAnchor = new GPoint(11, 34);
-    iconALL.infoWindowAnchor = new GPoint(11, 34);
+    //iconALL.shadow = "/images/ublip_marker_shadow.png";
+    iconALL.iconSize = new GSize(27, 26);
+    iconALL.iconAnchor = new GPoint(13, 13);
+    iconALL.infoWindowAnchor = new GPoint(13, 13);
 	
 	var infoWin = gmap.getInfoWindow();
 	
