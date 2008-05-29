@@ -255,10 +255,9 @@ function getMarkerType(index, obj) {
 	var event = obj.event;
 	var speed = obj.speed;
 	var icon = new GIcon();	
-	icon.iconSize = new GSize(23, 34);
-	icon.iconAnchor = new GPoint(11, 34);
-	icon.infoWindowAnchor = new GPoint(11, 34);
-    icon.shadow = "/images/ublip_marker_shadow.png";
+	icon.iconSize = new GSize(26, 27);
+	icon.iconAnchor = new GPoint(13, 13);
+	icon.infoWindowAnchor = new GPoint(13, 13);
 	
 	if(event.indexOf('geofen') > -1 || event.indexOf('stop') > -1) {
 		icon.image = "/icons/" + (index+1) + "_red.png";
