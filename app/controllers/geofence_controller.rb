@@ -1,25 +1,16 @@
 class GeofenceController < ApplicationController
   before_filter :authorize
-  ResultCount = 25 # Number of results per page
   
   def index
-    unless params[:p]
-      params[:p] = 1
-    end 
-    @page = params[:p].to_i
-    @result_count = ResultCount
-    
     device_ids = Device.get_devices(session[:account_id]).map{|x| x.id}
     if device_ids.empty?       
-      @geofences = Geofence.find(:all,
+      @geofences_pages,@geofences = paginate :geofences,
                                              :conditions => ["account_id = ?",session[:account_id]],
-                                             :order => "name",:limit => @result_count,:offset => ((@page-1)*@result_count))
-      @record_count = Geofence.count(:all,:conditions => ["account_id = ?",session[:account_id]])
+                                             :order => "name", :per_page => 25
     else
-      @geofences = Geofence.find(:all,
+      @geofences_pages,@geofences = paginate :geofences,
                                              :conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]], 
-                                             :order => "name",:limit => @result_count,:offset => ((@page-1)*@result_count))
-      @record_count = Geofence.count(:all,:conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]])
+                                             :order => "name", :per_page => 25
     end
   end
   

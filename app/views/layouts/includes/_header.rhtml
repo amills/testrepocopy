@@ -12,7 +12,7 @@
 	<% page_action = request.path_info.split("/")[2]  %>
 	
 	<div id="nav_tabs">
-		<ul style="width:970px;">
+		<ul style="width:100%;">
 	   		<li<% if page_name== 'home'%> class="selected"<% end %>><a href="/home">Overview</a></li>
 			<li<% if page_name == 'reports' %> class="selected_subnav"<% end %>><a href="/reports">Reports</a></li>
 			<li<% if page_name == 'contact' %> class="selected"<% end %> style="float: right;"><a href="/contact">Contact</a></li>
