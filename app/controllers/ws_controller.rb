@@ -49,6 +49,7 @@ class WsController < ApplicationController
       lat = rmc[3]
       lng = rmc[5]
       spd = rmc[7]
+      event_type = rmc[12]
       
       lat_deg = lat.slice(0,2).to_f
       lng_deg = lng.slice(0,3).to_f
@@ -67,7 +68,7 @@ class WsController < ApplicationController
       reading.longitude = "-" + lng.to_s
       reading.device_id = device.id
       reading.speed = spd
-      reading.event_type = "DEFAULT"
+      reading.event_type = event_type
       
       # Save the reading
       if reading.save

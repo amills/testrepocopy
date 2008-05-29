@@ -16,7 +16,6 @@
 		<div id="subnav">
 			<% if params[:action] != 'index' %>
 			<% if params[:action] == 'all' %><span class="dark_grey">All Readings</span><% else %><a href="/reports/all/<%= params[:id] %>?t=<%= params[:t] %>">All Readings</a><% end %> &nbsp;|&nbsp; 
-			<% if params[:action] == 'stop' %><span class="dark_grey">Stop Events</span><% else %><a href="/reports/stop/<%= params[:id] %>?t=<%= params[:t] %>">Stop Events</a><% end %> &nbsp;|&nbsp; 
 			<% if params[:action] == 'geofence' %><span class="dark_grey">Geofence Events</span><% else %><a href="/reports/geofence/<%= params[:id] %>?t=<%= params[:t] %>">Geofence Events</a><% end %>
 			<% end %>
 		</div>
