@@ -425,7 +425,7 @@ function createPast(point, event_type, spd)
 
 // Generic function to create a marker with custom icon and html
 function createMarker(id, point, icon, html) {
-	var marker = new GMarker(point, {icon:icon, zIndexProcess: id});
+	var marker = new GMarker(point, icon);
 	marker.id = id; // Assign a unique id to the marker
 	GEvent.addListener(marker, "click", function() {
 		marker.openInfoWindowHtml(html);
