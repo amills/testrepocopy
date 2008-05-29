@@ -263,7 +263,10 @@ function getMarkerType(index, obj) {
 	if(event.indexOf('geofen') > -1 || event.indexOf('stop') > -1) {
 		icon.image = "/icons/" + (index+1) + "_red.png";
 	} else {
-	    icon.image = "/icons/" + (index+1) + ".png";
+		if(index+1 == 1)
+	    	icon.image = "/icons/ublip_marker.png";
+		else
+			icon.image = "/icons/grey_ball.png";
 	}
 	
 	return icon;
