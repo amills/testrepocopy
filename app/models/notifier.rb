@@ -101,7 +101,7 @@ def forgot_password(user, url=nil)
   # Send an email to request device's current location using SMTP to SMS (pn@tmomail.net)
   def locate(phone_number)
     @from = "info@k1tracking.com"
-    @recipient = phone_number
+    @recipients = phone_number
     @subject = "#username,0000,10*"
   end
 end
