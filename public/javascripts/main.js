@@ -119,8 +119,8 @@ function getRecentReadings(redrawMap,id) {
 				// Populate the table
 				var row = $("row" + device.id);
 				var tds = row.getElementsByTagName("td");
-				tds[2].innerHTML = device.address;
-				tds[3].innerHTML = device.dt;
+				tds[3].innerHTML = device.address;
+				tds[4].innerHTML = device.dt;
 				
 		        var point = new GLatLng(device.lat, device.lng);
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
@@ -462,4 +462,17 @@ function toggleMap() {
 	}
 	
 	gmap.checkResize();
+}
+
+// Ask the device its current location
+function locate(id) {
+	new Ajax.Request('/devices/locate/' + id,
+	{
+		method:'get',
+	    onSuccess: function(transport){
+	      var response = transport.responseText || "Location successfully requested.";
+	      alert(response);
+	    },
+	    onFailure: function(){ alert('We\'re sorry, there was a problem locating this device. Please try again later.') }
+	  });
 }
