@@ -19,6 +19,6 @@ config.action_controller.perform_caching             = true
 ActionMailer::Base.delivery_method = :sendmail
 
 ActionMailer::Base.sendmail_settings = {
-  :location => "/opt/csw/sbin/sendmail",
+  :location => "/usr/sbin/sendmail",
   :arguments => "-t"
 }
