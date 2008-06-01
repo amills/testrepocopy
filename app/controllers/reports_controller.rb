@@ -76,8 +76,7 @@ class ReportsController < ApplicationController
                             end
                         }
     @record_count = @stops.size   
-    @stops.sort! {|r1,r2| r2.created_at <=> r1.created_at}    
-    #@stops = @stops.slice!( (@page-1)*ResultCount, @page*ResultCount)
+    @stops.sort! {|r1,r2| r2.created_at <=> r1.created_at}
     @pages,@stops = paginate_collection(:collection => @stops,:page => params[:page],:per_page => 25)
   end
     
