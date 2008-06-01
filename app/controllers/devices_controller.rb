@@ -345,8 +345,6 @@ class DevicesController < ApplicationController
     if !device.phone_number.nil?
       Notifier.deliver_locate(device.phone_number)
       render_text "Location request successfully sent. Please wait for the map to update."
-    else
-      render_text "We're sorry, an error has occurred. Please try again later."
     end
   end
   

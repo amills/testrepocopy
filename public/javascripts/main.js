@@ -129,6 +129,7 @@ function getRecentReadings(redrawMap,id) {
 		}
 		
 		$("updating").style.visibility = 'hidden';
+		$("locating").className = "off";
 		
 		if(redrawMap == undefined || redrawMap == true) {
 			// If there's only one device let's not zoom all the way in
@@ -466,13 +467,22 @@ function toggleMap() {
 
 // Ask the device its current location
 function locate(id) {
+	$("locating").className = "on";
 	new Ajax.Request('/devices/locate/' + id,
 	{
 		method:'get',
 	    onSuccess: function(transport){
 	      var response = transport.responseText || "Location successfully requested.";
-	      alert(response);
+	      //alert(response);
 	    },
-	    onFailure: function(){ alert('We\'re sorry, there was a problem locating this device. Please try again later.') }
+	    onFailure: function(){ 
+			alert('We\'re sorry, there was a problem locating this device. Please try again later.');
+			$("locating").className = "off";
+		}
 	  });
+}
+
+// Wait for 10 seconds and then update map
+function pollForLocation() {
+	
 }

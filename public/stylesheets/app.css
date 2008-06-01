@@ -301,3 +301,19 @@ div#paging {
 	background-color: #003366;
 	padding: 3px;
 }
+
+#locating {
+	border: 3px solid #CCCCCC;
+	padding: 10px;
+	margin-bottom: 5px;
+	font-size: 18px;
+	color: #333333;
+}
+
+.off {
+	display: none;
+}
+
+.on {
+	display: block;
+}

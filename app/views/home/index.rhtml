@@ -8,6 +8,9 @@
 				 Feel free to add additional <a href="/users" title="Manage your users">users</a> or change your <a href="/settings" title="Manage your settings">settings</a>.
         	</div>
 			<% end %>
+			<div id="locating" class="off">
+				<img src="/images/loading.gif" style="vertical-align: middle;" />&nbsp;&nbsp; Sending location request. Map will update in a few moments.
+			</div>
             <table width="100%" class="panel_table">
                 <tr><td colspan="5" class="header">Device Summary (<%= @devices.size %> total)</td></tr>
                 <tr><th width="60"></th><th>Name</th><th width="30"></th><th>Last Location</th><th>Last Report</th></tr>
