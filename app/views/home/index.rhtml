@@ -9,7 +9,7 @@
         	</div>
 			<% end %>
             <table width="100%" class="panel_table">
-                <tr><td colspan="4" class="header">Device Summary (<%= @devices.size %> total)</td></tr>
+                <tr><td colspan="4" class="header">Device Summary ( <%= @devices.size %> total )</td></tr>
                 <tr><th>Name</th><th width="30"></th><th>Last Location</th><th>Last Report</th></tr>
             <%if !@devices.empty?%>
                 <% for device in @devices %>
