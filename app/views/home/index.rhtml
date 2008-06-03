@@ -1,5 +1,4 @@
-<div id="to_update"> 
-<table width="100%" border="0">
+ <table width="100%" border="0">
     <tr>
         <td width="50%" valign="top" id="left_panel">
         	<% if @groups.size == 0 %>
@@ -112,9 +111,9 @@
         </td>
     </tr>
 </table>
-</div>
+
 <script>
-	window.setInterval("updateLocations();", 30000);
+	//window.setInterval("updateLocations();", 30000);
 	function updateLocations() {
 		getRecentReadings(false);
 	}
