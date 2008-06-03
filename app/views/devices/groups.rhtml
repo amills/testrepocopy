@@ -8,9 +8,9 @@
       <p>Groups are a great way to keep your devices organized. <a href="/devices/new_group">Create a group</a> and add devices to it. On the overview screen your devices will display in groups with the icon you selected.</p>
     </div>
    
-    <% for group in @group%>
+    <% for group in @groups%>
      <div class="crt_group"> 
-	  <%= link_to group.name ,:controller=>"devices", :action=>"edits_group",:group_id=> group.id%>    
+	    <%= link_to group.name ,:controller=>"devices", :action=>"edits_group", :group_id=> group.id%>    
     </div>
     <% end%>
   <!-- Content ends here -->

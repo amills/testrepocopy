@@ -73,9 +73,9 @@ function getRecentReadings(redrawMap,id) {
 		var dts = xml.documentElement.getElementsByTagName("dt");
 		var addresses = xml.documentElement.getElementsByTagName("address");
 		var notes = xml.documentElement.getElementsByTagName("note");
-		var icon_id = xml.documentElement.getElementsByTagName("icon_id");
-		
-		for(var i = 0; i < lats.length; i++) {
+		var icon_id = xml.documentElement.getElementsByTagName("icon_id");		
+        
+		for(var i = 0; i < lats.length; i++) { 
 			if(lats[i].firstChild) {
 				// Check for existence of address
 				var address = "N/A";

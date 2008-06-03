@@ -6,7 +6,7 @@
 
 <%= error_messages_for 'group'%>
 
-<%= form_tag :action => 'save_group'%>
+<%= form_tag :action => 'new_group'%>
 
   <!-- Content starts here -->
     <div class="grp_3">
@@ -49,19 +49,17 @@
     <div class="sel_dev1" >
       <h3>Select Devices</h3>
       <p>Some devices may already be associated with another group. In this case, the group name will display in red after the device name. You can easily reassign any device to this group by clicking one or more checkboxes below.</p>
-      <ul style="line-height:1.7em;" >
-        
-              
-        <%for device in @device%>
-         <li>
-        <input type='checkbox' multiple name='select_devices[]' <%for group_all_data in @group_all_data %><%if  device.id == group_all_data.device_id%> disabled="disabled" <%end%><%end%> value='<%= device.id%>'> <span style="color:#666666; margin-left:3px;"><%= device.name%></span></input>
-    <%for group_all_data in @group_all_data %>
-       <%if device.id == group_all_data.device_id %>    
-     <span style="color:#cc0000; margin-left:3px; font-weight:normal;"> (<%= group_all_data.group.name%>)</span>     
-        <%end %>
-        <%end %>
-        </li>
-        <%end %>
+      <ul style="line-height:1.7em;" >                
+           <%for device in @devices%>
+                <li>
+                     <input type='checkbox' multiple name='select_devices[]' <%for group_device in @group_devices %><%if  device.id == group_device.id%> disabled="disabled" <%end%><%end%> value='<%= device.id%>'> <span style="color:#666666; margin-left:3px;"><%= device.name%></span></input>
+                     <%for group_device in @group_devices %>
+                          <%if device.id == group_device.id %>    
+                               <span style="color:#cc0000; margin-left:3px; font-weight:normal;"> (<%= group_device.group.name%>)</span>     
+                          <%end %>
+                     <%end %>
+                </li>
+           <%end %>
         </ul>        
     </div>
   <!-- Content ends here -->
