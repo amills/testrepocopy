@@ -8,20 +8,22 @@
 				 Feel free to add additional <a href="/users" title="Manage your users">users</a> or change your <a href="/settings" title="Manage your settings">settings</a>.
         	</div>
 			<% end %>
+           <div id="to_update"> 
            <div style="overflow:auto;"> 
           <table width="100%" class="panel_table" >                            
             <tr>
               <td colspan="4" class="header" width="100%"><span style=" float:left;clear:left;width:50%;">Device Summary  </span><span style=" text-align:right;float:left;clear:none;width:49%">
-                    <select id="type1" style="float:right; width:100px; margin-right:1px;" name="type" onchange="<%=remote_function(:update => "to_update", :url => { :controller => :home, :action => :index}, :with=>"'type='+escape($F('type1'))")%>;javascript:getRecentReadings(true,document.getElementById('type1').value);"> <!--  -->
+                    <select id="type1" style="float:right; width:100px; margin-right:1px;" name="type" onchange="<%=remote_function(:update => "to_update", :url => { :controller => :home, :action => :show_devices}, :with=>"'type='+escape($F('type1'))")%>;javascript:getRecentReadings(true,document.getElementById('type1').value);"> <!--  -->
                         <option id="" disabled="disabled">Actions</option>
                         <option id="" disabled="disabled">View</option>
-                        <option value="all" >   All Assets  </option>
+                        <option id="" disabled="disabled"> - - - - - - - - - - - - - - -  </option>
+                        <option value="all" selected style="background-color:#c5f794;">  All Assets  </option>
                              <% for group in @all_groups %>
-                        <option value='<%= group.id%>'><%= group.name%> </option>
+                        <option value='<%= group.id%>' ><%= group.name%> </option>
                               <% end %>
                     </select>            
               </td>
-            </tr>
+            </tr>            
             <tr>
               <th style="width90;">Name</th>
               <th style="width:20px;">&nbsp;</th>
@@ -59,6 +61,7 @@
            <%end%>           
             </table>            <br />
            </div > 
+           </div>
 			<div style="border: 1px solid #CCCCCC; background-color: #EEEEEE; padding: 10px;">
 				<div class="dark_grey">
                    <div class="dark_blue_header" style="margin-bottom: 5px;">Traffic Overlay</div>
@@ -111,11 +114,13 @@
         </td>
     </tr>
 </table>
-
-<script>
-	//window.setInterval("updateLocations();", 30000);
-	function updateLocations() {
-		getRecentReadings(false);
-	}
-</script>
+        <script>
+            window.setInterval("updateLocations();", 10000);
+            function updateLocations() {                                              
+               if (grp_id)
+                  { getRecentReadings(true,grp_id); }   
+               else
+                 {  getRecentReadings(false); }                
+            }
+        </script>
 

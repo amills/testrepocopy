@@ -7,7 +7,7 @@ var devices = []; // JS devices model
 var readings = []; //JS readings model
 var zoom = 3;
 var fullScreenMap = false;
-            
+var grp_id           
 function load() 
 {
   if (GBrowserIsCompatible()) {
@@ -57,7 +57,7 @@ function load()
 
 // Display all devices on overview page
 function getRecentReadings(redrawMap,id) {
-      
+     grp_id =  id ;
 	$("updating").style.visibility = 'visible';
     var bounds = new GLatLngBounds();
     var temp ;

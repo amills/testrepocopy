@@ -14,7 +14,8 @@
       <p>Creating a group is simple. Just enter a group name, select an icon color, and specify the devices you want to associate with this group.</p>
 
       <h3>Group Name</h3>
-       <%= text_field  'group', 'name', 'value'=>flash[:group_name] %>
+       <%#= text_field  'group', 'name', 'value'=>flash[:group_name] %>
+       <input type="text" id="group_name" name="name" value="<%= flash[:group_name]%>">
       <h3>Select Icon</h3>
       <div class="sel_icon">
         <ul>
