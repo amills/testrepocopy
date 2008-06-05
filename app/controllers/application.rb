@@ -4,7 +4,61 @@
 class ApplicationController < ActionController::Base
   session :session_key => '_ublip_session_id'
   before_filter :set_page_title
+  before_filter :create_referral_url     
+  
+ # from pg. 464 of AWDWR, 1st Ed.
+    def rescue_action_in_public(exception)
+      if exception.is_a? ActiveRecord::RecordNotFound or exception.is_a? ::ActionController::UnknownAction
+        render(:file => "#{RAILS_ROOT}/public/404.html", :status => "404 Not Found")
+      elsif exception.is_a? ::ActionController::RoutingError
+        render(:file => "#{RAILS_ROOT}/public/404.html", :status => "404 Not Found")
+      else
+        render(:file => "#{RAILS_ROOT}/public/500.html", :status => "500 Server Error")
+        SystemNotifier.deliver_exception_notification(self, request, exception)
+      end
+    end
     
+   # capturing local errors due to ssh tunneling, mongrel proxying
+    def rescue_action_locally(exception)
+      #if running in production capture local and remote errors the same
+      if RAILS_ENV == 'production'# or RAILS_ENV == 'development'
+        rescue_action_in_public(exception)
+      else
+        super # call super implementation
+      end
+    end
+
+    def create_referral_url
+         unless request.env["HTTP_REFERER"].blank?
+             unless request.env["HTTP_REFERER"][/register|login|logout|authenticate/]
+                 session[:referral_url] = request.env["HTTP_REFERER"]
+             end
+         end
+     end  
+
+  def paginate_collection(options = {}, &block)
+    if block_given?
+      options[:collection] = block.call
+    elsif !options.include?(:collection)
+      raise ArgumentError, 'You must pass a collection in the options or using a block'
+    end
+    default_options = {:per_page => 20 , :page => 1}
+    options = default_options.merge options
+    pages = Paginator.new self, options[:collection].size, options[:per_page], options[:page]
+    first = pages.current.offset
+    last = [first + options[:per_page], options[:collection].size].min
+    slice = options[:collection][first...last]
+    return [pages, slice]
+  end
+
+   def check_action_for_user
+       if !@geofence.nil? && (session[:account_id] == @geofence.account_id || (@geofence.device_id !=0 && @geofence.device.account_id == session[:account_id].to_i))
+           true
+       else
+           false
+       end           
+   end
+   
   private
   def authorize
     unless session[:user]
@@ -68,6 +122,6 @@ class ApplicationController < ActionController::Base
     end
     
     def set_page_title
-      @page_title = "K1 Tracking :: They can run. But they can't hide."
+      @page_title = "Ublip - Location Matters"
     end
 end
