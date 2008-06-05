@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 28) do
+ActiveRecord::Schema.define(:version => 36) do
 
   create_table "accounts", :force => true do |t|
     t.column "company",     :string,   :limit => 75
@@ -14,20 +14,21 @@ ActiveRecord::Schema.define(:version => 28) do
     t.column "updated_at",  :datetime
     t.column "created_at",  :datetime
     t.column "is_verified", :boolean,                 :default => false
+    t.column "is_deleted",  :boolean,                 :default => false
   end
 
   create_table "devices", :force => true do |t|
     t.column "name",                :string,   :limit => 75
     t.column "imei",                :string,   :limit => 30
-    t.column "phone_number",        :string,   :limit => 20
-    t.column "recent_reading_id",   :integer,                :default => 0
+    t.column "phone_number",        :string,   :limit => 100
+    t.column "recent_reading_id",   :integer,                 :default => 0
     t.column "created_at",          :datetime
     t.column "updated_at",          :datetime
-    t.column "provision_status_id", :integer,  :limit => 2,  :default => 0
-    t.column "account_id",          :integer,                :default => 0
+    t.column "provision_status_id", :integer,  :limit => 2,   :default => 0
+    t.column "account_id",          :integer,                 :default => 0
     t.column "last_online_time",    :datetime
-    t.column "online_threshold",    :integer,                :default => 90
-    t.column "icon_id",             :integer,                :default => 1
+    t.column "online_threshold",    :integer,                 :default => 90
+    t.column "icon_id",             :integer,                 :default => 1
   end
 
   create_table "devices_users", :force => true do |t|
@@ -35,15 +36,22 @@ ActiveRecord::Schema.define(:version => 28) do
     t.column "user_id",   :integer
   end
 
+  create_table "geofence_violations", :id => false, :force => true do |t|
+    t.column "device_id",   :integer, :null => false
+    t.column "geofence_id", :integer, :null => false
+  end
+
   create_table "geofences", :force => true do |t|
     t.column "name",       :string,   :limit => 30
-    t.column "bounds",     :string
-    t.column "is_radial",  :boolean,                :default => true
     t.column "device_id",  :integer
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
     t.column "address",    :string
     t.column "fence_num",  :integer
+    t.column "latitude",   :float
+    t.column "longitude",  :float
+    t.column "radius",     :float
+    t.column "account_id", :integer
   end
 
   create_table "group_devices", :force => true do |t|
@@ -74,24 +82,26 @@ ActiveRecord::Schema.define(:version => 28) do
   end
 
   create_table "readings", :force => true do |t|
-    t.column "latitude",   :float
-    t.column "longitude",  :float
-    t.column "altitude",   :float
-    t.column "speed",      :float
-    t.column "direction",  :float
-    t.column "device_id",  :integer
-    t.column "created_at", :datetime
-    t.column "updated_at", :datetime
-    t.column "event_type", :string,   :limit => 25
-    t.column "note",       :string
-    t.column "address",    :string,   :limit => 1024
-    t.column "notified",   :boolean,                  :default => false
+    t.column "latitude",            :float
+    t.column "longitude",           :float
+    t.column "altitude",            :float
+    t.column "speed",               :float
+    t.column "direction",           :float
+    t.column "device_id",           :integer
+    t.column "created_at",          :datetime
+    t.column "updated_at",          :datetime
+    t.column "event_type",          :string,   :limit => 25
+    t.column "note",                :string
+    t.column "address",             :string,   :limit => 1024
+    t.column "notified",            :boolean,                  :default => false
+    t.column "horizontal_accuracy", :float
   end
 
+  add_index "readings", ["device_id", "created_at"], :name => "readings_device_id_created_at"
   add_index "readings", ["device_id"], :name => "readings_device_id"
   add_index "readings", ["created_at"], :name => "readings_created_at"
   add_index "readings", ["address"], :name => "readings_address"
-  add_index "readings", ["device_id", "created_at"], :name => "readings_device_id_created_at"
+  add_index "readings", ["notified", "event_type"], :name => "readings_notified_event_type"
 
   create_table "sessions", :force => true do |t|
     t.column "session_id", :string
@@ -118,6 +128,7 @@ ActiveRecord::Schema.define(:version => 28) do
     t.column "last_login_dt",             :datetime
     t.column "enotify",                   :boolean,                :default => false
     t.column "time_zone",                 :string
+    t.column "is_super_admin",            :boolean,                :default => false
   end
 
 end
