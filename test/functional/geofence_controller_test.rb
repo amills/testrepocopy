@@ -77,7 +77,7 @@ class GeofenceControllerTest < Test::Unit::TestCase
   end
   
   def test_edit
-    post :edit, {:device_id => '1', :id => '1', :name => "qwerty", :bounds=>"1,1,1", :address=>"1600 Penn Ave"}, { :user => users(:dennis), :account_id => "1" }
+    post :edit, {:device_id => '1', :id => '1', :name => "qwerty", :bounds=>"1,1,1", :address=>"1600 Penn Ave", :ref_url=>"/geofence/index"}, { :user => users(:dennis), :account_id => "1" }
     assert_equal flash[:message] , 'qwerty updated succesfully'
     assert_redirected_to :controller => "geofence", :action => "index"
   end

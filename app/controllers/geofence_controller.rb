@@ -6,11 +6,11 @@ class GeofenceController < ApplicationController
     if device_ids.empty?       
       @geofences_pages,@geofences = paginate :geofences,
                                              :conditions => ["account_id = ?",session[:account_id]],
-                                             :order => "name", :per_page => 25
+                                             :order => "name", :per_page => 2
     else
       @geofences_pages,@geofences = paginate :geofences,
                                              :conditions => ["device_id in (#{device_ids.join(',')}) or account_id = ?",session[:account_id]], 
-                                             :order => "name", :per_page => 25
+                                             :order => "name", :per_page => 2
     end
   end
   
@@ -41,13 +41,13 @@ class GeofenceController < ApplicationController
        add_and_edit(@geofence)
        if @geofence.save
           flash[:message] = "#{@geofence.name} updated succesfully"
-         redirect_to geofence_url
+         redirect_to params[:ref_url]
        else
          flash[:message] = "#{@geofence.name} not updated"
        end
       end  
      else
-         redirect_to geofence_url
+         redirect_to params[:ref_url]
         flash[:message] = 'Invalid action.'
      end    
   end  

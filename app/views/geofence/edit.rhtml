@@ -6,6 +6,7 @@
   <form method="post" style="margin-top:10px; margin-bottom:10px;" id="geofence_form" onSubmit="return validate();">
   <div id="margin-t-b">
     <div  class="fl" id="margin-t-b"> <input type="radio" id="radio" name="radio" value="1" <% if @geofence.account_id != 0 %>checked<%end%> onclick="enableDevice(this);"/> Account Level   <input type="radio" id="radio" name="radio" onclick="<%if @devices.empty?%>alert('You can\'t create device level geofence.');<%else%>enableDevice(this);<%end%>" value="2" <% if @geofence.device_id != 0 %>checked<%end%> /> Device Level</div>
+    
     <div id="padding-t7" class="fl" >Choose the device: </div>
     <div id="padding-t" class="fl" >
 		<select id="device" name="device" class="txt-box-s2" <% if @geofence.account_id != 0 %>disabled<% end %>>
@@ -19,7 +20,8 @@
     <div id="padding-t" class="fl">
       <input  class="txt-box" name="name" type="text" value="<%= @geofence.name %>" />
     </div>
-	
+	<input type="hidden" name="ref_url" value="<%= session[:referral_url] %>">
+    
     <div id="padding-t7" class="fl">Geofence address: </div>
     <div id="padding-t" class="fl" style="width:100%">
 		<input  class="txt-box" id="address" name="address" value="<%= @geofence.address %>" type="text" />&nbsp;<input type="button" name="Preview" value="Preview" onclick="geocode(document.getElementById('address').value); return false;" />
