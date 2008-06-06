@@ -5,7 +5,6 @@ task :cruise do
   out = ENV['CC_BUILD_ARTIFACTS']
   mkdir_p out unless File.directory? out if out
 
-  Rake::Task["db:migrate"].invoke
   Rake::Task["db:test:purge"].invoke
   Rake::Task["db:test:prepare"].invoke
 
