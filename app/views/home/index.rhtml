@@ -9,10 +9,10 @@
         	</div>
 			<% end %>
            <div id="to_update"> 
-           <div style="overflow:auto;"> 
-          <table width="100%" class="panel_table" >                            
+           
+          <table width="100%" class="panel_table" style=" overflow:auto;">                            
             <tr>
-              <td colspan="4" class="header" width="100%"><span style=" float:left;clear:left;width:50%;">Device Summary  </span><span style=" text-align:right;float:left;clear:none;width:49%">
+              <td colspan="4" class="header" width="100%"><span style=" float:left;clear:left;width:50%; padding-top:3px">Device Summary  </span><span style=" text-align:right;float:left;clear:none;width:49%">
                     <select id="type1" style="float:right; width:100px; margin-right:1px;" name="type" onchange="<%=remote_function(:update => "to_update", :url => { :controller => :home, :action => :show_devices}, :with=>"'type='+escape($F('type1'))")%>;javascript:getRecentReadings(true,document.getElementById('type1').value);"> <!--  -->
                         <option id="" disabled="disabled">Actions</option>
                         <option id="" disabled="disabled">View</option>
@@ -61,7 +61,7 @@
            <%end%>           
             </table>            <br />
            </div > 
-           </div>
+          
 			<div style="border: 1px solid #CCCCCC; background-color: #EEEEEE; padding: 10px;">
 				<div class="dark_grey">
                    <div class="dark_blue_header" style="margin-bottom: 5px;">Traffic Overlay</div>
