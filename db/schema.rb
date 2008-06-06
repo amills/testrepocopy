@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(:version => 38) do
   create_table "motion_events", :force => true do |t|
     t.column "latitude",   :float
     t.column "longitude",  :float
-    t.column "notified",   :boolean
+    t.column "notified",   :boolean,  :default => false
     t.column "device_id",  :integer
     t.column "created_at", :datetime
   end
