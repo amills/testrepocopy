@@ -54,6 +54,14 @@ class NotificationTest < Test::Unit::TestCase
     assert_match /Dear #{user.first_name} #{user.last_name},\n\ndevice 1 seems to be offline/, response.body
   end
   
+  def test_notify_motion_event
+    user=users(:dennis)
+    device = devices(:device1)
+    response = Notifier.deliver_motion_event(user, device)
+    assert_equal 'Movement Alert', response.subject
+    assert_match /Dear #{user.first_name} #{user.last_name},\n\ndevice 1 has moved!/, response.body
+  end
+  
   def test_notify_forgot_password
     user = users(:dennis)
     response = Notifier.deliver_forgot_password(user, "http://a.com")

@@ -10,6 +10,8 @@ end
 while($running) do
   logger = ActiveRecord::Base.logger
   logger.info("This notification daemon is still running at #{Time.now}.\n")
+  
+  MotionNotifier.notify_motion_events
 
   readings_to_notify = Reading.find(:all, :conditions => "notified='0' and (event_type LIKE 'entergeofen%' OR event_type LIKE 'exitgeofen%')")
 

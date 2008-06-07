@@ -36,7 +36,14 @@ def forgot_password(user, url=nil)
     tz = user.time_zone.nil? ? TimeZone.us_zones[5] : TimeZone.new(user.time_zone)
     @body["time"] = tz.adjust(reading.created_at)
     @body["time_zone"] = tz.to_s.split(/[\(\\s)]/)[2].strip
-    
+  end
+  
+  def motion_event(user, device)
+    @recipients = user.email
+    @from = "alerts@ublip.com"
+    @subject = "Movement Alert"
+    @body["device_name"] = device.name
+    @body["name"] = "#{user.first_name} #{user.last_name}"
   end
   
   def device_offline(user, device)
