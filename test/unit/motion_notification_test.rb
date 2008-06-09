@@ -30,8 +30,17 @@ class MotionNotificationTest < Test::Unit::TestCase
     event3.created_at=Time.now
     event3.save
     
+    assert_equal false, event.notified
+    assert_equal false, event2.notified
+    
     MotionNotifier.notify_motion_events
     assert_equal 2, ActionMailer::Base.deliveries.size
+    
+    event.reload
+    event2.reload
+    
+    assert_equal true, event.notified
+    assert_equal true, event2.notified
   
   end
   
