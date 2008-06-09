@@ -4,12 +4,22 @@ body{ font-size:12px; margin:0px; background-repeat:repeat-x; font-family:Arial;
 .link-all:active{ color:#1364B2; text-decoration:underlinee;}
 .link-active{ color:#1364B2; text-decoration:none;font-weight:bold;}
 
+.link-all1{ color:#1364B2; font-family:Arial, Helvetica, sans-serif; font-size:12px;font-weight:normal;text-decoration:underline;}
+.link-all1:hover{ color:#1364B2;text-decoration:none;}
+.link-all1:active{ color:#1364B2;text-decoration:none;}
+
+.grayboldtext{ color:#666; font-family:Arial, Helvetica, sans-serif; font-size:12px;font-weight:bold;text-decoration:underline;}
+.grayboldtext:hover{ color:#666;text-decoration:none;}
+
+
 #link-grey{ color:#333333; font-size:11pt; font-weight:bold;}
 #border-btm{border-bottom:1px solid #cccccc; height:23px;}
 .border-btm{border-bottom:1px solid #cccccc; height:23px;}
 
 /*.txt-box{ border:1px solid #cccccc; padding:2px 2px 2px 2px; color:#666666; width:350px;}*/
 .txt-box{ width:350px;}
+.txt-new{ width:215px;}
+.txt-new-s2{ width:230px;}
 .txt-box-s2{ width:355px;}
 /*.txt-box-s2{ border:1px solid #cccccc; padding:2px; color:#666666; width:355px;}*/
 .txt-box-s{ border:1px solid #cccccc; padding:2px; color:#666666; width:75px;}
@@ -59,6 +69,8 @@ body{ font-size:12px; margin:0px; background-repeat:repeat-x; font-family:Arial;
 #width30-blue{width:100%px; padding:4px .25% 4px .3%;background-color:#cccccc; line-height:19px; color:#003366; padding:10px}
 #width30-grey{width:100%;  padding:4px .25% 4px .3%; background-color:#f8f8f8; line-height:19px;}
 #width30-bdr{width:99.5%; padding:6px .25% 4px .30%;border-bottom:1px solid #cccccc;}
+#gray-bar1{width:97.5%; padding:6px .25% 5px .30%;background-color:#eeeeee; margin-top:1px}
+#gray-bar2{width:98.5%; padding:6px .25% 5px .30%;background-color:#ffffff;}
 #width40-2{width:35.668%;padding-left:.40%;text-align:left }
 #width7{width:15.286%;text-align:left }
 .width30-bdr{width:100%; padding:6px 0px 4px 0px;border-bottom:1px solid #cccccc;}
@@ -77,7 +89,7 @@ color:#003366;}
 .width{width:955px; line-height:25px;height:25px}
 #row1{ background-color:#eeeeee;line-height:22px;}
 #row2{ background-color:#ffffff;line-height:22px;}
-#header-bg{ background-color:#003366;  color:#ffffff; font-weight:normal; font-size:16px;}
+#header-bg{ background-color:#6699cc;  color:#ffffff; font-weight:normal; font-size:12px; font-family:Verdana, Arial, Helvetica, sans-serif}
 #width7tl{width:24.286%;  text-align:center}
 #width7l{width:24.286%; text-align:left }
 /************container ends***********/

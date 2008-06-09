@@ -13,9 +13,9 @@
    		<%= render :partial => 'layouts/includes/header' %>
 		<div id="subnav">
                <% if ['groups','edits_group','new_group','create_group'].include?(controller.action_name)%>
-			<a href="/devices" class="link-all">Devices</a> <font color="gray">|</font> <a href="/geofence" class="link-all">Geofences</a> <font color="gray">|</font> <a href="/devices/groups" class="link-active">Groups</a>            
+			<a href="/devices" class="link-all1">Devices</a> <font color="gray">|</font> <a href="/geofence" class="link-all1">Geofences</a> <font color="gray">|</font> <a href="/devices/groups" class="link-active">Groups</a>            
                <%else%>
-			<a href="/devices" class="link-active">Devices</a> <font color="gray">|</font> <a href="/geofence" class="link-all">Geofences</a> <font color="gray">|</font> <a href="/devices/groups" class="link-all">Groups</a>
+			<a href="/devices" class="link-active">Devices</a> <font color="gray">|</font> <a href="/geofence" class="link-all1">Geofences</a> <font color="gray">|</font> <a href="/devices/groups" class="link-all1">Groups</a>
                <%end%>
 			<!-- |                                        
 			<a href="/devices/new_group" title="Add a new group">New Group</a>-->
