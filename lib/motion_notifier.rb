@@ -13,6 +13,8 @@ class MotionNotifier
           mail = Notifier.deliver_motion_event(user, event.device)
         end
       end
+      event.notified = true
+      event.save
     end
   end
   
