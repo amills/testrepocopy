@@ -9,7 +9,7 @@
     
     <div id="padding-t7" class="fl" >Choose the device: </div>
     <div id="padding-t" class="fl" style="width:100%">
-		<select id="device" name="device" style="width:70%" <% if @geofence.account_id != 0 %>disabled<% end %>>
+		<select id="device" name="device" style="width:80%" <% if @geofence.account_id != 0 %>disabled<% end %>>
 		<% @devices.each do |device| %>
 			<option value="<%= device.id %>" <%= "selected='selected'" if @geofence.device_id == device.id %>><%= device.name %></option>
 		<% end %>	
@@ -18,14 +18,19 @@
 	
     <div id="padding-t7" class="fl" >Geofence name: </div>
     <div id="padding-t" class="fl" style="width:100%">
-      <input  class="txt-new" name="name" type="text" style="width:70%" value="<%= @geofence.name %>" />
+      <input  class="txt-new" name="name" type="text" style="width:80%" value="<%= @geofence.name %>" />
     </div>
 	<input type="hidden" name="ref_url" value="<%= session[:referral_url] %>">
     
     <div id="padding-t7" class="fl">Geofence address: </div>
     <div id="padding-t" class="fl" style="width:100%">
-		<input  class="txt-new" id="address" name="address" style="width:70%" value="<%= @geofence.address %>" type="text" />&nbsp;<input type="button" name="Preview" value="preview" onclick="geocode(document.getElementById('address').value); return false;" />
+		<input  class="txt-new" id="address" name="address" style="width:80%" value="<%= @geofence.address %>" type="text" />
     </div>
+
+    <div id="padding-t" class="fl" style="width:100%">
+		<input type="button" name="Preview" value="preview" onclick="geocode(document.getElementById('address').value); return false;" />
+    </div>
+
 	
     <div id="padding-t7" class="fl" >Radius: </div>
     <div id="padding-t" class="fl" >
@@ -40,7 +45,6 @@
   <input type="hidden" name="bounds" />
   
   <div id="padding-t7" class="fl"  style="width:230px">
-    <!--input  class="btn-b" name="Create geofence" type="submit" value="Update Geofence" style="cursor:pointer;"/-->
     <input name="Create geofence" type="submit" value="update geofence" style="cursor:pointer;"/>	
     <a href="<%= session[:referral_url] %>" class="link-all1">cancel</a>
   </div>
