@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class NotificationTest < Test::Unit::TestCase
-  fixtures :notifications, :users, :readings, :devices
+  fixtures :notifications, :users, :readings, :devices, :motion_events
 
   def setup
     ActionMailer::Base.delivery_method = :test
@@ -56,8 +56,8 @@ class NotificationTest < Test::Unit::TestCase
   
   def test_notify_motion_event
     user=users(:dennis)
-    device = devices(:device1)
-    response = Notifier.deliver_motion_event(user, device)
+    event = motion_events(:event1)
+    response = Notifier.deliver_motion_event(user, event)
     assert_equal 'Movement Alert', response.subject
     assert_match /Dear #{user.first_name} #{user.last_name},\n\ndevice 1 has moved!/, response.body
   end
