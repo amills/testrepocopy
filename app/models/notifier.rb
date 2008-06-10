@@ -28,7 +28,7 @@ def forgot_password(user, url=nil)
 
   def notify_reading(user, action, reading)
     @recipients = user.email
-    @from = "alerts@ublip.com"
+    @from = "alerts@k1tracking.com"
     @subject = reading.device.name + ' ' + action
     @body["action"] = action
     @body["name"] = "#{user.first_name} #{user.last_name}"
@@ -40,7 +40,7 @@ def forgot_password(user, url=nil)
   
   def motion_event(user, event)
     @recipients = user.email
-    @from = "alerts@ublip.com"
+    @from = "alerts@k1tracking.com"
     @subject = "Movement Alert"
     @body["device_name"] = event.device.name
     @body["lat"] = event.latitude
@@ -50,7 +50,7 @@ def forgot_password(user, url=nil)
   
   def device_offline(user, device)
     @recipients = user.email
-    @from = "alerts@ublip.com"
+    @from = "alerts@k1tracking.com"
     @subject = "Device Offline Notification"
     @body["device_name"] = device.name
     @body["last_online"] = device.last_online_time
@@ -59,7 +59,7 @@ def forgot_password(user, url=nil)
 
    def setup_email(user)
     @recipients = "#{user.email}"
-    @from       = "support@ublip.com"
+    @from       = "support@k1tracking.com"
     @sent_on    = Time.now
     @headers['Content-Type'] = "text/plain; charset=utf-16"
   end
