@@ -252,7 +252,7 @@ class DevicesController < ApplicationController
          @group_devices =Device.find(:all, :conditions=>['account_id=? and group_id is not NULL',session[:account_id]])
      end 
      
-     # follwoing are the common methods used while edit and save groups.
+     # following are the common methods used in edit and save groups.
      def save_group                  
          @group.name = params[:name]
          @group.image_value = params[:sel]        
@@ -270,7 +270,7 @@ class DevicesController < ApplicationController
     
      def validate_device_ids
          if  params[:name]=="" || params[:select_devices]== nil || params[:select_devices].length == 0              
-             @group.name=="" ? flash[:message] = "Group name can't be blank <br/>" : flash[:message] =""
+             flash[:message] = ((@group.name == "") ? "Group name can't be blank <br/>" : "")
              flash[:message] << "You must select at least one device "
              flash[:group_name] = @group.name             
              return true
@@ -278,7 +278,7 @@ class DevicesController < ApplicationController
      end    
      
 
-    #show the current user group
+    # show the current user group
     def show_group
       show_group_by_id()
     end 

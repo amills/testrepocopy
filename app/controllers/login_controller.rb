@@ -96,8 +96,7 @@ class LoginController < ApplicationController
                render :action => 'index'     
             end
           else
-            p"====================================="
-            flash[:message] = "Either your password dosen't match or you have entered less than 6 characters."
+            flash[:message] = "Either your password does not match or you have entered less than 6 characters."
             render :action => 'index'
           end
         else

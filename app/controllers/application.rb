@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
     last = [first + options[:per_page], options[:collection].size].min
     slice = options[:collection][first...last]
     return [pages, slice]
-end
+  end
 
    def check_action_for_user
        if !@geofence.nil? && (session[:account_id] == @geofence.account_id || (@geofence.device_id !=0 && @geofence.device.account_id == session[:account_id].to_i))
