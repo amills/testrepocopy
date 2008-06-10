@@ -38,11 +38,13 @@ def forgot_password(user, url=nil)
     @body["time_zone"] = tz.to_s.split(/[\(\\s)]/)[2].strip
   end
   
-  def motion_event(user, device)
+  def motion_event(user, event)
     @recipients = user.email
     @from = "alerts@ublip.com"
     @subject = "Movement Alert"
-    @body["device_name"] = device.name
+    @body["device_name"] = event.device.name
+    @body["lat"] = event.latitude
+    @body["lng"] = event.longitude
     @body["name"] = "#{user.first_name} #{user.last_name}"
   end
   

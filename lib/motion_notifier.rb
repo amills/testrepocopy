@@ -10,7 +10,7 @@ class MotionNotifier
       event.device.account.users.each do |user|
         if(user.enotify?)
           logger.info("device moved, notifying: #{user.email}\n")
-          mail = Notifier.deliver_motion_event(user, event.device)
+          mail = Notifier.deliver_motion_event(user, event)
         end
       end
       event.notified = true
