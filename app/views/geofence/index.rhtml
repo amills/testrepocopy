@@ -32,8 +32,8 @@
 				<td id="width40-2" class="bdr"><%= geofence.get_lat_lng %></td>
 				<td  id="width7" class="bdr"><%= geofence.radius.to_s + ' ' + 'miles' %></td>
 				<td id="width7l" class="bdr">
-					  <a class="link-all"href="<%= edit_url(:id=>geofence.id)%>">E</a>&nbsp;
-					  <a class="link-all" href="<%= delete_url(:id=>geofence.id)%>" onclick="return confirm('Are you sure you want to delete this geofence ?');">D</a>
+					  <a class="link-all"href="<%= edit_url(:id=>geofence.id)%>">Edit</a>&nbsp; | &nbsp;
+					  <a class="link-all" href="<%= delete_url(:id=>geofence.id)%>" onclick="return confirm('Are you sure you want to delete this geofence ?');">Delete</a>
 				</td>
 			</tr>
         <% end %>        
