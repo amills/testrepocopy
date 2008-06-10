@@ -4,16 +4,17 @@ class MotionNotificationTest < Test::Unit::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead.
   # Then, you can remove it from this and the functional test.
   include AuthenticatedTestHelper
-  fixtures :users, :accounts, :devices, :stop_events, :motion_events
+  fixtures :users, :accounts, :devices, :stop_events
   
   def setup
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
-
+    MotionEvent.delete_all
   end
   
   def test_notify
+    
     event = MotionEvent.new
     event.device_id=1
     event.created_at=Time.now
