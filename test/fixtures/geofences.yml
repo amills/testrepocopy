@@ -7,6 +7,8 @@ fenceOne:
   latitude: 32.833785
   longitude: -96.756807
   radius: 0.25
+  account_id: 1
+  
 fenceTwo:
   id: 2
   fence_num: 3
@@ -15,3 +17,5 @@ fenceTwo:
   latitude: 32.940955
   longitude: -96.822224
   radius: 0.25
+  account_id: 1
+  
