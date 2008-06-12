@@ -12,7 +12,7 @@
 	<div id="device_list">
 	    <ul>
           
-      <%if !(!@devices.empty? || !@devices.nil?)%>
+      <%if !@devices.empty?%>
 	    <% for device in @devices %>
 	    	<li>
 	    		<strong><%= device.name %></strong></a> - <a href="/devices/edit/<%= device.id %>" title="Edit properties for this device">edit</a> | <a href="<%= view_url(:id=>device.id) %>" title="Create and edit geofences for this device">geofences</a><br />
