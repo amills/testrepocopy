@@ -1,11 +1,12 @@
 var gmap;
 var map;
-var zoom = 9;
+var zoom = 3;
 var icon;
 var form;
 var geofences = [];
 var currSelectedDeviceId;
 var currSelectedGeofenceId;
+var gf_index;
 
 function load() {
 	if (GBrowserIsCompatible()) {
@@ -13,7 +14,7 @@ function load() {
 	    gmap = new GMap2(map);
 	    gmap.addControl(new GLargeMapControl());
 	    gmap.addControl(new GMapTypeControl());
-	    gmap.setCenter(new GLatLng(37.4419, -122.1419), zoom);
+	    gmap.setCenter(new GLatLng(37.0625, -95.677068), zoom);
 		
 		icon = new GIcon();
 		icon.image = "/icons/ublip_marker.png";
@@ -33,23 +34,28 @@ function load() {
 			gmap.openInfoWindowHtml(point, 'Last location for <strong>' + device.name + '</strong>');
 			gmap.setCenter(point, 15);
 			
+      if(remove_listener == 'false'){ //added
 			GEvent.addListener(gmap, "click", function(overlay, point) {
 				var latlng = point.lat() + ',' + point.lng();
 				document.getElementById('address').value = latlng;
           		geocode(latlng);
-         	});
+         	});}
 		} else {
+      if(remove_listener == 'false'){ //added
 			GEvent.addListener(gmap, "click", function(overlay, point) {
 				if(point) {
 					var latlng = point.lat() + ',' + point.lng();
 					document.getElementById('address').value = latlng;
 	          		geocode(latlng);
 				}
-			});
-			displayGeofence(0);
-			currSelectedGeofenceId = geofences[0].id;
-			var point = new GLatLng(device.lat, device.lng);
-			gmap.addOverlay(createMarker(point));
+			});}
+			//displayGeofence(0);
+            if (device_flag == 1){
+                displayGeofence(gf_index);
+                currSelectedGeofenceId = geofences[0].id;
+                var point = new GLatLng(device.lat, device.lng);
+                gmap.addOverlay(createMarker(point));
+            }
 		}
 	}
 }
@@ -117,6 +123,7 @@ function createMarker(p) {
 
 // Validation for geofence creation form
 function validate() {
+     form = document.getElementById('geofence_form');  
 	if(form.name.value == '') {
 		alert('Please specify a name for your geofence');
 		return false;	
@@ -129,6 +136,7 @@ function validate() {
 	
 	return true;
 }
+
 
 // Display a geofence when selected from the view list
 function displayGeofence(index) {
@@ -149,4 +157,12 @@ function displayGeofence(index) {
 
 function go(url) {
 	document.location.href = url + '?geofence_id=' + currSelectedGeofenceId;
+}
+
+function enableDevice(id) {
+	if(document.getElementById("radio").value == '1' && document.getElementById("radio").checked == true) {
+		document.getElementById("device").disabled = true;
+	} else {         
+		document.getElementById("device").disabled = false;
+	}
 }
