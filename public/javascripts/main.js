@@ -124,10 +124,11 @@ function getRecentReadings(redrawMap,id) {
                  
 				// Populate the table
 				var row = $("row" + device.id);
-				var tds = row.getElementsByTagName("td");
-				tds[2].innerHTML = device.address;
-				tds[3].innerHTML = device.dt;
-				
+                                if (row && row.getElementsByTagName) {
+				  var tds = row.getElementsByTagName("td");
+				  tds[2].innerHTML = device.address;
+				  tds[3].innerHTML = device.dt;
+			        }	
 		        var point = new GLatLng(device.lat, device.lng);
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
 		        bounds.extend(point);
