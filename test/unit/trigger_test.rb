@@ -35,7 +35,7 @@ class TriggerTest < Test::Unit::TestCase
     assert_equal "enter_geofen1", reading.event_type
     
     reading = save_reading(32.940955, -96.822224, 1)
-    assert_equal "enter_geofen3", reading.event_type
+    assert_equal "enter_geofen2", reading.event_type
     
     reading = save_reading(32.940956, -96.822224, 1)
     assert_equal "exit_geofen1", reading.event_type
