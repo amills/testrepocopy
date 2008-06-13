@@ -1,19 +1,24 @@
-	<h3 style="float: left; line-height: 40px;">Your Active Devices (<%= @devices.size %> total)</h3>
-	
-	<!--<div style="float: right; font-size: 18px;"><img border="0" style="vertical-align: middle;" alt="Ublip logo" src="/icons/new_group.png"/>&nbsp;<%= link_to 'Group your devices',:controller=>'devices',:action=>'edit_group'%></div>-->
-	
-	<div style="clear: both"></div>
-	
-    <% if flash[:message] %>
-        <div id="success_message"><%= flash[:message] %></div>
+<h3 style="float: left; line-height: 40px;">Your Active Devices (<%= @devices.size %> total) </h3>
+
+ <div style="float: right; padding-top: 15px; padding-right: 5px;">
+    <a href="/devices/choose_MT" title="Add a new device" class="link-all1">Add New Device</a>
+  </div>
+
+<div style="clear: both"></div>
+
+<% if flash[:message] %>
+    <div id="success_message"><%= flash[:message] %></div>
+<% end %>
+<div id="device_list">
+    <ul>
+      
+  <%if !@devices.empty?%>
+    <% for device in @devices %>
+    	<li>
+    		<strong><%= device.name %></strong></a> - <a href="/devices/edit/<%= device.id %>" title="Edit properties for this device">edit</a> | <a href="<%= view_url(:id=>device.id) %>" title="Create and edit geofences for this device">geofences</a><br />
+			<% if device.recent_reading_id != 0 %>reported <%= time_ago_in_words device.readings[0].created_at %> ago<% else %>no report yet<% end %>
+		</li>
     <% end %>
-	<div id="device_list">
-	    <ul>
-	    <% for device in @devices %>
-	    	<li>
-	    		<strong><%= device.name %></strong></a> - <a href="/devices/edit/<%= device.id %>" title="Edit properties for this device">edit</a> | <a href="/geofence/view/<%= device.id %>" title="Create and edit geofences for this device">geofences</a><br />
-				<% if device.recent_reading_id != 0 %>reported <%= time_ago_in_words device.readings[0].created_at %> ago<% else %>no report yet<% end %>
-			</li>
-	    <% end %>
-	    </ul>
-	</div>
+   <%end%>
+    </ul>
+</div>
