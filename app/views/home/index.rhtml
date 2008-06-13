@@ -52,13 +52,15 @@
                 <%end%>
            <%end%>
            <%if !@default_devices.empty?%>
-                <tr>
-                     <td colspan="4" style="background-color:#d2eafc;" width="100%">
-                          <span style=" background:url(/icons/blue_small.png) no-repeat left;width:;height:24px;line-height:24px;display:block;margin-bottom:0px;padding-left:30px;font-weight:bold;float:left;clear:left;width:99%;">
-                               Default
-                          </span>
-                     </td>
-                </tr>
+                <%if !@groups.empty? %>
+                    <tr>
+                         <td colspan="4" style="background-color:#d2eafc;" width="100%">
+                              <span style=" background:url(/icons/blue_small.png) no-repeat left;width:;height:24px;line-height:24px;display:block;margin-bottom:0px;padding-left:30px;font-weight:bold;float:left;clear:left;width:99%;">
+                                   Default
+                              </span>
+                         </td>
+                    </tr>
+                <%end%>
                 <% @default_devices.each do |device|%>
                     <%= show_device device %> 
                 <%end%>

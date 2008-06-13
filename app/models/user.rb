@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_length_of :password, :within => 6..30, :if => :password_required?
   before_save :encrypt_password
-  #validates_format_of :email#, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+ 
   
   # Authenticates a user by subdomain, email and unencrypted password.  Returns the user or nil.
   #def self.authenticate(email, password)
