@@ -112,29 +112,6 @@ class LoginController < ApplicationController
             render :action => 'index'     
         end
      end    
-    #~ flash[:message] = nil
-    #~ if request.post?
-        #~ @user = User.find(params['id'])  
-        #~ if @user
-          #~ if(params['user']['password'] == params['user']['password_confirmation'] && params['user']['password'].length > 5)
-            #~ @user.change_password(params['user']['password'], params['user']['password_confirmation'])
-            #~ if @user.save
-              #~ #Notifier.deliver_change_password(@user, params['user']['password'])
-              #~ flash.now['notice'] = "New password is mailed to #{@user.email}"
-              #~ redirect_to :action => 'index'     
-            #~ else  
-               #~ flash[:message] = 'Password change failed'
-               #~ render :action => 'index'     
-            #~ end
-          #~ else
-            #~ flash[:message] = "Either your password does not match or you have entered less than 6 characters."
-            #~ render :action => 'index'
-          #~ end
-        #~ else
-            #~ flash[:message] = 'Please specify a valid username.'
-            #~ render :action => 'index'     
-        #~ end
-    #~ end
   end
 
   def logout
