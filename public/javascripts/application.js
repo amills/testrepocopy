@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 //<script>
 function ValidateForm(){
+  
 var emailID=document.getElementById('email');
 	return CheckEmail(emailID,"");
  }
