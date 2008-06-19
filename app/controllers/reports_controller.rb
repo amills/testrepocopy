@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
      @device_names = Device.get_names(session[:account_id])
      @pages,@readings = paginate :readings, :order => "created_at desc", 
                 :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time], 
-                :per_page => 5
+                :per_page => ResultCount
      @record_count = Reading.count('id', :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time])                
   end
 
@@ -42,7 +42,7 @@ class ReportsController < ApplicationController
     @stops=get_stops(stopevent_readings)
     @record_count = @stops.size   
     @stops.sort! {|r1,r2| r2.created_at <=> r1.created_at}
-    @pages,@stops = paginate_collection(:collection => @stops,:page => params[:page],:per_page => 2)
+    @pages,@stops = paginate_collection(:collection => @stops,:page => params[:page],:per_page => ResultCount)
   end
     
    def get_stops(stopevent_readings)
@@ -79,7 +79,7 @@ class ReportsController < ApplicationController
     @device_names = Device.get_names(session[:account_id])
     @pages,@readings = paginate :readings, :order => "created_at desc", 
                :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_time, @end_time],
-               :per_page => 1
+               :per_page => ResultCount
     @record_count = Reading.count('id', :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_time, @end_time])
   end
 
