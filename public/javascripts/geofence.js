@@ -17,10 +17,9 @@ function load() {
 	    gmap.setCenter(new GLatLng(37.0625, -95.677068), zoom);
 		
 		icon = new GIcon();
-		icon.image = "/icons/ublip_marker.png";
-    	icon.shadow = "/images/ublip_marker_shadow.png";
-    	icon.iconSize = new GSize(23, 34);
-    	icon.iconAnchor = new GPoint(11, 34);
+		icon.image = "/icons/pulsing_red_ball.gif";
+    	icon.iconSize = new GSize(24, 24);
+    	icon.iconAnchor = new GPoint(12, 12);
 		
 		// Form when editing or adding geofence
 		form = document.getElementById("geofence_form");

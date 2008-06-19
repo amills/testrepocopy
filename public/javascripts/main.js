@@ -21,9 +21,9 @@ function load()
 	
    // iconALL.image = "/icons/ublip_marker.png";
     //iconALL.shadow = "/images/ublip_marker_shadow.png";
-    iconALL.iconSize = new GSize(27, 26);
-    iconALL.iconAnchor = new GPoint(13, 13);
-    iconALL.infoWindowAnchor = new GPoint(13, 13);
+    iconALL.iconSize = new GSize(24, 24);
+    iconALL.iconAnchor = new GPoint(12, 12);
+    iconALL.infoWindowAnchor = new GPoint(12, 12);
 	
 	var infoWin = gmap.getInfoWindow();
 	
@@ -89,7 +89,7 @@ function getRecentReadings(redrawMap,id) {
 					icon_id_1 = icon_id[i].firstChild.nodeValue;
 				  
                      if (icon_id_1 == 1)
-                   iconALL.image=" /icons/ublip_marker.png" ;
+                   iconALL.image=" /icons/pulsing_red_ball.gif" ;
                    else if (icon_id_1 == 2)
                    iconALL.image=" /icons/ublip_red.png" ;
                   else if (icon_id_1 == 3)
@@ -106,7 +106,7 @@ function getRecentReadings(redrawMap,id) {
                    iconALL.image="/icons/orange_big.png" ;
                     else
                     
-                    iconALL.image = "/icons/ublip_marker.png";
+                    iconALL.image = "/icons/pulsing_red_ball.gif";
 			  
 				// Check for existence of note
 				var note = '';
@@ -264,7 +264,7 @@ function getMarkerType(index, obj) {
 		icon.image = "/icons/" + (index+1) + "_red.png";
 	} else {
 		if(index+1 == 1)
-	    	icon.image = "/icons/ublip_marker.png";
+	    	icon.image = "/icons/pulsing_red_ball.gif";
 		else
 			icon.image = "/icons/grey_ball.png";
 	}
