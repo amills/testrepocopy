@@ -1,8 +1,8 @@
 DELIMITER ;;
 USE ublip_prod;;
 
-DROP TRIGGER IF EXISTS trig_readings_insert;;
-CREATE TRIGGER trig_readings_insert AFTER INSERT ON readings FOR EACH ROW BEGIN
+DROP TRIGGER IF EXISTS trig_readings_after_insert;;
+CREATE TRIGGER trig_readings_after_insert AFTER INSERT ON readings FOR EACH ROW BEGIN
 	
 	DECLARE last_move_time DATETIME;
 	DECLARE stop_begin_time DATETIME;

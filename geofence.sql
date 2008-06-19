@@ -15,8 +15,8 @@ BEGIN
    * cos(((lng1 - lng2)*pi()/180))))*180/pi())*60*1.1515);
 END;;
 
-DROP TRIGGER IF EXISTS trig_readings_insert;;
-CREATE TRIGGER trig_readings_insert BEFORE INSERT ON readings FOR EACH ROW BEGIN
+DROP TRIGGER IF EXISTS trig_readings_before_insert;;
+CREATE TRIGGER trig_readings_before_insert BEFORE INSERT ON readings FOR EACH ROW BEGIN
 	
 	DECLARE new_violation_count int;
 	DECLARE first_fence_id int;
