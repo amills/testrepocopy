@@ -17,7 +17,7 @@ function load() {
 	    gmap.setCenter(new GLatLng(37.0625, -95.677068), zoom);
 		
 		icon = new GIcon();
-		icon.image = "/icons/pulsing_red_ball.gif";
+		icon.image = "/images/pulsing_red_ball.gif";
     	icon.iconSize = new GSize(24, 24);
     	icon.iconAnchor = new GPoint(12, 12);
 		

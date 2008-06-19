@@ -89,7 +89,7 @@ function getRecentReadings(redrawMap,id) {
 					icon_id_1 = icon_id[i].firstChild.nodeValue;
 				  
                      if (icon_id_1 == 1)
-                   iconALL.image=" /icons/pulsing_red_ball.gif" ;
+                   iconALL.image=" /images/pulsing_red_ball.gif" ;
                    else if (icon_id_1 == 2)
                    iconALL.image=" /icons/ublip_red.png" ;
                   else if (icon_id_1 == 3)
@@ -106,7 +106,7 @@ function getRecentReadings(redrawMap,id) {
                    iconALL.image="/icons/orange_big.png" ;
                     else
                     
-                    iconALL.image = "/icons/pulsing_red_ball.gif";
+                    iconALL.image = "/images/pulsing_red_ball.gif";
 			  
 				// Check for existence of note
 				var note = '';
@@ -264,7 +264,7 @@ function getMarkerType(index, obj) {
 		icon.image = "/icons/" + (index+1) + "_red.png";
 	} else {
 		if(index+1 == 1)
-	    	icon.image = "/icons/pulsing_red_ball.gif";
+	    	icon.image = "/images/pulsing_red_ball.gif";
 		else
 			icon.image = "/icons/grey_ball.png";
 	}
