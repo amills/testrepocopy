@@ -115,7 +115,7 @@ class ReportsControllerTest < Test::Unit::TestCase
   
   # Report exports.  Needs support for readings, stops, and geofence exports
   def test_export
-    get :export, {:id => 6, :type => 'all'}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
+    get :export, {:id => 6, :type => 'all', :start_time=>"Thu May 17 21:24:10 +0530 2008", :end_time=>"Thu Jun 19 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
     assert_response :success
     assert_kind_of Proc, @response.body
     output = StringIO.new
