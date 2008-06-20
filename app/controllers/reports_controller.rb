@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
   StopThreshold = 180 #stop event is triggered at 3min idle time
   ResultCount = 25 # Number of results per page
   DayInSeconds = 86400
-  NUMBER_OF_DAYS = 1
+  NUMBER_OF_DAYS = 60
   
   module StopEvent
     attr_reader :duration
