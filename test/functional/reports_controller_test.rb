@@ -56,13 +56,13 @@ class ReportsControllerTest < Test::Unit::TestCase
   def test_stop
     pretend_now_is(Time.at(1185490000)) do
       puts "now is:" + Time.now.to_s
-      get :stop, {:id=>"3", :t=>"1"}, { :user => users(:dennis), :account_id => users(:dennis).account_id } 
+      get :stop, {:id=>"3", :t=>"1", :start_time1=>"Thu May 24 21:24:10 +0530 2004",:end_time1=>"Thu Jun 25 21:24:10 +0530 2008"}, { :user => users(:dennis), :account_id => users(:dennis).account_id } 
       stops = assigns(:stops)
       assert_equal 8, assigns(:record_count)
       assert_response :success
       assert_template "stop"
-      
-      assert_equal 8, stops.size
+
+      assert_equal 5, stops.size
       
       assert_equal -1, stops[0].duration
       assert_equal Time.local(2007, "Jul", 26, 16, 55, 0), stops[0].created_at
@@ -77,14 +77,14 @@ class ReportsControllerTest < Test::Unit::TestCase
       assert_equal Time.local(2007, "Jul", 26, 14, 48, 39), stops[3].created_at
       
       assert_equal Time.local(2007, "Jul", 26, 14, 37, 39), stops[4].created_at
-      assert_equal 780, stops[4].duration
+      assert_equal -1720.0, stops[4].duration
       
      
       
-      get :stop, {:id=>"3", :t=>"1", :p => "2"}, { :user => users(:dennis), :account_id => users(:dennis).account_id }
+      get :stop, {:id=>"3", :t=>"1", :p => "2", :start_time1=>"Thu May 24 21:24:10 +0530 2004",:end_time1=>"Thu Jun 25 21:24:10 +0530 2008"}, { :user => users(:dennis), :account_id => users(:dennis).account_id }
       stops = assigns(:stops)
       
-      assert_equal 8, stops.size
+      assert_equal 5, stops.size
       
       assert_equal -1, stops[0].duration
       assert_equal Time.local(2007, "Jul", 26, 16, 55, 00), stops[0].created_at
@@ -115,7 +115,7 @@ class ReportsControllerTest < Test::Unit::TestCase
   
   # Report exports.  Needs support for readings, stops, and geofence exports
   def test_export
-    get :export, {:id => 6, :type => 'all', :start_time=>"Thu May 17 21:24:10 +0530 2008", :end_time=>"Thu Jun 19 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
+    get :export, {:id => 6, :type => 'all', :start_time=>"Thu May 24 21:24:10 +0530 2008", :end_time=>"Thu Jun 25 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
     assert_response :success
     assert_kind_of Proc, @response.body
     output = StringIO.new
