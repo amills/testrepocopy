@@ -13,11 +13,12 @@
 <div class="settings_box">
 	<h2>Notifications</h2>
 	Check the box below if you'd like to receive exception notifications for this account.  All exceptions will be sent to the email address associated with your account.  Exceptions
-	include entering a geofence, exiting a geofence, and when a device goes offline.<br /><br />
-     <input name="notify"    type="radio"  value="0" <% if @user.enotify == 0 %> checked="checked"<% end %> onclick="Element.hide('to_update');" /> Disable Notifications <br/><br/>
-     <input name="notify"   type="radio"  value="1"  <% if @user.enotify == 1%> checked="checked"<% end %> onclick="Element.hide('to_update');"/> Enable notifications for all devices in this account<br/><br/>
-     <input name="notify"  type="radio"  value="2" <% if @user.enotify == 2%> checked="checked"<% end %> onclick="Element.show('to_update');" /> Enable notifications for selected groups<br/>
-     
+	include entering a geofence, exiting a geofence, and when a device goes offline.<br />
+    <div class="settings_notification">
+     <div><input name="notify"    type="radio"  value="0" <% if @user.enotify == 0 %> checked="checked"<% end %> onclick="Element.hide('to_update');" /> Disable Notifications </div>
+     <div><input name="notify"   type="radio"  value="1"  <% if @user.enotify == 1%> checked="checked"<% end %> onclick="Element.hide('to_update');"/> Enable notifications for all devices in this account</div>
+     <div><input name="notify"  type="radio"  value="2" <% if @user.enotify == 2%> checked="checked"<% end %> onclick="Element.show('to_update');" /> Enable notifications for selected groups</div>
+     </div>
      <div id="to_update" class="gray_box" <%if !(@user.enotify == 2) %>style="display:none;" <%end%>>
          <div><strong>&nbsp;Please select one or more groups from the list below</strong></div>
          <%if !@groups.empty?%>

@@ -292,6 +292,18 @@ hr {
 	border-bottom: 1px solid #CCCCCC;
 }
 
+.settings_notification {
+	padding-top: 10px;
+	color: #666666;
+	width: 98%;
+	
+}
+
+.settings_notification div {
+	padding-top:6px;
+	
+}
+
 .settings_box h2{font-size: 14px; font-weight: bold; padding:0px; margin:0px}
 .gray_box {
 	padding: 10px;
