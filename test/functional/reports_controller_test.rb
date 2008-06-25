@@ -37,6 +37,11 @@ class ReportsControllerTest < Test::Unit::TestCase
     # Need to figure out how to manage the ResultCount mock being set at 5
   end
   
+  def test_index
+     get :index, {:id => 1}, {:user => users(:dennis), :account_id => 1}   
+     assert_response :success
+  end   
+  
   def test_all_unauthorized
     get :all, {:id => 1}, {:user => users(:nick)}
     assert_nil assigns(:readings)
@@ -112,6 +117,11 @@ class ReportsControllerTest < Test::Unit::TestCase
     assert_redirected_to "/index"
     assert_nil assigns(:readings)
   end
+ 
+ def test_for_valid_time
+    get :all, {:id => 1, :t => 30, :start_time1=>{"ordermonthdayyear(3i)" =>"25", "ordermonthdayyear(1i)"=>"2008", "ordermonthdayyear(2i)"=>"6"}, :end_time1=>{"ordermonthdayyear(3i)"=>"25", "ordermonthdayyear(1i)"=>"2008", "ordermonthdayyear(2i)"=>"6"}}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
+    assert_response :success    
+ end    
   
   # Report exports.  Needs support for readings, stops, and geofence exports
   def test_export
@@ -121,6 +131,12 @@ class ReportsControllerTest < Test::Unit::TestCase
     output = StringIO.new
     assert_nothing_raised { @response.body.call(@response, output) }
     assert_equal csv_data, output.string
+    # for stop events
+    get :export, {:id => 6, :type => 'stop', :start_time=>"Thu May 24 21:24:10 +0530 2008", :end_time=>"Thu Jun 25 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}    
+    assert_response :success
+    # for geofence 
+    get :export, {:id => 6, :type => 'geofence', :start_time=>"Thu May 24 21:24:10 +0530 2008", :end_time=>"Thu Jun 25 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}    
+    assert_response :success
   end
   
   private

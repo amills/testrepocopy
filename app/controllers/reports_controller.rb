@@ -89,7 +89,7 @@ class ReportsController < ApplicationController
             if params[:end_time1].class.to_s == "String"
                 @end_time = params[:end_time1].to_time
                 @start_time =params[:start_time1].to_time             
-            else    
+            else                
                 @end_time = get_time(params[:end_time1])
                 @start_time = get_time(params[:start_time1])
              end

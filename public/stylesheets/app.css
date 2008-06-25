@@ -288,8 +288,22 @@ hr {
 .settings_box {
 	padding: 10px;
 	color: #666666;
-	width: 700px;
+	width: 98%;
 	border-bottom: 1px solid #CCCCCC;
+}
+
+.settings_box h2{font-size: 14px; font-weight: bold; padding:0px; margin:0px}
+.gray_box {
+	padding: 10px;
+	background-color: #eeeeee;
+	width: 97%;
+	margin-left:25px;
+	margin-top:10px;
+	
+}
+.gray_box div {
+	padding-top:3px;
+	
 }
 
 div#side_tb_box{
