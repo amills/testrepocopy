@@ -20,6 +20,7 @@ class ReportsController < ApplicationController
   end
   
   def all
+      #Query.find 35423423
      get_start_and_end_time# common method for setting start time and end time  Line no. 82       
      @device_names = Device.get_names(session[:account_id])
      @pages,@readings = paginate :readings, :order => "created_at desc",
@@ -111,7 +112,7 @@ class ReportsController < ApplicationController
       date =''     
       time_inputs.each{|key,value|   date= date + value + " "}          
       date=date.strip.split(' ')
-      time = "#{date[1]}-#{date[2]}-#{date[0]}"
+      time = "#{date[2]}-#{date[0]}-#{date[1]}"
       return time.to_time    
   end
 
