@@ -119,13 +119,13 @@ class ReportsControllerTest < Test::Unit::TestCase
   end
  
  def test_for_valid_time
-    get :all, {:id => 1, :t => 30, :start_time1=>{"ordermonthdayyear(3i)" =>"25", "ordermonthdayyear(1i)"=>"2008", "ordermonthdayyear(2i)"=>"6"}, :end_time1=>{"ordermonthdayyear(3i)"=>"25", "ordermonthdayyear(1i)"=>"2008", "ordermonthdayyear(2i)"=>"6"}}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
+    get :all, {:id => 1, :t => 30, :start_time1=>{"month"=>"4", "day"=>"27", "year"=>"2008"}, :end_time1=>{"month"=>"6", "day"=>"26", "year"=>"2008"}}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
     assert_response :success    
  end    
   
   # Report exports.  Needs support for readings, stops, and geofence exports
   def test_export
-    get :export, {:id => 6, :type => 'all', :start_time=>"Thu May 24 21:24:10 +0530 2008", :end_time=>"Thu Jun 25 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
+    get :export, {:id => 6, :type => 'all', :start_time=>"Thu May 24 21:24:10 +0530 2008", :end_time=>"Thu Jun 26 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
     assert_response :success
     assert_kind_of Proc, @response.body
     output = StringIO.new
