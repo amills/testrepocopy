@@ -16,11 +16,9 @@ config.action_controller.perform_caching             = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
-ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.delivery_method = :sendmail
 
-ActionMailer::Base.smtp_settings = {
-  :domain             => "ublip.com",
-  :perform_deliveries => true,
-  :address            => 'smtp.ey01.engineyard.com',
-  :port               => 25
+ActionMailer::Base.sendmail_settings = {
+  :location => "/usr/sbin/sendmail",
+  :arguments => "-t"
 }
