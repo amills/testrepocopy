@@ -118,7 +118,11 @@ class LoginController < ApplicationController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You have been logged out."
-    redirect_back_or_default(:controller => '/login', :action => 'index')
+    if params[:f_mb] == 'frm_mob'
+       redirect_to(:controller=>'mobile',:action=>'index')  
+    else    
+      redirect_back_or_default(:controller => '/login', :action => 'index')
+    end
   end
   
 
