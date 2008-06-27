@@ -1,4 +1,4 @@
-body {
+#body {
     margin: 0px;
     font-family: "Times New Roman", Times, serif;
     background: #FFFFFF;
@@ -13,7 +13,7 @@ body {
     -webkit-text-size-adjust: none;
 	}
 
-body > .toolbar {
+#body .toolbar {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -21,31 +21,33 @@ body > .toolbar {
 	padding-top:15px;
    }
 
-body > ul{
+#body  ul{
     position: relative;
     margin-left: 3px;
     padding-left:3px;
     font-weight:normal;
     list-style: none;
+	width:240px;
 	margin-top:0px;
 }
 
-body > ul > li {
+#body ul  li {
     position: relative;
     margin: 0px;
     padding: 2px 2px 2px 5px;
     font-weight:normal;
+	width:240px;
     list-style: none;
 }
 
 
-body > ul > li.group:first-child {
+#body  ul  li.group:first-child {
     top: 0;
     border-top: none;
 	
 }
 
-body > ul > li .input{
+#body  ul  li .input{
     width: 210px;
 	padding-top:2px;
 	padding-bottom:2px;
@@ -67,13 +69,13 @@ line-height:25px
 
 }
 
-body > ul > li .2008_ublip{
+#body  ul  li .2008_ublip{
 padding-top:5px
-
-
-
 	
 }
+
+a:hover {text-decoration:underline;}
+a, a:visited {color:#0000ee;text-decoration:underline;}
 
 div#error_message {
 	border: 2px solid #990000;
