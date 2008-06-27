@@ -24,3 +24,5 @@ ActionMailer::Base.smtp_settings = {
   :address            => 'smtp.ey01.engineyard.com',
   :port               => 25
 }
+
+API_KEY = 'ABQIAAAAwBz7W3z4sedOzgKp8bfXIhRc2_FW6oy1mqooSG2OkZfRC9zexxRGnwClZf16Hiw2RySOG_JU9EH8rQ'
