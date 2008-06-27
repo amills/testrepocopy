@@ -17,3 +17,5 @@ config.action_controller.perform_caching             = false
 # The :test delivery method accumulates sent emails in the
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
+
+API_KEY = 'ABQIAAAAb5FIzoTRib2_GSmlbkQ7mBQdy8buJCn4UCOrVn-gOC82x0BwgBQmZoveMS-zQ1aZv3RjGKOBbmDg9Q'

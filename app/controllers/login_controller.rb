@@ -6,14 +6,14 @@ class LoginController < ApplicationController
   before_filter :login_from_cookie
   
   def login_small
-    if !logged_in?
+    index
+    if(!logged_in?)
       render :action => "login/small", :layout => "login_small"
-    else
-      index
     end
   end
   
-  def index     
+  def index
+
     #Check if user is logged in and redirect to home controller if they are
     if logged_in? 
       user = self.current_user
@@ -24,8 +24,8 @@ class LoginController < ApplicationController
          self.current_user.forget_me
          reset_session     
       end    
-  end
-  
+    end
+    
     # Handles the login form post
     if request.post?
       # Authenticate based on un/pw as well as subdomain
@@ -42,9 +42,9 @@ class LoginController < ApplicationController
         session[:email] = self.current_user.email # Store user's email
         session[:is_super_admin] = self.current_user.is_super_admin
         if params[:frm_m] == 'mobile'            
-            redirect_to(:controller=>'/mobile', :action=>'devices')  
+          redirect_to(:controller=>'/mobile', :action=>'devices')  
         else    
-           redirect_back_or_default(:controller => '/home', :action => 'index') # Login success
+          redirect_back_or_default(:controller => '/home', :action => 'index') # Login success
         end
       # Send them back to the login page with appropriate error message
       else
@@ -74,51 +74,43 @@ class LoginController < ApplicationController
       account = Account.find_by_subdomain(request.subdomains.first)
       user = User.find(:first, :conditions => ["email =? AND account_id =?", @params['email'], account.id])  
       if user
-         key = user.generate_security_token(80)
-         user.access_key = key
-         user.save
+         key = user.generate_security_token
          url = url_for(:action => 'password')
-         url += "?id=#{user.id}&subdomain=#{user.account_id}&key=#{key}"
+         url += "?user[id]=#{user.id}&subdomain=#{user.account_id}&key=#{key}"
          Notifier.deliver_forgot_password(user, url)
-         flash[:success] = "A change password request was sent to #{user.email}."
+         flash['message'] = "Plase check #{user.email} to change the password."
          redirect_to :action => 'index'
       else
-        flash[:message] = 'Please specify a valid email address.'
+        flash[:message] = 'Please specify a valid username.'
         render :action => 'forgot_password'
       end  
     end
   end
 
   def password
-     @user = User.find_by_id(params['id'])      
-     if !request.post?
-         if @user.nil? || params[:key].nil? || !(@user.access_key == params[:key])
-             flash[:message] = 'Invalid action.'
-             redirect_to :action=>'index'
-         end    
-     else           
+    flash[:message] = nil
+    if request.post?
+        @user = User.find(params['id'])  
         if @user
-          if(params['user']['password'] == params['user']['password_confirmation'] && params['user']['password'].length > 5)
+          if(params['user']['password'] == params['user']['password_confirmation'])
             @user.change_password(params['user']['password'], params['user']['password_confirmation'])
             if @user.save
               #Notifier.deliver_change_password(@user, params['user']['password'])
-              @user.access_key = nil
-              @user.save
-              flash[:success] = "Password changed successfully."
+              flash.now['notice'] = "New password is mailed to #{@user.email}"
               redirect_to :action => 'index'     
             else  
                flash[:message] = 'Password change failed'
                render :action => 'index'     
             end
           else
-            flash[:message] = "Either your password does not match or you have entered less than 6 characters."
-            redirect_to  :action=>"password", :id=>@user.id, :subdomain => params[:subdomain], :key=>@user.access_key
+            flash[:message] = "Passwords must match"
+            render :action => 'index'
           end
         else
             flash[:message] = 'Please specify a valid username.'
             render :action => 'index'     
         end
-     end    
+    end
   end
 
   def logout
@@ -126,11 +118,7 @@ class LoginController < ApplicationController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You have been logged out."
-    if params[:f_mb] == 'frm_mob'
-       redirect_to(:controller=>'mobile',:action=>'index')  
-    else    
-      redirect_back_or_default(:controller => '/login', :action => 'index')
-    end
+    redirect_back_or_default(:controller => '/login', :action => 'index')
   end
   
 

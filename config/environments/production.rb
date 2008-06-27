@@ -22,3 +22,5 @@ ActionMailer::Base.sendmail_settings = {
   :location => "/usr/sbin/sendmail",
   :arguments => "-t"
 }
+
+API_KEY = 'ABQIAAAAb5FIzoTRib2_GSmlbkQ7mBQdy8buJCn4UCOrVn-gOC82x0BwgBQmZoveMS-zQ1aZv3RjGKOBbmDg9Q'
