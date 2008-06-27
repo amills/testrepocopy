@@ -24,7 +24,8 @@ class ReportsController < ApplicationController
      @device_names = Device.get_names(session[:account_id])
      @readings =Reading.find(:all, :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time],:order => "created_at desc", :limit=>MAX_LIMIT)                               
      @pages,@readings = paginate_collection(:collection => @readings,:page => params[:page],:per_page => ResultCount)   
-     @record_count = Reading.count('id', :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time], :limit=>MAX_LIMIT)
+     @record_count = Reading.count('id', :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time])
+     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT     
   end
 
    
@@ -82,7 +83,8 @@ class ReportsController < ApplicationController
     @device_names = Device.get_names(session[:account_id])
      @readings = Reading.find(:all, :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_time, @end_time], :order => "created_at desc", :limit=>MAX_LIMIT) 
      @pages,@readings = paginate_collection(:collection => @readings,:page => params[:page],:per_page => ResultCount)   
-     @record_count = Reading.count('id', :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_time, @end_time], :limit=>MAX_LIMIT)
+     @record_count = Reading.count('id', :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_time, @end_time])
+     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT     
   end
 
   def get_start_and_end_time
