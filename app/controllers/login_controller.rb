@@ -50,7 +50,11 @@ class LoginController < ApplicationController
       else
           flash[:message] = 'Please specify a valid username and password.'
           flash[:username] = params[:email]
-          redirect_back_or_default '/login'
+          if params[:frm_m] == 'mobile'            
+             redirect_to(:controller=>'/mobile',:action=>'index')  
+          else    
+             redirect_back_or_default '/login'
+          end
       end
     # Display the appropriate login form based on subdomain
     else
