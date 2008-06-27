@@ -1,4 +1,4 @@
-require 'fastercsv'
+ require 'fastercsv'
 
 class ReportsController < ApplicationController
   before_filter :authorize
@@ -19,16 +19,12 @@ class ReportsController < ApplicationController
     @devices = Device.get_devices(session[:account_id])
   end
   
-  def all
-      #Query.find 35423423
+  def all      
      get_start_and_end_time# common method for setting start time and end time  Line no. 82       
      @device_names = Device.get_names(session[:account_id])
-     @pages,@readings = paginate :readings, :order => "created_at desc",
-                :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time],               
-                :per_page => ResultCount                
-     @readings=@readings[0..MAX_LIMIT]                
-     @record_count = Reading.count('id', :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time])                     
-     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT     
+     @readings =Reading.find(:all, :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time],:order => "created_at desc", :limit=>MAX_LIMIT)                               
+     @pages,@readings = paginate_collection(:collection => @readings,:page => params[:page],:per_page => ResultCount)   
+     @record_count = Reading.count('id', :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time], :limit=>MAX_LIMIT)
   end
 
    
@@ -51,6 +47,7 @@ class ReportsController < ApplicationController
     
    def get_stops(stopevent_readings)
      @stops = Array.new  
+     stop_count=0
      stopevent_readings.each_index { |index|
                             currentReading = stopevent_readings[index]
                             if stopevent_readings[index].speed==0
@@ -71,9 +68,11 @@ class ReportsController < ApplicationController
                                 end
                               end
                               @stops.push stopEvent
+                              stop_count = stop_count + 1                              
+                              break if stop_count == MAX_LIMIT                               
                             end
                         }    
-             return @stops[0..MAX_LIMIT]           
+             return @stops
    end
    
   # Display geofence exceptions
@@ -81,12 +80,9 @@ class ReportsController < ApplicationController
     get_start_and_end_time # common method for setting start time and end time Line no. 82 
     @geofences = Device.find(params[:id]).geofences # Geofences to display as overlays
     @device_names = Device.get_names(session[:account_id])
-    @pages,@readings = paginate :readings, :order => "created_at desc", 
-               :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_time, @end_time],               
-               :per_page => ResultCount
-    @readings=@readings[0..MAX_LIMIT]                           
-    @record_count = Reading.count('id', :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_time, @end_time])
-    @record_count = MAX_LIMIT if @record_count > MAX_LIMIT     
+     @readings = Reading.find(:all, :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_time, @end_time], :order => "created_at desc", :limit=>MAX_LIMIT) 
+     @pages,@readings = paginate_collection(:collection => @readings,:page => params[:page],:per_page => ResultCount)   
+     @record_count = Reading.count('id', :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_time, @end_time], :limit=>MAX_LIMIT)
   end
 
   def get_start_and_end_time
