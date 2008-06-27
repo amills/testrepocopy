@@ -12,14 +12,13 @@ class StopDetectionTest < Test::Unit::TestCase
     statements = sql.split(';;')
     
     statements.each  {|stmt| 
-      #puts stmt
+      puts stmt
       ActiveRecord::Base.connection.execute(stmt)
     }
     Reading.delete_all
   end
   
   def test_insert_stop
-    
     now = Time.now
     device = devices(:device2)
     
@@ -50,11 +49,18 @@ class StopDetectionTest < Test::Unit::TestCase
     event = device.stop_events[0]
     assert_nil event.duration
     
-    reading = save_reading(20, 32.933781, -96.756807, now + 900)
+    #test that non-zero speed with no movement does not trigger
+    reading = save_reading(1, 32.933781, -96.756807, now + 900)
     device.reload
     assert_equal 1, device.stop_events.count
     event = device.stop_events[0]
-    assert_equal 14, event.duration
+    assert_nil event.duration 
+    
+    reading = save_reading(20, 32.9346, -96.756807, now + 960)
+    device.reload
+    assert_equal 1, device.stop_events.count
+    event = device.stop_events[0]
+    assert_equal 15, event.duration
     
   end
   
