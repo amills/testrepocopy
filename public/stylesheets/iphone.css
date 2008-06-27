@@ -75,11 +75,12 @@ padding-top:5px
 	
 }
 
-
-
-
-
-
-
-
-
+div#error_message {
+	border: 2px solid #990000;
+	background-color: #FF6262;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFFFFF;
+	padding: 5px;
+	margin-bottom: 10px;
+}
