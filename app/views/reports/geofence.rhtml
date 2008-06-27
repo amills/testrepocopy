@@ -16,9 +16,9 @@
 						<td><a href="javascript:centerMapOnReading(<%= reading.id %>);highlightRow(<%= reading.id %>)" title="Center map on this location" class="link-all1"><%= reading.shortAddress %></a></td>
 						<td><%= reading.speed %></td>
 						<td>
-							<% if reading.event_type.index('enter') %>
+							<% if !reading.event_type.nil? && reading.event_type.index('enter') %>
 								Enter geofence
-							<% elsif reading.event_type.index('exit') %>
+							<% elsif !reading.event_type.nil? && reading.event_type.index('exit') %>
 								Exit geofence
 							<% elsif reading.event_type =='startstop_et41' %>
 								<a href="/reports/stop/<%= params[:id] %>" title="View stop report" class="link-all1">Stop</a>
