@@ -44,7 +44,7 @@ class MotionDetectionTest < Test::Unit::TestCase
     
     assert_equal 0, device.motion_events.count
     
-    reading = save_reading(20, 32.933781, -96.756807, now + 900)
+    save_reading(20, 32.934781, -96.756807, now + 900)
     device.reload
     assert_equal 1, device.stop_events.count
     event = device.stop_events[0]
