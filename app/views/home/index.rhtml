@@ -1,4 +1,4 @@
- <table width="100%" border="0">
+<table width="100%" border="0">
     <tr>
         <td width="50%" valign="top" id="left_panel">
         	<% if @devices.size == 0 %>
@@ -13,13 +13,13 @@
           <table width="100%" class="panel_table" style=" overflow:auto;">                            
             <tr>
               <td colspan="4" class="header" width="100%"><span style=" float:left;clear:left;width:50%; padding-top:3px">Device Summary  </span><span style=" text-align:right;float:left;clear:none;width:49%">
-                    <select id="type1" style="float:right; width:100px; margin-right:1px;" name="type" onchange="<%=remote_function(:update => "to_update", :url => { :controller => :home, :action => :show_devices}, :with=>"'type='+escape($F('type1'))")%>;javascript:getRecentReadings(true,document.getElementById('type1').value);"> <!--  -->
-                        <option id="" disabled="disabled">Actions</option>
-                        <option id="" disabled="disabled">View</option>
+                    <select id="type1" style="float:right; width:100px; margin-right:1px;" name="type" onchange="select_action(this);"> <!--  -->
+                        <option id=""  value="new">New group</option>
+                        <option id=""  value="edit">Edit groups</option>
                         <option id="" disabled="disabled"> - - - - - - - - - - - - - - -  </option>
-                        <option value="all" selected style="background-color:#c5f794;">  All Assets  </option>
+                        <option value="all"  selected style="background-color:#c5f794;">  All Devices  </option>
                              <% for group in @all_groups %>
-                        <option value='<%= group.id%>'><%= group.name%> </option>
+                        <option <%if session[:gmap_value].to_i == group.id%> selected <%end%> value='<%= group.id%>'><%= group.name%> </option>
                               <% end %>
                     </select>            
               </td>
