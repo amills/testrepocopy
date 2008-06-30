@@ -8,12 +8,12 @@
 </head>
 
 <body id="body">
-<div class="toolbar"><img src="/images/k1_logo.png" alt="" /></div>       
+<div class="toolbar"><img src="/images/k1_logo.png" alt="" /></div>     
+<form action="/login" method="post" id="logform">  
     <ul> 
  <%if  flash[:message]%>     
      <div id="error_message"><%= flash[:message]%></div>     
      <%end%>    
-            <form action="/login" method="post" id="logform">
             <li>Username: <br/>                  
             <input type="text" id="username" name="email" class="input" value="<%= flash[:username] %>"/>
             </li>
@@ -25,8 +25,8 @@
             <li>
               <input type="submit" value="Sign in" />    
             </li>       		
-			</form>
 		<li>&copy; 2008 K1 Tracking</li>        
-    </ul>    
+    </ul>
+</form>
 </body>
 </html>
