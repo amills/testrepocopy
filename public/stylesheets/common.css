@@ -281,5 +281,6 @@ div#success_message {
 #top_head{width:100%; overflow:hidden; padding-top:5px; margin-bottom:10px;}
 #top_head h3 {font-size: 18px;color: #003366; padding:0px; margin:0px; width:90%; float:left}
 .alert{width:942px;color:#336633;border:1px #99cc99 solid; text-align:center; background-color:#E5F1F4;margin-top:10px;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;font-size:10pt;}
+.paddin-l{padding-left:830px;}
 #helper { padding: 0 0 10px; }
 /*ganrel CSS end*/
