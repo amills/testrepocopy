@@ -19,7 +19,7 @@
                <%end%>
 			<!-- |                                        
 			<a href="/devices/new_group" title="Add a new group">New Group</a>-->
-                <%if controller.action_name == 'index'%>
+                <%if controller.action_name == 'index' || controller.action_name == 'search_devices'%>
                     <span class="paddin-l">&nbsp;</span><a href="/devices/choose_MT" title="Add a new device">Add New Device</a>
                 <%end%>
 		</div>
