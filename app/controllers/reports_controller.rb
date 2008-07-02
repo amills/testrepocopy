@@ -140,11 +140,29 @@ class ReportsController < ApplicationController
          readings = get_stops(readings)
      end    
     stream_csv do |csv|
-      csv << ["latitude", "longitude", "address", "speed", "direction", "altitude", "event_type", "note", "when"]
-      readings.each do |reading|
-        csv << [reading.latitude, reading.longitude, reading.shortAddress, reading.speed, reading.direction, reading.altitude, reading.event_type, reading.note, reading.created_at]
-      end
+     if params[:type] == 'stop'
+        csv << ["Location","Stop Duration (s)", "when","Latitude", "Longitude", "Event type"]  
+     else    
+        csv << ["Location","Speed (mph)", "When","Latitude", "Longitude","Event type"]
+    end 
+     if params[:type] == 'stop'
+        readings.each do |reading|                    
+            stop_duration = get_duration(reading) ||  "unknown"            
+            csv << [reading.shortAddress,stop_duration,reading.created_at, reading.latitude, reading.longitude, reading.event_type]            
+        end
+     else
+        readings.each do |reading|        
+            csv << [reading.shortAddress,reading.speed,reading.created_at,reading.latitude, reading.longitude,reading.event_type ]
+        end        
+     end    
     end
+  end
+  
+  def get_duration(reading)      
+     length = nil
+     if(!reading.duration.nil? && reading.duration>0) then length=date_helpers.time_ago_in_words Time.now+reading.duration end      
+     if(!reading.duration.nil? && reading.duration<0) then length="in progress: " + (date_helpers.time_ago_in_words reading.created_at+StopThreshold) + " so far" end
+     return length
   end
   
   def speed
