@@ -25,8 +25,8 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
   
   def test_index   
-    get :index, {}, { :user => users(:dennis)} 
-    assert_response :success    
+    get :index, {}, { :user => users(:dennis), :account_id => 1}     
+    assert_response :success        
  end
   
    def test_view
