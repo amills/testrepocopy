@@ -40,8 +40,6 @@ class ReportsController < ApplicationController
     @device_names = Device.get_names(session[:account_id])
     stopevent_readings = Reading.find(:all, {:order => "created_at asc", :conditions => ["device_id = ? and event_type=\'startstop_et41\' and created_at between ? and ?", params[:id], @start_time, @end_time]})        
     filter_stops(stopevent_readings)
-    logger.info "=====================================in"
-    logger.info stopevent_readings.size
     @stops=get_stops(stopevent_readings)
     @record_count = @stops.size
     @actual_record_count = @record_count
@@ -135,21 +133,11 @@ class ReportsController < ApplicationController
         readings = Reading.find(:all, :order => "created_at desc",                  
                       :offset => ((params[:page].to_i-1)*ResultCount),
                       :limit=>MAX_LIMIT,
-                      :conditions => ["device_id = ? and event_type like ? and created_at between ? and ?", params[:id], event_type,@start_time,@end_time])                        
-     logger.info "==========================================1" 
-     logger.info readings.size                      
-     
+                      :conditions => ["device_id = ? and event_type like ? and created_at between ? and ?", params[:id], event_type,@start_time,@end_time])                            
      if params[:type]=='stop'
-         readings = filter_stops(readings)
-         logger.info "==========================================2" 
-         logger.info readings.size                              
-         new_readings = get_stops(readings)
-         readings = new_readings
-         logger.info "==========================================3" 
-         logger.info readings.size                          
+         filter_stops(readings)
+         readings = get_stops(readings)
      end    
-     logger.info "==========================================4" 
-     logger.info readings.size                      
      
     stream_csv do |csv|
          if params[:type] == 'stop'
@@ -202,6 +190,8 @@ class ReportsController < ApplicationController
                           end
                         }
       end
+     logger.info "========================in filter"
+     logger.info  readings.size     
   end
   
   private
