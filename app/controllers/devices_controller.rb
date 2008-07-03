@@ -42,7 +42,7 @@ class DevicesController < ApplicationController
       device.name = params[:name]
       device.imei = params[:imei]
       device.save
-      flash[:message] = params[:name] + ' was updated successfully'
+      flash[:success] = params[:name] + ' was updated successfully'
       redirect_to :controller => 'devices'
     else
       @device = Device.find(params[:id], :conditions => ["account_id = ?", session[:account_id]])  
@@ -54,7 +54,7 @@ class DevicesController < ApplicationController
     if request.post?
       device = Device.find(params[:id], :conditions => ["account_id = ?", session[:account_id]])
       device.update_attribute(:provision_status_id, 2) # Let's flag it for now instead of deleting it
-      flash[:message] = device.name + ' was deleted successfully'
+      flash[:success] = device.name + ' was deleted successfully'
       redirect_to :controller => "devices"
     end
   end
@@ -70,7 +70,7 @@ class DevicesController < ApplicationController
         device.name = params[:name]
         device.provision_status_id = 1
         device.save
-        flash[:message] = params[:name] + ' was provisioned successfully'
+        flash[:success] = params[:name] + ' was provisioned successfully'
       else
         flash[:message] = 'This device has already been added'
         return nil
@@ -86,7 +86,7 @@ class DevicesController < ApplicationController
       device.provision_status_id = 1
       device.account_id = session[:account_id]
       device.save
-      flash[:message] = params[:name] + ' was created successfully'
+      flash[:success] = params[:name] + ' was created successfully'
     end
     return device
   end
@@ -221,7 +221,7 @@ class DevicesController < ApplicationController
                      Device.find(:all, :conditions=>['group_id=?',@group.id]).each{|device| device.group_id =nil; device.save}
                      first_set_icons_default
                      update_devices
-                     flash[:message]= "Group " + @group.name + " was updated successfully "
+                     flash[:success]= "Group " + @group.name + " was updated successfully "
                      redirect_to :action=>"groups"                                
                  end
              else
@@ -242,7 +242,7 @@ class DevicesController < ApplicationController
              if !validate_device_ids
                  if @group.save                      
                      update_devices
-                     flash[:message]="Group " + @group.name + " was successfully added"
+                     flash[:success]="Group " + @group.name + " was successfully added"
                      redirect_to :action=>"groups"
                  end    
              else
