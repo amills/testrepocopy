@@ -39,6 +39,8 @@ class ReportsController < ApplicationController
      get_start_and_end_time # common method for setting start time and end time Line no. 82 
     @device_names = Device.get_names(session[:account_id])
     stopevent_readings = Reading.find(:all, {:order => "created_at asc", :conditions => ["device_id = ? and event_type=\'startstop_et41\' and created_at between ? and ?", params[:id], @start_time, @end_time]})        
+    logger.info "====================================in stop"
+    logger.info stopevent_readings.size
     filter_stops(stopevent_readings)
     @stops=get_stops(stopevent_readings)
     @record_count = @stops.size
@@ -190,8 +192,6 @@ class ReportsController < ApplicationController
                           end
                         }
       end
-     logger.info "========================in filter"
-     logger.info  readings.size     
   end
   
   private
