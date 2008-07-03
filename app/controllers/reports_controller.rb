@@ -40,6 +40,8 @@ class ReportsController < ApplicationController
     @device_names = Device.get_names(session[:account_id])
     stopevent_readings = Reading.find(:all, {:order => "created_at asc", :conditions => ["device_id = ? and event_type=\'startstop_et41\' and created_at between ? and ?", params[:id], @start_time, @end_time]})        
     filter_stops(stopevent_readings)
+    logger.info "=====================================in"
+    logger.info stopevent_readings.size
     @stops=get_stops(stopevent_readings)
     @record_count = @stops.size
     @actual_record_count = @record_count
@@ -138,7 +140,7 @@ class ReportsController < ApplicationController
      logger.info readings.size                      
      
      if params[:type]=='stop'
-         filter_stops(readings)
+         readings = filter_stops(readings)
          logger.info "==========================================2" 
          logger.info readings.size                              
          new_readings = get_stops(readings)
