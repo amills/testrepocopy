@@ -8,7 +8,7 @@ module MobileHelper
             content << %(<a href="/mobile/show_device/#{device.id}" title="Center map on this device">#{device.name}</a>)
             content << %(&nbsp;&nbsp;(#{time_ago_in_words device.readings[0].created_at} ago)<br/>)
             content << %(#{device.readings[0].shortAddress})
-            @center= "#{device.readings[0].latitude},#{device.readings[0].longitude}" if @center == "" if !flag
+            @center= "37.0625, -95.677068" if @center == "" if !flag
             @marker_string = @marker_string + "#{device.readings[0].latitude},#{device.readings[0].longitude},#{MAP_MARKER_COLOR[ device.icon_id-1]}#{@range[@all_devices_with_map.index(device)].downcase}%7C" if !flag           
         else
             content << %(#{device.name})

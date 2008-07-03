@@ -130,13 +130,17 @@ class ReportsController < ApplicationController
       event_type = '%geofen%'
   end        
      get_start_and_end_time
-        readings = Reading.find(:all, :order => "created_at desc",                  
+     if params[:type]=='stop'
+         stopevent_readings = Reading.find(:all, {:order => "created_at asc", :conditions => ["device_id = ? and event_type=\'startstop_et41\' and created_at between ? and ?", params[:id], @start_time, @end_time]})        
+     else    
+         readings = Reading.find(:all, :order => "created_at desc",                  
                       :offset => ((params[:page].to_i-1)*ResultCount),
                       :limit=>MAX_LIMIT,
-                      :conditions => ["device_id = ? and event_type like ? and created_at between ? and ?", params[:id], event_type,@start_time,@end_time])                            
+                      :conditions => ["device_id = ? and event_type like ? and created_at between ? and ?", params[:id], event_type,@start_time,@end_time])                                
+     end                 
      if params[:type]=='stop'
-         filter_stops(readings)
-         readings = get_stops(readings)
+         filter_stops(stopevent_readings)
+         readings = get_stops(stopevent_readings)
      end    
      
     stream_csv do |csv|

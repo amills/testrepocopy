@@ -42,7 +42,7 @@ class DevicesController < ApplicationController
       device.name = params[:name]
       device.imei = params[:imei]
       device.save
-      flash[:success] = params[:name] + ' was updated successfully'
+      flash[:message] = params[:name] + ' was updated successfully'
       redirect_to :controller => 'devices'
     else
       @device = Device.find(params[:id], :conditions => ["account_id = ?", session[:account_id]])  
@@ -54,7 +54,7 @@ class DevicesController < ApplicationController
     if request.post?
       device = Device.find(params[:id], :conditions => ["account_id = ?", session[:account_id]])
       device.update_attribute(:provision_status_id, 2) # Let's flag it for now instead of deleting it
-      flash[:success] = device.name + ' was deleted successfully'
+      flash[:message] = device.name + ' was deleted successfully'
       redirect_to :controller => "devices"
     end
   end
@@ -70,7 +70,7 @@ class DevicesController < ApplicationController
         device.name = params[:name]
         device.provision_status_id = 1
         device.save
-        flash[:success] = params[:name] + ' was provisioned successfully'
+        flash[:message] = params[:name] + ' was provisioned successfully'
       else
         flash[:message] = 'This device has already been added'
         return nil
@@ -86,7 +86,7 @@ class DevicesController < ApplicationController
       device.provision_status_id = 1
       device.account_id = session[:account_id]
       device.save
-      flash[:success] = params[:name] + ' was created successfully'
+      flash[:message] = params[:name] + ' was created successfully'
     end
     return device
   end
@@ -195,7 +195,7 @@ class DevicesController < ApplicationController
     def delete_group       
        if request.post?         
         @group=Group.find(params[:id])
-        flash[:message]= "Group " + @group.name +  " was deleted successfully "        
+        flash[:success]= "Group " + @group.name +  " was deleted successfully "        
         @group.destroy
         @group_devices = Device.find(:all, :conditions=>['group_id=?',@group.id])
         for device in @group_devices          
@@ -280,8 +280,8 @@ class DevicesController < ApplicationController
     
      def validate_device_ids
          if  params[:name]=="" || params[:select_devices]== nil || params[:select_devices].length == 0              
-             flash[:message] = ((@group.name == "") ? "Group name can't be blank <br/>" : "")
-             flash[:message] << "You must select at least one device "
+             flash[:error] = ((@group.name == "") ? "Group name can't be blank <br/>" : "")
+             flash[:error] << "You must select at least one device "
              flash[:group_name] = @group.name             
              return true
          end   
