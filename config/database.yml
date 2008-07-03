@@ -14,8 +14,8 @@
 development:
   adapter: mysql
   database: ublip_v2_development
-  username: root
-  password: 
+  username: ublip_dev
+  password: ublip_dev
   host: localhost
 
 # Warning: The database defined as 'test' will be erased and
@@ -24,6 +24,6 @@ development:
 test:
   adapter: mysql
   database: ublip_v2_test
-  username: root
-  password: 
+  username: ublip_dev
+  password: ublip_dev
   host: localhost
