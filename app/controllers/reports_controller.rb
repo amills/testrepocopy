@@ -136,19 +136,25 @@ class ReportsController < ApplicationController
                       :conditions => ["device_id = ? and event_type like ? and created_at between ? and ?", params[:id], event_type,@start_time,@end_time])                        
      logger.info "==========================================1" 
      logger.info readings.size                      
-     puts "==========================================2" 
-     puts readings.size                          
+     
      if params[:type]=='stop'
          filter_stops(readings)
+         logger.info "==========================================2" 
+         logger.info readings.size                              
          new_readings = get_stops(readings)
          readings = new_readings
+         logger.info "==========================================3" 
+         logger.info readings.size                          
      end    
+     logger.info "==========================================4" 
+     logger.info readings.size                      
+     
     stream_csv do |csv|
-     if params[:type] == 'stop'
-        csv << ["Location","Stop Duration (s)", "When","Latitude", "Longitude", "Event type"]  
-     else    
-        csv << ["Location","Speed (mph)", "When","Latitude", "Longitude","Event type"]
-    end 
+         if params[:type] == 'stop'
+            csv << ["Location","Stop Duration (s)", "When","Latitude", "Longitude", "Event type"]  
+         else    
+            csv << ["Location","Speed (mph)", "When","Latitude", "Longitude","Event type"]
+        end 
      if params[:type] == 'stop'
         readings.each do |reading|                    
             stop_duration = get_duration(reading) ||  "unknown"            
