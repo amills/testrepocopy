@@ -39,8 +39,6 @@ class ReportsController < ApplicationController
      get_start_and_end_time # common method for setting start time and end time Line no. 82 
     @device_names = Device.get_names(session[:account_id])
     stopevent_readings = Reading.find(:all, {:order => "created_at asc", :conditions => ["device_id = ? and event_type=\'startstop_et41\' and created_at between ? and ?", params[:id], @start_time, @end_time]})        
-    logger.info "====================================in stop"
-    logger.info stopevent_readings.size
     filter_stops(stopevent_readings)
     @stops=get_stops(stopevent_readings)
     @record_count = @stops.size
@@ -182,7 +180,7 @@ class ReportsController < ApplicationController
                               r2 = readings[index+1]
                               if(r1.speed==0 && r2.speed==0 && r1.distance_to(r2, :units => :kms) <= 0.2)                                
                                 next_moving_reading_after_stop = Reading.find(:first, :order => "created_at desc",
-                                    :conditions => ["device_id = ? and created_at between ? and ? and speed <> 0", r1.device_id, r1.created_at, r2.created_at])
+                                    :conditions => ["device_id = ? and unix_timestamp(created_at) between ? and ? and speed <> 0", r1.device_id, r1.created_at.to_i, r2.created_at.to_i])
                                 
                                 if( next_moving_reading_after_stop.nil? )
                                   readings.delete_at(index+1)
@@ -193,7 +191,7 @@ class ReportsController < ApplicationController
                         }
       end
   end
-  #:conditions => ["device_id = ? and unix_timestamp(created_at) between ? and ? and speed <> 0", r1.device_id, r1.created_at.to_i, r2.created_at.to_i])
+  
   private
     # Stream CSV content to the browser
     def stream_csv
