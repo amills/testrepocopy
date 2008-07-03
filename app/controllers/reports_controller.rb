@@ -129,12 +129,13 @@ class ReportsController < ApplicationController
     elsif params[:type] == 'geofence'
       event_type = '%geofen%'
   end        
-    start_time = params[:start_time].to_time
-    end_time = params[:end_time].to_time    
+     get_start_and_end_time
+    #start_time = params[:start_time].to_time
+    #end_time = params[:end_time].to_time    
     readings = Reading.find(:all, :order => "created_at desc",                  
                   :offset => ((params[:page].to_i-1)*ResultCount),
                   :limit=>MAX_LIMIT,
-                  :conditions => ["device_id = ? and event_type like ? and created_at between ? and ?", params[:id], event_type,start_time,end_time])
+                  :conditions => ["device_id = ? and event_type like ? and created_at between ? and ?", params[:id], event_type,@start_time,@end_time])
      if params[:type]=='stop'
          filter_stops(readings)
          readings = get_stops(readings)
