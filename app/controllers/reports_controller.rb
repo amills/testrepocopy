@@ -118,18 +118,18 @@ class ReportsController < ApplicationController
 
   # Export report data to CSV 
   def export    
-    unless params[:page]
-      params[:page] = 1
-    end    
+     unless params[:page]
+        params[:page] = 1
+     end    
     # Determine report type so we know what filter to apply
-    if params[:type] == 'all'
-      event_type = '%'
-    elsif params[:type] == 'stop'
-      event_type = '%stop%'
-    elsif params[:type] == 'geofence'
+     if params[:type] == 'all'
+       event_type = '%'
+     elsif params[:type] == 'stop'
+       event_type = '%stop%'
+     elsif params[:type] == 'geofence'
       event_type = '%geofen%'
-  end        
-     get_start_and_end_time
+     end        
+     get_start_and_end_time # set the start and time
      if params[:type]=='stop'
          stopevent_readings = Reading.find(:all, {:order => "created_at asc", :conditions => ["device_id = ? and event_type=\'startstop_et41\' and created_at between ? and ?", params[:id], @start_time, @end_time]})        
      else    
@@ -141,8 +141,7 @@ class ReportsController < ApplicationController
      if params[:type]=='stop'
          filter_stops(stopevent_readings)
          readings = get_stops(stopevent_readings)
-     end    
-     
+     end         
     stream_csv do |csv|
          if params[:type] == 'stop'
             csv << ["Location","Stop Duration (s)", "When","Latitude", "Longitude", "Event type"]  
