@@ -1,11 +1,18 @@
 <h1><%= @account.company  %> Login</h1>
 
 <div id="login_form_container">
-    <% if flash[:message] %>
+    <% if flash[:error] %>
         <div id="error_message">
-            <%= flash[:message] %>
+            <%= flash[:error] %>
         </div>
     <% end %>
+
+    <% if flash[:success] %>
+        <div id="success_message">
+            <%= flash[:success] %>
+        </div>
+    <% end %>
+
     <%if session[:user_id] %>
         <%user = User.find(session[:user_id])%>
     <%end%>

@@ -524,6 +524,9 @@ div#result_count {
 	clear:both;
 	margin-top:10px;}
 
+.sel_dev1 ul{
+	 line-height:1.7em;}
+
 .sel_dev1 li {
 	background:#f1f1f1;
 	color:#666;
@@ -532,6 +535,7 @@ div#result_count {
 	margin-top:4px;
 	padding:5px 10px 5px 10px;}
 
+
 .sel_dev1 h3{font-size: 14px;
 	color: #333333;
 	margin: 15px 0px 10px 0px;
@@ -539,9 +543,14 @@ div#result_count {
 	margin-bottom:2px;
 	line-height:18px;}
 	
+
 .group-link-red{ 
 	color:#ff0000;}
-
+	
+.bg_overview{
+	background-color:#d2eafc;
+	width:100%}
+	
 .gray_text{
     font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
