@@ -17,6 +17,11 @@ set :deploy_to,     "/data/#{application}"
 set :deploy_via,    :export
 set :monit_group,   'mongrel'
 set :scm,           :subversion
+set :runner, 'ublip'
+
+# Staging DB vars
+set :staging_database, "ublip_prod"
+set :staging_dbhost,   "mysql50-5"
 
 # comment out if it gives you trouble. newest net/ssh needs this set.
 ssh_options[:paranoid] = false
@@ -40,10 +45,12 @@ task :production do
 end
 
 task :staging do
- role :web, '65.74.139.2:8477'
- role :app, '65.74.139.2:8477'
- role :db, '65.74.139.2:8477', :primary => true
- set :environment_database, Proc.new { stage_database }
+  role :web, "65.74.139.2:8514" # ublip_newstage [mongrel] [mysql50-5]
+  role :app, "65.74.139.2:8514", :mongrel => true
+  role :db , "65.74.139.2:8514", :primary => true
+  set :rails_env, "staging"
+  set :environment_database, defer { staging_database }
+  set :environment_dbhost, defer { staging_dbhost }
 end
 
 # =============================================================================
