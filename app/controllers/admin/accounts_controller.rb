@@ -40,7 +40,7 @@ class Admin::AccountsController < ApplicationController
       account.update_attributes(params[:account])
       
       if account.save
-        flash[:message] = "#{account.subdomain} updated successfully"
+        flash[:success] = "#{account.subdomain} updated successfully"
         redirect_to :action => 'index' and return
       else
         error_msg = ''
