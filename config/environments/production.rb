@@ -23,4 +23,4 @@ ActionMailer::Base.sendmail_settings = {
   :arguments => "-t"
 }
 
-API_KEY = 'ABQIAAAAb5FIzoTRib2_GSmlbkQ7mBSGJ6blR4Z6uowhBF-VmNjSmr65kBSJuI180ZStGHLEeEzGK-YuA-gUTg'
+API_KEY = 'ABQIAAAAb5FIzoTRib2_GSmlbkQ7mBQdy8buJCn4UCOrVn-gOC82x0BwgBQmZoveMS-zQ1aZv3RjGKOBbmDg9Q'
