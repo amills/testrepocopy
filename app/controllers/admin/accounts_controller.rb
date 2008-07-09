@@ -19,7 +19,7 @@ class Admin::AccountsController < ApplicationController
       account.is_verified = 1
       
       if account.save
-        flash[:message] = "#{account.subdomain} created successfully"
+        flash[:success] = "#{account.subdomain} created successfully"
         redirect_to :action => 'index' and return
       else
         error_msg = ''
@@ -60,7 +60,7 @@ class Admin::AccountsController < ApplicationController
       account = Account.find(params[:id])
       account.update_attribute(:is_deleted, 1)
       account.save
-      flash[:message] = "#{account.subdomain} deleted successfully"
+      flash[:success] = "#{account.subdomain} deleted successfully"
     end
     redirect_to :action => 'index'
   end

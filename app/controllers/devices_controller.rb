@@ -45,18 +45,24 @@ class DevicesController < ApplicationController
       flash[:success] = params[:name] + ' was updated successfully'
       redirect_to :controller => 'devices'
     else
-      @device = Device.find(params[:id], :conditions => ["account_id = ?", session[:account_id]])  
+      @device = Device.find_by_id(params[:id], :conditions => ["account_id = ?", session[:account_id]])
+      if @device.nil?
+         flash[:error] = 'Invalid action.' 
+         redirect_to :controller => 'devices' 
+      end   
     end
   end
   
   # User can delete their device
-  def delete
-    if request.post?
-      device = Device.find(params[:id], :conditions => ["account_id = ?", session[:account_id]])
-      device.update_attribute(:provision_status_id, 2) # Let's flag it for now instead of deleting it
-      flash[:success] = device.name + ' was deleted successfully'
-      redirect_to :controller => "devices"
-    end
+  def delete    
+      device = Device.find_by_id(params[:id], :conditions => ["account_id = ?", session[:account_id]])
+     if !device.nil? 
+          device.update_attribute(:provision_status_id, 2) # Let's flag it for now instead of deleting it
+          flash[:success] = device.name + ' was deleted successfully'
+     else
+          flash[:error] = 'Invalid action.'
+     end    
+     redirect_to :controller => "devices"    
   end
   
   def provision_device(imei, extras=nil)

@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
   
   def all      
      get_start_and_end_time# common method for setting start time and end time  Line no. 82       
-     @device_names = Device.get_names(session[:account_id])
+     @device_names = Device.get_names(session[:account_id])        
      @readings = Reading.find(:all, :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time],:order => "created_at desc")                               
      @pages,@readings = paginate_collection(:collection => @readings,:page => params[:page],:per_page => ResultCount)   
      @record_count = Reading.count('id', :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_time, @end_time])

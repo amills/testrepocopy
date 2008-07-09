@@ -31,4 +31,4 @@ ActionMailer::Base.sendmail_settings = {
   :arguments => "-t"
 }
 
-API_KEY = 'ABQIAAAAwBz7W3z4sedOzgKp8bfXIhQWemFMQko8HoWTY3oub_63eA00vRRFiTvXYfpFu-ttWb33r8GLALV2AQ'
+Google_Maps_Api_Key = 'ABQIAAAAwBz7W3z4sedOzgKp8bfXIhQWemFMQko8HoWTY3oub_63eA00vRRFiTvXYfpFu-ttWb33r8GLALV2AQ'
