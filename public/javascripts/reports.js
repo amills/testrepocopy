@@ -2,9 +2,12 @@
 function changeDevice(device_id, report_type, start_time, end_time) {
 	var url = '/reports/' + report_type + '/' + device_id;
 	
-	if(document.location.search != '')
+	if(document.location.search != ''){
 		url += '?t=' + getQryParam('t');
-        
+         }
+         else{
+                url += '?t=undefined';
+         } 
 	 url  =url+ "&end_time1=" + end_time + "&start_time1=" + start_time;	
      
 	document.location.href= url;
