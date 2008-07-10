@@ -62,14 +62,14 @@ class DatabaseProcTest < Test::Unit::TestCase
         stop_events(:four).reload
         
         assert_equal 20, stop_events(:one).duration
-        assert_equal 20, stop_events(:two).duration
-        assert_equal 25, stop_events(:three).duration
+        assert_equal 23, stop_events(:two).duration
+        assert_equal 28, stop_events(:three).duration
         assert_nil stop_events(:four).duration
         
   end
   
   def insert_stop(lat, lng, created, imei)
-    ActiveRecord::Base.connection.execute("CALL insert_stop_event(#{lat},#{lng},'#{imei}','#{created.strftime("%Y-%m-%d %H:%M:%S")}')")
+    ActiveRecord::Base.connection.execute("CALL insert_stop_event(#{lat},#{lng},'#{imei}','#{created.strftime("%Y-%m-%d %H:%M:%S")}', 42)")
   end
   
   end
