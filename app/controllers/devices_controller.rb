@@ -203,7 +203,7 @@ class DevicesController < ApplicationController
        if request.post?         
         @group=Group.find_by_id(params[:id], :conditions=>['account_id = ?',session[:account_id]])
         if @group.nil?
-            flash[:error] = "Invaild action."
+            flash[:error] = "Invalid action."
         else    
             flash[:success]= "Group " + @group.name +  " was deleted successfully "        
             @group.destroy
@@ -223,7 +223,7 @@ class DevicesController < ApplicationController
          if params[:group_id]
              @group = Group.find_by_id(params[:group_id], :conditions=>['account_id = ?',session[:account_id]])                                        
              if @group.nil?
-                 flash[:error] ="Invaild action."
+                 flash[:error] ="Invalid action."
                  redirect_to :action=>'groups'
              else    
              flash[:group_name] = @group.name
