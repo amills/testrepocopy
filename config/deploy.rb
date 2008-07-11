@@ -8,7 +8,7 @@
 
 set :keep_releases, 5
 set :application,   'ublip'
-set :repository,    'https://ublip.svn.ey01.engineyard.com/Ublip_v2/trunk'
+set :repository,    'https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/rapidetrac.com_v2'
 set :scm_username,  'deploy'
 set :scm_password,  'wucr5ch8v0'
 set :user,          'ublip'
@@ -17,11 +17,6 @@ set :deploy_to,     "/data/#{application}"
 set :deploy_via,    :export
 set :monit_group,   'mongrel'
 set :scm,           :subversion
-set :runner, 'ublip'
-
-# Staging DB vars
-set :staging_database, "ublip_prod"
-set :staging_dbhost,   "mysql50-5"
 
 # comment out if it gives you trouble. newest net/ssh needs this set.
 ssh_options[:paranoid] = false
@@ -37,20 +32,10 @@ ssh_options[:paranoid] = false
 # be used to single out a specific subset of boxes in a particular role, like
 # :primary => true.
 task :production do
- role :web, '65.74.139.2:8049'
- role :app, '65.74.139.2:8049'
- role :db, '65.74.139.2:8049', :primary => true
- role :app, '65.74.139.2:8050', :no_release => true, :no_symlink => true, :no_daemons => true
+ role :web, '65.74.139.2:8477'
+ role :app, '65.74.139.2:8477'
+ role :db, '65.74.139.2:8477', :primary => true
  set :environment_database, Proc.new { production_database }
-end
-
-task :staging do
-  role :web, "65.74.139.2:8514" # ublip_newstage [mongrel] [mysql50-5]
-  role :app, "65.74.139.2:8514", :mongrel => true
-  role :db , "65.74.139.2:8514", :primary => true
-  set :rails_env, "staging"
-  set :environment_database, defer { staging_database }
-  set :environment_dbhost, defer { staging_dbhost }
 end
 
 # =============================================================================
@@ -204,10 +189,9 @@ end
 
 # =============================================================================
 set :production_database,'ublip_prod'
-set :stage_database, 'ublip_stage'
 set :sql_user, 'ublip_db'
 set :sql_pass, 'pr1c7lic6'
-set :sql_host, 'mysql50-2'
+set :sql_host, 'mysql50-3'
 
 namespace :db do
  task :backup_name do
