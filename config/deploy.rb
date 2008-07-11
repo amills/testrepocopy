@@ -41,6 +41,7 @@ task :production do
  role :app, '65.74.139.2:8049'
  role :db, '65.74.139.2:8049', :primary => true
  role :app, '65.74.139.2:8050', :no_release => true, :no_symlink => true, :no_daemons => true
+ set :rails_env, "production"
  set :environment_database, Proc.new { production_database }
 end
 
