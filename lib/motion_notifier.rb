@@ -4,7 +4,6 @@ class MotionNotifier
   def MotionNotifier.notify_motion_events
     logger = ActiveRecord::Base.logger
     logger.info("notifiying for motion events...")
-    puts "notifying for motion events"
     events_to_notify = MotionEvent.find(:all, :conditions => "notified='0'")
     events_to_notify.each do |event|
       event.device.account.users.each do |user|
