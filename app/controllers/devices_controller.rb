@@ -346,6 +346,7 @@ class DevicesController < ApplicationController
       creds = Base64.encode64("ublipdev:U8l1p08").strip # Method adds line feed, need to strip
       uri = "http://master.k1tracking.com:8181/smsxsend?#{creds}:5008:#{device.phone_number}:%23username,0000,10*"
       Net::HTTP.get_print(URI.parse(uri))
+      render_text "Success"
     elsif !device.phone_number.nil?
       Notifier.deliver_locate(device.phone_number)
       render_text "Location request successfully sent. Please wait for the map to update."
