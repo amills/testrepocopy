@@ -14,7 +14,7 @@ class NotificationTest < Test::Unit::TestCase
     assert_equal "device_offline", notifications(:one).notification_type.to_s
   end
   
-  def test_notify_geofence_exception
+  def xtest_notify_geofence_exception
     user = users(:dennis)
     reading = readings(:readings_9924) # Geofence exception reading
     

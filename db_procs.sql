@@ -1,5 +1,5 @@
 DELIMITER ;;
-USE ublip_prod;;
+USE ublip_v2_development;;
 
 DROP FUNCTION IF EXISTS distance;;
 CREATE FUNCTION distance (	
@@ -65,6 +65,30 @@ BEGIN
 		END IF;
 		
 		SELECT COUNT(*) INTO num_events_to_check FROM open_stop_events WHERE checked=FALSE;
+	END;
+	END WHILE;
+END;;
+
+DROP PROCEDURE IF EXISTS migrate_stop_data;;
+CREATE PROCEDURE migrate_stop_data()
+BEGIN
+	DECLARE unprocessed_count INT;
+	DROP TEMPORARY TABLE IF EXISTS stops;
+	CREATE TEMPORARY TABLE stops(latitude FLOAT, longitude FLOAT, modem VARCHAR(22), created DATETIME, reading_id INT(11), processed BOOLEAN );
+	INSERT INTO stops SELECT r.latitude, r.longitude, d.imei, r.created_at, r.id, false FROM readings r, devices d WHERE d.id=r.device_id AND r.speed=0 AND r.event_type like '%stop%';
+	CREATE INDEX idx_created ON stops (created); 
+    SELECT COUNT(*) INTO unprocessed_count FROM stops where processed=FALSE;
+	WHILE unprocessed_count > 0 DO BEGIN
+		DECLARE lat FLOAT;
+		DECLARE lng FLOAT;
+		DECLARE imei VARCHAR(22);
+		DECLARE created_at DATETIME;
+		DECLARE readingID INT(11);
+		
+		SELECT latitude,longitude,modem,created,reading_id INTO lat,lng,imei,created_at,readingID FROM stops WHERE processed=FALSE order by created asc limit 1;
+		CALL insert_stop_event(lat, lng, imei, created_at, readingID);
+		UPDATE stops SET processed=TRUE where reading_id=readingID;
+		SELECT COUNT(*) INTO unprocessed_count FROM stops where processed=FALSE;
 	END;
 	END WHILE;
 END;;

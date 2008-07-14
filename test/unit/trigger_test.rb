@@ -35,10 +35,28 @@ class TriggerTest < Test::Unit::TestCase
     assert_equal "entergeofen_1", reading.event_type
     
     reading = save_reading(32.940955, -96.822224, 1)
-    assert_equal "entergeofen_2", reading.event_type
+    assert_equal "entergeofen_20", reading.event_type
     
     reading = save_reading(32.940956, -96.822224, 1)
     assert_equal "exitgeofen_1", reading.event_type
+  end
+  
+  def test_account_level
+    reading = save_reading(32.7977, -79.9603, 1)
+    assert_equal "entergeofen_4", reading.event_type
+    
+    reading = save_reading(32.7977, -69.9603, 1)
+    assert_equal "exitgeofen_4", reading.event_type
+    
+    reading = save_reading(32.7977, -69.9603, 2)
+    assert_nil reading.event_type
+    
+    reading = save_reading(32.7977, -79.9603, 1)
+    assert_equal "entergeofen_4", reading.event_type
+    
+    reading = save_reading(32.7977, -69.9603, 2)
+    assert_nil reading.event_type
+    
   end
   
   def save_reading(latitude, longitude, device_id)

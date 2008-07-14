@@ -10,7 +10,7 @@ fenceOne:
   account_id: 1
   
 fenceTwo:
-  id: 2
+  id: 20
   fence_num: 2
   device_id: 1
   name: work
@@ -26,6 +26,16 @@ fenceThree:
   name: work
   latitude: 32.944955
   longitude: -96.823224
+  radius: 0.25
+  account_id: 1
+
+fenceFour:
+  id: 4
+  fence_num: 1
+  device_id: 0
+  name: School
+  latitude: 32.79772761964288
+  longitude: -79.96037364006042
   radius: 0.25
   account_id: 1
  
