@@ -17,6 +17,10 @@ class Device < ActiveRecord::Base
     find(:all, :conditions => ['provision_status_id = 1 and account_id = ?', account_id], :order => 'name')
   end
   
+  def self.get_public_devices(account_id)
+    find(:all, :conditions => ['provision_status_id = 1 and account_id = ? and is_public = 1', account_id], :order => 'name')
+  end
+  
   def self.get_device(device_id, account_id)
     find(device_id, :conditions => ['provision_status_id = 1 and account_id = ?', account_id])
   end

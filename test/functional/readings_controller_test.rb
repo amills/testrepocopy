@@ -6,7 +6,7 @@ class ReadingsController; def rescue_action(e) raise e end; end
 
 class ReadingsControllerTest < Test::Unit::TestCase
   
-  fixtures :users,:accounts
+  fixtures :users,:accounts,:readings,:devices
   
   def setup
     @controller = ReadingsController.new
@@ -65,6 +65,13 @@ class ReadingsControllerTest < Test::Unit::TestCase
     @request.host="dennis.ublip.com"
     get :all, {}, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:dennis)}
     assert_equal @response.body, "Couldn't authenticate you"
+  end
+  
+  # Test public feed
+  def test_public_feed
+    @request.host = "dennis.ublip.com"
+    get :public
+    assert_select "channel item", 1
   end
   
 end
