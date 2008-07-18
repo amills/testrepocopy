@@ -16,10 +16,10 @@
 						<td><a href="javascript:centerMapOnReading(<%= reading.id %>);highlightRow(<%= reading.id %>)" title="Center map on this location"><%= reading.shortAddress %></a></td>
 						<td><%= reading.speed %></td>
 						<td>
-							<%= reading.event_type %>
+							<%= reading.altitude %>
 						</td>
 						<td>
-							<%= reading.altitude %>
+							<%= reading.event_type %>
 						</td>
 						<td><script>document.write(displayLocalDT(<%= reading.created_at.to_i*1000 %>));</script></td>
 					</tr>
