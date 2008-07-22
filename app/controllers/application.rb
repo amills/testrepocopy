@@ -4,8 +4,7 @@
 class ApplicationController < ActionController::Base
   session :session_key => '_ublip_session_id'
   before_filter :set_page_title
-  before_filter :create_referral_url
-  
+  before_filter :create_referral_url    
   helper_method :current_account
   
   def current_account
@@ -69,6 +68,8 @@ class ApplicationController < ActionController::Base
        end           
    end
    
+   
+
   private
   def authorize
     unless session[:user]
@@ -140,3 +141,4 @@ class Helper
     include Singleton
     include ActionView::Helpers::DateHelper
 end
+
