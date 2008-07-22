@@ -35,6 +35,7 @@ class GeofenceController < ApplicationController
     @geofence = Geofence.find(:first,:include => "device",
                   :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
                                   params[:id],session[:account_id],session[:account_id]])
+    redirect_back_or_default "/index" and return unless @geofence
   end  
   
   def edit 
@@ -43,6 +44,7 @@ class GeofenceController < ApplicationController
     @geofence = Geofence.find(:first,:include => "device",
                   :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
                                   params[:id],session[:account_id],session[:account_id]])
+    redirect_back_or_default "/index" and return unless @geofence    
     if check_action_for_user
       if request.post?           
        add_and_edit(@geofence)
@@ -71,6 +73,7 @@ class GeofenceController < ApplicationController
         @gf = Geofence.find(:first,:include => "device",
                   :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
                                   params[:gf],session[:account_id],session[:account_id]])
+        redirect_back_or_default "/index" and return unless @gf
       else
         @geofences_pages, @geofences = paginate :geofences, 
                                                 :conditions=> ["account_id=?", id],
@@ -87,6 +90,7 @@ class GeofenceController < ApplicationController
         # @gf = Geofence.find(:first,:conditions => ["id = ?",params[:gf]])
         @gf = Geofence.find(:first,:include => "device",
                   :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
+        redirect_back_or_default "/index" and return unless @gf
                                   params[:gf],session[:account_id],session[:account_id]])
 
       else
@@ -105,6 +109,7 @@ class GeofenceController < ApplicationController
     geofence = Geofence.find(:first,:include => "device",
                   :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
                                   params[:id],session[:account_id],session[:account_id]])
+    redirect_back_or_default "/index" and return unless geofence
     render :update do |page|
       page.replace_html "detail_id#{geofence.id}",:partial => "geofence/detail",:locals => {:geofence => geofence}
       page.show "detail_id#{geofence.id}"
@@ -116,6 +121,7 @@ class GeofenceController < ApplicationController
     @geofence = Geofence.find(:first,:include => "device",
                   :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
                                   params[:id],session[:account_id],session[:account_id]])
+     redirect_back_or_default "/index" and return unless @geofence
      if check_action_for_user 
         Geofence.delete(params[:id])
         flash[:success] = "#{@geofence.name} deleted successfully"
