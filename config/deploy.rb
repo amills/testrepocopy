@@ -72,6 +72,7 @@ after "deploy:update_code","deploy:symlink_configs"
 before "deploy", "daemons:stop"
 after "deploy", "daemons:start"
 after "deploy", "setup_db_procs"
+after "deploy:migrations", "setup_db_procs"
 
 # =============================================================================
 namespace :mongrel do
