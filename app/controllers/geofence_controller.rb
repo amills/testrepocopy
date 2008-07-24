@@ -32,7 +32,7 @@ class GeofenceController < ApplicationController
   def detail
     @account = Account.find_by_id(session[:account_id])
     @geofence = Geofence.find(:first,:include => "device",
-                  :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
+                  :conditions => ["geofences.id = ? and ((devices.account_id = ? and devices.provision_status_id =1) or geofences.account_id = ?)",
                                   params[:id],session[:account_id],session[:account_id]])
     if @geofence.nil?
         flash[:error] = "Invalid action."
@@ -44,7 +44,7 @@ class GeofenceController < ApplicationController
     @devices = Device.get_devices(session[:account_id])    
  
     @geofence = Geofence.find(:first,:include => "device",
-                  :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
+                  :conditions => ["geofences.id = ? and ((devices.account_id = ? and devices.provision_status_id =1) or geofences.account_id = ?)",
                                   params[:id],session[:account_id],session[:account_id]])
     if @geofence.nil?
        flash[:error] = "Invalid action." 
@@ -92,7 +92,7 @@ class GeofenceController < ApplicationController
       id = session[:id].gsub(/device/, '')
       @device = Device.find_by_id(id.to_i, :conditions=>['account_id = ? and provision_status_id = 1',session[:account_id]])
       
-        if !params[:gf] # this will take care of the request coming from devices page with only device id
+      if !params[:gf] # this will take care of the request coming from devices page with only device id
             if !@device.nil?
                 @geofences_pages, @geofences = paginate :geofences, 
                                                         :conditions=> ["device_id=?", id.to_i], 
@@ -102,7 +102,7 @@ class GeofenceController < ApplicationController
                  flash[:error] = "Invalid action."
                  redirect_to :controller =>'devices'
              end    
-        else # this will take care of request from geofences page
+      else # this will take care of request from geofences page
              @geofence = Geofence.find(:first, :conditions=>["id=? and device_id=?",params[:gf], id])      
               if !@geofence.nil? && session[:account_id].to_i == @geofence.device.account_id.to_i 
                   if params[:gf]
@@ -112,14 +112,14 @@ class GeofenceController < ApplicationController
               else            
                 show_error_message
               end
-        end
+      end
    end   
     @gf_ids = @geofences.map{|x| x.id} if !@geofences.nil?
   end
   
   def view_detail 
     geofence = Geofence.find(:first,:include => "device",
-                  :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
+                  :conditions => ["geofences.id = ? and ((devices.account_id = ? and devices.provision_status_id =1) or geofences.account_id = ?)",
                                   params[:id],session[:account_id],session[:account_id]])
 
     if geofence.nil?
@@ -135,7 +135,7 @@ class GeofenceController < ApplicationController
   
   def delete 
     @geofence = Geofence.find(:first,:include => "device",
-                  :conditions => ["geofences.id = ? and (devices.account_id = ? or geofences.account_id = ?)",
+                  :conditions => ["geofences.id = ? and ((devices.account_id = ? and devices.provision_status_id =1) or geofences.account_id = ?)",
                                   params[:id],session[:account_id],session[:account_id]])
     
     if @geofence && check_action_for_user 
