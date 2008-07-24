@@ -90,7 +90,7 @@ class GeofenceController < ApplicationController
     else
       @account = Account.find_by_id(session[:account_id])
       id = session[:id].gsub(/device/, '')
-      @device = Device.find_by_id(id.to_i, :conditions=>['account_id = ?',session[:account_id]])
+      @device = Device.find_by_id(id.to_i, :conditions=>['account_id = ? and provision_status_id = 1',session[:account_id]])
       
         if !params[:gf] # this will take care of the request coming from devices page with only device id
             if !@device.nil?
