@@ -71,11 +71,14 @@ function getRecentReadings(redrawMap,id) {
         var lngs = xml.documentElement.getElementsByTagName("lng");
 		var dts = xml.documentElement.getElementsByTagName("dt");
 		var addresses = xml.documentElement.getElementsByTagName("address");
-		var temps = xml.documentElement.getElementsByTagName("temp");
-		var icon_id = xml.documentElement.getElementsByTagName("icon_id");
-		var humid_relative = xml.documentElement.getElementsByTagName("humid_relative");
-		var accel_xforce = xml.documentElement.getElementsByTagName("accel_xforce");
-		var accel_yforce = xml.documentElement.getElementsByTagName("accel_yforce");
+		var arr_vehicle_speed = xml.documentElement.getElementsByTagName("vehicle_speed");
+		var arr_engine_speed = xml.documentElement.getElementsByTagName("engine_speed");
+		var arr_odometer = xml.documentElement.getElementsByTagName("odometer");
+		var arr_fuel_level_remaining = xml.documentElement.getElementsByTagName("fuel_level_remaining");
+		var arr_battery_voltage = xml.documentElement.getElementsByTagName("battery_voltage");
+		var arr_trip_odometer = xml.documentElement.getElementsByTagName("trip_odometer");
+		var arr_trip_fuel_consumption = xml.documentElement.getElementsByTagName("trip_fuel_consumption");
+
 		
 		for(var i = 0; i < lats.length; i++) {
 			if(lats[i].firstChild) {
@@ -84,61 +87,56 @@ function getRecentReadings(redrawMap,id) {
 				if(addresses[i].firstChild != undefined)
 					address = addresses[i].firstChild.nodeValue;
 					
-			 // check for the group image
-			
-			 var icon_id_1
-			  if(icon_id[i].firstChild != undefined)
-					icon_id_1 = icon_id[i].firstChild.nodeValue;
-				  
-                     if (icon_id_1 == 1)
-                   iconALL.image=" /icons/ublip_marker.png" ;
-                   else if (icon_id_1 == 2)
-                   iconALL.image=" /icons/ublip_red.png" ;
-                  else if (icon_id_1 == 3)
-                   iconALL.image=" /icons/green_big.png" ;
-                    else if (icon_id_1 == 4)
-                   iconALL.image="/icons/yellow_big.png" ;
-                    else if (icon_id_1 == 5)
-                   iconALL.image="/icons/purple_big.png" ;
-                     else if (icon_id_1 == 6)
-                   iconALL.image="/icons/dark_blue_big.png" ;
-                    else if (icon_id_1 == 7)
-                   iconALL.image="/icons/grey_big.png" ;
-                    else if (icon_id_1 == 8)
-                   iconALL.image="/icons/orange_big.png" ;
-                    else
-                    
+			       
                     iconALL.image = "/icons/ublip_marker.png";
 				
-				var temp = "N/A";
-				var humid = "N/A";
-				var accelx = "N/A";
-				var accely = "N/A";
+				var vehicle_speed = "N/A";
+				var engine_speed = "N/A";
+				var odometer = "N/A";
+				var fuel_level_remaining = "N/A";
+				var battery_voltage = "N/A";
+				var trip_odometer = "N/A";
+				var trip_fuel_consumption = "N/A";
 				
-				if(temps[i].firstChild != undefined)
-					temp = temps[i].firstChild.nodeValue;
+				
+				if(arr_vehicle_speed[i].firstChild != undefined)
+					vehicle_speed = arr_vehicle_speed[i].firstChild.nodeValue;
 					
-				if(humid_relative[i].firstChild != undefined)
-					humid = humid_relative[i].firstChild.nodeValue;
+				if(arr_engine_speed[i].firstChild != undefined)
+					engine_speed = arr_engine_speed[i].firstChild.nodeValue;
 					
-				if(accel_xforce[i].firstChild != undefined)
-					accelx = accel_xforce[i].firstChild.nodeValue;
+				if(arr_odometer[i].firstChild != undefined)
+					odometer = arr_odometer[i].firstChild.nodeValue;
+				
+				if(arr_fuel_level_remaining[i].firstChild != undefined)
+					fuel_level_remaining = arr_fuel_level_remaining[i].firstChild.nodeValue;
 					
-				if(accel_yforce[i].firstChild != undefined)
-					accely = accel_yforce[i].firstChild.nodeValue;
+				if(arr_battery_voltage[i].firstChild != undefined)
+					battery_voltage = arr_battery_voltage[i].firstChild.nodeValue;
 					
-				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, temp: temp, humid:humid, accelx: accelx, accely: accely, dt: dts[i].firstChild.nodeValue};
+				if(arr_trip_odometer[i].firstChild != undefined)
+					trip_odometer = arr_trip_odometer[i].firstChild.nodeValue;
+					
+				if(arr_trip_fuel_consumption[i].firstChild != undefined)
+					trip_fuel_consumption = arr_trip_fuel_consumption[i].firstChild.nodeValue;
+					
+				
+					
+				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue};
 				devices.push(device);
 				
 				// Populate the table
 				var row = $("row" + device.id);
 				var tds = row.getElementsByTagName("td");
 				tds[2].innerHTML = device.address;
-				tds[3].innerHTML = device.temp;
-				tds[4].innerHTML = device.humid;
-				tds[5].innerHTML = device.accelx;
-				tds[6].innerHTML = device.accely;
-				tds[7].innerHTML = device.dt;
+				tds[3].innerHTML = vehicle_speed;
+				tds[4].innerHTML = engine_speed;
+				tds[5].innerHTML = odometer;
+				tds[6].innerHTML = fuel_level_remaining;
+				tds[7].innerHTML = battery_voltage;
+				tds[8].innerHTML = trip_odometer;
+				tds[9].innerHTML = trip_fuel_consumption;
+				tds[10].innerHTML = device.dt;
 				
 		        var point = new GLatLng(device.lat, device.lng);
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
