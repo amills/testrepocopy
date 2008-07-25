@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 28) do
+ActiveRecord::Schema.define(:version => 32) do
 
   create_table "accounts", :force => true do |t|
     t.column "company",     :string,   :limit => 75
@@ -74,24 +74,40 @@ ActiveRecord::Schema.define(:version => 28) do
   end
 
   create_table "readings", :force => true do |t|
-    t.column "latitude",   :float
-    t.column "longitude",  :float
-    t.column "altitude",   :float
-    t.column "speed",      :float
-    t.column "direction",  :float
-    t.column "device_id",  :integer
-    t.column "created_at", :datetime
-    t.column "updated_at", :datetime
-    t.column "event_type", :string,   :limit => 25
-    t.column "note",       :string
-    t.column "address",    :string,   :limit => 1024
-    t.column "notified",   :boolean,                  :default => false
+    t.column "latitude",              :float
+    t.column "longitude",             :float
+    t.column "altitude",              :float
+    t.column "speed",                 :float
+    t.column "direction",             :float
+    t.column "device_id",             :integer
+    t.column "created_at",            :datetime
+    t.column "updated_at",            :datetime
+    t.column "event_type",            :string,   :limit => 25
+    t.column "note",                  :string
+    t.column "address",               :string,   :limit => 1024
+    t.column "notified",              :boolean,                  :default => false
+    t.column "transmission_gear",     :string,   :limit => 25
+    t.column "odometer",              :float
+    t.column "fuel_rate",             :string
+    t.column "temp",                  :float
+    t.column "humid_temp",            :float
+    t.column "humid_relative",        :float
+    t.column "humid_true",            :float
+    t.column "accel_xforce",          :float
+    t.column "accel_yforce",          :float
+    t.column "accel_xpitch",          :float
+    t.column "accel_yroll",           :float
+    t.column "vehicle_speed",         :float
+    t.column "engine_speed",          :float
+    t.column "fuel_level_remaining",  :float
+    t.column "battery_voltage",       :float
+    t.column "trip_odometer",         :integer
+    t.column "trip_fuel_consumption", :float
   end
 
   add_index "readings", ["device_id"], :name => "readings_device_id"
   add_index "readings", ["created_at"], :name => "readings_created_at"
   add_index "readings", ["address"], :name => "readings_address"
-  add_index "readings", ["device_id", "created_at"], :name => "readings_device_id_created_at"
 
   create_table "sessions", :force => true do |t|
     t.column "session_id", :string
@@ -118,6 +134,7 @@ ActiveRecord::Schema.define(:version => 28) do
     t.column "last_login_dt",             :datetime
     t.column "enotify",                   :boolean,                :default => false
     t.column "time_zone",                 :string
+    t.column "is_super_admin",            :boolean,                :default => false
   end
 
 end
