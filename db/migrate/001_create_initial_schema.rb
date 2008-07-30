@@ -31,7 +31,6 @@ class CreateInitialSchema < ActiveRecord::Migration
       t.column "icon_id",             :integer,                :default => 1
       t.column "group_id",            :integer
       t.column "is_public",           :integer,                :default => 0
-      t.column "device_id", :string, :limit => 25
       t.column "ip_address", :string, :limit => 16
       t.column "port", :integer
       t.column "last_received", :datetime
