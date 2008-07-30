@@ -1,7 +1,7 @@
 require 'mongrel_cluster/recipes'
 
 set :application, "xirgo.ublip.com"
-set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/xirgo.ublip.com"
+set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/xirgo"
 set :scm_username,  "deploy"
 set :scm_password,  "wucr5ch8v0"
 set :user,        "ublip"
