@@ -31,6 +31,10 @@ class CreateInitialSchema < ActiveRecord::Migration
       t.column "icon_id",             :integer,                :default => 1
       t.column "group_id",            :integer
       t.column "is_public",           :integer,                :default => 0
+      t.column "device_id", :string, :limit => 25
+      t.column "ip_address", :string, :limit => 16
+      t.column "port", :integer
+      t.column "last_received", :datetime
     end
 
     create_table "devices_users", :force => true do |t|
@@ -112,6 +116,13 @@ class CreateInitialSchema < ActiveRecord::Migration
       t.column "note",       :string
       t.column "address",    :string,   :limit => 1024
       t.column "notified",   :boolean,                  :default => false
+      t.column "device_id", :string, :limit => 25
+      t.column "acceleration", :float
+      t.column "deacceleration", :float
+      t.column "hdop", :float
+      t.column "numberOfSatelites", :integer
+      t.column "rpm", :float
+      t.column "mileage", :float
     end
 
     add_index "readings", ["device_id", "created_at"], :name => "readings_device_id_created_at"
