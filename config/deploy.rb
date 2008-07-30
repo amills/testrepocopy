@@ -11,6 +11,7 @@ set :rails_env, "production"
 set :svn, "/usr/bin/svn"
 set :sudo, "/usr/bin/sudo"
 after "deploy:update_code", "symlink_configs"
+set :runner, "ublip"
 
 ssh_options[:paranoid] = false
 

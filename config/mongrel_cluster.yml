@@ -1,5 +1,5 @@
 cwd: "/opt/ublip/xirgo/current"
-port: "8002"
+port: "9000"
 num_procs: "2"
 address: "127.0.0.1"
 pid_file: "/opt/ublip/xirgo/mongrel.pid"

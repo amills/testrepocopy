@@ -1,6 +1,6 @@
 production:
   adapter: mysql
-  database: ublip_prod
+  database: xirgo_prod
   username: root
   password: rootpass
   host: localhost
