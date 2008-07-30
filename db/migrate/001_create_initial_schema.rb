@@ -116,7 +116,6 @@ class CreateInitialSchema < ActiveRecord::Migration
       t.column "note",       :string
       t.column "address",    :string,   :limit => 1024
       t.column "notified",   :boolean,                  :default => false
-      t.column "device_id", :string, :limit => 25
       t.column "acceleration", :float
       t.column "deacceleration", :float
       t.column "hdop", :float
