@@ -123,12 +123,12 @@ function getRecentReadings(redrawMap,id) {
 					address = addresses[i].firstChild.nodeValue;
 					
 				var speed = "N/A";
-				if(speed[i].firstChild.nodeValue != undefined)
-					speed = speed[i].firstChild.nodeValue;
+				if(speeds[i].firstChild.nodeValue != undefined)
+					speed = speeds[i].firstChild.nodeValue;
 				
 				var rpm = "N/A";
-				if(rpm[i].firstChild.nodeValue != undefined)
-					rpm = rpm[i].firstChild.nodeValue;
+				if(rpms[i].firstChild.nodeValue != undefined)
+					rpm = rpms[i].firstChild.nodeValue;
 					
 			 // check for the group image
 			
