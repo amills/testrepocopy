@@ -71,7 +71,7 @@ function getRecentReadings(redrawMap,id) {
         var lngs = xml.documentElement.getElementsByTagName("lng");
 		var dts = xml.documentElement.getElementsByTagName("dt");
 		var addresses = xml.documentElement.getElementsByTagName("address");
-		var arr_vehicle_speed = xml.documentElement.getElementsByTagName("vehicle_speed");
+		var arr_speed = xml.documentElement.getElementsByTagName("speed");
 		var arr_engine_speed = xml.documentElement.getElementsByTagName("engine_speed");
 		var arr_odometer = xml.documentElement.getElementsByTagName("odometer");
 		var arr_fuel_level_remaining = xml.documentElement.getElementsByTagName("fuel_level_remaining");
@@ -90,7 +90,7 @@ function getRecentReadings(redrawMap,id) {
 			       
                     iconALL.image = "/icons/ublip_marker.png";
 				
-				var vehicle_speed = "N/A";
+				var speed = "N/A";
 				var engine_speed = "N/A";
 				var odometer = "N/A";
 				var fuel_level_remaining = "N/A";
@@ -99,8 +99,8 @@ function getRecentReadings(redrawMap,id) {
 				var trip_fuel_consumption = "N/A";
 				
 				
-				if(arr_vehicle_speed[i].firstChild != undefined)
-					vehicle_speed = arr_vehicle_speed[i].firstChild.nodeValue;
+				if(arr_speed[i].firstChild != undefined)
+					speed = arr_speed[i].firstChild.nodeValue;
 					
 				if(arr_engine_speed[i].firstChild != undefined)
 					engine_speed = arr_engine_speed[i].firstChild.nodeValue;
@@ -129,7 +129,7 @@ function getRecentReadings(redrawMap,id) {
 				var row = $("row" + device.id);
 				var tds = row.getElementsByTagName("td");
 				tds[2].innerHTML = device.address;
-				tds[3].innerHTML = vehicle_speed;
+				tds[3].innerHTML = speed;
 				tds[4].innerHTML = engine_speed;
 				tds[5].innerHTML = odometer;
 				tds[6].innerHTML = fuel_level_remaining;

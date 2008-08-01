@@ -11,7 +11,7 @@ xml.devices do
         xml.lat
         xml.lng
         xml.address
-        xml.vehicle_speed
+        xml.speed
         xml.engine_speed
         xml.odometer
         xml.fuel_level_remaining
@@ -23,7 +23,7 @@ xml.devices do
         xml.lat(device.readings[0].latitude)
         xml.lng(device.readings[0].longitude)
         xml.address(device.readings[0].shortAddress)
-        xml.vehicle_speed(device.readings[0].vehicle_speed)
+        xml.speed(device.readings[0].speed)
         xml.engine_speed(device.readings[0].engine_speed)
         xml.odometer(device.readings[0].odometer)
         xml.fuel_level_remaining(device.readings[0].fuel_level_remaining)

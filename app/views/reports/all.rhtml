@@ -24,7 +24,7 @@
 				<% for reading in @readings %>
 					<tr class="<%= cycle('dark_row', 'light_row') %>" id="row<%= reading.id %>">
 						<td><a href="javascript:centerMapOnReading(<%= reading.id %>);highlightRow(<%= reading.id %>)" title="Center map on this location"><%= reading.shortAddress %></a></td>
-						<td><%= reading.vehicle_speed %></td>
+						<td><%= reading.speed %></td>
 						<td><%= reading.engine_speed %></td>
 						<td><%= reading.odometer %></td>
 						<td><%= reading.fuel_level_remaining %></td>
