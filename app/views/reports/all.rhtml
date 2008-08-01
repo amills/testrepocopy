@@ -7,6 +7,7 @@
 				<tr>
 					<th>Location</th>
 					<th>Speed (mph)</th>
+					<th>RPMs</th>
 					<th>Event Type</th>
 					<th>When</th>
 				</tr>                
@@ -15,6 +16,7 @@
 					<tr class="<%= cycle('dark_row', 'light_row') %>" id="row<%= reading.id %>">
 						<td><a href="javascript:centerMapOnReading(<%= reading.id %>);highlightRow(<%= reading.id %>)" title="Center map on this location" ><%= reading.shortAddress %></a></td>
 						<td><%= reading.speed %></td>
+						<td><%= reading.rpm %></td>
 						<td>
 							<% if !reading.event_type.nil? %>
 								<%= reading.event_type %>

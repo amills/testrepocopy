@@ -107,6 +107,8 @@ function getRecentReadings(redrawMap,id) {
         var lngs = xml.documentElement.getElementsByTagName("lng");
 		var dts = xml.documentElement.getElementsByTagName("dt");
 		var addresses = xml.documentElement.getElementsByTagName("address");
+		var speeds = xml.documentElement.getElementsByTagName("speed");
+		var rpms = xml.documentElement.getElementsByTagName("rpm");
 		var notes = xml.documentElement.getElementsByTagName("note");
 		var icon_id = xml.documentElement.getElementsByTagName("icon_id");		        
 		for(var i = 0; i < lats.length; i++) {              
@@ -119,6 +121,14 @@ function getRecentReadings(redrawMap,id) {
 				var address = "N/A";
 				if(addresses[i].firstChild != undefined)
 					address = addresses[i].firstChild.nodeValue;
+					
+				var speed = "N/A";
+				if(speed[i].firstChild.nodeValue != undefined)
+					speed = speed[i].firstChild.nodeValue;
+				
+				var rpm = "N/A";
+				if(rpm[i].firstChild.nodeValue != undefined)
+					rpm = rpm[i].firstChild.nodeValue;
 					
 			 // check for the group image
 			
@@ -151,7 +161,7 @@ function getRecentReadings(redrawMap,id) {
 				if(notes[i].firstChild != undefined)
 					note = notes[i].firstChild.nodeValue;
 					
-				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note};
+				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, speed: speed, rpm: rpm};
 				devices.push(device);                
                  
 				// Populate the table
@@ -159,7 +169,9 @@ function getRecentReadings(redrawMap,id) {
                                 if (row && row.getElementsByTagName) {
 				  var tds = row.getElementsByTagName("td");
 				  tds[2].innerHTML = device.address;
-				  tds[3].innerHTML = device.dt;
+				  tds[3].innerHTML = device.speed;
+				  tds[4].innerHTML = device.rpm;
+				  tds[5].innerHTML = device.dt;
 			        }	
 		        var point = new GLatLng(device.lat, device.lng);
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
