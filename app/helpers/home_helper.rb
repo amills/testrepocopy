@@ -22,7 +22,7 @@ module HomeHelper
             else 
               content << %(N/A)
              end 
-             content << %(</td>
+             content << %(</td><td></td><td></td>
       <td>)
           if device.recent_reading_id != 0 
               content << %(#{time_ago_in_words device.readings[0].created_at} ago )
