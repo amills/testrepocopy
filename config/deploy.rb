@@ -5,8 +5,8 @@ set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/xirgo
 set :scm_username,  "deploy"
 set :scm_password,  "wucr5ch8v0"
 set :user,        "ublip"
-set :password,    "testing"
-set :deploy_to,     "/opt/ublip/xirgo"
+set :password,    "t8eyAtRe"
+set :deploy_to,     "/opt/ublip/rails"
 set :rails_env, "production"
 set :svn, "/usr/bin/svn"
 set :sudo, "/usr/bin/sudo"
@@ -22,7 +22,7 @@ role :db, application
 
 namespace :deploy do
   task :restart, :roles => :app do
-    run "cd /opt/ublip/xirgo/current; mongrel_rails cluster::restart;"
+    run "cd /opt/ublip/rails/current; mongrel_rails cluster::restart;"
   end
 end
 

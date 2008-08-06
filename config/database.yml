@@ -1,8 +1,8 @@
 production:
   adapter: mysql
-  database: xirgo_prod
+  database: ublip_prod
   username: root
-  password: rootpass
+  password: t8eyAtRe
   host: localhost
 development:
   adapter: mysql
