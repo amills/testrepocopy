@@ -17,4 +17,5 @@ config.action_controller.perform_caching             = false
 # The :test delivery method accumulates sent emails in the
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
-Google_Maps_Api_Key = 'ABQIAAAAwBz7W3z4sedOzgKp8bfXIhQWemFMQko8HoWTY3oub_63eA00vRRFiTvXYfpFu-ttWb33r8GLALV2AQ'
+#Google_Maps_Api_Key = 'ABQIAAAAwBz7W3z4sedOzgKp8bfXIhQWemFMQko8HoWTY3oub_63eA00vRRFiTvXYfpFu-ttWb33r8GLALV2AQ'
+Google_Maps_Api_Key = 'ABQIAAAAzplBnsNCqMKpAckyPT4O6BTJun7sl1lcTJa2IewRp5-f_csmPxQbNQPTtIiglTCGR1xU62rSAnODGQ'
