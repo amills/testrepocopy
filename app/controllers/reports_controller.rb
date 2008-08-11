@@ -94,8 +94,14 @@ class ReportsController < ApplicationController
       date =''     
       time_inputs.each{|key,value|   date= date + value + " "}          
       date=date.strip.split(' ')
-      time = "#{date[2]}-#{date[0]}-#{date[1]}"
-      return time.to_time    
+      #time = "#{date[2]}-#{date[0]}-#{date[1]}"
+      #~ puts "=========================="
+      #~ puts 
+      #~ puts date[0]
+      #~ puts date[1]
+      time = Time.gm(date[2],date[0],date[1],00,00,00)      
+      return time
+     
   end
 
   # Export report data to CSV 
