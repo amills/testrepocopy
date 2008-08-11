@@ -99,7 +99,7 @@ class ReportsController < ApplicationController
       #~ puts 
       #~ puts date[0]
       #~ puts date[1]
-      time = Time.gm(date[2],date[0],date[1],23,60,60)      
+      time = Time.gm(date[2],date[0],date[1],23,59,59)      
       return time
      
   end
