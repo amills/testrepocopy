@@ -15,7 +15,7 @@ class ReportsControllerTest < Test::Unit::TestCase
     end
   end
   
-  fixtures :users, :readings, :stop_events
+  fixtures :users, :readings, :stop_events, :idle_events, :runtime_events
   
   def setup
     @controller = ReportsController.new
@@ -42,6 +42,7 @@ class ReportsControllerTest < Test::Unit::TestCase
       assert_response :success
   end
   
+  def 
   def test_all_for_start_and_end_time_page_number
       get :all, {:id => 1, :start_time1=>"month7day18year2008",:end_time1=>"month7day18year2004", :page=>3}, {:user => users(:dennis), :account_id => 1}
       assert_response :success
@@ -51,7 +52,7 @@ class ReportsControllerTest < Test::Unit::TestCase
      get :index, {:id => 1}, {:user => users(:dennis), :account_id => 1}   
      assert_response :success
   end   
-  
+    
   def test_all_unauthorized
     get :all, {:id => 1}, {:user => users(:nick)}
     assert_nil assigns(:readings)
@@ -153,6 +154,13 @@ class ReportsControllerTest < Test::Unit::TestCase
     # for geofence 
     get :export, {:id => 6, :type => 'geofence', :start_time=>"Thu May 24 21:24:10 +0530 2008", :end_time=>"Thu Jun 25 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}    
     assert_response :success
+    
+    get :export, {:id => 6, :type => 'idle', :start_time=>"Thu May 24 21:24:10 +0530 2008", :end_time=>"Thu Jun 25 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}    
+    assert_response :success
+
+    get :export, {:id => 6, :type => 'runtime', :start_time=>"Thu May 24 21:24:10 +0530 2008", :end_time=>"Thu Jun 25 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}    
+    assert_response :success
+
   end
   
   private
