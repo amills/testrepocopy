@@ -85,7 +85,7 @@ class ReportsController < ApplicationController
              end
        else
          @from_normal=true  
-         @end_time = Time.now - (86400 * 3)   # Current time in seconds
+         @end_time = Time.now   # Current time in seconds
          @start_time =  Time.now - (86400 * NUMBER_OF_DAYS)  # Start time in seconds
      end     
   end
