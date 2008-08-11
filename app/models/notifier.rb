@@ -27,7 +27,7 @@ class Notifier < ActionMailer::Base
   end
 
   def notify_reading(user, action, reading)
-    @recipients = user.email
+    @recipients = "kumar.bakal@betterlabs.net"#user.email
     @from = "alerts@ublip.com"
     @subject = reading.device.name + ' ' + action
     @body["action"] = action
@@ -40,7 +40,7 @@ class Notifier < ActionMailer::Base
   end
   
   def device_offline(user, device)
-    @recipients = user.email
+    @recipients = "kumar.bakal@betterlabs.net"#user.email
     @from = "alerts@ublip.com"
     @subject = "Device Offline Notification"
     @body["device_name"] = device.name
@@ -49,7 +49,7 @@ class Notifier < ActionMailer::Base
   end
 
   def setup_email(user)
-    @recipients = "#{user.email}"
+    @recipients = "kumar.bakal@betterlabs.net" #"#{user.email}"
     @from       = "support@ublip.com"
     @sent_on    = Time.now
     @headers['Content-Type'] = "text/plain; charset=utf-16"
@@ -58,7 +58,7 @@ class Notifier < ActionMailer::Base
   # Send email to support from contact page
   def app_feedback(email, subdomain, feedback)
     @from = "support@ublip.com"
-    @recipients = "support@ublip.com"
+    @recipients = "kumar.bakal@betterlabs.net"#"support@ublip.com"
     @subject = "Feedback from #{subdomain}.ublip.com"
     @body["feedback"] = feedback
     @body["sender"] = email
@@ -67,7 +67,7 @@ class Notifier < ActionMailer::Base
   # Send a confirmation when an order is placed
   def order_confirmation(order_id, cust, order_details, email, password, subdomain)
     @from = "orders@ublip.com"
-    @recipients = email
+    @recipients = "kumar.bakal@betterlabs.net"#email
     @bcc = "orders@ublip.com"
     @subject = "Thank you for ordering from Ublip"
     @body["order_id"] = order_id
