@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
      @device_names = Device.get_names(session[:account_id]) 
      @readings=Reading.paginate(:per_page=>ResultCount, :page=>params[:page],
                                :conditions => ["device_id = ? and date(created_at) between ? and ?", 
-                               params[:id],@start_time.to_date, @end_time.to_date],:order => "created_at desc")                             
+                               params[:id],@start_time, @end_time],:order => "created_at desc")                             
      @record_count = Reading.count('id', 
                                    :conditions => ["device_id = ? and date(created_at) between ? and ?", params[:id],@start_time, @end_time])
      @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data are going to be different in numbers.
