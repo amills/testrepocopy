@@ -85,7 +85,7 @@ class ReportsController < ApplicationController
              end
        else
          @from_normal=true  
-         @end_time = Time.now   # Current time in seconds
+         @end_time = Time.now - (86400 * 2)   # Current time in seconds
          @start_time =  Time.now - (86400 * NUMBER_OF_DAYS)  # Start time in seconds
      end     
   end
@@ -94,7 +94,7 @@ class ReportsController < ApplicationController
       date =''     
       time_inputs.each{|key,value|   date= date + value + " "}          
       date=date.strip.split(' ')
-      time = Time.gm(date[2],date[0],date[1],23,59,59)      
+      time = Time.local(date[2],date[0],date[1],23,59,59)      
       return time
      
   end
