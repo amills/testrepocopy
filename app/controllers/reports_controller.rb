@@ -130,23 +130,18 @@ class ReportsController < ApplicationController
                       :limit=>MAX_LIMIT,
                       :conditions => ["device_id = ? and event_type like ? and date(created_at) between ? and ?", params[:id],event_type,@start_time,@end_time])                                
      end   
-
      # Name of the csv file
-     @filename = params[:type] + "_" + params[:id] + ".csv"  
-     
+     @filename = params[:type] + "_" + params[:id] + ".csv"      
      csv_string = FasterCSV.generate do |csv|
-         if params[:type] == 'stop'
-            csv << ["Location","Stop Duration (m)","Started","Latitude","Longitude"]
-         else    
-            csv << ["Location","Speed (mph)","Started","Latitude","Longitude","Event Type"]
-        end 
          if ['stop','idle','runtime'].include?(params[:type]) 
+           csv << ["Location","#{params[:type].capitalize} Duration (m)","Started","Latitude","Longitude"]  
            events.each do |event|                                              
                local_time = event.get_local_time(event.created_at.in_time_zone.inspect)
                address = event.reading.nil? ? "#{event.latitude};#{event.longitude}" : event.reading.shortAddress
                csv << [address,((event.duration.to_s.strip.size > 0) ? event.duration : 'Unknown'),local_time, event.latitude,event.longitude]
             end
          else
+            csv << ["Location","Speed (mph)","Started","Latitude","Longitude","Event Type"] 
             readings.each do |reading|        
                local_time = reading.get_local_time(reading.created_at.in_time_zone.inspect)
                 csv << [reading.shortAddress,reading.speed,local_time,reading.latitude,reading.longitude,reading.event_type]
