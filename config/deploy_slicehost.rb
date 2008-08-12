@@ -11,6 +11,8 @@ set :rails_env, "staging"
 set :svn, "/usr/bin/svn"
 set :sudo, "/usr/bin/sudo"
 after "deploy:update_code", "symlink_configs"
+after "deploy", "setup_db_procs"
+after "deploy:migrations", "setup_db_procs"
 
 ssh_options[:paranoid] = false
 
