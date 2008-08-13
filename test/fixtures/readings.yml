@@ -1968,7 +1968,7 @@ readings_224:
    </address>
    </geonames>
 
- event_type: exitgeofen_et51
+ event_type: exitgeofen_1
  direction: "0"
  created_at: 2007-07-24 15:39:58
 9922:
@@ -2018,7 +2018,7 @@ readings_9924:
    <countryCode>US</countryCode>
    </address>
    </geonames>
- event_type: exitgeofen_et51
+ event_type: exitgeofen_1
  direction: "0"
  created_at: 2007-07-24 15:39:58 
 readings_9925:
