@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
   end
   
   def all               
-     get_start_and_end_time
+     get_start_and_end_date
      @device_names = Device.get_names(session[:account_id]) 
      @readings=Reading.paginate(:per_page=>ResultCount, :page=>params[:page],
                                :conditions => ["device_id = ? and date(created_at) between ? and ?", 
@@ -26,7 +26,7 @@ class ReportsController < ApplicationController
   end
   
   def stop
-    get_start_and_end_time
+    get_start_and_end_date
     @device_names = Device.get_names(session[:account_id])
     @stop_events = StopEvent.paginate(:per_page=>ResultCount, :page=>params[:page],
           :conditions => ["device_id = ? and date(created_at) between ? and ?",
@@ -38,7 +38,7 @@ class ReportsController < ApplicationController
   end
   
   def idle
-    get_start_and_end_time
+    get_start_and_end_date
     @device_names = Device.get_names(session[:account_id])
     @idle_events = IdleEvent.paginate(:per_page=>ResultCount, :page=>params[:page],
          :conditions => ["device_id = ? and date(created_at) between ? and ?",
@@ -50,7 +50,7 @@ class ReportsController < ApplicationController
   end
   
   def runtime
-    get_start_and_end_time
+    get_start_and_end_date
     @device_names = Device.get_names(session[:account_id])
     @runtime_events = RuntimeEvent.paginate(:per_page=>ResultCount, :page=>params[:page],
          :conditions => ["device_id = ? and date(created_at) between ? and ?",
@@ -63,7 +63,7 @@ class ReportsController < ApplicationController
      
   # Display geofence exceptions
   def geofence
-    get_start_and_end_time # common method for setting start time and end time Line no. 82 
+    get_start_and_end_date # common method for setting start date and end date Line no. 82 
     @geofences = Device.find(params[:id]).geofences # Geofences to display as overlays
     @device_names = Device.get_names(session[:account_id])
     @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page], 
@@ -74,7 +74,7 @@ class ReportsController < ApplicationController
      @record_count = MAX_LIMIT if @record_count > MAX_LIMIT     
   end
 
-  def get_start_and_end_time        
+  def get_start_and_end_date     
         if !params[:end_date].nil?         
              if params[:end_date].class.to_s == "String"
                 @end_date = params[:end_date].to_date
@@ -109,7 +109,7 @@ class ReportsController < ApplicationController
      elsif params[:type] == 'geofence'
       event_type = '%geofen%'
      end             
-     get_start_and_end_time # set the start and end time     
+     get_start_and_end_date # set the start and end date
      if params[:type]=='stop'
          events = StopEvent.find(:all, {:order => "created_at desc",
                     :conditions => ["device_id = ? and date(created_at) between ? and ?", params[:id], @start_date, @end_date]})        
