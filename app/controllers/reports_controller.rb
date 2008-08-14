@@ -77,26 +77,26 @@ class ReportsController < ApplicationController
   def get_start_and_end_time
         params[:t] = 1
         if !params[:end_time1].nil?         
-            if params[:end_time1].class.to_s == "String"
-                get_UTC_format_time
+             if params[:end_time1].class.to_s == "String"
+                @end_time = params[:end_time1].to_date
+                @start_time = params[:start_time1].to_date
              else                
-                @end_time = get_time(params[:end_time1])
-                @start_time = get_time(params[:start_time1])
+                @end_time = get_date(params[:end_time1])
+                @start_time = get_date(params[:start_time1])
              end
        else
          @from_normal=true  
-         @end_time = Time.now   # Current time in seconds
-         @start_time =  Time.now - (86400 * NUMBER_OF_DAYS)  # Start time in seconds
+         @end_time = Date.today   
+         @start_time =  Date.today -  NUMBER_OF_DAYS  
      end     
   end
 
-  def get_time(time_inputs)
+  def get_date(date_inputs)
       date =''     
-      time_inputs.each{|key,value|   date= date + value + " "}          
+      date_inputs.each{|key,value|   date= date + value + " "}          
       date=date.strip.split(' ')
-      time = Time.local(date[2],date[0],date[1],23,59,59)      
-      return time
-     
+      date = "#{date[2]}-#{date[0]}-#{date[1]}".to_date
+      return date
   end
 
   # Export report data to CSV 
@@ -160,19 +160,20 @@ class ReportsController < ApplicationController
    # Stream CSV content to the browser
   private    
 
-    def get_UTC_format_time
-      if params[:end_time1].include?("UTC")
-        @end_time = params[:end_time1].to_time
-        @start_time =params[:start_time1].to_time
-      else
-       @end_time = set_time(params[:end_time1])      # Helper Method
-       @start_time = set_time(params[:start_time1])
-     end     
-  end
+    #~ def get_UTC_format_time
+      #~ if params[:end_time1].include?("UTC")
+        #~ @end_time = params[:end_time1].to_date
+        #~ @start_time =params[:start_time1].to_date
+      #~ else
+       #~ @end_time = params[:end_time1].to_date      # Helper Method
+       #~ @start_time = params[:start_time1].to_date
+     #~ end     
+  #~ end
 
-  def set_time(params_value)      
-    date = params_value.gsub(/[a-z]/,' ').squeeze(' ').split    
-    time = Time.utc(date[2].to_i,date[0].to_i, date[1].to_i,0,0,0) 
-  end
+  #~ def set_time(params_value)      
+    #~ date = params_value.gsub(/[a-z]/,' ').squeeze(' ').split    
+    #~ time = "#{date[2]}-#{date[0]},#{date[1]}"
+    #~ time.to_date    
+  #~ end
 
 end
