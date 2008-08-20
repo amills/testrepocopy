@@ -6,15 +6,17 @@ var ieHoffset_extra=document.all? 15 : 0
   var bName = navigator.appName;
   
   if (bName == "Microsoft Internet Explorer" ){       
-    var Hoffset = (document.documentElement.clientWidth - ieHoffset_extra) - (document.documentElement.clientWidth - ieHoffset_extra)/2 
-    var Voffset = document.documentElement.clientHeight - 150 
+    var Hoffset = (document.documentElement.clientWidth - ieHoffset_extra) - (document.documentElement.clientWidth - ieHoffset_extra)/2 +10
+    var Voffset = document.documentElement.clientHeight - 160 
+    distance_top = 160
   }
   else{  
-    var Hoffset = ieNOTopera? iecompattest().clientWidth+ieHoffset_extra : window.innerWidth+ieHoffset_extra -  (document.documentElement.clientWidth - ieHoffset_extra)/2 
-    var Voffset= ieNOTopera? iecompattest().clientHeight : window.innerHeight - 150
+    var Hoffset = ieNOTopera? iecompattest().clientWidth+ieHoffset_extra : window.innerWidth+ieHoffset_extra -  (document.documentElement.clientWidth - ieHoffset_extra)/2 - 10
+    var Voffset= ieNOTopera? iecompattest().clientHeight : window.innerHeight - 155
+    distance_top = 160
  }
  
- distance_top = 160
+ 
 
 var thespeed=3 
 

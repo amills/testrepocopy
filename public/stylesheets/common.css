@@ -190,7 +190,8 @@ select {
 /*map CSS */
 
 div#map {
-	width: 100%;
+	position: absolute;
+	width: 45%;
 	height: 500px;
 	float: left;}
 
@@ -206,7 +207,7 @@ div#map {
 	margin-bottom:15px }
 
 .reports_map{
-	width:50%; 
+	width:100%; 
 	float:right;
 	border:4px #eeeeee solid;
 	}
@@ -997,7 +998,7 @@ div#success_message {
 	margin:0px; 
 	width:70%; 
 	float:left}
-	
+
 .alert{
 	width:98%;
 	color:#336633;
@@ -1011,6 +1012,9 @@ div#success_message {
 	padding-right:5px;
 	font-size:10pt;}
 
+.padd-bot{
+	padding-bottom: 400px;
+}
 .paddin-l{
 	padding-left:75%;}
 
