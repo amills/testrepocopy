@@ -1,6 +1,8 @@
 // scrolling effect start
- var Hoffset = parseInt(window.innerWidth / 2)  ;    
- var Voffset= parseInt(window.innerHeight / 2) ;
+ var dsocleft=document.all? iecompattest().scrollLeft : pageXOffset
+ var dsoctop=document.all? iecompattest().scrollTop : pageYOffset
+ var Hoffset = ieNOTopera? iecompattest().clientWidth+ieHoffset_extra : window.innerWidth+ieHoffset_extra
+ var Voffset= ieNOTopera? iecompattest().clientHeight : window.innerHeight - 150
  
  distance_top = 150
 
@@ -21,6 +23,7 @@ function positionit(){
     var dsoctop=document.all? iecompattest().scrollTop : pageYOffset
     var window_width=ieNOTopera? iecompattest().clientWidth+ieHoffset_extra : window.innerWidth+ieHoffset_extra
     var window_height=ieNOTopera? iecompattest().clientHeight : window.innerHeight 
+    
     if (document.all||document.getElementById){ 
         cross_obj.style.left=parseInt(dsocleft)+parseInt(window_width)-Hoffset +"px"
         var scrolltop = 0;
