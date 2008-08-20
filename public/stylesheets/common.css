@@ -206,9 +206,7 @@ div#map {
 	background-color:#eeeeee;
 	margin-bottom:15px }
 
-.reports_map{
-	width:100%; 
-	float:right;
+.reports_map{		
 	border:4px #eeeeee solid;
 	}
 
