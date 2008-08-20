@@ -486,12 +486,12 @@ function createMarker(id, point, icon, html) {
 // Toggle between full map view or split table/map view
 function toggleMap() {
 	var left = document.getElementById("left_panel");
-	var right = document.getElementById("right_panel");
-	var img = document.getElementById("toggler");
+	var right = document.getElementById("right_panel");        
+	var img = document.getElementById("toggler");    
 	var isIE = navigator.appName.indexOf("Microsoft Internet Explorer");
-	
+
 	if(fullScreenMap) { // Collapse map and display table
-		left.style.visibility = 'visible';
+		left.style.visibility =  'visible';
 		left.style.display = 'block';
 		if(isIE > -1)
 			left.width = "50%";
@@ -503,8 +503,13 @@ function toggleMap() {
 		fullScreenMap = false;
 	} else { // Expand map
 		left.style.visibility = 'hidden';
-		left.style.display = 'none';
-		right.width = "100%";
+		left.style.display = 'none';        
+		right.width = "100%";        
+        right.height = "500px;";
+        google_map_div = document.getElementById("map");    
+        google_map_div.style.width = "100%";              
+        google_map_div.style.left="30px";
+        google_map_div.style.top="150px";
 		img.src = "/images/expand.png";
 		img.parentNode.title = "Collapse map view";
 		fullScreenMap = true;
@@ -512,6 +517,4 @@ function toggleMap() {
 	
 	gmap.checkResize();
 }
-
-
 
