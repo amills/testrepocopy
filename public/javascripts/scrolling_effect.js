@@ -1,22 +1,33 @@
 // scrolling effect start
+var ieHoffset_extra=document.all? 15 : 0
+
  var dsocleft=document.all? iecompattest().scrollLeft : pageXOffset
  var dsoctop=document.all? iecompattest().scrollTop : pageYOffset
- var Hoffset = ieNOTopera? iecompattest().clientWidth+ieHoffset_extra : window.innerWidth+ieHoffset_extra
- var Voffset= ieNOTopera? iecompattest().clientHeight : window.innerHeight - 150
+  var bName = navigator.appName;
+  
+  if (bName == "Microsoft Internet Explorer" ){       
+    var Hoffset = (document.documentElement.clientWidth - ieHoffset_extra) - (document.documentElement.clientWidth - ieHoffset_extra)/2 
+    var Voffset = document.documentElement.clientHeight - 150 
+  }
+  else{  
+    var Hoffset = ieNOTopera? iecompattest().clientWidth+ieHoffset_extra : window.innerWidth+ieHoffset_extra -  (document.documentElement.clientWidth - ieHoffset_extra)/2 
+    var Voffset= ieNOTopera? iecompattest().clientHeight : window.innerHeight - 150
+ }
  
- distance_top = 150
+ distance_top = 160
 
 var thespeed=3 
 
 var ieNOTopera=document.all&&navigator.userAgent.indexOf("Opera")==-1
 var myspeed=0
 
-var ieHoffset_extra=document.all? 15 : 0
+
 var cross_obj=document.all? document.all.map : document.getElementById? document.getElementById("map") : document.map
 
 function iecompattest(){
     return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
 }
+
 
 function positionit(){
     var dsocleft=document.all? iecompattest().scrollLeft : pageXOffset
