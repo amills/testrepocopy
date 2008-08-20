@@ -1,16 +1,9 @@
 // scrolling effect start
-if ((screen.width<=1024) && (screen.height <=768))
-{
-    var Hoffset=1020
-    var Voffset=550
-    distance_top = 240    
-}
-else
-{
-     var Hoffset=1150
-    var Voffset=635
-    distance_top = 150
-}
+ var Hoffset = parseInt(window.innerWidth / 2)  ;    
+ var Voffset= parseInt(window.innerHeight / 2) ;
+ 
+ distance_top = 150
+
 var thespeed=3 
 
 var ieNOTopera=document.all&&navigator.userAgent.indexOf("Opera")==-1
@@ -60,3 +53,4 @@ setInterval("positionit()",20)
 
 
 // scrolling effect end
+
