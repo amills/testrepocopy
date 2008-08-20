@@ -487,7 +487,8 @@ function createMarker(id, point, icon, html) {
 function toggleMap() {
 	var left = document.getElementById("left_panel");
 	var right = document.getElementById("right_panel");        
-	var img = document.getElementById("toggler");    
+	var img = document.getElementById("toggler");   
+    var google_map_div = document.getElementById("map");        
 	var isIE = navigator.appName.indexOf("Microsoft Internet Explorer");
 
 	if(fullScreenMap) { // Collapse map and display table
@@ -497,7 +498,8 @@ function toggleMap() {
 			left.width = "50%";
 		else
 			left.width = "100%";
-		right.width = "50%";
+		right.width = "50%";        
+        google_map_div.style.width="45%";
 		img.src = "/images/collapse.png";
 		img.parentNode.title = "Expand map view";
 		fullScreenMap = false;
@@ -505,8 +507,7 @@ function toggleMap() {
 		left.style.visibility = 'hidden';
 		left.style.display = 'none';        
 		right.width = "100%";        
-        right.height = "500px;";
-        google_map_div = document.getElementById("map");    
+        right.height = "500px;";        
         google_map_div.style.width = "100%";              
         google_map_div.style.left="30px";
         google_map_div.style.top="150px";
