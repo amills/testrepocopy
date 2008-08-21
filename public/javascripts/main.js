@@ -508,7 +508,7 @@ function toggleMap() {
 			left.width = "100%";
 		right.width = "50%";        
         if (from_main){        
-        google_map_div.style.width="50%";
+        google_map_div.style.width="48%";
         inner_table_id.style.width = "100%";
         }
         else{            
