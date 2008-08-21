@@ -195,6 +195,12 @@ div#map {
 	height: 500px;
 	float: left;}
 
+div#header_ddd{
+	position: absolute;
+	width: 47%;
+	height: 500px;
+	float: left;}
+	
 .googlemap{
 	width: 99%;
 	margin:0.50%;
