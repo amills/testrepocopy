@@ -1,6 +1,6 @@
 <%= render :partial => 'report_header' %>
 
-<table class="text_width">
+<table class="text_width" id="main_table">
 	<tr>
 		<td width="50%" valign="top" id="left_panel">
 			<table class="panel_table">
@@ -55,6 +55,6 @@ var geofences = [];
 <% end %>
 </script>
 
-<%= render :partial => 'report_footer' %>
-
 <%= javascript_include_tag "scrolling_effect.js"%>
+
+<%= render :partial => 'report_footer' %>

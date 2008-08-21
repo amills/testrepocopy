@@ -88,7 +88,7 @@ div#header_login #logo {
 	font-size: 12px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	padding: 5px;
-	width:55%;}
+	width:50%;}
 	
 /*header CSS End*/	
 
@@ -197,7 +197,7 @@ div#map {
 
 div#header_ddd{
 	position: absolute;
-	width: 47%;
+	width: 49%;
 	height: 500px;
 	float: left;}
 	
@@ -301,6 +301,10 @@ div#main_container {
 	padding: 0;
 	list-style-type: none;	
 	float: left;}
+
+#inner_table{
+ width:100%;	
+}
 
 #device_list_old a {
 	display: block;
@@ -626,7 +630,6 @@ h4 {
 .panel_table {
 	width: 100%;
 	padding: 0;
-	margin: 0;
 	border-collapse: collapse;}
 
 .panel_table th {
@@ -644,6 +647,14 @@ h4 {
 	color: #FFFFFF;
 	font-size: 12px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding: 5px;}
+
+.header_test{
+	background-color: #6699CC;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	width:50%;
 	padding: 5px;}
 	
 .panel_table .bluebar1{ 

@@ -488,22 +488,32 @@ function toggleMap() {
 	var left = document.getElementById("left_panel");
 	var right = document.getElementById("right_panel");        
 	var img = document.getElementById("toggler");   
-    if (from_main)
+    if (from_main){
         var google_map_div = document.getElementById("header_ddd");       
-    else
+        var inner_table_id = document.getElementById("inner_table");               
+      }  
+    else{
         var google_map_div = document.getElementById("map");        
+     }
     
 	var isIE = navigator.appName.indexOf("Microsoft Internet Explorer");
 
 	if(fullScreenMap) { // Collapse map and display table
+         
 		left.style.visibility =  'visible';
 		left.style.display = 'block';
-		if(isIE > -1)
-			left.width = "50%";
+		if(isIE > -1)              
+			left.width = "50%"; 
 		else
 			left.width = "100%";
 		right.width = "50%";        
-        google_map_div.style.width="45%";
+        if (from_main){        
+        google_map_div.style.width="50%";
+        inner_table_id.style.width = "100%";
+        }
+        else{            
+         google_map_div.style.width="45%";
+        }
 		img.src = "/images/collapse.png";
 		img.parentNode.title = "Expand map view";
 		fullScreenMap = false;
@@ -512,7 +522,13 @@ function toggleMap() {
 		left.style.display = 'none';        
 		right.width = "100%";        
         right.height = "500px;";        
-        google_map_div.style.width = "95%";              
+        if (from_main) {
+          google_map_div.style.width = "98%";              
+          inner_table_id.style.width = "99%";
+          }
+        else{
+          google_map_div.style.width = "95%";              
+          }
         google_map_div.style.left="30px";
         google_map_div.style.top="150px";
 		img.src = "/images/expand.png";

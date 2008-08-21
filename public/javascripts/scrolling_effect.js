@@ -2,24 +2,24 @@
  var ieHoffset_extra=document.all? 15 : 0
  var dsocleft=document.all? iecompattest().scrollLeft : pageXOffset
  var dsoctop=document.all? iecompattest().scrollTop : pageYOffset
- var addtional_value;
+ var addtional_value=10;
  var distance_top;
  var temp_value1;
  var temp_value2;
- from_main? temp_value1 = 115 : temp_value1 = 160     
+ from_main? temp_value1 = 128 : temp_value1 = 160     
  from_main? temp_value2 = 115 : temp_value2 = 155     
- from_main? addtional_value=0 : addtional_value=10 
+ 
  
  var bName = navigator.appName;  
   if (bName == "Microsoft Internet Explorer" ){       
-    var Hoffset =  (document.documentElement.clientWidth - ieHoffset_extra) - (document.documentElement.clientWidth - ieHoffset_extra)/2 + addtional_value
+    var Hoffset =  (document.documentElement.clientWidth - ieHoffset_extra) - (document.documentElement.clientWidth - ieHoffset_extra)/2  + addtional_value
     var Voffset =  document.documentElement.clientHeight - temp_value1  
     from_main? distance_top = 115 : distance_top = 160
   }
   else{  
     var Hoffset = ieNOTopera? iecompattest().clientWidth+ieHoffset_extra : window.innerWidth+ieHoffset_extra -  (document.documentElement.clientWidth - ieHoffset_extra)/2 - addtional_value
     var Voffset=  ieNOTopera? iecompattest().clientHeight : window.innerHeight - temp_value2
-     from_main? distance_top = 115 :  distance_top = 300
+     from_main? distance_top = 115 :  distance_top = 150
  }
  var thespeed=3 
  var ieNOTopera=document.all&&navigator.userAgent.indexOf("Opera")==-1

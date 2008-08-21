@@ -40,16 +40,16 @@
 			        <td><a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a></td>
 			        <td valign="top" width="50%" id="right_panel">
                           <div id="header_ddd">
-                            <table class="panel_table">
+                            <table id="inner_table">
                                 <tr>
-                                    <td class="header">                                         
-                                                  <div style="float: left">Locations for All Devices</div>
+                                    <td class="header_test" >                                         
+                                                  <div style="float: left;">Locations for All Devices</div>
                                                   <% if update_readings_automatically? %><div id="updating">Updating locations...</div><% end %>                                         
                                        </td>
                                    </tr>
-                                <tr class="dark_row">
+                                <tr>
                                       <td valign="top">
-                                      <div id="map" class="reports_map" style="width:100%; padding-left: 0px;"></div>                                                                       
+                                      <div id="map" class="reports_map" style="width:98%; padding-left: 0px;"></div>                                                                       
                                       </td>
                                    </tr>                               
                             </table>
