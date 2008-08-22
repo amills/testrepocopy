@@ -12,7 +12,7 @@ set :repository,    'https://ublip.svn.ey01.engineyard.com/Ublip_v2/trunk'
 set :scm_username,  'deploy'
 set :scm_password,  'wucr5ch8v0'
 set :user,          'ublip'
-set :password,      'mop3j6x4'
+#set :password,      'mop3j6x4'
 set :deploy_to,     "/data/#{application}"
 set :deploy_via,    :export
 set :monit_group,   'mongrel'
