@@ -200,7 +200,11 @@ div#header_ddd{
 	width: 49%;
 	height: 500px;
 	float: left;}
-	
+
+div#arrow_expand{
+	position: absolute;	
+	}
+
 .googlemap{
 	width: 99%;
 	margin:0.50%;

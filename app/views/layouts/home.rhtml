@@ -37,15 +37,21 @@
 				        	<%= yield %>
 						</div > 
 			        </td>
-			        <td><a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a></td>
-			        <td valign="top" width="50%" id="right_panel">
-                          <div id="header_ddd">
+                    
+			        <td>
+                            <div id="arrow_expand">
+                               <a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a>
+                            </div>
+                       </td>
+                       
+			        <td valign="top" width="50%" id="right_panel">                         
+                          <div id="header_ddd">                                                        
                             <table id="inner_table">
                                 <tr>
                                     <td class="header_test" >                                         
                                                   <div style="float: left;">Locations for All Devices</div>
                                                   <% if update_readings_automatically? %><div id="updating">Updating locations...</div><% end %>                                         
-                                       </td>
+                                       </td>                                       
                                    </tr>
                                 <tr>
                                       <td valign="top">
