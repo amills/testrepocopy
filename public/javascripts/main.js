@@ -487,8 +487,7 @@ function createMarker(id, point, icon, html) {
 function toggleMap() {
 	var left = document.getElementById("left_panel");
 	var right = document.getElementById("right_panel"); 
-    var arraow = document.getElementById("arrow_expand"); 
-    
+    var arraow = document.getElementById("arrow_expand");     
 	var img = document.getElementById("toggler");   
     if (from_main){
         var google_map_div = document.getElementById("header_ddd");       
@@ -532,8 +531,7 @@ function toggleMap() {
           google_map_div.style.width = "95%";              
           }
         google_map_div.style.left="30px";
-        google_map_div.style.top="150px";
-        arraow.style.left="2%";
+        google_map_div.style.top="150px";                
 		img.src = "/images/expand.png";
 		img.parentNode.title = "Collapse map view";
 		fullScreenMap = true;
