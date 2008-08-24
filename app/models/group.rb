@@ -15,4 +15,8 @@ class Group < ActiveRecord::Base
       end    
   end    
   
+  def ordered_devices
+      Device.find(:all, :conditions=>['group_id=?',self.id], :order=>'name')
+  end
+  
 end

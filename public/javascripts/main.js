@@ -50,7 +50,7 @@ function load()
 	// Only load this on home page
 	var page = document.location.href.split("/")[3];
 	if(page == 'home' || page == 'admin' ||page=='devices')
-    	getRecentReadings();
+    	getRecentReadings(true,grp_id);        
 	else if(page == 'reports')
 		getReportBreadcrumbs();
 	else 
