@@ -41,19 +41,28 @@ function iecompattest(){
 
 function positionit(){
     var dsocleft=document.all? iecompattest().scrollLeft : pageXOffset
+    var Voffset=  ieNOTopera? iecompattest().clientHeight : window.innerHeight - temp_value2
+    var Hoffset = ieNOTopera? iecompattest().clientWidth+ieHoffset_extra : window.innerWidth+ieHoffset_extra -  (document.documentElement.clientWidth - ieHoffset_extra)/2 - addtional_value
+
     var dsoctop=document.all? iecompattest().scrollTop : pageYOffset
     var window_width=ieNOTopera? iecompattest().clientWidth+ieHoffset_extra : window.innerWidth+ieHoffset_extra
     var window_height=ieNOTopera? iecompattest().clientHeight : window.innerHeight 
-    
+    var divtop = 0;
     if (document.all||document.getElementById){ 
         cross_obj.style.left= fullScreenMap? 30 : parseInt(dsocleft)+parseInt(window_width)-Hoffset +"px"                
-        arrow_obj.style.left = fullScreenMap? "1%" : parseInt(dsocleft)+parseInt(window_width)-HoffsetArrow +"px"                
+        arrow_obj.style.left = fullScreenMap? "1%" : parseInt(dsocleft)+parseInt(window_width)-HoffsetArrow +"px"    
+       
+	 //cross_obj.style.left = '51%';
         var scrolltop = 0;
+	 
         if(document.documentElement.scrollTop >= 0 && document.documentElement.scrollTop <= distance_top)
           scrolltop =  document.documentElement.scrollTop;
         else
          scrolltop = distance_top;
-        cross_obj.style.top= fullScreenMap? 150 : (dsoctop+parseInt(window_height)-Voffset -  scrolltop)+"px"
+	 divtop = (dsoctop + window_height -Voffset -  scrolltop)*100;
+	 divtop = divtop/window_height;
+       
+        cross_obj.style.top= fullScreenMap? "26%" : (dsoctop + window_height -Voffset -  scrolltop)+"px";
         arrow_obj.style.top= fullScreenMap? "50%" : (dsoctop+parseInt(window_height)-VoffsetArrow -  scrolltop)+"px"
     }
     else if (document.layers){
@@ -67,6 +76,9 @@ function positionit(){
 function scrollwindow(){
   window.scrollBy(0,myspeed)  
 }
+
+
+
 
 function initializeIT(){
   positionit()
