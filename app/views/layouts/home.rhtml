@@ -11,7 +11,7 @@
       <script>
         from_main = true;
              <%if session[:gmap_value]%>
-                  var grp_id = <%=session[:gmap_value] %>;                  
+                  var grp_id = '<%=session[:gmap_value] %>';                  
              <%end%>    
      </script>      
        
@@ -26,10 +26,10 @@
 				<% if current_account.show_maintenance %> | <% if params[:action] == 'maintenance' %><a href="<%= url_for(:controller=>"home",:action=>"maintenance") %>" class="current" >Maintenance</a><% else %><a href="<%= url_for(:controller=>"home",:action=>"maintenance")%>">Maintenance</a><% end %><% end %>
 			</div>
 		<% end %>
-    	<div id="content">
-			<table width="100%">
+    	<div id="content" style="width:100%;">
+			<table  width="100%">
 			    <tr>
-			        <td width="50%" valign="top" id="left_panel">
+			        <td width="46%" valign="top" id="left_panel">
 						<% if @devices.size == 0 %>
 							<div id="new">
 								Your Ublip order is currently being processed.  When your device has been activated it will appear in the summary table below.
