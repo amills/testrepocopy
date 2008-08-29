@@ -2,6 +2,13 @@ DROP DATABASE IF EXISTS ublip_totalm2m;
 CREATE DATABASE ublip_totalm2m;
 USE ublip_totalm2m;
 
+
+-- MySQL dump 10.11
+--
+-- Host: localhost    Database: ublip_totalm2m
+-- ------------------------------------------------------
+-- Server version	5.0.45-Debian_1ubuntu3.3-log
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -127,6 +134,37 @@ CREATE TABLE `EVENT_1` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
+-- Table structure for table `EVENT_101`
+--
+
+DROP TABLE IF EXISTS `EVENT_101`;
+CREATE TABLE `EVENT_101` (
+  `ID` varchar(36) NOT NULL,
+  `RAW_DATA_ID` varchar(36) NOT NULL,
+  `CREATED` datetime default NULL,
+  `DEVICE_ID` varchar(126) default NULL,
+  `MODEM` varchar(22) default NULL,
+  `GPIO1` char(1) default NULL,
+  `GPIO2` char(1) default NULL,
+  `GPIO3` char(1) default NULL,
+  `GPIO4` char(1) default NULL,
+  `GPIO5` char(1) default NULL,
+  `GPIO6` char(1) default NULL,
+  `GPIO7` char(1) default NULL,
+  `GPIO8` char(1) default NULL,
+  `AD1` int(11) default NULL,
+  `AD2` int(11) default NULL,
+  `LATITUDE` float default NULL,
+  `LONGITUDE` float default NULL,
+  `SPEED` int(11) default NULL,
+  `HEADING` int(11) default NULL,
+  `UTC_GPS_DATE` datetime default NULL,
+  `UTC_GPS_TIME` datetime default NULL,
+  `ALTITUDE` int(11) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
 -- Table structure for table `EVENT_11`
 --
 
@@ -198,6 +236,99 @@ CREATE TABLE `EVENT_14` (
   `LONGITUDE` float default NULL,
   `SPEED` int(11) default NULL,
   `HEADING` int(11) default NULL,
+  `ALTITUDE` int(11) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `EVENT_143`
+--
+
+DROP TABLE IF EXISTS `EVENT_143`;
+CREATE TABLE `EVENT_143` (
+  `ID` varchar(36) NOT NULL,
+  `RAW_DATA_ID` varchar(36) NOT NULL,
+  `CREATED` datetime default NULL,
+  `DEVICE_ID` varchar(126) default NULL,
+  `MODEM` varchar(22) default NULL,
+  `GPIO1` char(1) default NULL,
+  `GPIO2` char(1) default NULL,
+  `GPIO3` char(1) default NULL,
+  `GPIO4` char(1) default NULL,
+  `GPIO5` char(1) default NULL,
+  `GPIO6` char(1) default NULL,
+  `GPIO7` char(1) default NULL,
+  `GPIO8` char(1) default NULL,
+  `AD1` int(11) default NULL,
+  `AD2` int(11) default NULL,
+  `LATITUDE` float default NULL,
+  `LONGITUDE` float default NULL,
+  `SPEED` int(11) default NULL,
+  `HEADING` int(11) default NULL,
+  `UTC_GPS_DATE` datetime default NULL,
+  `UTC_GPS_TIME` datetime default NULL,
+  `ALTITUDE` int(11) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `EVENT_144`
+--
+
+DROP TABLE IF EXISTS `EVENT_144`;
+CREATE TABLE `EVENT_144` (
+  `ID` varchar(36) NOT NULL,
+  `RAW_DATA_ID` varchar(36) NOT NULL,
+  `CREATED` datetime default NULL,
+  `DEVICE_ID` varchar(126) default NULL,
+  `MODEM` varchar(22) default NULL,
+  `GPIO1` char(1) default NULL,
+  `GPIO2` char(1) default NULL,
+  `GPIO3` char(1) default NULL,
+  `GPIO4` char(1) default NULL,
+  `GPIO5` char(1) default NULL,
+  `GPIO6` char(1) default NULL,
+  `GPIO7` char(1) default NULL,
+  `GPIO8` char(1) default NULL,
+  `AD1` int(11) default NULL,
+  `AD2` int(11) default NULL,
+  `LATITUDE` float default NULL,
+  `LONGITUDE` float default NULL,
+  `SPEED` int(11) default NULL,
+  `HEADING` int(11) default NULL,
+  `UTC_GPS_DATE` datetime default NULL,
+  `UTC_GPS_TIME` datetime default NULL,
+  `ALTITUDE` int(11) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `EVENT_145`
+--
+
+DROP TABLE IF EXISTS `EVENT_145`;
+CREATE TABLE `EVENT_145` (
+  `ID` varchar(36) NOT NULL,
+  `RAW_DATA_ID` varchar(36) NOT NULL,
+  `CREATED` datetime default NULL,
+  `DEVICE_ID` varchar(126) default NULL,
+  `MODEM` varchar(22) default NULL,
+  `GPIO1` char(1) default NULL,
+  `GPIO2` char(1) default NULL,
+  `GPIO3` char(1) default NULL,
+  `GPIO4` char(1) default NULL,
+  `GPIO5` char(1) default NULL,
+  `GPIO6` char(1) default NULL,
+  `GPIO7` char(1) default NULL,
+  `GPIO8` char(1) default NULL,
+  `AD1` int(11) default NULL,
+  `AD2` int(11) default NULL,
+  `LATITUDE` float default NULL,
+  `LONGITUDE` float default NULL,
+  `SPEED` int(11) default NULL,
+  `HEADING` int(11) default NULL,
+  `UTC_GPS_DATE` datetime default NULL,
+  `UTC_GPS_TIME` datetime default NULL,
   `ALTITUDE` int(11) default NULL,
   PRIMARY KEY  (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -370,6 +501,69 @@ CREATE TABLE `EVENT_41` (
 
 DROP TABLE IF EXISTS `EVENT_42`;
 CREATE TABLE `EVENT_42` (
+  `ID` varchar(36) NOT NULL,
+  `RAW_DATA_ID` varchar(36) NOT NULL,
+  `CREATED` datetime default NULL,
+  `DEVICE_ID` varchar(126) default NULL,
+  `MODEM` varchar(22) default NULL,
+  `LATITUDE` float default NULL,
+  `LONGITUDE` float default NULL,
+  `SPEED` int(11) default NULL,
+  `HEADING` int(11) default NULL,
+  `UTC_GPS_DATE` datetime default NULL,
+  `UTC_GPS_TIME` datetime default NULL,
+  `ALTITUDE` int(11) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `EVENT_43`
+--
+
+DROP TABLE IF EXISTS `EVENT_43`;
+CREATE TABLE `EVENT_43` (
+  `ID` varchar(36) NOT NULL,
+  `RAW_DATA_ID` varchar(36) NOT NULL,
+  `CREATED` datetime default NULL,
+  `DEVICE_ID` varchar(126) default NULL,
+  `MODEM` varchar(22) default NULL,
+  `LATITUDE` float default NULL,
+  `LONGITUDE` float default NULL,
+  `SPEED` int(11) default NULL,
+  `HEADING` int(11) default NULL,
+  `UTC_GPS_DATE` datetime default NULL,
+  `UTC_GPS_TIME` datetime default NULL,
+  `ALTITUDE` int(11) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `EVENT_44`
+--
+
+DROP TABLE IF EXISTS `EVENT_44`;
+CREATE TABLE `EVENT_44` (
+  `ID` varchar(36) NOT NULL,
+  `RAW_DATA_ID` varchar(36) NOT NULL,
+  `CREATED` datetime default NULL,
+  `DEVICE_ID` varchar(126) default NULL,
+  `MODEM` varchar(22) default NULL,
+  `LATITUDE` float default NULL,
+  `LONGITUDE` float default NULL,
+  `SPEED` int(11) default NULL,
+  `HEADING` int(11) default NULL,
+  `UTC_GPS_DATE` datetime default NULL,
+  `UTC_GPS_TIME` datetime default NULL,
+  `ALTITUDE` int(11) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `EVENT_45`
+--
+
+DROP TABLE IF EXISTS `EVENT_45`;
+CREATE TABLE `EVENT_45` (
   `ID` varchar(36) NOT NULL,
   `RAW_DATA_ID` varchar(36) NOT NULL,
   `CREATED` datetime default NULL,
@@ -651,46 +845,6 @@ CREATE TABLE `RAW_DATA` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `TEMP_EVENT_2`
---
-
-DROP TABLE IF EXISTS `TEMP_EVENT_2`;
-CREATE TABLE `TEMP_EVENT_2` (
-  `ID` varchar(36) NOT NULL,
-  `RAW_DATA_ID` varchar(36) NOT NULL,
-  `CREATED` datetime default NULL,
-  `DEVICE_ID` varchar(126) default NULL,
-  `MODEM` varchar(22) default NULL,
-  `LATITUDE` float default NULL,
-  `LONGITUDE` float default NULL,
-  `SPEED` int(11) default NULL,
-  `HEADING` int(11) default NULL,
-  `ALTITUDE` int(11) default NULL,
-  PRIMARY KEY  (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Table structure for table `TEMP_EVENT_3`
---
-
-DROP TABLE IF EXISTS `TEMP_EVENT_3`;
-CREATE TABLE `TEMP_EVENT_3` (
-  `ID` varchar(36) NOT NULL,
-  `RAW_DATA_ID` varchar(36) NOT NULL,
-  `CREATED` datetime default NULL,
-  `DEVICE_ID` varchar(126) default NULL,
-  `MODEM` varchar(22) default NULL,
-  `LATITUDE` float default NULL,
-  `LONGITUDE` float default NULL,
-  `SPEED` int(11) default NULL,
-  `HEADING` int(11) default NULL,
-  `UTC_GPS_DATE` datetime default NULL,
-  `UTC_GPS_TIME` datetime default NULL,
-  `ALTITUDE` int(11) default NULL,
-  PRIMARY KEY  (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
 -- Table structure for table `WAKEUP`
 --
 
@@ -714,4 +868,4 @@ CREATE TABLE `WAKEUP` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-05-02 19:45:49
+-- Dump completed on 2008-08-28 16:05:36
