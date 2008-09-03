@@ -6,9 +6,14 @@ class Reading < ActiveRecord::Base
   
   acts_as_mappable  :lat_column_name => :latitude,
                     :lng_column_name => :longitude
-                   
+  
   def speed
-    read_attribute(:speed).round
+    speed = read_attribute(:speed)
+    if speed.nil?
+      speed
+    else
+     read_attribute(:speed).round
+    end
   end
   
   def get_fence_name
