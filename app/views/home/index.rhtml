@@ -16,7 +16,7 @@
         <td>
             <table width="100%" class="panel_table">
                 <tr><td colspan="11" class="header">Device Summary (<%= @devices.size %> total)</td></tr>
-                <tr><th>Name</th><th width="30"></th><th>Last Location</th><th>Vehicle Speed (mph)</th><th>Engine Speed (rpm)</th><th>Odometer</th><th>Remaining Fuel</th><th>Battery (v)</th><th>Trip Odometer</th><th>Trip Fuel Consumption</th><th>Last Report</th></tr>
+                <tr><th>Name</th><th width="30"></th><th>Last Location</th><th>Vehicle Speed (mph)</th><th>Engine Speed (rpm)</th><th>Odometer</th><th>Battery (v)</th><th>Trip Odometer</th><th>Last Report</th></tr>
                 <% for device in @devices %>
                     <tr class="<%= cycle('dark_row', 'light_row') %>" id="row<%= device.id %>">
                         <td>
@@ -28,8 +28,6 @@
 						</td>
 						<td style="font-size:11px;"><a href="/reports/all/<%= device.id %>" title="View device details">details</a></td>
                         <td></td>
-						<td></td>
-						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>

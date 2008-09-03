@@ -14,10 +14,8 @@ xml.devices do
         xml.speed
         xml.engine_speed
         xml.odometer
-        xml.fuel_level_remaining
         xml.battery_voltage
         xml.trip_odometer
-        xml.trip_fuel_consumption
         xml.dt
       else # We got data
         xml.lat(device.readings[0].latitude)
@@ -30,10 +28,8 @@ xml.devices do
         end
         xml.engine_speed(device.readings[0].engine_speed)
         xml.odometer(device.readings[0].odometer)
-        xml.fuel_level_remaining(device.readings[0].fuel_level_remaining)
         xml.battery_voltage(device.readings[0].battery_voltage)
         xml.trip_odometer(device.readings[0].trip_odometer)
-        xml.trip_fuel_consumption(device.readings[0].trip_fuel_consumption)
         xml.dt((time_ago_in_words device.readings[0].created_at) + ' ago')
       end
       

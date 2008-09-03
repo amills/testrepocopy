@@ -74,11 +74,9 @@ function getRecentReadings(redrawMap,id) {
 		var arr_speed = xml.documentElement.getElementsByTagName("speed");
 		var arr_engine_speed = xml.documentElement.getElementsByTagName("engine_speed");
 		var arr_odometer = xml.documentElement.getElementsByTagName("odometer");
-		var arr_fuel_level_remaining = xml.documentElement.getElementsByTagName("fuel_level_remaining");
 		var arr_battery_voltage = xml.documentElement.getElementsByTagName("battery_voltage");
 		var arr_trip_odometer = xml.documentElement.getElementsByTagName("trip_odometer");
-		var arr_trip_fuel_consumption = xml.documentElement.getElementsByTagName("trip_fuel_consumption");
-
+	
 		
 		for(var i = 0; i < lats.length; i++) {
 			if(lats[i].firstChild) {
@@ -93,10 +91,8 @@ function getRecentReadings(redrawMap,id) {
 				var speed = "N/A";
 				var engine_speed = "N/A";
 				var odometer = "N/A";
-				var fuel_level_remaining = "N/A";
 				var battery_voltage = "N/A";
 				var trip_odometer = "N/A";
-				var trip_fuel_consumption = "N/A";
 				
 				
 				if(arr_speed[i].firstChild != undefined)
@@ -108,18 +104,13 @@ function getRecentReadings(redrawMap,id) {
 				if(arr_odometer[i].firstChild != undefined)
 					odometer = arr_odometer[i].firstChild.nodeValue;
 				
-				if(arr_fuel_level_remaining[i].firstChild != undefined)
-					fuel_level_remaining = arr_fuel_level_remaining[i].firstChild.nodeValue;
-					
 				if(arr_battery_voltage[i].firstChild != undefined)
 					battery_voltage = arr_battery_voltage[i].firstChild.nodeValue;
 					
 				if(arr_trip_odometer[i].firstChild != undefined)
 					trip_odometer = arr_trip_odometer[i].firstChild.nodeValue;
 					
-				if(arr_trip_fuel_consumption[i].firstChild != undefined)
-					trip_fuel_consumption = arr_trip_fuel_consumption[i].firstChild.nodeValue;
-					
+				
 				
 					
 				var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue};
@@ -132,11 +123,9 @@ function getRecentReadings(redrawMap,id) {
 				tds[3].innerHTML = speed;
 				tds[4].innerHTML = engine_speed;
 				tds[5].innerHTML = odometer;
-				tds[6].innerHTML = fuel_level_remaining;
-				tds[7].innerHTML = battery_voltage;
-				tds[8].innerHTML = trip_odometer;
-				tds[9].innerHTML = trip_fuel_consumption;
-				tds[10].innerHTML = device.dt;
+				tds[6].innerHTML = battery_voltage;
+				tds[7].innerHTML = trip_odometer;
+				tds[8].innerHTML = device.dt;
 				
 		        var point = new GLatLng(device.lat, device.lng);
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
