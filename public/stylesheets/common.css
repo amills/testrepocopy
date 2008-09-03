@@ -48,12 +48,12 @@ body {
 
 #nav_tabs .selected_subnav a {
 	font-weight: bold;
-	color: #0066CC;
+	color: #F26730;
 	background-color: #EEEEEE;
 	padding: 5px 10px;}
 
 #nav_tabs .selected_subnav a:hover {
-	color: #0066CC;
+	color: #00355F;
 	background-color: #EEEEEE;}
 
 /*tabs CSS  End*/	
@@ -99,7 +99,7 @@ div#header_login #logo {
 	background-color:#eaeaea; 
 	padding:7px 2%}
 #submenu .current{
-	color:#1364B2; 
+	color:#01203A; 
 	font-family:Arial, Helvetica, sans-serif; 
 	font-size:12px;
 	font-weight:bold;
@@ -666,12 +666,12 @@ h4 {
 	padding:0pt;
 	width:100%;}
 #ub-table th {
-	background-color:#6699CC;
+	background-color:#01203A;
 	color: #FFFFFF;
 	border: 1px solid #FFFFFF;
 	padding: 5px;}
 #ub-table tr.header{ 
-	background-color:#6699cc;  
+	background-color:#01203A;  
 	color:#ffffff; 
 	font-weight:normal; 
 	font-size:12px; 
