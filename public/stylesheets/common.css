@@ -8,7 +8,7 @@ body {
 	
 
 #nav_tabs {
-	background-color: #0066FF;
+	background-color: #01203A;
 	padding: 0 15px;
 	position: absolute;
 	bottom: 0px;}
@@ -21,7 +21,7 @@ body {
 	float:left;
 	list-style-type: none;
 	display: inline;
-	background-color: #003366;
+	background-color: #F8AD00;
 	padding: 4px 0; /* 1px less padding for IE */
 	margin: 0 1px;}
 
@@ -33,7 +33,7 @@ body {
 
 #nav_tabs a:hover {
 	background-color: #FFFFFF;
-    color: #003366;
+    color: #00355F;
     padding: 5px 10px;}
 
 #nav_tabs .selected a {
@@ -44,7 +44,7 @@ body {
 
 #nav_tabs .selected a:hover {
 	font-weight: bold;
-	color: #0066CC;}
+	color: #F26730;}
 
 #nav_tabs .selected_subnav a {
 	font-weight: bold;
@@ -64,7 +64,7 @@ div#header {
 	padding: 0;
 	margin: 0;
 	height: 80px;
-	background-color: #0066FF;
+	background-color: #01203A;
 	position: relative;}
 
 div#logo {
@@ -122,7 +122,7 @@ a:visited {
 	font-weight:normal;
 	text-decoration:underline;}
 a:hover {
-	color:#1364B2;
+	color:#00355F;
 	text-decoration:none;}
 /*link CSS end*/
 
@@ -147,14 +147,14 @@ div#login_form_container {
 .form_table th {
 	font-size: 13px;
 	text-align: right;
-	color:#666666}
+	color:#00355F}
 
 .form_table td {
 	padding: 5px;}
 
 .form_table input {
 	font-weight: bold;
-	color: #006699;}
+	color: #000000;}
 	
 .bold_button {
 	font-weight: bold;
