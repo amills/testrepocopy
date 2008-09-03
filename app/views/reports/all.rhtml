@@ -17,7 +17,7 @@
 					<th>Odometer</th>
 					<th>Battery (v)</th>
 					<th>Trip Odometer</th>
-					<th>Temperature</th>
+					<!--<th>Temperature</th>-->
 					<th>When</th>
 				</tr>
 				<% for reading in @readings %>
@@ -28,7 +28,7 @@
 						<td><%= reading.odometer %></td>
 						<td><%= reading.battery_voltage %></td>
 						<td><%= reading.trip_odometer %></td>
-						<td><%= reading.temp %></td>
+						<!--<td><%= reading.temp %></td>-->
 						<td><script>document.write(displayLocalDT(<%= reading.created_at.to_i*1000 %>));</script></td>
 					</tr>
 					<script>readings.push({id: <%= reading.id %>, lat: <% if reading.latitude.nil? %>32.9586<%else%><%= reading.latitude %><%end%>, lng: <% if reading.latitude.nil? %>-96.8241<%else%><%= reading.longitude%><%end%>, address: <% if reading.latitude.nil? %>'5120 Arapaho Rd, Addison, TX'	<%else%>'<%= escape_javascript reading.shortAddress %>'<% end %>, dt: displayLocalDT(<%= reading.created_at.to_i*1000 %>), note: '<%= escape_javascript reading.note %>', event: '<%= reading.event_type %>'});</script>
