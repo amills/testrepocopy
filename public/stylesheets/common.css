@@ -27,7 +27,7 @@ body {
 
 #nav_tabs a {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	color: #FFFFFF;
+	color: #000000;
 	text-decoration: none;
 	padding: 5px 10px;}
 
@@ -38,7 +38,7 @@ body {
 
 #nav_tabs .selected a {
 	font-weight: bold;
-	color: #0066CC;
+	color: #F26730;
 	background-color: #FFFFFF;
 	padding: 5px 10px;}
 
