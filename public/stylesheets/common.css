@@ -110,7 +110,7 @@ div#header_login #logo {
 /*link CSS */
 
 a:link {
-	color:#1364B2; 
+	color:#00355F; 
 	font-family:Arial, Helvetica, sans-serif; 
 	font-size:12px;
 	font-weight:normal;
@@ -626,7 +626,7 @@ h4 {
 
 .panel_table th {
 	background-color: #CCCCCC;
-	color: #003366;
+	color: #01203A;
 	padding: 5px;
 	border: 1px solid #FFFFFF;}
 
@@ -635,7 +635,7 @@ h4 {
 	border: 1px solid #FFFFFF;}
 
 .panel_table .header {
-	background-color: #6699CC;
+	background-color: #01203A;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
