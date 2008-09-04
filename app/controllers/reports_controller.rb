@@ -14,38 +14,12 @@ class ReportsController < ApplicationController
       @devices = Device.get_devices(session[:account_id]) # Get devices associated with account            
       @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
      if params[:type]
-         updated_device 
+        assign_the_selected_group_to_session # this will set the parameter value of group to the session for persisit throught the app
      else   
-         if session[:gmap_value] == "all" || session[:gmap_value].nil?        
-             @groups = @all_groups
-             session[:gmap_value] = "all"
-             @show_default_devices = true
-         elsif session[:gmap_value] == 'default'
-             @groups = []  
-             @show_default_devices = true
-         else
-             @groups=Group.find(:all, :conditions=>['id=?',session[:gmap_value]], :order=>'name')                               
-             @show_default_devices = false
-         end            
+        check_the_session_for_active_group # This will check which group is currently active in the session, For display.
      end 
   end
 
-  def updated_device
-    if params[:type] == "all"
-         session[:gmap_value] = "all"
-         @groups= @all_groups          
-         @show_default_devices = true
-    elsif params[:type] == "default"
-         session[:gmap_value] = params[:type]
-         @groups = []
-         @show_default_devices = true
-    else
-         @groups=Group.find(:all, :conditions=>['id=?',params[:type]], :order=>'name')
-         session[:gmap_value] = params[:type]         
-         @show_default_devices = false
-     end        
-  end
-  
   def all               
      get_start_and_end_date
      @device = Device.find(params[:id])     
