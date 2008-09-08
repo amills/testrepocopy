@@ -1,7 +1,7 @@
 function select_action(obj,from)
 {  
   var Index = document.getElementById("type1").selectedIndex;
-  var selected_text = document.getElementById("type1").options[Index].text;            
+  var selected_text = document.getElementById("type1").options[Index].text;              
     if (selected_text == "New group")
     {
          szNewURL = "http://"+document.location.hostname+"/devices/new_group"         
@@ -16,12 +16,12 @@ function select_action(obj,from)
     {
       if (from=='from_reports')
       {
-         szNewURL = "http://"+document.location.hostname+"/reports?type="+document.getElementById('type1').value
+         szNewURL = "http://"+document.location.hostname+":3000/reports?type="+document.getElementById('type1').value
         window.location.href=szNewURL;                            
       }
       else if (from=='from_devices')
       {
-         szNewURL = "http://"+document.location.hostname+"/devices?type="+document.getElementById('type1').value
+         szNewURL = "http://"+document.location.hostname+":3000/devices?type="+document.getElementById('type1').value
         window.location.href=szNewURL;                                
       }
       else

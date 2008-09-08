@@ -115,7 +115,7 @@ class Notifier < ActionMailer::Base
   end
 
   def notify_reading(user, action, reading)
-    @recipients = "kumar.bakal@betterlabs.net"#user.email
+    @recipients = user.email
     @from = "alerts@ublip.com"
     @subject = reading.device.name + ' ' + action
     @body["action"] = action
@@ -145,7 +145,7 @@ class Notifier < ActionMailer::Base
   # Send email to support from contact page
   def app_feedback(email, subdomain, feedback)
     @from = "support@ublip.com"
-    @recipients = "kumar.bakal@betterlabs.net"#"support@ublip.com"
+    @recipients = "support@ublip.com"
     @subject = "Feedback from #{subdomain}.ublip.com"
     @body["feedback"] = feedback
     @body["sender"] = email
