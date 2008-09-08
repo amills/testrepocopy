@@ -3,6 +3,7 @@ var prevSelectedRow;
 var prevSelectedRowClass;
 var currSelectedDeviceId;
 var iconALL;
+var dev_id;
 var devices = []; // JS devices model
 var readings = []; //JS readings model
 var zoom = 3;
@@ -177,32 +178,35 @@ function getRecentReadings(redrawMap,id) {
 		
 		// Don't continue if there's no data
 		if (ids.length == 0)
-        {
+        {          
           gmap.setCenter(new GLatLng(37.0625, -95.677068), 3);
-          return;        
+          return;                  
         }
          if (no_data_flag)
-         {
-            if(redrawMap == undefined || redrawMap == true) {
+         {           
+            if(redrawMap == undefined || redrawMap == true) {              
                 // If there's only one device let's not zoom all the way in
                 var zl = (devices.length > 1) ? gmap.getBoundsZoomLevel(bounds) : 15;
                 gmap.setCenter(bounds.getCenter(), zl);			
             } else {
                 // Do the AJAXY update
                 gmap.setCenter(gmap.getCenter(), zoom);
-            }	
+            }
+          if (dev_id)  
+           centerMap(dev_id); 
          }
          else
-         {
+         {           
             gmap.setCenter(new GLatLng(37.0625, -95.677068), 3);
-         }   
+         }            
 		// Hide the action panel
-		// document.getElementById("action_panel").style.visibility = "hidden";
-    });
+		// document.getElementById("action_panel").style.visibility = "hidden";        
+    });       
 }
 
 // Center map on device and show details
 function centerMap(id) {
+    dev_id = id;
 	var device = getDeviceById(id);
 	var point = new GLatLng(device.lat, device.lng);
 	gmap.panTo(point);

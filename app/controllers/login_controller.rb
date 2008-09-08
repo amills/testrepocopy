@@ -14,7 +14,7 @@ class LoginController < ApplicationController
   end
   
   def index     
-    #Check if user is logged in and redirect to home controller if they are
+    #Check if user is logged in and redirect to home controller if they are    
     if logged_in? 
       user = self.current_user
       if !user.remember_token_expires_at.nil? and Time.now < user.remember_token_expires_at 

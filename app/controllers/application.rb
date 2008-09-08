@@ -188,8 +188,8 @@ private
     
     def set_page_title
       @page_title = "Ublip - Location Matters"
-   end
-  
+    end
+
 end
 
 class Helper
