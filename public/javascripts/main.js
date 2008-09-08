@@ -186,8 +186,14 @@ function getRecentReadings(redrawMap,id) {
          {           
             if(redrawMap == undefined || redrawMap == true) {              
                 // If there's only one device let's not zoom all the way in
-                var zl = (devices.length > 1) ? gmap.getBoundsZoomLevel(bounds) : 15;
-                gmap.setCenter(bounds.getCenter(), zl);			
+                var zl = (devices.length > 1) ? gmap.getBoundsZoomLevel(bounds) : 15;                
+                if (dev_id){                  
+                   gmap.setCenter(bounds.getCenter(), zoom);			
+                 }
+                else
+                 {
+                   gmap.setCenter(bounds.getCenter(), zl);			
+                 }
             } else {
                 // Do the AJAXY update
                 gmap.setCenter(gmap.getCenter(), zoom);
