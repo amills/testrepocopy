@@ -1,10 +1,14 @@
 <div class="container">
 	<div id="top_head">
-		<h3>Your Active Devices (<%= @devices.size %> <%if @from_search %>result(s) found<%else%>total<%end%>)</h3>
+		<h3>Your Active Devices (<%= @devices.size %> <%if @from_search || @from_search_address %>result(s) found<%else%>total<%end%>)
+          </h3>
 		<div id="tab_rt">
                 <form action="/devices/search_devices" name="device_search_form"> 
-                    <input type="text" name="device_search" value=<%if @from_search%> <%= params[:device_search]%><%else%> " Device Name"<%end%> onfocus="if (this.value == ' Device Name') {this.value = '';}" onblur="if (this.value == '') {this.value = ' Device Name';}" /> &nbsp; <input type="submit" value="Search" />
+                    <input type="text" name="device_search" value=<%if @from_search%> <%= @search_text %><%else%> " Device Name"<%end%> onfocus="if (this.value == ' Device Name') {this.value = '';}" onblur="if (this.value == '') {this.value = ' Device Name';}" /> &nbsp; <input type="submit" value="Search" />
                 </form>
+                <form action="/devices/search_devices_by_address" name="device_search_by_address"> 
+                    <input type="text" name="device_address" value=<%if @from_search_address%> "<%= @search_text.gsub('_',' ')%>"<%else%> " Device Address"<%end%> onfocus="if (this.value == ' Device Address') {this.value = '';}" onblur="if (this.value == '') {this.value = ' Device Address';}" /> &nbsp; <input type="submit" value="Search" />
+                </form>                                
           </div>
 	<br>
 </div>
@@ -18,8 +22,7 @@
 			<td>Last Location</td>
 			<td>Last Report</td>			
 			<td>Action</td>
-		</tr>
-	
+		</tr>        
       <%if !@devices.empty?%>
         <% for device in @devices %>
 			<tr  class="<%= cycle('gray_row','') %>">
