@@ -47,7 +47,7 @@ class Admin::AccountsController < ApplicationController
       acc_id = user_account.id
       if session[:is_super_admin]                   
          cookies[:account_value] = { :value => "#{acc_id}", :domain => ".ubliplocal.com"}                                     
-         redirect_to("http://#{user_account.subdomain}.#{request.domain}:3000/login/user_login")                                     
+         redirect_to("http://#{user_account.subdomain}.#{request.domain}/login/user_login")                                     
       end
   end
     
