@@ -42,6 +42,15 @@ class Admin::AccountsController < ApplicationController
     end
   end
 
+  def user_domain    
+      user_account = Account.find_by_id(params[:id])          
+      acc_id = user_account.id
+      if session[:is_super_admin]                   
+         cookies[:account_value] = { :value => "#{acc_id}", :domain => ".ubliplocal.com"}                                     
+         redirect_to("http://#{user_account.subdomain}.#{request.domain}:3000/login/user_login")                                     
+      end
+  end
+    
   def update
     if request.post?
       account = Account.find(params[:id])
@@ -64,6 +73,7 @@ class Admin::AccountsController < ApplicationController
     end
   end
 
+  
   def destroy
     if request.post?
       account = Account.find(params[:id])
@@ -73,9 +83,11 @@ class Admin::AccountsController < ApplicationController
     end
     redirect_to :action => 'index'
   end
-  
+
+
 private
   def apply_options_to_account(params,account)
     update_attributes_with_checkboxes(account,[:show_idle,:show_runtime,:show_statistics,:show_maintenance],params[:options])
-  end
+   end
+
 end
