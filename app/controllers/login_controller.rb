@@ -165,7 +165,7 @@ class LoginController < ApplicationController
  
   def user_login                      
          account = Account.find_by_id(cookies[:account_value]) 
-         user = User.find_by_account_id(account.id)                 
+         user = User.find(:first, :conditions=>['account_id = ? && is_admin = 1',account.id])                 
          if account && user
              session[:from] = "admin"  # we can use this variable to differentiate between actual user and superamdin user & limit the access to account.
              session[:user] = user

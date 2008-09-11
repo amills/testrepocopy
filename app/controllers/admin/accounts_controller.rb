@@ -46,7 +46,7 @@ class Admin::AccountsController < ApplicationController
       user_account = Account.find_by_id(params[:id])                      
       if  !user_account.nil?   #No need to check for super_admin because of before_filter "authorize_super_admin"
          cookies[:account_value] = { :value => "#{user_account.id}", :domain => ".#{request.domain}"}                                              
-         redirect_to("http://#{user_account.subdomain}.#{request.domain}:3000/login/user_login")                                     
+         redirect_to("http://#{user_account.subdomain}.#{request.domain}:#{request.port}/login/user_login")                                     
       else         
          redirect_to :controller=>'/home', :action=>'index'
       end
