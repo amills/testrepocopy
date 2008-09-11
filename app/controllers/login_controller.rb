@@ -164,22 +164,24 @@ class LoginController < ApplicationController
  end
  
   def user_login                      
-         if account = Account.find_by_id(cookies[:account_value])
-                 user = User.find_by_account_id(account.id)
-                 session[:from] = "admin"  
-                 session[:user] = user
-                 session[:user_id] = user.id # Store current user's id
-                 session[:account_id] = account.id # Store the account id
-                 session[:company] = account.company # Store the user's company name
-                 session[:first_name] = user.first_name # Store user's first name
-                 session[:email] = user.email # Store user's email
-                 session[:is_super_admin] = user.is_super_admin         
-                 redirect_to(:controller => '/home', :action => 'index') # Login success                                                              
+         account = Account.find_by_id(cookies[:account_value]) 
+         user = User.find_by_account_id(account.id)                 
+         if account && user
+             session[:from] = "admin"  # we can use this variable to differentiate between actual user and superamdin user & limit the access to account.
+             session[:user] = user
+             session[:user_id] = user.id # Store current user's id
+             session[:account_id] = account.id # Store the account id
+             session[:company] = account.company # Store the user's company name
+             session[:first_name] = user.first_name # Store user's first name
+             session[:email] = user.email # Store user's email
+             session[:is_admin] = user.is_admin         
+             cookies[:account_value] = {:value=>"", :domain=>".#{request.domain}"}
+             redirect_to(:controller => '/home', :action => 'index') # Login success                                                                           
          else             
-             redirect_to :controller=>'home'
+             redirect_to :controller=>'login'
          end                 
          rescue
-           flash[:error] = 'Invalid account.'
+           flash[:error] = 'Invalid action'
            redirect_to :controller=>'login'
      end  
      

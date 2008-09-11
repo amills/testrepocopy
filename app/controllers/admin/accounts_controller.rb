@@ -43,11 +43,12 @@ class Admin::AccountsController < ApplicationController
   end
 
   def user_domain    
-      user_account = Account.find_by_id(params[:id])          
-      acc_id = user_account.id
-      if session[:is_super_admin]                   
-         cookies[:account_value] = { :value => "#{acc_id}", :domain => ".ubliplocal.com"}                                     
-         redirect_to("http://#{user_account.subdomain}.#{request.domain}/login/user_login")                                     
+      user_account = Account.find_by_id(params[:id])                      
+      if  !user_account.nil?   #No need to check for super_admin because of before_filter "authorize_super_admin"
+         cookies[:account_value] = { :value => "#{user_account.id}", :domain => ".#{request.domain}"}                                              
+         redirect_to("http://#{user_account.subdomain}.#{request.domain}:3000/login/user_login")                                     
+      else         
+         redirect_to :controller=>'/home', :action=>'index'
       end
   end
     
