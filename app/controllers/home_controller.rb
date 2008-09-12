@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   before_filter :authorize
   
-  def index    
+  def index          
       @all_groups=Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
       @devices = Device.get_devices(session[:account_id]) # Get devices associated with account            
       @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
