@@ -53,6 +53,7 @@ class Admin::AccountsController < ApplicationController
       end
   end
  
+  
   def update
     if request.post?
       account = Account.find(params[:id])
