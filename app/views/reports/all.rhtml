@@ -1,8 +1,8 @@
-
-<%= render :partial => 'report_header' %>
 <table class="text_width" id="main_table" >
-	<tr>
-		<td width="50%" valign="top" id="left_panel">
+	<tr>    
+          <td id="left_panel" valign="top" width="50%">                    
+               <div id="to_update">
+                 <%= render :partial => 'report_header' %>
 			<table class="panel_table">
 				<tr>
 					<th>Location</th>
@@ -63,19 +63,18 @@
                             <span>No readings found.</span>
                        </div>                        
                 <%end%>        
-		</td>
-        
+                 </div>                 
+              </td>                      
 		<td>                
                  <a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a>                
-           </td>
-           
-		<td width="50%" valign="top" id="right_panel">                    
+           </td>           
+		<td width="50%" valign="top" id="right_panel">                                     
+                 <div class="report_map_header">Locations for <%= @device.name%></div> 
                  <div id="map" class="reports_map" ></div>                 
 		</td>
 	</tr>
 </table>
 
-<%= javascript_include_tag "scrolling_effect.js"%>			
 
 <%= render :partial => 'report_footer' %>
 
