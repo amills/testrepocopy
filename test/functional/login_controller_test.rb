@@ -71,7 +71,6 @@ class LoginControllerTest < Test::Unit::TestCase
      @request.host="byron.ublip.com"
      @request.cookies['account_value'] = CGI::Cookie.new('account_value', '4')
      @request.cookies['admin_user_id'] = CGI::Cookie.new('admin_user_id', '1')     
-     account = Account.find_by_id(@request.cookies['account_value']) 
      get :admin_login,{}
      assert_redirected_to(:controller => '/home', :action => 'index')
      assert_equal "dennis@ublip.com",@request.session[:user].email
