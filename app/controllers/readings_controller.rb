@@ -43,8 +43,7 @@ class ReadingsController < ApplicationController
          else            
             ( @user_pre == "undefined" || @user_pre == "all" )         
                @devices = Device.get_devices(session[:account_id])                
-         end
-    
+         end    
         render :layout => false
   end
   

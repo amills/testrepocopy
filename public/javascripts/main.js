@@ -64,18 +64,17 @@ function load()
 	
     
 	// Only load this on home page
-	var page = document.location.href.split("/")[3];
-	if(page == 'home' || page == 'admin' ||page=='devices')
-    	getRecentReadings(true,grp_id);        
-	else if(page == 'reports')
+	var page = document.location.href.split("/")[3];            
+    var action = document.location.href.split("/")[4];                
+	if(page == 'home' || page == 'admin' ||page=='devices' || (page=='reports' && action==undefined) || (page=='reports' && action=='group_devices'))             	 
+        getRecentReadings(true,grp_id);                
+	else if(page == 'reports' )
 		getReportBreadcrumbs();
 	else 
 		getBreadcrumbs(device_id);
 	
   }
 }
-
-
 
 function set_cookie ( name, value, exp_y, exp_m, exp_d, path, domain, secure )
 {
@@ -110,9 +109,10 @@ function getRecentReadings(redrawMap,id) {
 	$("updating").style.visibility = 'visible';
     var bounds = new GLatLngBounds();
     var temp ;
-    var no_data_flag=false;
+    var no_data_flag=false;      
     
-    temp="/readings/recent/" + id 
+      temp="/readings/recent/" + id 
+      
     GDownloadUrl(temp, function(data, responseCode) {
 		devices = [];
 		gmap.clearOverlays();

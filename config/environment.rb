@@ -29,7 +29,7 @@ Rails::Initializer.run do |config|
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')
   config.action_controller.session_store = :active_record_store
-
+  
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
   # like if you have constraints or database-specific column types
@@ -42,8 +42,8 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
-  config.gem 'mislav-will_paginate', :version => '~> 2.3.2', :lib => 'will_paginate', 
-    :source => 'http://gems.github.com'
+  #~ config.gem 'mislav-will_paginate', :version => '~> 2.3.2', :lib => 'will_paginate', 
+    #~ :source => 'http://gems.github.com'
 end
 
 # Add new inflection rules using the following format 
@@ -61,8 +61,7 @@ end
 
 # Include your application configuration below
 
-
 RADIUS_ARRAY = [0.1,0.25,0.5,1,5,10,25,50,100]
-
+Last_Report_Within = [1,5,10,15,30,40,50,60,70,80,90,100]
 GROUP_IMAGES = ['no_image.png','blue_small.png','red_small.png','green_small.png','yellow_small.png','purple_small.png','dark_blue_small.png','grey_small.png','orange_small.png']
 MAP_MARKER_COLOR = ['blue','red',  'green', 'yellow','purple','black', 'gray', 'orange', 'white','brown',]
