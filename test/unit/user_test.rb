@@ -1,6 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < Test::Unit::TestCase
+  # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead.
+  # Then, you can remove it from this and the functional test.
+  include AuthenticatedTestHelper
   fixtures :users,:accounts
 
   def test_should_create_user
@@ -31,17 +34,13 @@ class UserTest < Test::Unit::TestCase
 
   def test_should_not_rehash_password
     users(:dennis).update_attributes(:first_name => 'dennis2')
-    assert_equal users(:dennis), User.authenticate('dennis', 'dennis@ublip.com', 'testing')
-  end
-  
-  def test_should_not_authenticate_user
-    assert_nil User.authenticate('dennis', 'dennis@ublip.com', 'badpassword')
+    assert_equal users(:dennis), User.authenticate('dennis', 'dennis@ublip.com', 'test')
   end
 
   def test_should_authenticate_user
-    assert_equal users(:dennis), User.authenticate('dennis', 'dennis@ublip.com', 'testing')
+    assert_equal users(:dennis), User.authenticate('dennis', 'dennis@ublip.com', 'test')
   end
-  
+
   def test_should_set_remember_token
     users(:dennis).remember_me
     assert_not_nil users(:dennis).remember_token
@@ -53,45 +52,6 @@ class UserTest < Test::Unit::TestCase
     assert_not_nil users(:dennis).remember_token
     users(:dennis).forget_me
     assert_nil users(:dennis).remember_token
-  end
-  
-  def test_save
-    users(:dennis).password = 'testing'
-    users(:dennis).save!
-  end
-  
-  def test_edit
-    user = users(:dennis)
-    assert_equal 'dennis', user.first_name
-    assert_equal 'baldwin', user.last_name
-    assert_equal User.encrypt('testing', user.salt), user.crypted_password
-    user.first_name = 'dennis2'
-    user.last_name = 'baldwin2'
-    user.password = 'testing123'
-    user.save!
-  end
-  
-  def test_generate_token
-    user = User.new
-    assert_equal("7981aa86aba493c6b4a2c4a2b6cd20b43cccaa9a", user.generate_security_token(1))
-  end
-  
-  def test_change_password
-    user = User.new
-    user.change_password("qwerty123", "qwerty123")
-    assert_equal(user.password, "qwerty123", "qwerty123")
-    assert_equal(user.password_confirmation, "qwerty123", "qwerty123")
-  end
-  
-  def test_remember_token
-    user = User.new
-    pretend_now_is(Time.at(1185490000)) do
-      user.remember_me
-      assert_equal true, user.remember_token?
-    end
-    pretend_now_is(Time.at(1185490000+172800)) do #two days later
-       assert_equal false, user.remember_token?
-    end
   end
 
   protected

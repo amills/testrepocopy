@@ -1,13 +1,21 @@
 <h3>Editing <%= @device.name %></h3>
 <form method="post" class="form_table">
 <table>
-    <tr><th>Name</th><td><input type="text" name="name" value="<%= h @device.name %>" /></td></tr>
-    <tr><th>IMEI</th><td><input type="text" name="imei" value="<%= @device.imei %>" /></td></tr>
-	<tr><td></td><td><span style="font-size: 11px; color: #666666">(Please note that an invalid IMEI may cause<br />a temporary loss of data)</span></td></tr>
-    <tr><td colspan="2" align="right"><input type="submit" value="update" />&nbsp;&nbsp;<a href="javascript:history.go(-1)">cancel </a></td></tr>
+    <tr><th>Name:</th><td><input type="text" size="20" name="name" value="<%= @device.name %>" /></td></tr>
+    <tr><th>IMEI:</th><td><input type="text" size="20" name="imei" value="<%= @device.imei %>" /></td></tr>
+    <tr><td colspan="2" align="right"><input type="submit" value="done" /></td></tr>
 </table>
     <input type="hidden" name="id" value="<%= @device.id %>" />
 </form>
+<br />
+
+<% if @device.geofences.size > 0 %>
+	<a href="/geofence/view/<%= @device.id %>">View Geofences</a><br />
+<% end %>
+
+<% if @device.geofences.size < 3 %>
+<a href="/geofence/add/<%= @device.id %>">Add Geofence</a>
+<% end %>
 <hr />
 <form method="post" action="/devices/delete" onsubmit="return confirm('Are you sure you want to delete this device?');">
 	<input type="hidden" name="id" value="<%= @device.id %>" />

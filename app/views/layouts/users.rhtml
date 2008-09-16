@@ -4,19 +4,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<title>Ublip - Location Matters</title>
         <%= stylesheet_link_tag "app", "font_styles" %>
-		<%= javascript_include_tag "users" %>
 	</head>
 	<body>
    		<%= render :partial => 'layouts/includes/header' %>
-		<div id="subnav">
-		    <%@current_user = User.find(session[:user_id])%>
-		    <%@users = User.find(:all, :conditions => ['account_id =?', @current_user.account_id])%>
-		    <%if @users.size >= 5%>
-    			New User  
-    		<%else%>		
-    		    <a href="/users/new" title="Add a new user">New User</a>
-    		<%end%>    
-		</div>
     	<div id="content">
         	<%= yield %>
         </div>

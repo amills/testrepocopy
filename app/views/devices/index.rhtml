@@ -1,19 +1,17 @@
-	<h3 style="float: left; line-height: 40px;">Your Active Devices (<%= @devices.size %> total)</h3>
-	
-	<!--<div style="float: right; font-size: 18px;"><img border="0" style="vertical-align: middle;" alt="Ublip logo" src="/icons/new_group.png"/>&nbsp;<%= link_to 'Group your devices',:controller=>'devices',:action=>'edit_group'%></div>-->
-	
-	<div style="clear: both"></div>
-	
     <% if flash[:message] %>
         <div id="success_message"><%= flash[:message] %></div>
     <% end %>
-	<div id="device_list">
-	    <ul>
-	    <% for device in @devices %>
-	    	<li>
-	    		<strong><%= device.name %></strong></a> - <a href="/devices/edit/<%= device.id %>" title="Edit properties for this device">edit</a> | <a href="/geofence/view/<%= device.id %>" title="Create and edit geofences for this device">geofences</a><br />
-				<% if device.recent_reading_id != 0 %>reported <%= time_ago_in_words device.readings[0].created_at %> ago<% else %>no report yet<% end %>
-			</li>
-	    <% end %>
-	    </ul>
-	</div>
+    <h3>Add a Device</h3>
+    <h4>What type of device do you need?</h2>
+    <ul>
+        <li>Personal tracking with a mobile phone (FREE) - <a href="/devices/choose/1">add</a></li>
+        <li>Personal tracking with device mounted in car - <a href="/devices/choose/2">buy</a></li>
+        <li>Fleet tracking with device mounted in vehicle - <a href="/devices/choose/3">buy</a></li>
+    </ul>
+    <hr />
+    <h3>Your Active Devices</h3>
+    <ul>
+    <% for device in @devices %>
+    	<li><a href="/devices/edit/<%= device.id %>"><%= device.name %></a></li>
+    <% end %>
+    </ul>

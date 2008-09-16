@@ -7,21 +7,16 @@ class DeviceController; def rescue_action(e) raise e end; end
 class DeviceControllerTest < Test::Unit::TestCase 
 
   fixtures :users,:devices,:accounts
-  
-  module RequestExtensions
-    def server_name
-      "helo"
-    end
-    def path_info
-      "adsf"
-    end
-  end
 
   def setup
     @controller = DevicesController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @request.extend(RequestExtensions)
+  end
+
+  # Replace this with your real tests.
+  def test_truth
+    assert true
   end
   
   def test_index
@@ -41,13 +36,6 @@ class DeviceControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => "devices"
   end
   
-  def test_edit_post_unautorized
-    post :edit, {:id => "1", :name => "qwerty", :imei=>"000000"}, { :user => users(:nick), :account_id => "2" }
-    assert_response 500
-    assert_not_equal devices(:device1).name, "qwerty"
-    assert_not_equal devices(:device1).imei, "000000"
-  end
-  
   def test_edit_get
     get :edit, {:id => "1"}, { :user => users(:dennis), :account_id => "1" }
     assert_equal devices(:device1).name, "device 1"
@@ -55,54 +43,31 @@ class DeviceControllerTest < Test::Unit::TestCase
     assert_response :success
   end
   
-  def test_edit_get_unauthorized
-    get :edit, {:id => "1"}, { :user => users(:nick), :account_id => "2" }
-    assert_response 500
-  end
-  
   def test_delete
     post :delete, {:id => "1"}, { :user => users(:dennis), :account_id => "1" }
     assert_redirected_to :controller => "devices"
-    assert_equal 2, devices(:device1).provision_status_id
+    assert_equal devices(:device1).provision_status_id, 2
   end
   
-  def test_delete_unauthorized
-    post :delete, {:id => "1"}, { :user => users(:nick), :account_id => "2" }
-    assert_response 500
-    assert_not_equal devices(:device1).provision_status_id, 2
-  end
-  
-  def test_choose_MT
-    post :choose_MT, {:imei => "33333", :name => "device 1"}, { :user => users(:dennis), :account_id => "1" }
+  def test_choose
+    post :choose, {:imei => "33333", :name => "device 1"}, { :user => users(:dennis), :account_id => "1" }
     assert_redirected_to :controller => "devices"
     assert_equal devices(:device5).provision_status_id, 1
     assert_equal devices(:device5).account_id, 1
   end
   
-  def test_choose_new_MT
-    post :choose_MT, {:imei => "314159", :name => "new device"}, { :user => users(:dennis), :account_id => "1" }
+  def test_choose_new
+    post :choose, {:imei => "314159", :name => "new device"}, { :user => users(:dennis), :account_id => "1" }
     assert_redirected_to :controller => "devices"
     newDevice = Device.find_by_imei("314159")
-    assert_equal 1, newDevice.provision_status_id
-    assert_equal 1, newDevice.account_id
-    assert_equal 90, newDevice.online_threshold
+    assert_equal newDevice.provision_status_id, 1
+    assert_equal newDevice.account_id, 1
   end
-
+  
   def test_choose_already_provisioned
-    post :choose_MT, {:imei => "1234"}, { :user => users(:dennis), :account_id => "1" }
+    post :choose, {:imei => "1234"}, { :user => users(:dennis), :account_id => "1" }
     assert_equal flash[:message] , 'This device has already been added'
     assert_response :success
   end
-
-# Removing until we need it again. For some reason it causes the build to choke even though devices.choose_phone should be redirecting properly
-# and the offending code (Text_Message_Webservice) was commented out a couple weeks ago
-=begin
-   def test_choose_phone
-    post :choose_phone, {:imei => "33333", :name => "device 1", :phone_number => "5551212"}, { :user => users(:dennis), :account_id => "1" }
-    assert_redirected_to :controller => "devices"
-    assert_equal devices(:device5).provision_status_id, 1
-    assert_equal devices(:device5).account_id, 1
-  end
-=end
-
+  
 end

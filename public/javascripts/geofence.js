@@ -23,34 +23,14 @@ function load() {
 		
 		// Form when editing or adding geofence
 		form = document.getElementById("geofence_form");
-
-		// Display the initial geofence, but not when adding a new one
-		var action = document.location.href.split("/")[4];
-		// Display the device location
-		if(action == "add") {
-			var point = new GLatLng(device.lat, device.lng);
-			gmap.addOverlay(createMarker(point));
-			gmap.openInfoWindowHtml(point, 'Last location for <strong>' + device.name + '</strong>');
-			gmap.setCenter(point, 15);
-			
-			GEvent.addListener(gmap, "click", function(overlay, point) {
-				var latlng = point.lat() + ',' + point.lng();
-				document.getElementById('address').value = latlng;
-          		geocode(latlng);
-         	});
-		} else {
-			GEvent.addListener(gmap, "click", function(overlay, point) {
-				if(point) {
-					var latlng = point.lat() + ',' + point.lng();
-					document.getElementById('address').value = latlng;
-	          		geocode(latlng);
-				}
-			});
+		
+		// Display the initial geofence when viewing
+		// Set the initial geofence ID
+		//if(form == null) {
 			displayGeofence(0);
 			currSelectedGeofenceId = geofences[0].id;
-			var point = new GLatLng(device.lat, device.lng);
-			gmap.addOverlay(createMarker(point));
-		}
+		//}
+		
 	}
 }
 
@@ -61,26 +41,24 @@ function geocode(address) {
     	address,
 		function(point) {
       		if (!point) {
-        		alert("We're sorry, this address cannot be located");
+        		alert("This address cannot be located");
       		} else {
 				gmap.clearOverlays();
 				// Draw the fence
 				var r = document.getElementById("radius")[document.getElementById("radius").selectedIndex].value;
 				drawGeofence(point, r);
 						
+        		gmap.addOverlay(createMarker(point));
+        		
 				if(parseInt(r) > 1)
 					zoom = 9;
 				else
 					zoom = 14;
 					
-				gmap.panTo(point, zoom);
+				gmap.setCenter(point, zoom);
 				
 				// Populate the bounds field
 				form.bounds.value = point.lat() + ',' + point.lng() + ',' + r;
-				
-				// Display the last location for the device
-				var device_location = new GLatLng(device.lat, device.lng);
-				gmap.addOverlay(createMarker(device_location));
       		}
     	}
   	);
@@ -137,6 +115,8 @@ function displayGeofence(index) {
 	var radius = parseFloat(bounds[2]);
 	gmap.clearOverlays();
 	drawGeofence(point, radius);
+	gmap.addOverlay(createMarker(point));
+	
 	currSelectedGeofenceId = geofences[index].id;
 	
 	if(radius > 1)

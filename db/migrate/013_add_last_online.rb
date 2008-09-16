@@ -4,6 +4,6 @@ class AddLastOnline < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :devices, :last_online_time
+    remove_column :devices, :last_online_time, :datetime
   end
 end
