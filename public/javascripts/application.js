@@ -16,12 +16,12 @@ function select_action(obj,from)
     {
       if (from=='from_reports')
       {
-         szNewURL = "http://"+document.location.hostname+":3000/reports?type="+document.getElementById('type1').value
+         szNewURL = "http://"+document.location.hostname+"/reports?type="+document.getElementById('type1').value
         window.location.href=szNewURL;                            
       }
       else if (from=='from_devices')
       {
-         szNewURL = "http://"+document.location.hostname+":3000/devices?type="+document.getElementById('type1').value
+         szNewURL = "http://"+document.location.hostname+"/devices?type="+document.getElementById('type1').value
         window.location.href=szNewURL;                                
       }
       else
