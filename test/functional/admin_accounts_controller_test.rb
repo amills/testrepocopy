@@ -92,7 +92,7 @@ class Admin::AccountsControllerTest < Test::Unit::TestCase
   def get_standard_user
      {:user => users(:demo).id, :account_id => users(:demo).id, :is_super_admin => users(:demo).is_super_admin} 
   end
-  
+
   def get_user
     {:user => users(:dennis).id, :account_id => accounts(:dennis).id, :is_super_admin => users(:dennis).is_super_admin}
   end

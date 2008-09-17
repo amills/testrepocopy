@@ -9,13 +9,13 @@ class ReportsController < ApplicationController
   MAX_LIMIT = 999 # Max number of results
  
   def index      
+      @device_string=""
       if request.post?
-           @from_search = true
-            @device_string=""
-           search_devices  
+           @from_search = true                             
+           search_devices  #private method for searching
            @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
            @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                           
-           @devices.each{|device| @device_string+="#{device.id},"}
+           @devices.each{|device| @device_string+="#{device.id},"}           
       else    
           @from_reports = true
           @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
@@ -25,21 +25,24 @@ class ReportsController < ApplicationController
   end
     
    def group_devices     
-         @group = Group.find_by_id(params[:id])
-         @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id = 1',session[:account_id]], :order=>'name')                     
-         if params[:id] !='default'
-            @devices = Device.find(:all, :conditions => ['group_id=? and provision_status_id = 1 and account_id = ?', params[:id],session[:account_id]], :order => 'name')         
+         @group = Group.find_by_id(params[:id], :conditions=>['account_id=?',session[:account_id]])
+         if !@group.nil?
+             @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id = 1',session[:account_id]], :order=>'name')                     
+             if params[:id] !='default'
+                @devices = Device.find(:all, :conditions => ['group_id=? and provision_status_id = 1 and account_id = ?', params[:id],session[:account_id]], :order => 'name')         
+             else
+                 @from_default = true
+             end
+             @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
          else
-             @from_default = true
-         end
-         @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
+             redirect_to :controller=>'home'
+         end    
    end
    
   def all               
      get_start_and_end_date
      @device = Device.find(params[:id])     
-     @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
-     @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
+     @device_names = Device.get_names(session[:account_id]) 
      @readings=Reading.paginate(:per_page=>ResultCount, :page=>params[:page],
                                :conditions => ["device_id = ? and created_at between ? and ?", 
                                params[:id],@start_dt_str, @end_dt_str],:order => "created_at desc")                             
@@ -48,12 +51,10 @@ class ReportsController < ApplicationController
      @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data are going to be different in numbers.
      @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
-
   def stop
     get_start_and_end_date
-    @device = Device.find(params[:id])    
-    @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
-    @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
+    @device = Device.find(params[:id])     
+    @device_names = Device.get_names(session[:account_id]) 
     @stop_events = StopEvent.paginate(:per_page=>ResultCount, :page=>params[:page],
           :conditions => ["device_id = ? and created_at between ? and ?",
            params[:id],@start_dt_str, @end_dt_str], :order => "created_at desc")
@@ -63,11 +64,11 @@ class ReportsController < ApplicationController
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
  
+
   def idle
     get_start_and_end_date
-    @device = Device.find(params[:id])    
-    @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
-    @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
+    @device = Device.find(params[:id])     
+    @device_names = Device.get_names(session[:account_id]) 
     @idle_events = IdleEvent.paginate(:per_page=>ResultCount, :page=>params[:page],
          :conditions => ["device_id = ? and created_at between ? and ?",
          params[:id],@start_dt_str, @end_dt_str], :order => "created_at desc")    
@@ -77,11 +78,11 @@ class ReportsController < ApplicationController
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
   
+
   def runtime
     get_start_and_end_date
-    @device = Device.find(params[:id])    
-    @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
-    @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
+    @device = Device.find(params[:id])     
+    @device_names = Device.get_names(session[:account_id]) 
     @runtime_events = RuntimeEvent.paginate(:per_page=>ResultCount, :page=>params[:page],
          :conditions => ["device_id = ? and created_at between ? and ?",
           params[:id],@start_dt_str, @end_dt_str], :order => "created_at desc")    
@@ -94,10 +95,9 @@ class ReportsController < ApplicationController
   # Display geofence exceptions
   def geofence
     get_start_and_end_date 
-    @device = Device.find(params[:id])
+    @device = Device.find(params[:id])     
+    @device_names = Device.get_names(session[:account_id])  
     @geofences = Device.find(params[:id]).geofences # Geofences to display as overlays    
-    @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
-    @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
     @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page], 
                               :conditions => ["device_id = ? and created_at between ? and ? and event_type like '%geofen%'",
                               params[:id],@start_dt_str, @end_dt_str], :order => "created_at desc")                                             
@@ -109,9 +109,8 @@ class ReportsController < ApplicationController
   # Display gpio1 events
   def gpio1
     get_start_and_end_date 
-    @device = Device.find(params[:id])    
-    @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
-    @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
+    @device = Device.find(params[:id])
+    @device_names = Device.get_names(session[:account_id]) 
     @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page], 
                               :conditions => ["device_id = ? and created_at between ? and ? and gpio1 is not null",
                               params[:id],@start_dt_str, @end_dt_str], :order => "created_at desc")                                             
@@ -123,9 +122,8 @@ class ReportsController < ApplicationController
   # Display gpio2 events
   def gpio2
     get_start_and_end_date 
-    @device = Device.find(params[:id])    
-    @all_groups = Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
-    @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
+    @device = Device.find(params[:id])
+    @device_names = Device.get_names(session[:account_id])
     @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page], 
                               :conditions => ["device_id = ? and created_at between ? and ? and gpio2 is not null",
                               params[:id],@start_dt_str, @end_dt_str], :order => "created_at desc")                                             

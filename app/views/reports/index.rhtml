@@ -1,3 +1,6 @@
+<script>
+var devices_string = "<%= @device_string %>";
+</script>
 <table width="100%">
       <tbody>
            <tr>
@@ -53,7 +56,11 @@
  <% if update_readings_automatically? %> 
     <script>   
         window.setInterval("updateLocations();", 30000);
-        function updateLocations() {                                              
+        var devices_string = "<%= @device_string %>";
+        function updateLocations() {  
+          if (devices_string)
+             getRecentReadings(true,devices_string);                          
+          else
              getRecentReadings(false);                          
         }
     </script>            
