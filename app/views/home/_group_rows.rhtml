@@ -12,7 +12,7 @@
                     <%if @from_search %>
                         <%if @devices.include?(device)%> <%= send(callback,device) %> <%end%>
                     <%else%>
-                       <%= send(callback,device) %> 
+                       <%= send(callback,device) %>
                     <%end%>  
              <%end%>
          <%else%>
