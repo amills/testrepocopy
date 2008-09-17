@@ -3,7 +3,7 @@
                     <table class="panel_table">
                         <tr>
                             <td class="header" >                                         
-                                <div style="float: left;">Locations for All Devices</div>                                
+                                <div style="float: left;">Locations for <%if @group_name %><%= @group_name%><%else%>All Devices<%end%></div>                                
                                 <% if update_readings_automatically? %><div id="updating">Updating locations...</div><% end %>                                         
                                </td>                                                            
                         </tr>
