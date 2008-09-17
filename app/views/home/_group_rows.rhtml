@@ -9,11 +9,7 @@
          </tr>
          <%if !group.devices.empty?%>                     
              <% group.ordered_devices.each do |device|%>
-                    <%if @from_search %>
-                        <%if @devices.include?(device)%> <%= send(callback,device) %> <%end%>
-                    <%else%>
                        <%= send(callback,device) %>
-                    <%end%>  
              <%end%>
          <%else%>
               <tr><td>No devices in this group.</td></tr>
@@ -31,10 +27,6 @@
         </tr>
     <%end%>
     <% @default_devices.each do |device|%>
-        <%if @from_search %> 
-           <%if @devices.include?(device)%> <%= send(callback,device) %> <%end%>
-        <%else%>  
 		 <%= send(callback,device) %>
-        <%end%>
     <%end%>
 <%end%>           

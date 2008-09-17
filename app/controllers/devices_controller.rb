@@ -325,24 +325,7 @@ class DevicesController < ApplicationController
              @search_text = "#{params[:device_search]}"
          render :action=>'index'        
      end
-     
-     def search_devices_by_address
-        max_distance_in_miles =  10.0000
-        @devices = []
-        @from_search_address = true
-        @all_devices = Device.get_devices(session[:account_id]) # Get devices associated with account                  
-        @all_devices.each do |device| 
-             if !device.readings[0].nil?   
-                distance_in_miles = DevicesController.distance_between("#{params[:device_address]}" ,"#{device.readings[0].latitude},#{device.readings[0].longitude}")
-                if distance_in_miles <= max_distance_in_miles
-                    @devices << device 
-                end    
-             end  
-        end   
-        @search_text = "#{params[:device_address].to_s.gsub(' ','_')}" 
-       render :action=>'index'
-     end
-     
+         
     # show the current user group
     def show_group
       show_group_by_id()

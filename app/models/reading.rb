@@ -11,7 +11,12 @@ class Reading < ActiveRecord::Base
 
               
   def speed
-    read_attribute(:speed).round
+    spd = read_attribute(:speed)
+    if spd.nil?
+      "N/A"
+    else
+      read_attribute(:speed).round
+    end
   end
   
   def get_fence_name
@@ -26,8 +31,7 @@ class Reading < ActiveRecord::Base
 
   def shortAddress
     if(address.nil?)
-      #latitude.to_s + ", " + longitude.to_s
-      get_address(latitude,longitude)
+      latitude.to_s + ", " + longitude.to_s
     else
       begin
           doc = REXML::Document.new address
@@ -41,37 +45,10 @@ class Reading < ActiveRecord::Base
           shortAddress.delete("")
           addressString = shortAddress.join(', ')
           addressString.empty? ? latitude.to_s + ", " + longitude.to_s : addressString
-      rescue        
-          new_address = get_address(latitude , longitude)
-          if (new_address=="")
-             latitude.to_s + ", " + longitude.to_s
-          else
-             new_address
-          end    
+      rescue
+        latitude.to_s + ", " + longitude.to_s
       end
     end
   end
   
-private
-    def get_address(lat,lng)
-        url = "http://ws.geonames.org/findNearestAddress?lat=#{lat}&lng=#{lng}"
-        # get the XML data as a string
-        xml_data = Net::HTTP.get_response(URI.parse(url)).body
-        # extract event information
-        doc = REXML::Document.new(xml_data)
-        address = ""        
-        doc.elements.each('geonames/address/streetNumber') do |ele|
-           address = address + ele.text + ", "   if !ele.text.nil?                  
-       end
-        doc.elements.each('geonames/address/street') do |ele|
-           address =address + ele.text+", " if  !ele.text.nil?                  
-        end    
-        doc.elements.each('geonames/address/placename') do |ele|
-           address = address+" " + ele.text + ", " if !ele.text.nil?                  
-       end
-        doc.elements.each('geonames/address/adminName1') do |ele|
-           address = address+" " + ele.text  if !ele.text.nil?                  
-       end           
-       address
-    end   
 end

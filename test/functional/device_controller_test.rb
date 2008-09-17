@@ -153,17 +153,6 @@ class DeviceControllerTest < Test::Unit::TestCase
      assert_response :success
   end
   
-  def test_search_devices_by_address
-     get :search_devices_by_address, {:device_address=>'32.9542007446289,-96.8248977661133'} , { :user => users(:dennis), :account_id => "1" }      
-     assert_response :success     
-     assert_equal 2,assigns(:devices)
-  end
-  
-  def test_search_devices_by_address
-     get :search_devices_by_address, {:device_address=>'Belt Line Rd, Addison, Texas'} , { :user => users(:dennis), :account_id => "1" }      
-     assert_response :success     
-  end
-  
 # Removing until we need it again. For some reason it causes the build to choke even though devices.choose_phone should be redirecting properly
 # and the offending code (Text_Message_Webservice) was commented out a couple weeks ago
 =begin
