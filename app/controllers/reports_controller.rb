@@ -26,7 +26,7 @@ class ReportsController < ApplicationController
     
    def group_devices     
          @group = Group.find_by_id(params[:id], :conditions=>['account_id=?',session[:account_id]])
-         if !@group.nil?
+         if !@group.nil? || params[:id] == 'default'
              @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id = 1',session[:account_id]], :order=>'name')                     
              if params[:id] !='default'
                 @devices = Device.find(:all, :conditions => ['group_id=? and provision_status_id = 1 and account_id = ?', params[:id],session[:account_id]], :order => 'name')         
