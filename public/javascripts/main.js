@@ -178,18 +178,28 @@ function getRecentReadings(redrawMap,id) {
 				devices.push(device);                
                  
 				// Populate the table
+              if (frm_index)
+              {
 				var row = $("row" + device.id);
                                 if (row && row.getElementsByTagName) {
-				  var tds = row.getElementsByTagName("td");
+				  var tds = row.getElementsByTagName("td");                
 				  tds[2].innerHTML = device.address;
 				  if (tds.length == 4)
-					  tds[3].innerHTML = device.dt;
+				  	{                     
+                     tds[3].innerHTML = device.status;                                                                
+                     }
 				  else
-				  {
+				  {                    
 				  	tds[3].innerHTML = device.status;
 					  tds[4].innerHTML = device.dt;
-				  }
-			        }	
+				  }                  
+                 if (tds[1].innerHTML==tds[2].innerHTML)
+                  {
+                    tds[2].innerHTML = device.status;
+                    tds[3].innerHTML = device.dt
+                  }
+                }   
+              }	
 		          var point = new GLatLng(device.lat, device.lng);                
 				gmap.addOverlay(createMarker(device.id, point, iconALL, createDeviceHtml(device.id)));
 		        bounds.extend(point);
@@ -329,7 +339,7 @@ function highlightRow(id) {
 	}
 	
 	// An id of 0 deselects all
-	if(id > 0) {
+	if(id > 0) {        
 		prevSelectedRow = row;
 		prevSelectedRowClass = row.className;
 		

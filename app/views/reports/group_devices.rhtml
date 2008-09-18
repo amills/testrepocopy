@@ -1,7 +1,8 @@
 <script>
    <%if @from_default%>
-   var grp_id= 'default';
+   var grp_id= 'default';   
    <%end%>
+   var frm_index=false;
 </script>
 <table width="100%">
       <tbody>
@@ -65,3 +66,11 @@
       <%end%>   
     </tr>
  </tbody></table>			
+
+<div  class="ublip-pagination">
+      <%if @from_default%>
+           <%= will_paginate @default_devices%> 
+      <%else%>
+           <%= will_paginate @devices%>
+      <%end%>
+</div>

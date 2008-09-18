@@ -148,7 +148,19 @@ class DevicesController < ApplicationController
     end
     
   def index
-      @devices = Device.get_devices(session[:account_id]) # Get devices associated with account                  
+      @all_groups=Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')      
+      @default_devices=Device.paginate(:per_page=>21, :page=>params[:page],
+                                                     :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
+       if params[:type] == "default"
+             @devices = @default_devices      
+       elsif (params[:type] !="" && params[:type]  )
+             @group = Group.find_by_id(params[:type], :conditions=>['account_id=?',session[:account_id]]) 
+             @devices = Device.paginate(:per_page=>21, :page=>params[:page],
+                                                    :conditions => ['group_id=? and provision_status_id = 1 and account_id = ?', params[:type],session[:account_id]], :order => 'name')                    
+       else
+             @devices = Device.paginate(:per_page=>21, :page=>params[:page],
+                                                  :conditions => ['provision_status_id = 1 and account_id = ?', session[:account_id]], :order => 'name')        
+       end
   end
 
   # Device details view
@@ -317,6 +329,8 @@ class DevicesController < ApplicationController
      end    
      
      def search_devices        
+         @all_groups=Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')      
+         @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                             
          @from_search = true          
              search_text = "%"+"#{params[:device_search]}"+"%"
              if params[:device_search] != ""

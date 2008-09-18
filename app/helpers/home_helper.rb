@@ -1,20 +1,35 @@
 module HomeHelper
   
   def update_readings_automatically?
-    params[:action] == "index"
+    params[:action] == "index" || "statistics" || "maintenance"
   end
 
+  def decide_action 
+     content=""  
+     if @from_reports
+         content << %(select_action(this,'from_reports'))
+     elsif @from_statistics
+         content << %(select_action(this,'from_statistics'))
+     elsif @from_maintenance
+         content << %(select_action(this,'from_maintenance'))
+     elsif @from_devices || @from_search
+         content << %(select_action(this,'from_devices'))
+     else    
+         content << %(select_action(this,'from_home'))
+     end
+     content
+  end
+      
   def show_device(device)
     content = ""
-    content << %(<tr class="#{cycle('dark_row', 'light_row')} id="row#{device.id}"> <td>)
+     content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}"><td>)                                  
     if !device.readings.empty?
-        content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a>)
-        content << %( <a href="/reports/all/#{device.id}" title="View device details" class="link-all1">(details)</a>)
+        content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a> 
+                 <a href="/reports/all/#{device.id}" title="View device details" class="link-all1">(details)</a>)
     else
         content << %(#{device.name} <a href="/reports/all/#{device.id}" title="View device details" class="link-all1">(details)</a>)
     end    
-    content << %(</td>)
-    content << %(<td>)
+    content << %(</td><td>)    
     if !device.readings.empty?
        content << %(#{device.readings[0].shortAddress})
     else
@@ -22,11 +37,9 @@ module HomeHelper
     end    
     content << %(</td>)
     
-    content << %(<td>)
-    if current_account.show_runtime
-        content << %(#{device.last_status_string})     
+    if current_account.show_runtime              
+      content << %(<td>#{device.last_status_string}</td>)           
     end        
-    content << %(</td>)
     
      content << %(<td>)
        if !device.readings.empty?
@@ -34,9 +47,7 @@ module HomeHelper
        else
            content << %(N/A)
        end    
-      content << %(</td>)
-      content << %(</tr>)
-      
+      content << %(</td></tr>)      
     content 
    end    
    

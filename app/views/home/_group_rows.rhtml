@@ -8,25 +8,36 @@
               </td>
          </tr>
          <%if !group.devices.empty?%>                     
-             <% group.ordered_devices.each do |device|%>
-                       <%= send(callback,device) %>
+             <% group.ordered_devices[0..4].each do |device|%>                                            
+                       <%= send(callback,device) %>                                            
+             <%end%>
+             <%if group.devices.size > 4 %>
+               <tr>
+                 <td><a href="/reports/group_devices/<%= group.id%>"><em>see all <%= group.devices.size%> devices</em></a></td>
+               </tr>
              <%end%>
          <%else%>
               <tr><td>No devices in this group.</td></tr>
          <%end%>
     <%end%>
 <%end%>
+
 <%if !@default_devices.empty? && @show_default_devices %>
-    <%if !@groups.empty? || session[:gmap_value] == 'default'%>
-        <tr>
-             <td colspan="<%= column_span or 4 %>" class="bg_overview">
-                  <span style=" background:url(/icons/blue_small.png) no-repeat left;" class="group_name">
-                       Default
-                  </span>
-             </td>
-        </tr>
-    <%end%>
-    <% @default_devices.each do |device|%>
-		 <%= send(callback,device) %>
-    <%end%>
+      <%if !@groups.empty? || session[:gmap_value] == 'default'%>
+           <tr>
+                <td colspan="<%= column_span or 4 %>" class="bg_overview">
+                     <span style=" background:url(/icons/blue_small.png) no-repeat left;" class="group_name">
+                          Default
+                     </span>
+                </td>
+           </tr>
+      <%end%>
+      <% @default_devices[0..4].each do |device|%>                  
+		 <%= send(callback,device) %>                  
+      <%end%>
+      <%if @default_devices.size > 4 %>
+           <tr>
+                <td><a href="/reports/group_devices/default"><em>see all <%= @default_devices.size%> devices</em></a></td>
+           </tr>
+      <%end%>
 <%end%>           

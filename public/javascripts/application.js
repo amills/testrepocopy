@@ -20,12 +20,27 @@ function select_action(obj,from)
         window.location.href=szNewURL;                            
       }
       else if (from=='from_devices')
-      {
-         szNewURL = "http://"+document.location.hostname+"/devices?type="+document.getElementById('type1').value
-        window.location.href=szNewURL;                                
+      {         
+         var val=document.getElementById('type1').value;         
+         if (val=="")
+           szNewURL = "http://"+document.location.hostname+"/devices"
+         else
+           szNewURL = "http://"+document.location.hostname+"/devices?type="+document.getElementById('type1').value         
+           window.location.href=szNewURL;                                
       }
-      else
-         new Ajax.Updater('to_update', '/home/show_devices', {asynchronous:true, evalScripts:true, parameters:'type='+escape($F('type1'))});javascript:getRecentReadings(true,document.getElementById('type1').value);
+     else if (from =='from_geofence')
+     {
+       var val=document.getElementById('type1').value;         
+       if(val=="")
+         szNewURL = "http://"+document.location.hostname+"/geofence"
+       else if(val.split(' ')[0] == "device")  
+         szNewURL = "http://"+document.location.hostname+"/geofence?type=device&id="+val.split(' ')[1]         
+       else
+        szNewURL = "http://"+document.location.hostname+"/geofence?type="+document.getElementById('type1').value         
+       window.location.href=szNewURL;                                    
+     }     
+      else         
+         new Ajax.Updater('to_update', '/home/show_devices?frm='+from, {asynchronous:true, evalScripts:true, parameters:'type='+escape($F('type1'))});javascript:getRecentReadings(true,document.getElementById('type1').value);
     }
 }
 

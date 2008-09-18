@@ -161,6 +161,13 @@ div#login_form_container {
 	color: #006699;
 }
 
+.view_group_select{
+	 float:right; 
+	 width:150px; 
+	 margin-right:1px;
+	 padding:1px;
+ }
+ 
 .form_table td > input[type="text"], input[type="password"] {
 	width: 200px;
 	padding:2px;}
