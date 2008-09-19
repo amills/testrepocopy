@@ -17,10 +17,10 @@
                 <select name="device_group" style="width:208px;">
                   <option value=""> Choose device group </option>
                   <%for group in @all_groups%>
-                      <option value="<%= group.id%>"<%if params[:device_group].to_s == group.id.to_s%> selected<%end%>><%=group.name %></option>                               
+                      <option value="<%= group.id%>"<%if params[:device_group].to_s == group.id.to_s || session[:gmap_value].to_i==group.id.to_i%> selected<%end%>><%=group.name %></option>                               
                    <%end%>
                    <%if !@default_devices.empty?%>
-                      <option value="default" <%if params[:device_group]=='default'%>selected<%end%>>Default</option>                               
+                      <option value="default" <%if params[:device_group]=='default' || session[:gmap_value]=='default'%>selected<%end%>>Default</option>                               
                    <%end%>
                 </select>
             </td>

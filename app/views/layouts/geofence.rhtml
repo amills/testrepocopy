@@ -10,6 +10,10 @@
 	</head>
 	<body <% if params[:action] != "index" %>onload="load();"<% end %>>
     	  <%= render :partial => 'layouts/includes/header' %>
+    	   <div id="submenu">
+   			<div style="float: left"><a href="/devices" >All Devices</a>&nbsp; | &nbsp;<a href="/geofence" class="current">All Geofences</a>&nbsp; | &nbsp;<a href="/devices/groups" >All Groups</a></div>			
+			<div style="clear: both"></div>
+    	   </div>        
     	   <div id="content">
             <div style="padding-top:5px;"></div>
         	   <%= yield %>

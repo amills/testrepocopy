@@ -163,7 +163,6 @@ div#login_form_container {
 
 .view_group_select{
 	 float:right; 
-	 width:150px; 
 	 margin-right:1px;
 	 padding:1px;
  }
@@ -517,8 +516,7 @@ div#result_count {
 	 padding-top:3px;}
 
 .device_summery_select{
-	float:right; 
-	width:100px; 
+	float:right; 	
 	margin-right:1px;
 	padding:1px;}
 

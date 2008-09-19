@@ -11,22 +11,19 @@
 	<body>          
    		<%= render :partial => 'layouts/includes/header' %>
         
-		<!--div id="submenu">
+		<div id="submenu">
 			<div style="float: left">
                <% if ['groups','edits_group','new_group','create_group'].include?(controller.action_name)%>
-			<a href="/devices" >Devices</a>&nbsp; | &nbsp;<a href="/geofence">Geofences</a>&nbsp; | &nbsp;<a href="/devices/groups" class="current">Groups</a>            
+			<a href="/devices" >All Devices</a>&nbsp; | &nbsp;<a href="/geofence">All Geofences</a>&nbsp; | &nbsp;<a href="/devices/groups" class="current">All Groups</a>            
                <%else%>
-			<a href="/devices" class="current">Devices</a>&nbsp; | &nbsp;<a href="/geofence">Geofences</a>&nbsp; | &nbsp;<a href="/devices/groups">Groups</a>
+			<a href="/devices" class="current">All Devices</a>&nbsp; | &nbsp;<a href="/geofence">All Geofences</a>&nbsp; | &nbsp;<a href="/devices/groups">All Groups</a>
                <%end%>
-			</div>
-           
-                <%if controller.action_name == 'index' || controller.action_name == 'search_devices'%>
-                    <div style="float: right"><a href="/devices/choose_MT" title="Add a new device">Add New Device</a></div>
-				<% elsif controller.action_name == 'groups'%>
-					<div style="float: right"><a href="/devices/new_group" title="Create new group">Add New Group</a></div>
-                <%end%>
+			</div>           
+               <% if controller.action_name == 'groups'%>
+                <div style="float: right"><a href="/devices/new_group" title="Create new group">Add New Group</a></div>
+               <%end%>
            	 <div style="clear:both"></div>
-		</div -->
+		</div>
     	<div id="content">
           <div style="padding-top:5px;"></div>
         	<%= yield %>

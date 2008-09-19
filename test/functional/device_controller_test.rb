@@ -84,14 +84,14 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
   
   def test_edit_post
-    post :edit, {:id => "1", :name => "qwerty", :imei=>"000000"}, { :user => users(:dennis), :account_id => "1" }
+    post :edit, {:id => "1", :name => "qwerty", :imei=>"000000"}, { :user => users(:dennis), :account_id => "1", :is_admin => users(:dennis).is_admin}
     assert_equal devices(:device1).name, "qwerty"
     assert_equal devices(:device1).imei, "000000"
     assert_redirected_to :controller => "devices"
   end
   
   def test_edit_for_uniqueness_of_imei
-     post :edit, {:id => "1", :name => "qwerty", :imei=>"551211"}, { :user => users(:dennis), :account_id => "1" }
+     post :edit, {:id => "1", :name => "qwerty", :imei=>"551211"}, { :user => users(:dennis), :account_id => "1", :is_admin => users(:dennis).is_admin}
      assert_equal flash[:error],"Imei has already been taken<br/>"    
   end
   
@@ -114,10 +114,17 @@ class DeviceControllerTest < Test::Unit::TestCase
     assert_response 302
   end
   
-  def test_delete
-    post :delete, {:id => "1"}, { :user => users(:dennis), :account_id => "1" }
+  def test_admin_delete_device
+    post :delete, {:id => "1"}, { :user => users(:dennis), :account_id => "1", :is_admin => users(:dennis).is_admin }
     assert_redirected_to :controller => "devices"
     assert_equal 2, devices(:device1).provision_status_id
+  end
+  
+  def test_non_admin_delete_device
+    post :delete, {:id => "1"}, { :user => users(:demo), :account_id => "1", :is_admin => users(:demo).is_admin }
+    assert_redirected_to :controller => "devices"
+    assert_equal flash[:error], "Invalid action."
+    assert_equal 1, devices(:device1).provision_status_id
   end
   
   def test_delete_unauthorized

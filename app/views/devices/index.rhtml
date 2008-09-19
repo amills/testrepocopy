@@ -7,16 +7,9 @@
                           <table class="panel_table">	
 	                          <tbody>
                                     <tr>     
-                                         <td colspan="5" class="header">
-                                              <span class="device_summery">                                                
-                                                   <% if ['groups','edits_group','new_group','create_group'].include?(controller.action_name)%>
-		    	                                         <a href="/devices" >All Devices</a> | <a href="/geofence">All Geofences</a> | <a href="/devices/groups" class="selected">All Groups</a>            
-                                                   <%else%>
-                                                        <a href="/devices" class="selected">All Devices</a> | <a href="/geofence">All Geofences</a> | <a href="/devices/groups">All Groups</a>
-                                                   <%end%>
-                                              </span>  
+                                         <td colspan="6" class="header">
                                               <select id="type1" class="view_group_select" name="type" onchange="select_action(this,'from_devices');">                                                     
-                                                    <option value="" selected="selected"> View by Group</option>                                                                     
+                                                    <option value="all" selected="selected"> View by Group</option>                                                                     
                                                     <% for group in @all_groups %>
                                                         <option  value='<%= group.id%>' <%if params[:type].to_i==group.id.to_i%> selected<%end%>><%= group.name%> </option>
                                                     <% end %> 
@@ -27,32 +20,33 @@
                                          </td>
                                     </tr>
                                     <tr>
+                                         <th  width="10%">&nbsp;</th>
                                          <th width="25%"> Name</th>
                                          <th width="38%">Address</th>
                                          <th width="16%">Last Report</th>
-                                         <th width="21%">Action</th>
+                                         <th width="11%">&nbsp;</th>
                                     </tr>   
                                <%if !@devices.empty?%>
                                   <% for device in @devices %>                                
                                          <tr  class="<%= cycle('dark_row','') %>">
+                                              <td><a href="/devices/edit/<%= device.id %>" title="Edit properties for this device">edit</a></td>
                                               <td><a href="/reports/all/<%= device.id %>"><%= device.name %></a></td>      
                                               <td>
-                                                   <%if !device.readings.empty? && !device.readings[0].nil?%>                
-                                                        <%= device.readings[0].shortAddress %> 
+                          <%if device.latest_gps_reading %>                
+                               <%= device.latest_gps_reading.short_address %> 
                                                    <%else%> 
                                                         N/A
                                                    <%end%>
                                               </td>     
                                               <td>
-                                                   <%if !device.readings.empty? && !device.readings[0].nil?%>                
-                                                        <%= time_ago_in_words device.readings[0].created_at %> ago
+                         <%if device.latest_gps_reading %>                
+                               <%= time_ago_in_words device.latest_gps_reading.created_at %> ago
                                                    <%else%> 
                                                         N/A
                                                    <%end%>
                                               </td>
-                                              <td>
-                                                   <a href="/devices/edit/<%= device.id %>" title="Edit properties for this device">Edit</a>&nbsp;&nbsp; 
-					                          <a href="<%= view_url(:id=>device.id) %>" title="Create and edit geofences for this device">Geofences</a>
+                                              <td>                                                   
+					                          <a href="<%= view_url(:id=>device.id) %>" title="Create and edit geofences for this device">geofences</a>
                                               </td>
                                         </tr>
                                  <%end%>
