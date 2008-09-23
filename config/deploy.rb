@@ -6,6 +6,7 @@
 # correspond to. The deploy_to path must be the path on each machine that will
 # form the root of the application path.
 
+
 set :keep_releases, 5
 set :application,   'ublip'
 set :repository,    'https://ublip.svn.ey01.engineyard.com/Ublip_v2/trunk'
