@@ -1,0 +1,8 @@
+<div id="paging">
+	<% if @record_count > @result_count %>
+		<strong>Page:</strong>
+		<% @start_page.upto(@end_page) do |i| %>
+			<% if @page == i %><span class="current_page_link"><%= i %></span><% else %><a href="<%= @url %>&p=<%= i %>"><%= i %></a><% end %>&nbsp;&nbsp;
+		<% end %>
+	<% end %>
+</div>

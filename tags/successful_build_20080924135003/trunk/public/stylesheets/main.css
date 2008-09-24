@@ -1,0 +1,68 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #666666;
+	background-color: #FFFFFF;
+	border-top: 10px solid #000000;
+	margin: 0;
+	padding: 0;
+}
+
+div#header {
+	margin: 15px auto;
+	width: 900px;
+	vertical-align: middle;
+}
+
+div#header #logo {
+	float: left;
+	margin-left: 25px;
+}
+
+div#content {
+	margin: 0 auto;
+	width: 850px;
+	clear: both;
+}
+/***** Login form *********/
+.form_table th {
+	font-size: 13px;
+	text-align: right;
+	color: #FFFFFF;
+}
+
+.form_table td {
+	padding: 5px;
+}
+
+.form_table input {
+	font-weight: bold;
+}
+/***** End login form ******/
+
+/******** Login form styles ***********/
+div#login_form_container {
+	padding: 10px;
+	border: 6px solid #000000;
+	background-color: #990000;
+}
+
+div#login_form_container {
+	line-height: 30px;
+}
+/********* End login form styles ********/
+/*********** Error message div **********/
+div#error_message {
+	border: 2px solid #990000;
+	color: #FFFFFF;
+	background-color: #FF6262;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 10px;
+	padding: 5px;
+}
+/*********** End error message div *******/
+
+div#side_tb_box{
+width:55%; float:left; margin-top:5px;
+}
