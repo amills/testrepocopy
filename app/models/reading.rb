@@ -30,7 +30,7 @@ class Reading < ActiveRecord::Base
   
   def short_address
     if(address.nil?)
-      latitude.to_s + ", " + longitude.to_s
+           latitude.to_s + ", " + longitude.to_s
     else
       begin
         doc = REXML::Document.new address
@@ -44,8 +44,8 @@ class Reading < ActiveRecord::Base
         shortAddress.delete("")
         addressString = shortAddress.join(', ')
         addressString.empty? ? latitude.to_s + ", " + longitude.to_s : addressString
-      rescue
-        latitude.to_s + ", " + longitude.to_s
+      rescue        
+           latitude.to_s + ", " + longitude.to_s
       end
     end
   end
