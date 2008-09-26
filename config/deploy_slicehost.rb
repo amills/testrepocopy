@@ -1,11 +1,13 @@
 require 'mongrel_cluster/recipes'
 
+#set :application, "eog.ublip.com"
 set :application, "enfora.ublip.com"
 set :repository,  "https://ublip.svn.ey01.engineyard.com/Ublip_v2/trunk"
 set :scm_username,  "deploy"
 set :scm_password,  "wucr5ch8v0"
 set :user,        "ublip"
-set :password,    "testing"
+#set :password,    "p5uKUdre" # eog
+set :password, "testing"
 set :deploy_to,     "/opt/ublip/rails"
 set :rails_env, "slicehost"
 set :svn, "/usr/bin/svn"
@@ -35,6 +37,7 @@ task :symlink_configs, :roles => :app, :except => {:no_symlink => true} do
    run <<-CMD
      cd #{release_path} &&
      ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
-     ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml
+     ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml &&
+     ln -nfs #{shared_path}/config/enfora_gateway.yml #{release_path}/config/enfora_gateway.yml
    CMD
  end

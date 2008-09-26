@@ -211,6 +211,15 @@ div#map {
 	border:4px #eeeeee solid;
 	}
 
+.report_map_header{
+	width:99.7%; 
+	float: left; 
+	background-color:#6699CC;
+	color:#FFFFFF;
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif;
+	font-size:12px;
+	padding:5px;	
+   }
 /*map CSS End*/
 
 /*Container CSS*/
@@ -500,7 +509,6 @@ div#result_count {
 
 .device_summery_select{
 	float:right; 
-	width:100px; 
 	margin-right:1px;
 	padding:1px;}
 
@@ -633,6 +641,7 @@ h4 {
 .panel_table td {
 	padding: 5px;
 	border: 1px solid #FFFFFF;}
+
 
 .panel_table .header {
 	background-color: #6699CC;

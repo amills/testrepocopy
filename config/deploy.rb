@@ -6,6 +6,7 @@
 # correspond to. The deploy_to path must be the path on each machine that will
 # form the root of the application path.
 
+
 set :keep_releases, 5
 set :application,   'ublip'
 set :repository,    'https://ublip.svn.ey01.engineyard.com/Ublip_v2/trunk'
@@ -166,7 +167,8 @@ namespace(:deploy) do
    run <<-CMD
      cd #{release_path} &&
      ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
-     ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml
+     ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml &&
+     ln -nfs #{shared_path}/config/enfora_gateway.yml #{release_path}/config/enfora_gateway.yml
    CMD
  end
 
