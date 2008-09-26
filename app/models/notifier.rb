@@ -20,7 +20,6 @@ class Notifier < ActionMailer::Base
     devices_to_notify.each do |device| 
       last_notification = device.last_offline_notification
       if (last_notification.nil? || Time.now - last_notification.created_at > 24*60*60)
-        if !device.account.nil?   
             device.account.users.each do |user|
               if user.enotify == 1
                 logger.info("device offline, notifying: #{user.email}\n")
@@ -38,7 +37,6 @@ class Notifier < ActionMailer::Base
                 notification.device_id = device.id
                 notification.notification_type = "device_offline"
                 notification.save   
-              end 
           end
         end 
       end
@@ -90,7 +88,6 @@ class Notifier < ActionMailer::Base
   end
   
   def self.send_notify_reading_to_users(action,reading)
-     return puts("SEND: #{action}")
     reading.device.account.users.each do |user|
       if user.enotify == 1       
         logger.info("notifying(1): #{user.email} about: #{action}\n")
