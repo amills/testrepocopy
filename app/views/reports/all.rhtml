@@ -1,8 +1,7 @@
+<%= render :partial => 'report_header' %>
 <table class="text_width" id="main_table" >
 	<tr>
           <td id="left_panel" valign="top" width="50%">                    
-               <div id="to_update">
-                 <%= render :partial => 'report_header' %>
 			<table class="panel_table">
 				<tr>
 					<th>Location</th>
@@ -61,9 +60,9 @@
 							<% end %>
 						<% end %>
 						<td><script>document.write(displayLocalDT(<%= reading.created_at.to_i*1000 %>));</script>
-					</tr>      
-                          <%if !reading.short_address==', '%>
-				   	      <script>readings.push({id: <%= reading.id %>, lat: <%= reading.latitude %>, lng: <%= reading.longitude%>, address: '<%= escape_javascript reading.short_address %>', dt: displayLocalDT(<%= reading.created_at.to_i*1000 %>), note: '<%= escape_javascript reading.note %>', event: '<%= reading.event_type %>'});</script>
+					</tr>                                                              
+                          <%if reading.short_address !=', '%>
+					<script>readings.push({id: <%= reading.id %>, lat: <%= reading.latitude %>, lng: <%= reading.longitude%>, address: '<%= escape_javascript reading.short_address %>', dt: displayLocalDT(<%= reading.created_at.to_i*1000 %>), note: '<%= escape_javascript reading.note %>', event: '<%= reading.event_type %>'});</script>
                           <%end%>
 				<% end %>
                  <%else%>
@@ -75,7 +74,6 @@
                             <span>No readings found.</span>
                        </div>                        
                 <%end%>        
-                 </div>                 
 		</td>
         
 		<td>                
