@@ -136,6 +136,12 @@ class Notifier < ActionMailer::Base
     @body["action"] = action
     @body["name"] = "#{user.first_name} #{user.last_name}"
     @body["device_name"] = reading.device.name
+    if !user.nil? && user.time_zone
+      Time.zone = user.time_zone 
+    else
+      Time.zone = 'Central Time (US & Canada)'  
+    end     
+    @body["display_time"] = reading.get_local_time(reading.created_at.in_time_zone.inspect)
   end
   
   def device_offline(user, device)
