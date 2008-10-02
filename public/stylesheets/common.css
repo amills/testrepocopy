@@ -9,8 +9,8 @@ body {
 
 #nav_tabs {
 	background-color: #0066FF;
-	padding: 0 15px;
 	position: absolute;
+	width: 100%;
 	bottom: 0px;}
 
 #nav_tabs ul {
@@ -23,7 +23,8 @@ body {
 	display: inline;
 	background-color: #003366;
 	padding: 4px 0; /* 1px less padding for IE */
-	margin: 0 1px;}
+	margin: 0 1px;
+}
 
 #nav_tabs a {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -171,12 +172,6 @@ input[type="text"], input[type="password"]{
 	border-bottom: 1px solid #EEEEEE;
 	border-left: 1px solid #CCCCCC;
 	padding:2px;}
-
-select {
-	border-top: 1px solid #CCCCCC;
-	border-right: 1px solid #EEEEEE;
-	border-bottom: 1px solid #EEEEEE;
-	border-left: 1px solid #CCCCCC;}
 
 .label {
 	text-align: right;
@@ -747,10 +742,6 @@ h4 {
 
 @charset utf-8;
 
-* {
-	margin:0;
-	padding:0;}
-
 h1,h2,h3,h4,h5,p,ul {
 	list-style:none;
 	margin:0;
@@ -928,7 +919,7 @@ div#error_message {
 	background-color: #FF6262;
 	font-size: 14px;
 	font-weight: bold;
-	margin-top: 10px;
+	margin: 10px 0;
 	padding: 5px;}
 
 div#success_message {
@@ -938,7 +929,7 @@ div#success_message {
 	font-weight: bold;
 	color: #FFFFFF;
 	padding: 5px;
-	margin-top: 10px;}
+	margin: 10px 0;}
 
 #ub_account_tbl{
 	width:23%; 
@@ -1066,4 +1057,4 @@ div#footer {
 	font-size: 10px;
 	clear:both;}
 	
-/*footer CSS End*/		
+/*footer CSS End*/
