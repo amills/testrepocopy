@@ -26,9 +26,24 @@ class DeviceControllerTest < Test::Unit::TestCase
   
   def test_index   
     get :index, {}, { :user => users(:dennis), :account_id => 1}     
-    assert_response :success        
+    assert_response :success            
  end
  
+   def test_index_for_gmap_session_to_all
+    get :index, {}, { :user => users(:dennis), :account_id => 1},{:gmap_value=>"all"}     
+    assert_response :success            
+   end    
+   
+   def test_index_for_gmap_session_to_default
+        get :index, {}, { :user => users(:dennis), :account_id => 1},{:gmap_value=>"default"}     
+        assert_response :success            
+   end    
+
+   def test_index_for_gmap_session_to_group_number
+        get :index, {}, { :user => users(:dennis), :account_id => 1},{:gmap_value=>1}     
+        assert_response :success            
+   end    
+
    def test_view
      get :view, {:id=>"2"},{:user => users(:dennis), :account_id => "1"} 
      assert_response :success     
@@ -68,13 +83,13 @@ class DeviceControllerTest < Test::Unit::TestCase
   end   
 
   def test_delete_group
-      post :delete_group, {:id=>"1"}, { :user => users(:dennis), :account_id => "1" }
+      post :delete_group, {:id=>"1"}, { :user => users(:dennis), :account_id => "1"}
       assert_equal "Group Dennis was deleted successfully ", flash[:success]
       assert_redirected_to :controller => "devices", :action=>'groups'
   end   
   
   def test_groups
-      get :groups, {}, { :user => users(:dennis), :account_id => "1" }
+      get :groups, {}, { :user => users(:dennis), :account_id => "1"}
       assert_response :success
   end
   

@@ -1,7 +1,7 @@
 module HomeHelper
 
   def update_readings_automatically?
-    params[:action] == "index" || "statistics" || "maintenance"
+    params[:action] == "index" || "statistics" || "maintenance" || "show_devices"
   end
 
   def decide_action 
@@ -26,7 +26,7 @@ module HomeHelper
     if device.latest_gps_reading
       content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a>)
     else
-      content << %(#{device.name} <a href="/reports/all/#{device.id}" title="View device details" class="link-all1">(details)</a>)
+      content << %(#{device.name})
     end      
     content << %(</td>
     <td style="font-size:11px;">
@@ -39,11 +39,9 @@ module HomeHelper
     end
     content << %(</td>)
 
-    if current_account.show_runtime
-      content << %(<td>)
-      content << %(#{device.last_status_string})
-      content << %(</td>)
-    end
+    content << %(<td>)
+    content << %(#{device.latest_status or '-'})
+    content << %(</td>)
 
     content << %(<td>)
     if device.latest_gps_reading

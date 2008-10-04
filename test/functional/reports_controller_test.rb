@@ -15,7 +15,7 @@ class ReportsControllerTest < Test::Unit::TestCase
     end
   end
   
-  fixtures :users, :readings, :stop_events, :devices, :idle_events, :runtime_events, :device_profiles
+  fixtures :users, :readings, :stop_events, :idle_events, :runtime_events, :device_profiles
   
   def setup
     @controller = ReportsController.new
@@ -47,12 +47,33 @@ class ReportsControllerTest < Test::Unit::TestCase
       get :all, {:id => 1, :start_date=>"2008-07-18", :end_date=>"2004-07-18", :page=>3}, {:user => users(:dennis), :account_id => 1}
       assert_response :success
   end
+
   def test_index
-     get :index, {:id => 1}, {:user => users(:dennis), :account_id => 1}        
+     get :index, {:id => 1}, {:user => users(:dennis), :account_id => 1}
      assert_response :success
-  end   
+  end
   
-  
+  def test_index_for_gmap_session_to_all
+    get :index, {}, { :user => users(:dennis), :account_id => 1},{:gmap_value=>"all"}     
+    assert_response :success            
+   end    
+   
+   def test_index_for_gmap_session_to_default
+        get :index, {}, { :user => users(:dennis), :account_id => 1},{:gmap_value=>"default"}     
+        assert_response :success            
+   end    
+
+   def test_index_for_gmap_session_to_group_number
+        get :index, {}, { :user => users(:dennis), :account_id => 1},{:gmap_value=>1}     
+        assert_response :success            
+   end
+   
+   def test_index_with_group_selection
+     get :index, {:group_id => 1}, {:user => users(:dennis), :account_id => 1}
+     devices = assigns(:devices)
+     assert_equal 2, devices.size
+   end
+
   # Need to extend the following reports with tests that actually verify page content
   def test_idle
     get :idle, {:id => 1}, {:user => users(:dennis), :account_id => 1}
@@ -74,64 +95,6 @@ class ReportsControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
-   
-
-  def test_index_for_perticular_group
-    get :index, {}, {:user => users(:dennis), :account_id => 1}, {:gmap_value => 1}
-    assert_response :success        
-  end
-   def test_group_devices_for_group
-       get :group_devices,{:id=>1}, {:user => users(:dennis), :account_id => 1}       
-       assert_response :success       
-       assert_equal "Dennis",assigns(:group).name
-   end
-   
-   def test_group_devices_for_blank_group
-        get :group_devices,{:id=>""}, {:user => users(:dennis), :account_id => 1}       
-        assert_nil assigns(:group)
-        assert_redirected_to(:controller=>'home')
-   end
-   
-   def test_group_devices_for_invalid_group
-        get :group_devices,{:id=>"dasdsd"}, {:user => users(:dennis), :account_id => 1}       
-        assert_nil assigns(:group)
-        assert_redirected_to(:controller=>'home')
-   end
-
-   def test_group_devices_for_other_user_group
-        get :group_devices,{:id=>6}, {:user => users(:dennis), :account_id => 1}       
-        assert_nil assigns(:group)
-        assert_redirected_to(:controller=>'home')
-   end
-
-     
-    def test_index_for_search_provisioned_devices
-        post :index, {:id => 1, :status =>"prov" },{:user => users(:dennis), :account_id => 1}           
-        assert_response :success 
-        assert_equal true,assigns(:from_search)
-        assert_equal 3,assigns(:all_groups).size        
-    end   
-    
-    def test_index_for_search_non_provisioned_devices
-        post :index, {:id => 1, :status =>"non_prov"},{:user => users(:dennis), :account_id => 1}           
-        assert_response :success         
-    end
-    
-    def test_index_for_search_by_location
-        post :index, {:id => 1, :status =>"prov", :device_address=>'texas'},{:user => users(:dennis), :account_id => users(:dennis).account_id }           
-        assert_response :success
-    end    
-    
-    def test_index_for_search_by_name_and_group
-        post :index, {:id => 1, :status =>"prov", :device_name=>'black',:device_group=>1},{:user => users(:nick), :account_id => users(:nick).account_id }                   
-        assert_response :success    
-    end
-    
-    def test_index_for_search_by_last_reports_whitin
-        post :index, {:id => 1, :status =>"prov", :reports_within=>50},{:user => users(:nick), :account_id => users(:nick).account_id }                   
-        assert_response :success        
-    end    
-    
   def test_all_unauthorized
     get :all, {:id => 1}, {:user => users(:nick)}
     assert_nil assigns(:readings)
@@ -243,7 +206,6 @@ class ReportsControllerTest < Test::Unit::TestCase
    
   end
   
-    
   private
   def csv_data
     reading1 = readings(:reading24)

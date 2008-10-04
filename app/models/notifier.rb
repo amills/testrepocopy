@@ -1,7 +1,5 @@
 class Notifier < ActionMailer::Base  
   
-  SPEED_NOTIFICATION_DELAY = 12 * 60 * 60
-  
   def self.send_geofence_notifications(logger)
     # NOTE: eliminate legacy geofences 'entergeofence_et11' and 'exitgeofence_et52'
     readings_to_notify = Reading.find(:all, :conditions => "#{NotificationState.instance.reading_bounds_condition} and (event_type LIKE 'entergeofen%' OR event_type LIKE 'exitgeofen%') and event_type != 'entergeofen_et11' and event_type != 'exitgeofen_et52'")
@@ -20,13 +18,14 @@ class Notifier < ActionMailer::Base
     devices_to_notify.each do |device| 
       last_notification = device.last_offline_notification
       if (last_notification.nil? || Time.now - last_notification.created_at > 24*60*60)
+         if !device.account.nil?  
             device.account.users.each do |user|
               if user.enotify == 1
                 logger.info("device offline, notifying: #{user.email}\n")
                 mail = deliver_device_offline(user, device)         
               elsif user.enotify == 2
                 devices_ids = user.group_devices_ids
-                if !devices_ids.empty? || devices_ids.include?(device.id)
+                if devices_ids.include?(device.id)
                   logger.info("device offline, notifying: #{user.email}\n")
                   mail = deliver_device_offline(user, device)                         
                 end    
@@ -37,8 +36,9 @@ class Notifier < ActionMailer::Base
                 notification.device_id = device.id
                 notification.notification_type = "device_offline"
                 notification.save   
-          end
-        end 
+              end
+            end 
+         end 
       end
     end
   end
@@ -75,12 +75,16 @@ class Notifier < ActionMailer::Base
     devices_to_notify.each do |device|
       readings_to_notify = Reading.find(:all,:conditions => "#{NotificationState.instance.reading_bounds_condition} and device_id = #{device.id} and (speed > #{device.account.max_speed} or speed = 0)")
       readings_to_notify.each do |reading|
-        if device.speeding_at and reading.speed == 0 and reading.created_at > device.speeding_at + SPEED_NOTIFICATION_DELAY
+        if device.speeding_at and reading.speed == 0
           device.speeding_at = nil
           device.save
         elsif device.speeding_at.nil? and reading.speed > device.account.max_speed
           device.speeding_at = reading.created_at
           device.save
+          if reading.event_type == 'normal' # NOTE: we're only setting the "speeding" event if nothing else is set to avoid overwriting anything
+            reading.event_type = 'speeding'
+            reading.save
+          end
           send_notify_reading_to_users("maximum speed of #{device.account.max_speed} MPH exceeded",reading)
         end
       end
@@ -130,7 +134,7 @@ class Notifier < ActionMailer::Base
   end
 
   def notify_reading(user, action, reading)
-    @recipients = user.email
+    @recipients = "kumar.bakal@betterlabs.net"#user.email
     @from = "alerts@ublip.com"
     @subject = reading.device.name + ' ' + action
     @body["action"] = action
@@ -145,7 +149,7 @@ class Notifier < ActionMailer::Base
   end
   
   def device_offline(user, device)
-    @recipients =user.email
+    @recipients ="kumar.bakal@betterlabs.net"#user.email
     @from = "alerts@ublip.com"
     @subject = "Device Offline Notification"
     @body["device_name"] = device.name
@@ -154,7 +158,7 @@ class Notifier < ActionMailer::Base
   end
 
   def setup_email(user)
-    @recipients = "#{user.email}"
+    @recipients = "kumar.bakal@betterlabs.net"#"#{user.email}"
     @from       = "support@ublip.com"
     @sent_on    = Time.now
     @headers['Content-Type'] = "text/plain; charset=utf-16"
@@ -163,7 +167,7 @@ class Notifier < ActionMailer::Base
   # Send email to support from contact page
   def app_feedback(email, subdomain, feedback)
     @from = "support@ublip.com"
-    @recipients = "support@ublip.com"
+    @recipients = "kumar.bakal@betterlabs.net"#"support@ublip.com"
     @subject = "Feedback from #{subdomain}.ublip.com"
     @body["feedback"] = feedback
     @body["sender"] = email
@@ -172,7 +176,7 @@ class Notifier < ActionMailer::Base
   # Send a confirmation when an order is placed
   def order_confirmation(order_id, cust, order_details, email, password, subdomain)
     @from = "orders@ublip.com"
-    @recipients = email
+    @recipients = "kumar.bakal@betterlabs.net"#email
     @bcc = "orders@ublip.com"
     @subject = "Thank you for ordering from Ublip"
     @body["order_id"] = order_id

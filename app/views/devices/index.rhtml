@@ -1,85 +1,60 @@
-<%= render :partial=>"/layouts/flash_message" %>    
-<table width="100%">
-      <tbody>
-           <tr>
-                <td id="left_panel" valign="top" width="80%">                    
-                     <div id="to_update">
-                          <table class="panel_table">	
-	                          <tbody>
-                                    <tr>     
-                                         <td colspan="6" class="header">
-                                              <select id="type1" class="view_group_select" name="type" onchange="select_action(this,'from_devices');">                                                     
-                                                    <option value="all" selected="selected"> View by Group</option>                                                                     
-                                                    <% for group in @all_groups %>
-                                                        <option  value='<%= group.id%>' <%if params[:type].to_i==group.id.to_i%> selected<%end%>><%= group.name%> </option>
-                                                    <% end %> 
-                                                    <% if  !@default_devices.empty?%>
-                                                        <option  value='default' <%if params[:type]== 'default'%> selected<%end%> > Default </option>
-                                                    <%end%>
-                                              </select>            
-                                         </td>
-                                    </tr>
-                                    <tr>
-                                         <th  width="10%">&nbsp;</th>
-                                         <th width="25%"> Name</th>
-                                         <th width="38%">Address</th>
-                                         <th width="16%">Last Report</th>
-                                         <th width="11%">&nbsp;</th>
-                                    </tr>   
-                               <%if !@devices.empty?%>
-                                  <% for device in @devices %>                                
-                                         <tr  class="<%= cycle('dark_row','') %>">
-                                              <td><a href="/devices/edit/<%= device.id %>" title="Edit properties for this device">edit</a></td>
-                                              <td><a href="/reports/all/<%= device.id %>"><%= device.name %></a></td>      
-                                              <td>
-                          <%if device.latest_gps_reading %>                
-                               <%= device.latest_gps_reading.short_address %> 
-                                                   <%else%> 
-                                                        N/A
-                                                   <%end%>
-                                              </td>     
-                                              <td>
-                         <%if device.latest_gps_reading %>                
-                               <%= time_ago_in_words device.latest_gps_reading.created_at %> ago
-                                                   <%else%> 
-                                                        N/A
-                                                   <%end%>
-                                              </td>
-                                              <td>                                                   
-					                          <a href="<%= view_url(:id=>device.id) %>" title="Create and edit geofences for this device">geofences</a>
-                                              </td>
-                                        </tr>
-                                 <%end%>
-                               <%else%>
-                                    <tr><td>No devices found.</td></tr>
-                               <%end%>  
-                               </tbody>
-                          </table>
-                     </div> 
-                </td>                    
-                     <td>&nbsp;</td>                       
-                     <td id="right_panel" valign="top" width="20%">                                                   
-                          <table class="panel_table">
-                               <tbody>
-                                    <tr>
-                                         <td> 
-                                              <form action="/devices/search_devices" name="device_search_form"> 
-                                                   <input type="text" name="device_search" style="width:50%;" value=<%if @from_search%> <%= params[:device_search]%><%else%> " Device Name"<%end%> onfocus="if (this.value == ' Device Name') {this.value = '';}" onblur="if (this.value == '') {this.value = ' Device Name';}" /> &nbsp; <input type="submit" value="Search" />
-                                              </form>                                           
-                                         </td>                                       
-                                    </tr>                                         
-                                    <tr>
-                                         <td> <a href="/devices/new_group" title="Create new group">Add New Group</a> </td>                                       
-                                    </tr>     
-                                    <tr>
-                                         <td><a href="/devices/choose_MT" title="Add a new device">Add New Device</a></td>                                       
-                                    </tr>   
-                                    <tr>
-                                         <td><a href="/geofence/new" title="Create new geofence">Add New Geofence</a></td>                                       
-                                    </tr>                      
-                               </tbody>
-                          </table>                                                       
-                     </td>
-                </tr>
-           </tbody>
-      </table>
+<div class="container">
+	<div id="top_head">
+		<% if !params[:device_search] %>
+		<span class="title">Displaying <%= @devices.size %> devices for</span>
+		<select id="type1" onchange="document.location.href='/devices?group_id=' + this.options[this.selectedIndex].value;" style="margin-left: 10px;">
+			<option value="all">All Groups</option>
+			<% for group in @groups %>
+			<option value="<%= group.id %>" <%if session[:gmap_value].to_i == group.id%>selected class="bgcolor"<%end%>><%= group.name %></option>
+			<% end %>
+			<option <% if session[:gmap_value] == "default" %>selected class="bgcolor"<% end %> value="default">Default</option>
+		</select>
+		<% else%>
+		<span class="title">Displaying <%= @devices.size %> devices that match "<%= params[:device_search] %>"</span>
+		<% end %>
+		
+		<div id="tab_rt">
+			<form action="/devices/search_devices" name="device_search_form"> 
+				<input type="text" name="device_search" value=<%if @from_search%> <%= params[:device_search]%><%else%> "Device Name"<%end%> onfocus="if (this.value == 'Device Name') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Device Name';}" /> &nbsp; <input type="submit" value="Search" />
+			</form>
+		</div>
+	</div>
+	</div>
+	
+	<%= render :partial=>"/layouts/flash_message" %>    
+
+	<div>	
+		<table id="ub-table"> 
+			<tr class="header">
+				<td></td>
+				<td>Name</td>
+				<td>IMEI</td>
+				<td>Group</td>
+				<td>Geofences</td>			
+			</tr>
+
+      		<%if !@devices.empty?%>
+        	<% for device in @devices %>
+			<tr class="<%= cycle('gray_row','') %>">
+				<td><a href="/devices/edit/<%= device.id %>" title="Edit this device">edit</a></td> 
+				<td><a href="/reports/all/<%= device.id %>" title="View reports for this device"><%= device.name %></a></td>
+				<td><%= device.imei %></td>
+				<td><% if !device.group.nil? %><a href="/devices/edits_group?group_id=<%= device.group.id %>" title="Edit this group"><%= device.group.name %></a><% else %>Default<% end %></td>
+				<td>
+					<% if device.geofences.size == 0 %>
+						<a href="/geofence/new/<%= device.id %>">Add</a>
+					<% else %>	
+						<a href="/geofence/view?id=device<%= device.id %>"><%= device.geofences.size %> total</a>
+					<% end %>
+                </td>				
+			</tr>
+        	<% end %>        
+        </table>
+     	<%else%>
+        </table>     
+        <div id="alert">
+        	<span>No devices found.</span>
+        </div>                       
+		<%end%>	
+	</div>
+</div>

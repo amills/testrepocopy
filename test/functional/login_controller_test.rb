@@ -9,7 +9,7 @@ class LoginControllerTest < Test::Unit::TestCase
   fixtures :users, :accounts
   def setup
     @controller = LoginController.new
-    @request    = ActionController::TestRequest.new        
+    @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
   
@@ -60,8 +60,8 @@ class LoginControllerTest < Test::Unit::TestCase
    get :logout
    assert_redirected_to "/login"
  end
-
-  def test_change_password
+ 
+ def test_change_password
     post :password, {:id => "1", :user => {:password => "newpassword", :password_confirmation =>"newpassword"}}
     user2 = User.find(1)
     assert_equal User.encrypt("newpassword", "salty"), user2.crypted_password
@@ -79,8 +79,7 @@ class LoginControllerTest < Test::Unit::TestCase
      assert_equal "dennis", @request.session[:first_name]
      assert_equal "Byron Co", @request.session[:company] 
  end
- 
-  
+
  def test_admin_login_with_invalid_account_number
      @request.cookies['account_value'] = CGI::Cookie.new('account_value', '12563')
      get :admin_login,{}

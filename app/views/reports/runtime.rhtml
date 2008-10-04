@@ -1,8 +1,7 @@
-
+<%= render :partial => 'report_header' %>
 <table class="text_width" id="main_table">
 	<tr>
-		<td width="50%" valign="top" id="left_panel">
-        <%= render :partial => 'report_header' %>
+		<td width="50%" valign="top" id="left_panel">        
 			<table class="panel_table">
 				<tr>
 					<th>Location</th>
@@ -17,15 +16,15 @@
                                    <% if runtime_event.reading.nil? %>
                                       <a href="javascript:centerMapOnReading(<%= runtime_event.id %>);highlightRow(<%= runtime_event.id %>)" >  
                                         <%= runtime_event.latitude %>, <%= runtime_event.longitude %>
-                                      </a>  
+                                       </a> 
                                    <% else %>
                                         <%if runtime_event.reading.short_address==', '%>
-                                              Not Available
+                                            Not Available
                                         <%else%>
-                                           <a href="javascript:centerMapOnReading(<%= runtime_event.id %>);highlightRow(<%= runtime_event.id %>)" >   
-                                              <%= runtime_event.reading.short_address %>
-                                            </a> 
-                                        <%end%>
+                                         <a href="javascript:centerMapOnReading(<%= runtime_event.id %>);highlightRow(<%= runtime_event.id %>)" >  
+                                             <%= runtime_event.reading.short_address %>
+                                         </a>
+                                        <%end%>                                                                                     
                                    <% end %>                                   
                               </td>
 						<td>
@@ -64,6 +63,7 @@
                <a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a>              
           </td>
 		<td width="50%" valign="top" id="right_panel">
+            <div class="report_map_header">Locations for <%= @device.name%></div> 
 			<div id="map" class="reports_map"></div>
 		</td>
 	</tr>

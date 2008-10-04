@@ -1,4 +1,3 @@
-
 class DevicesController < ApplicationController
   include GeoKit::Mappable
   before_filter :authorize
@@ -23,7 +22,7 @@ class DevicesController < ApplicationController
   end
 
   # A device can provisioned
-  def choose_MT
+  def choose_MT     
     if (request.post? && params[:imei] != '' && params[:name] !='')
       device = provision_device(params[:imei])
       if(!device.nil?)
@@ -79,7 +78,7 @@ class DevicesController < ApplicationController
     device = Device.find_by_imei(imei) # Determine if device is already in system
 
     # Device is already in the system so let's associate it with this account
-    if(device)
+    if(device)      
       if(device.provision_status_id == 0)
         device.account_id = session[:account_id]
         imei = params[:imei]
@@ -100,7 +99,7 @@ class DevicesController < ApplicationController
         device.online_threshold = extras[:online_threshold].nil? ? nil : extras[:online_threshold]
       end
       device.provision_status_id = 1
-      device.account_id = session[:account_id]
+      device.account_id = session[:account_id]      
       device.save
       flash[:success] = params[:name] + ' was created successfully'
     end
@@ -145,21 +144,15 @@ class DevicesController < ApplicationController
   end
 
   def index
-      @all_groups=Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')      
-      @default_devices=Device.paginate(:per_page=>21, :page=>params[:page],
-                                                     :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                           
-       persist_the_group_selection # private method
-       if params[:type] == "default"
-             @devices = @default_devices                   
-       elsif (params[:type] !="" && params[:type] && params[:type] !="all")              
-             @group = Group.find_by_id(params[:type], :conditions=>['account_id=?',session[:account_id]]) 
-             @devices = Device.paginate(:per_page=>21, :page=>params[:page],
-                                                    :conditions => ['group_id=? and provision_status_id = 1 and account_id = ?', params[:type],session[:account_id]], :order => 'name')                                 
-       else
-             @devices = Device.paginate(:per_page=>21, :page=>params[:page],
-                                                  :conditions => ['provision_status_id = 1 and account_id = ?', session[:account_id]], :order => 'name')              
-             session[:gmap_value] ="all"                                     
-       end
+    session[:gmap_value] = params[:group_id] if params[:group_id]
+    @groups=Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')
+    if session[:gmap_value]=="all" 
+      @devices = Device.get_devices(session[:account_id]) # Get devices associated with account    
+    elsif session[:gmap_value]=="default"
+      @devices =Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                     
+    else
+      @devices = Device.find(:all, :conditions=>['account_id=? and group_id =? and provision_status_id=1',session[:account_id],session[:gmap_value]], :order=>'name')
+    end    
   end
 
 
@@ -329,8 +322,6 @@ class DevicesController < ApplicationController
   end
 
      def search_devices        
-         @all_groups=Group.find(:all, :conditions=>['account_id=?',session[:account_id]], :order=>'name')      
-         @default_devices=Device.find(:all, :conditions=>['account_id=? and group_id is NULL and provision_status_id=1',session[:account_id]], :order=>'name')                             
          @from_search = true          
              search_text = "%"+"#{params[:device_search]}"+"%"
              if params[:device_search] != ""
@@ -346,16 +337,5 @@ class DevicesController < ApplicationController
     show_group_by_id()
   end
 
-private
-     def persist_the_group_selection 
-       if params[:type]                                              
-           session[:gmap_value] = params[:type]                                              
-       else
-           if session[:gmap_value]
-               params[:type] = session[:gmap_value]
-           else
-               params[:type] ="all"
-           end    
-       end
-     end
+
 end

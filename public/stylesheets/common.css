@@ -9,8 +9,8 @@ body {
 
 #nav_tabs {
 	background-color: #0066FF;
-	padding: 0 15px;
 	position: absolute;
+	width: 100%;
 	bottom: 0px;}
 
 #nav_tabs ul {
@@ -23,7 +23,8 @@ body {
 	display: inline;
 	background-color: #003366;
 	padding: 4px 0; /* 1px less padding for IE */
-	margin: 0 1px;}
+	margin: 0 1px;
+}
 
 #nav_tabs a {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -161,12 +162,6 @@ div#login_form_container {
 	color: #006699;
 }
 
-.view_group_select{
-	 float:right; 
-	 margin-right:1px;
-	 padding:1px;
- }
- 
 .form_table td > input[type="text"], input[type="password"] {
 	width: 200px;
 	padding:2px;}
@@ -178,12 +173,6 @@ input[type="text"], input[type="password"]{
 	border-left: 1px solid #CCCCCC;
 	padding:2px;}
 
-select {
-	border-top: 1px solid #CCCCCC;
-	border-right: 1px solid #EEEEEE;
-	border-bottom: 1px solid #EEEEEE;
-	border-left: 1px solid #CCCCCC;}
-
 .label {
 	text-align: right;
 	padding-right: 10px;
@@ -191,8 +180,6 @@ select {
 	
 .input { width:162px;
 	height:20px;}	
-
-
 /*form CSS End */
 
 /*map CSS */
@@ -516,7 +503,7 @@ div#result_count {
 	 padding-top:3px;}
 
 .device_summery_select{
-	float:right; 	
+	float:right; 
 	margin-right:1px;
 	padding:1px;}
 
@@ -649,54 +636,15 @@ h4 {
 .panel_table td {
 	padding: 5px;
 	border: 1px solid #FFFFFF;}
-	
-.blue_table{
-    width: 100%;
-	padding: 0;
-	margin: 0;
-    background-color:#d2eafc;
-	padding: 5px;
-	margin-bottom:10px
-	}
-	
-.blue_table td {
-    background-color:#d2eafc;
-	padding: 5px;
-	}		
+
 
 .panel_table .header {
 	background-color: #6699CC;
 	color: #FFFFFF;
 	font-size: 12px;
-	text-decoration:none;
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	padding: 5px;}
-	
-.panel_table .header a{
-	background-color: #6699CC;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	text-decoration:none;
-	padding: 5px;}
-
-.panel_table .header a:hover{
-	background-color: #6699CC;
-	color: #FFFFFF;
-	font-size: 12px;
-	text-decoration:underline;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	padding: 5px;}
 
-.panel_table .selected {
-	background-color: #6699CC;
-	color: #FFFFFF;
-	font-size: 12px;
-	text-decoration:none;
-	font-weight:bold;
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	padding: 5px;}
-	
 .panel_table .bluebar1{ 
 	background: url(../images/red_small.png) no-repeat left; 
 	line-height:24px;
@@ -793,10 +741,6 @@ h4 {
 	margin-top: 10px}
 
 @charset utf-8;
-
-* {
-	margin:0;
-	padding:0;}
 
 h1,h2,h3,h4,h5,p,ul {
 	list-style:none;
@@ -975,7 +919,7 @@ div#error_message {
 	background-color: #FF6262;
 	font-size: 14px;
 	font-weight: bold;
-	margin-top: 10px;
+	margin: 10px 0;
 	padding: 5px;}
 
 div#success_message {
@@ -985,7 +929,7 @@ div#success_message {
 	font-weight: bold;
 	color: #FFFFFF;
 	padding: 5px;
-	margin-top: 10px;}
+	margin: 10px 0;}
 
 #ub_account_tbl{
 	width:23%; 
@@ -1113,4 +1057,10 @@ div#footer {
 	font-size: 10px;
 	clear:both;}
 	
-/*footer CSS End*/		
+/*footer CSS End*/
+
+.title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #003366;
+}

@@ -11,11 +11,11 @@
 	<body <% if params[:action] != "index" %>onload="load();"<% end %>>
     	  <%= render :partial => 'layouts/includes/header' %>
     	   <div id="submenu">
-   			<div style="float: left"><a href="/devices" >All Devices</a>&nbsp; | &nbsp;<a href="/geofence" class="current">All Geofences</a>&nbsp; | &nbsp;<a href="/devices/groups" >All Groups</a></div>			
-			<div style="clear: both"></div>
-    	   </div>        
+   			<div style="float: left"><a href="/devices" >Devices</a>&nbsp; | &nbsp;<a href="/geofence" class="current">Geofences</a>&nbsp; | &nbsp;<a href="/devices/groups" >Groups</a></div>
+			<div style="float: right"><a href="<%= new_url%>" title="Create new geofence">Add New Geofence</a></div>
+			<div style="clear: right"></div>
+    	   </div>
     	   <div id="content">
-            <div style="padding-top:5px;"></div>
         	   <%= yield %>
            </div>
 		   
