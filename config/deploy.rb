@@ -24,7 +24,7 @@ set :scm_username,  'deploy'
 set :scm_password,  'wucr5ch8v0'
 set :user,          'ublip'
 #set :password,      'mop3j6x4'
-set :deploy_to, get_app_directory(customer_name)
+set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
 set :deploy_via,    :export
 set :monit_group,   'mongrel'
 set :scm,           :subversion
@@ -48,12 +48,12 @@ ssh_options[:paranoid] = false
 # what the purpose of each machine is. You can also specify options that can
 # be used to single out a specific subset of boxes in a particular role, like
 # :primary => true.
-set :deploy_to, get_app_directory(customer_name)
-set :db_admin, get_db_admin(customer_name)
+set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
+set :db_admin, DeployManagerClient.get_db_admin(customer_name)
 
 task :production do
-  role :db, get_app_servers(customer_name)[0], :primary => true
-  app_servers = get_app_servers(customer_name)
+  role :db, DeployManagerClient.get_app_servers(customer_name)[0], :primary => true
+  app_servers = DeployManagerClient.get_app_servers(customer_name)
   app_servers.each_index do |index|
     if index=0
       role :app, app_servers[index]
@@ -61,13 +61,13 @@ task :production do
       role :app, app_servers[index], :no_release => true, :no_symlink => true, :no_daemons => true
     end
   end
-  set :repository, "#{get_repo(customer_name)}/tags/current_production_build"
+  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/tags/current_production_build"
 end
 
 task :staging do
-  role :db, get_staging_app_server(customer_name), :primary => true
-  role :app, get_staging_app_server(customer_name), :mongrel => true
-  set :repository, "#{get_repo(customer_name)}/tags/current_staging_build"
+  role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
+  role :app, DeployManagerClient.get_staging_app_server(customer_name), :mongrel => true
+  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/tags/current_staging_build"
 end
 
 # =============================================================================
