@@ -37,6 +37,18 @@ class ReportsController < ApplicationController
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
 
+  # TODO consider how to use the word "task" instead of "reading" for these elements
+  def maintenance
+    get_start_and_end_date
+    @device = Device.find(params[:id])
+    @device_names = Device.get_names(session[:account_id])
+    @readings = MaintenanceTask.paginate(:per_page => ResultCount,:page => params[:page],
+      :conditions => ["device_id = ? and ((completed_at between ? and ?) or (reviewed_at between ? and ?))",params[:id],@start_dt_str, @end_dt_str,@start_dt_str, @end_dt_str],
+      :order => "(completed_at is null) desc,completed_at desc,established_at desc")
+    @record_count = MaintenanceTask.count(:conditions => ["device_id = ? and ((completed_at between ? and ?) or (reviewed_at between ? and ?))",params[:id],@start_dt_str, @end_dt_str,@start_dt_str, @end_dt_str])
+    @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data are going to be different in numbers.
+    @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  end
   
   def speeding
     get_start_and_end_date
@@ -81,11 +93,11 @@ class ReportsController < ApplicationController
     get_start_and_end_date
     @device = Device.find(params[:id])
     @device_names = Device.get_names(session[:account_id])
-    @runtime_events = RuntimeEvent.paginate(:per_page=>ResultCount, :page=>params[:page],
-      :conditions => ["device_id = ? and created_at between ? and ?",params[:id],@start_dt_str, @end_dt_str],
-      :order => "created_at desc")
+    conditions = ["device_id = ? and created_at between ? and ?",params[:id],@start_dt_str, @end_dt_str]
+    @runtime_events = RuntimeEvent.paginate(:per_page=>ResultCount, :page=>params[:page],:conditions => conditions,:order => "created_at desc")
+    @runtime_total = RuntimeEvent.sum(:duration,:conditions => conditions)
     @readings = @runtime_events
-    @record_count = RuntimeEvent.count('id', :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_dt_str, @end_dt_str])
+    @record_count = RuntimeEvent.count('id', :conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data going to be diferent in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
@@ -196,20 +208,11 @@ class ReportsController < ApplicationController
         @start_date = get_date(params[:start_date])
       end
     else
-      @from_normal=true
       @end_date = Date.today
       @start_date =  Date.today -  NUMBER_OF_DAYS
     end
     @start_dt_str = @start_date.to_s + ' 00:00:00'
     @end_dt_str   = @end_date.to_s + ' 23:59:59'
-  end
-
-  def get_date(date_inputs)
-    date =''
-    date_inputs.each{|key,value|   date= date + value + " "}
-    date=date.strip.split(' ')
-    date = "#{date[2]}-#{date[0]}-#{date[1]}".to_date
-    return date
   end
 
 end

@@ -21,10 +21,14 @@ class Device < ActiveRecord::Base
   has_one :latest_gps_reading, :class_name => "Reading", :order => "created_at desc", :conditions => "latitude is not null"
   has_one :latest_speed_reading, :class_name => "Reading", :order => "created_at desc", :conditions => "speed is not null"
   has_one :latest_data_reading, :class_name => "Reading", :order => "created_at desc", :conditions => "ignition is not null"
+  has_one :latest_idle_event, :class_name => "IdleEvent", :order => "created_at desc"
+  has_one :latest_runtime_event, :class_name => "RuntimeEvent", :order => "created_at desc"
+  has_one :latest_stop_event, :class_name => "StopEvent", :order => "created_at desc"
   
   has_many :geofences, :order => "created_at desc", :limit => 300
   has_many :notifications, :order => "created_at desc"
   has_many :stop_events, :order => "created_at desc"
+  has_many :pending_tasks,:class_name => "MaintenanceTask",:conditions => "completed_at is null",:order => "pastdue_notified desc,reminder_notified desc,established_at desc"
   
   def self.logical_device_for_gateway_device(gateway_device)
     return gateway_device.logical_device if gateway_device.logical_device
@@ -92,23 +96,19 @@ class Device < ActiveRecord::Base
   def latest_status
     results = nil
     
-    if profile.speeds and latest_speed_reading
-      if latest_speed_reading.speed == 0
-        if profile.idles and latest_data_reading and latest_data_reading.ignition
-          results = [REPORT_TYPE_IDLE,"Idling"]
-        else
-          results = [REPORT_TYPE_STOP,"Stopped"]
-        end
+    if profile.idles and latest_idle_event and latest_idle_event.duration.nil?
+      results = [REPORT_TYPE_IDLE,"Idling"]
+    elsif profile.stops and latest_stop_event and latest_stop_event.duration.nil?
+      results = [REPORT_TYPE_STOP,"Stopped"]
+    elsif profile.speeds and latest_speed_reading
+      if account.max_speed and latest_speed_reading.speed > account.max_speed
+        results = [REPORT_TYPE_SPEEDING,"Speeding (#{latest_speed_reading.speed}mph)"]
       else
-        if account.max_speed and latest_speed_reading.speed > account.max_speed
-          results = [REPORT_TYPE_SPEEDING,"Speeding (#{latest_speed_reading.speed}mph)"]
-        else
-          results = [REPORT_TYPE_ALL,"Moving"]
-        end
+        results = [REPORT_TYPE_ALL,"Moving"]
       end
     end
 
-    results = [REPORT_TYPE_RUNTIME,latest_data_reading.ignition ? "On" : "Off"]  if profile.runs and results.nil? and latest_data_reading
+    results = [REPORT_TYPE_RUNTIME,latest_runtime_event.duration.nil? ? "On" : "Off"]  if profile.runs and results.nil? and latest_runtime_event
 
     if profile.gpio1_name and latest_data_reading
       gpio1_status = (latest_data_reading.gpio1 ? profile.gpio1_high_status : profile.gpio1_low_status)

@@ -14,6 +14,12 @@ function displayLocalDT(dt) {
 	return (new Date(dt).toString().split(" GMT")[0]);
 }
 
+// Function to display localized date
+function displayLocalDate(dt) {
+	return (new Date(dt).toDateString());
+}
+
+
 // Popup dynamically sized window
 function popIt(url, name, props) {
 	window.open(url, name, props);

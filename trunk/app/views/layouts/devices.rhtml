@@ -21,6 +21,7 @@
         <%else%>
           <a href="/devices" class="current">Devices</a>&nbsp; | &nbsp;<a href="/geofence">Geofences</a>&nbsp; | &nbsp;<a href="/devices/groups">Groups</a>
         <%end%>
+		<% if current_account.show_maintenance %>&nbsp; | &nbsp;<a href="/maintenance">Maintenance</a><% end %>
       </div>
            
       <div style="float: right">             
