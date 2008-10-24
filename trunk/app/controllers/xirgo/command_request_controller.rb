@@ -60,6 +60,15 @@ class Xirgo::CommandRequestController < Xirgo::CommonController
     @command_requests = Xirgo::CommandRequest.find(:all,:conditions => conditions,:order => "start_date_time desc", :limit => 25)
   end
   
+  # If the command fails allow the user to retry
+  def retry
+    command_request = Xirgo::CommandRequest.find(params[:id])
+    command_request.end_date_time = nil
+    command_request.status = "Processing"
+    command_request.save
+    redirect_to "/xirgo/command_request/list"
+  end
+  
   def check_status
     @command_request = Xirgo::CommandRequest.find(params[:id])
     @device = (@command_request.device or Device.new)
