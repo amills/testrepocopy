@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'maintenance_task'
 
 class MaintenanceTaskTest < ActiveSupport::TestCase
   # Replace this with your real tests.
