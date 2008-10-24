@@ -26,7 +26,7 @@ class Xirgo::DeviceController < Xirgo::CommonController
       start_date_time = Time.now
       @selections.each_value do |device|
         commands.each do |command, value|
-          if value.to_i > 0
+          if value != ""
             command_request = Xirgo::CommandRequest.new
             command_request.device_id = device.id
             command_request.imei = device.imei
