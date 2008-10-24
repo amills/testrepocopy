@@ -10,6 +10,7 @@ xml.devices do
       if device.latest_gps_reading.nil?
         xml.lat
         xml.lng
+        xml.direction
         xml.address
         xml.dt
         xml.note
@@ -17,6 +18,7 @@ xml.devices do
       else # We got data
         xml.lat(device.latest_gps_reading.latitude)
         xml.lng(device.latest_gps_reading.longitude)
+        xml.direction(device.latest_gps_reading.direction)
         xml.address(device.latest_gps_reading.short_address)
         xml.dt((time_ago_in_words device.latest_gps_reading.created_at) + ' ago')
         xml.note(device.latest_gps_reading.note)

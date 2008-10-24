@@ -108,7 +108,7 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
  
   if(id != "from_load") // else part will execute only on page load & For refresh the "if" part get excecuted.
     {             
-      temp="/readings/recent/" + id       
+	    temp="/readings/recent/" + id       
       GDownloadUrl(temp, function(data, responseCode) {
         devices = [];
         gmap.clearOverlays();
@@ -121,7 +121,9 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
         var addresses = xml.documentElement.getElementsByTagName("address");
         var statuses = xml.documentElement.getElementsByTagName("status");
         var notes = xml.documentElement.getElementsByTagName("note");
-        var icon_id = xml.documentElement.getElementsByTagName("icon_id");		        
+        var icon_id = xml.documentElement.getElementsByTagName("icon_id");
+       	var directions = xml.documentElement.getElementsByTagName("direction");
+
         for(var i = 0; i < lats.length; i++) {              
           if(lats[i].firstChild) {
             if (lats[i].firstChild != null)
@@ -176,7 +178,8 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
     }                                        
     checking_no_data_flag(no_data_flag,redrawMap,gmap,devices,bounds) //checking the no data flag varable & setting appropriate zoom level 
     $("updating").style.visibility = 'hidden';                            
-  }          
+  }
+       
 }
 
 // populating the left hand side table
@@ -379,16 +382,35 @@ function getMarkerType(index, obj) {
 	var event = obj.event;
 	var speed = obj.speed;
 	var icon = new GIcon();	
-	icon.iconSize = new GSize(23, 34);
-	icon.iconAnchor = new GPoint(11, 34);
-	icon.infoWindowAnchor = new GPoint(11, 34);
-    icon.shadow = "/images/ublip_marker_shadow.png";
+	icon.iconSize = new GSize(32, 32);
+	icon.iconAnchor = new GPoint(16, 16);
+	icon.infoWindowAnchor = new GPoint(16, 16);
+  //icon.shadow = "/images/ublip_marker_shadow.png";
 	
+	if(obj.direction >= 337.5 || obj.direction < 22.5) {
+		icon.image = "/icons/arrows/n.png";
+	} else if(obj.direction >= 22.5 && obj.direction < 67.5) {
+		icon.image = "/icons/arrows/ne.png";
+	} else if(obj.direction >= 67.5 && obj.direction < 112.5) {
+		icon.image = "/icons/arrows/e.png";
+	} else if(obj.direction >= 112.5 && obj.direction < 157.5) {
+		icon.image = "/icons/arrows/se.png";
+	} else if(obj.direction >= 157.5 && obj.direction < 202.5) {
+		icon.image = "/icons/arrows/s.png";
+	} else if(obj.direction >= 202.5 && obj.direction < 247.5) {
+		icon.image = "/icons/arrows/sw.png";
+	} else if(obj.direction >= 247.5 && obj.direction < 292.5) {
+		icon.image = "/icons/arrows/w.png";
+	} else if(obj.direction >= 292.5 && obj.direction < 337.5) {
+		icon.image = "/icons/arrows/nw.png";
+	}
+	
+	/*
 	if(event.indexOf('geofen') > -1 || event.indexOf('stop') > -1) {
 		icon.image = "/icons/" + (index+1) + "_red.png";
 	} else {
-	    icon.image = "/icons/" + (index+1) + ".png";
-	}
+	  icon.image = "/icons/" + (index+1) + ".png";
+	}*/
 	
 	return icon;
 }
