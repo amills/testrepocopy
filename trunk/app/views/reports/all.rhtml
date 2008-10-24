@@ -21,7 +21,7 @@
                   GPS Not Available
                 <%else%>
                   <a href="javascript:centerMapOnReading(<%= reading.id %>);highlightRow(<%= reading.id %>)" title="Center map on this location" ><%= reading.short_address %></a>
-                <%end%>- <%= reading.direction %>
+                <%end%>
               </td>
               
               <% if @device.profile.speeds %><td><%= reading.speed %></td><% end %>
