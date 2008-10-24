@@ -28,7 +28,7 @@ class Xirgo::DeviceController < Xirgo::CommonController
         commands.each do |command, value|
           if value.to_i > 0
             command_request = Xirgo::CommandRequest.new
-            command_request.device_id = device.id
+            command_request.device_id = device.imei
             command_request.command = command + "," + value
             command_request.start_date_time = start_date_time
             command_request.save!
