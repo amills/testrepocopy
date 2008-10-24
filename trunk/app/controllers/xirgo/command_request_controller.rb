@@ -57,7 +57,7 @@ class Xirgo::CommandRequestController < Xirgo::CommonController
     @device = Xirgo::Device.find(params[:id]) if params[:id]
     @device ||= Xirgo::Device.new
     conditions = "device_id = #{@device.id}" if @device.id
-    @command_requests = Xirgo::CommandRequest.find(:all,:conditions => conditions,:order => "start_date_time desc")
+    @command_requests = Xirgo::CommandRequest.find(:all,:conditions => conditions,:order => "start_date_time desc", :limit => 25)
   end
   
   def check_status

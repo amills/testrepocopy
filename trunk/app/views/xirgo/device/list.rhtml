@@ -1,12 +1,6 @@
 <% form_tag({:controller=>'device',:action =>'list'}) do %>
-	Command:
-	<select onchange="this.form.command.value = this.value;">
-		<%= predefined_command_options %>
-	</select>
-	<input type="text" name="command" value="<%= params[:command] %>"/>
-	<!--<%= submit_tag 'Submit',:name => 'submit' %>-->
 
-<h2>Select the devices you'd like to configure and enter your configuration parameters</h2>	
+<h2>Select the devices you'd like to configure and enter the parameters below</h2>	
 
 	<% if @error %>
 		<div id="error_message">
@@ -38,10 +32,10 @@
 	</div>
 	
 	<div id="configuration_form">
-		<div class="row">Report <strong>ignition on</strong> events every <input type="text" name="xt3001" value="5" size="5" /> minutes <span class="dim">(enter 0 to disable)</span></div>
-		<div class="row">Report <strong>ignition off</strong> events every <input type="text" name="xt3001" value="60" size="5" /> minutes <span class="dim">(enter 0 to disable)</span></div>
+		<div class="row">Report <strong>ignition on</strong> events every <input type="text" name="XT3001" value="5" size="5" /> minutes <span class="dim">(enter 0 to disable)</span></div>
+		<div class="row">Report <strong>ignition off</strong> events every <input type="text" name="XT3002" value="60" size="5" /> minutes <span class="dim">(enter 0 to disable)</span></div>
 		<div class="row">Report <strong>direction change</strong> events every
-			<select>
+			<select name="XT3003">
 				<option>0</option>
 				<option>15</option>
 				<option>30</option>
@@ -70,7 +64,7 @@
 			degrees <span class="dim">(select 0 to disable)</span>
 		</div>
 		<div class="row">Report <strong>speed</strong> events when speed exceeds 
-			<select>
+			<select name="XT3004">
 				<option>0</option>
 				<option>10</option>
 				<option>15</option>
@@ -94,7 +88,7 @@
 		</div>
 	
 		<div class="row">Report <strong>rpm</strong> events when rpm exceeds
-			<select>
+			<select name="XT3005">
 				<option>0</option>
 				<option>500</option>
 				<option>1500</option>
@@ -116,9 +110,10 @@
 			</select> <span class="dim">(select 0 to disable)</span>
 		</div>
 	
-		<div>
+		<div class="row">
 			Report <strong>mileage</strong> events every 
-			<select>
+			<select name="XT3006">
+				<option>0</option>
 				<option>100</option>
 				<option>500</option>
 				<option>1000</option>
@@ -134,6 +129,24 @@
 				<option>6000</option>
 			</select>
 			miles <span class="dim">(select 0 to disable)</span>
+		</div>
+		
+		<div>
+			Report <strong>acceleration/deceleration</strong> events every
+			<select name="XT3007">
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+			</select>
+			mph/s <span class="dim">(select 0 to disable)
 		</div>
 	</div>
 	<div id="configuration_submit">

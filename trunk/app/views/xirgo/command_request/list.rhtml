@@ -1,6 +1,17 @@
+<% for command_request in @command_requests %>
+	<% if command_request.status == "Processing" || command_request.status == "Initiated" %>
+	<% processing = true %>
+	<div id="success_message">
+		Configuration requests in progress
+	</div>
+	<% break %>
+	<% end %>
+<% end %>
+
 <% form_tag({:controller=>'command_request',:action =>'list',:id=>@device}) do %>
 	<table id="ub-table">
 		<tr class="header">
+			<td width="20"></td>
 			<td>Name</td>
 			<td>IMEI</td>
 			<td>Command</td>
@@ -10,6 +21,7 @@
 		</tr>
 		<% for command_request in @command_requests %>
 			<tr class="<%= cycle("gray_row", "") %>">
+				<td><% if command_request.status == "Processing" || command_request.status == "Initiated" %><img src="/images/loading_small.gif" /><% end %></td>
 				<td><%= Device.friendly_name_for_gateway_device(command_request.device) or '&nbsp;' %></td>
 				<td><%= link_to(command_request.device.imei,:id=>command_request.device) if command_request.device %>&nbsp;</td>
 				<td><%= link_to (command_request.command or '???'),:action => 'check_status',:id => command_request %></td>
@@ -20,3 +32,9 @@
 		<% end %>
 	</table>
 <% end%>
+
+<% if processing %>
+<script>
+	setInterval("document.location.reload(true)", 5000);
+</script>
+<% end %>
