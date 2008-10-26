@@ -39,6 +39,7 @@ class MaintenanceController < ApplicationController
     @task = MaintenanceTask.find(params[:id])
     return unless request.post?
 
+    @task.description = params[:description]
     @task.task_type = params[:task_type] == 'scheduled' ? MaintenanceTask::TYPE_SCHEDULED : MaintenanceTask::TYPE_RUNTIME
     @task.target_runtime = params[:runtime_hours].to_f * 60 * 60
     @task.target_at = get_date(params[:target_at])

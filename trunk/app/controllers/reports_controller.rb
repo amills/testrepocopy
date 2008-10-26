@@ -9,7 +9,6 @@ class ReportsController < ApplicationController
   MAX_LIMIT = 999 # Max number of results
 
   def index
-    
     if params[:group_id]
       session[:group_value] = params[:group_id] # To allow groups to be selected on reports index page
     end
@@ -28,24 +27,21 @@ class ReportsController < ApplicationController
     get_start_and_end_date
     @device = Device.find(params[:id])    
     @device_names = Device.get_names(session[:account_id])
-    @readings=Reading.paginate(:per_page=>ResultCount, :page=>params[:page],
-      :conditions => ["device_id = ? and created_at between ? and ?",params[:id],@start_dt_str, @end_dt_str],
-      :order => "created_at desc")
-    @record_count = Reading.count('id',
-      :conditions => ["device_id = ? and created_at between ? and ?", params[:id],@start_dt_str, @end_dt_str])
+    conditions = get_device_and_dates_conditions
+    @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page], :conditions => conditions, :order => "created_at desc")
+    @record_count = Reading.count(:conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data are going to be different in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
 
   # TODO consider how to use the word "task" instead of "reading" for these elements
   def maintenance
-    get_start_and_end_date
     @device = Device.find(params[:id])
     @device_names = Device.get_names(session[:account_id])
-    @readings = MaintenanceTask.paginate(:per_page => ResultCount,:page => params[:page],
-      :conditions => ["device_id = ? and ((completed_at between ? and ?) or (reviewed_at between ? and ?))",params[:id],@start_dt_str, @end_dt_str,@start_dt_str, @end_dt_str],
+    conditions = ["device_id = ?",params[:id]]
+    @readings = MaintenanceTask.paginate(:per_page => ResultCount,:page => params[:page],:conditions => conditions,
       :order => "(completed_at is null) desc,completed_at desc,established_at desc")
-    @record_count = MaintenanceTask.count(:conditions => ["device_id = ? and ((completed_at between ? and ?) or (reviewed_at between ? and ?))",params[:id],@start_dt_str, @end_dt_str,@start_dt_str, @end_dt_str])
+    @record_count = MaintenanceTask.count(:conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data are going to be different in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
@@ -54,11 +50,9 @@ class ReportsController < ApplicationController
     get_start_and_end_date
     @device = Device.find(params[:id])    
     @device_names = Device.get_names(session[:account_id])
-    @readings=Reading.paginate(:per_page=>ResultCount, :page=>params[:page],
-      :conditions => ["device_id = ? and speed > ? and created_at between ? and ?",params[:id],(@device.account.max_speed or -1),@start_dt_str, @end_dt_str],
-      :order => "created_at desc")
-    @record_count = Reading.count('id',
-      :conditions => ["device_id = ? and speed > ? and created_at between ? and ?", params[:id],(@device.account.max_speed or -1),@start_dt_str, @end_dt_str])
+    conditions = "#{get_device_and_dates_conditions} and speed > #{(@device.account.max_speed or -1)}"
+    @readings=Reading.paginate(:per_page=>ResultCount, :page=>params[:page], :conditions => conditions, :order => "created_at desc")
+    @record_count = Reading.count('id', :conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data are going to be different in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
@@ -67,11 +61,10 @@ class ReportsController < ApplicationController
     get_start_and_end_date
     @device = Device.find(params[:id])
     @device_names = Device.get_names(session[:account_id])
-    @stop_events = StopEvent.paginate(:per_page=>ResultCount, :page=>params[:page],
-      :conditions => ["device_id = ? and created_at between ? and ?",params[:id],@start_dt_str, @end_dt_str],
-      :order => "created_at desc")
+    conditions = get_device_and_dates_with_duration_conditions
+    @stop_events = StopEvent.paginate(:per_page=>ResultCount, :page=>params[:page], :conditions => conditions, :order => "created_at desc")
     @readings = @stop_events
-    @record_count = StopEvent.count('id', :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_dt_str, @end_dt_str])
+    @record_count = StopEvent.count('id', :conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data going to be diferent in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
@@ -80,11 +73,10 @@ class ReportsController < ApplicationController
     get_start_and_end_date
     @device = Device.find(params[:id])
     @device_names = Device.get_names(session[:account_id])
-    @idle_events = IdleEvent.paginate(:per_page=>ResultCount, :page=>params[:page],
-      :conditions => ["device_id = ? and created_at between ? and ?",params[:id],@start_dt_str, @end_dt_str],
-      :order => "created_at desc")
+    conditions = get_device_and_dates_with_duration_conditions
+    @idle_events = IdleEvent.paginate(:per_page=>ResultCount, :page=>params[:page], :conditions => conditions, :order => "created_at desc")
     @readings = @idle_events
-    @record_count = IdleEvent.count('id', :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_dt_str, @end_dt_str])
+    @record_count = IdleEvent.count('id', :conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data going to be diferent in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
@@ -93,7 +85,7 @@ class ReportsController < ApplicationController
     get_start_and_end_date
     @device = Device.find(params[:id])
     @device_names = Device.get_names(session[:account_id])
-    conditions = ["device_id = ? and created_at between ? and ?",params[:id],@start_dt_str, @end_dt_str]
+    conditions = get_device_and_dates_with_duration_conditions
     @runtime_events = RuntimeEvent.paginate(:per_page=>ResultCount, :page=>params[:page],:conditions => conditions,:order => "created_at desc")
     @runtime_total = RuntimeEvent.sum(:duration,:conditions => conditions)
     @readings = @runtime_events
@@ -108,10 +100,9 @@ class ReportsController < ApplicationController
     @device = Device.find(params[:id])
     @device_names = Device.get_names(session[:account_id])
     @geofences = Device.find(params[:id]).geofences # Geofences to display as overlays
-    @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page],
-      :conditions => ["device_id = ? and created_at between ? and ? and event_type like '%geofen%'",params[:id],@start_dt_str, @end_dt_str],
-      :order => "created_at desc")
-    @record_count = Reading.count('id', :conditions => ["device_id = ? and event_type like '%geofen%' and created_at between ? and ?", params[:id], @start_dt_str, @end_dt_str])
+    conditions = "#{get_device_and_dates_conditions} and event_type like '%geofen%'"
+    @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page], :conditions => conditions, :order => "created_at desc")
+    @record_count = Reading.count('id', :conditions => conditions)
     @actual_record_count = @record_count
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
@@ -121,10 +112,9 @@ class ReportsController < ApplicationController
     get_start_and_end_date
     @device = Device.find(params[:id])
     @device_names = Device.get_names(session[:account_id])
-    @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page],
-      :conditions => ["device_id = ? and created_at between ? and ? and gpio1 is not null",params[:id],@start_dt_str, @end_dt_str],
-      :order => "created_at desc")
-    @record_count = Reading.count('id', :conditions => ["device_id = ? and gpio1 is not null and created_at between ? and ?", params[:id], @start_dt_str, @end_dt_str])
+    conditions = "#{get_device_and_dates_conditions} and gpio1 is not null"
+    @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page], :conditions => conditions, :order => "created_at desc")
+    @record_count = Reading.count('id', :conditions => conditions)
     @actual_record_count = @record_count
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
@@ -134,56 +124,43 @@ class ReportsController < ApplicationController
     get_start_and_end_date
     @device = Device.find(params[:id])
     @device_names = Device.get_names(session[:account_id])
-    @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page],
-      :conditions => ["device_id = ? and created_at between ? and ? and gpio2 is not null",params[:id],@start_dt_str, @end_dt_str],
-      :order => "created_at desc")
-    @record_count = Reading.count('id', :conditions => ["device_id = ? and gpio2 is not null and created_at between ? and ?", params[:id], @start_dt_str, @end_dt_str])
+    conditions = "#{get_device_and_dates_conditions} and gpio2 is not null"
+    @readings = Reading.paginate(:per_page=>ResultCount, :page=>params[:page], :conditions => conditions, :order => "created_at desc")
+    @record_count = Reading.count('id', :conditions => conditions)
     @actual_record_count = @record_count
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
 
   # Export report data to CSV
   def export
-    unless params[:page]
-      params[:page] = 1
-    end
-    # Determine report type so we know what filter to apply
+    params[:page] = 1 unless params[:page]
+    
     case params[:type]
-      when 'geofence'
-        event_type = '%geofen%'
-      else
-        event_type = '%'
+      when 'stop'
+        get_start_and_end_date
+        return export_events(StopEvent.find(:all, {:order => "created_at desc", :conditions => get_device_and_dates_with_duration_conditions}))
+      when 'idle'
+        get_start_and_end_date
+        return export_events(IdleEvent.find(:all, {:order => "created_at desc", :conditions => get_device_and_dates_with_duration_conditions}))
+      when 'runtime'
+        get_start_and_end_date
+        return export_events(RuntimeEvent.find(:all, {:order => "created_at desc", :conditions => get_device_and_dates_with_duration_conditions}))
+      when 'maintenance'
+        return export_maintenance
     end
+
     get_start_and_end_date
-    if params[:type]=='stop'
-      events = StopEvent.find(:all, {:order => "created_at desc",
-        :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_dt_str, @end_dt_str]})
-    elsif params[:type] == 'idle'
-      events = IdleEvent.find(:all, {:order => "created_at desc",
-        :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_dt_str, @end_dt_str]})
-    elsif params[:type] =='runtime'
-      events = RuntimeEvent.find(:all, {:order => "created_at desc",
-        :conditions => ["device_id = ? and created_at between ? and ?", params[:id], @start_dt_str, @end_dt_str]})
-    else
-      readings = Reading.find(:all,:order => "created_at desc",:offset => ((params[:page].to_i-1)*ResultCount),:limit=>MAX_LIMIT,
-        :conditions => ["device_id = ? and event_type like ? and created_at between ? and ?", params[:id],event_type,@start_dt_str,@end_dt_str])
-    end
+    event_type = params[:type] == 'geofence' ? '%geofen%' : '%'
+    readings = Reading.find(:all,:order => "created_at desc",:offset => ((params[:page].to_i-1)*ResultCount),:limit=>MAX_LIMIT,
+      :conditions => "#{get_device_and_dates_conditions} and event_type like '#{event_type}'")
+
     # Name of the csv file
     @filename = params[:type] + "_" + params[:id] + ".csv"
     csv_string = FasterCSV.generate do |csv|
-      if ['stop','idle','runtime'].include?(params[:type])
-        csv << ["Location","#{params[:type].capitalize} Duration (m)","Started","Latitude","Longitude"]
-        events.each do |event|
-          local_time = event.get_local_time(event.created_at.in_time_zone.inspect)
-          address = event.reading.nil? ? "#{event.latitude};#{event.longitude}" : event.reading.short_address
-          csv << [address,((event.duration.to_s.strip.size > 0) ? event.duration : 'Unknown'),local_time, event.latitude,event.longitude]
-        end
-      else
-        csv << ["Location","Speed (mph)","Started","Latitude","Longitude","Event Type"]
-        readings.each do |reading|
-          local_time = reading.get_local_time(reading.created_at.in_time_zone.inspect)
-          csv << [reading.short_address,reading.speed,local_time,reading.latitude,reading.longitude,reading.event_type]
-        end
+      csv << ["Location","Speed (mph)","Started","Latitude","Longitude","Event Type"]
+      readings.each do |reading|
+        local_time = reading.get_local_time(reading.created_at.in_time_zone.inspect)
+        csv << [reading.short_address,reading.speed,local_time,reading.latitude,reading.longitude,reading.event_type]
       end
     end
 
@@ -196,7 +173,50 @@ class ReportsController < ApplicationController
     @readings = Reading.find(:all, :order => "created_at desc", :limit => ResultCount, :conditions => "event_type='speeding_et40' and device_id='#{params[:id]}'")
   end
 
-  private
+private
+
+  def export_events(events)
+    @filename = params[:type] + "_" + params[:id] + ".csv"
+
+    csv_string = FasterCSV.generate do |csv|
+      csv << ["Location","#{params[:type].capitalize} Duration (m)","Started","Latitude","Longitude"]
+      events.each do |event|
+        local_time = event.get_local_time(event.created_at.in_time_zone.inspect)
+        address = event.reading.nil? ? "#{event.latitude};#{event.longitude}" : event.reading.short_address
+        csv << [address,((event.duration.to_s.strip.size > 0) ? event.duration : 'Unknown'),local_time, event.latitude,event.longitude]
+      end
+    end
+
+    send_data csv_string,
+      :type => 'text/csv; charset=iso-8859-1; header=present',
+      :disposition => "attachment; filename=#{@filename}"
+  end
+  
+  def export_maintenance
+    tasks = MaintenanceTask.paginate(:per_page => ResultCount,:page => params[:page],:conditions => ["device_id = ? and completed_at is not null",params[:id]], :order => "completed_at desc")
+
+    @filename = "maintenance_#{params[:id]}.csv"
+
+    csv_string = FasterCSV.generate do |csv|
+      csv << ["Maintenance Task","Completed Date","Completed By"]
+      tasks.each do |task|
+        csv << [task.description,task.completed_at.strftime("%Y-%m-%d"),task.completed_by]
+      end
+    end
+
+    send_data csv_string,
+      :type => 'text/csv; charset=iso-8859-1; header=present',
+      :disposition => "attachment; filename=#{@filename}"
+  end
+  
+  def get_device_and_dates_conditions
+    "device_id = #{params[:id]} and created_at between '#{@start_dt_str}' and '#{@end_dt_str}'"
+  end
+  
+  def get_device_and_dates_with_duration_conditions
+    return "device_id = #{params[:id]} and ((created_at between '#{@start_dt_str}' and '#{@end_dt_str}') or (duration is null))" if Time.now < @end_dt_str.to_time
+    get_device_and_dates_conditions
+  end
 
   def get_start_and_end_date
     if !params[:end_date].nil?
