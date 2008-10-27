@@ -76,7 +76,12 @@ class Admin::DevicesController < ApplicationController
       device.save!
       flash[:success] = "#{device.name} deleted successfully"
     end  
-    redirect_to :action => 'index'
+    
+    if params[:account_id]
+      redirect_to :action => 'index', :id => params[:account_id].to_s
+    else
+      redirect_to :action => 'index'
+    end
     
   end
   
