@@ -23,12 +23,12 @@ class MaintenanceController < ApplicationController
     
     @task.description = params[:description]
     @task.task_type = params[:task_type] == 'scheduled' ? MaintenanceTask::TYPE_SCHEDULED : MaintenanceTask::TYPE_RUNTIME
-    @task.established_at = get_date(params[:established_at])
+    @task.established_at = get_date(params[:established_at]).to_time
     @task.target_runtime = params[:runtime_hours].to_f * 60 * 60
-    @task.target_at = get_date(params[:target_at])
-    @task.reviewed_at = Date.today
-    # TODO calculate reviewed_runtime
+    @task.target_at = get_date(params[:target_at]).to_time
+    @task.update_status
     @task.save!
+
     flash[:success] = "'#{@task.description}' for #{@device.name} created successfully"
     redirect_to :controller => 'reports',:action => 'maintenance',:id => @device
   rescue
@@ -43,9 +43,13 @@ class MaintenanceController < ApplicationController
     @task.task_type = params[:task_type] == 'scheduled' ? MaintenanceTask::TYPE_SCHEDULED : MaintenanceTask::TYPE_RUNTIME
     @task.target_runtime = params[:runtime_hours].to_f * 60 * 60
     @task.target_at = get_date(params[:target_at])
-    @task.reviewed_at = Date.today
-    # TODO calculate reviewed_runtime
+    @task.remind_runtime = nil
+    @task.remind_at = nil
+    @task.reminder_notified = nil
+    @task.pastdue_notified = nil
+    @task.update_status
     @task.save!
+
     flash[:success] = "'#{@task.description}' for #{@task.device.name} updated successfully"
     redirect_to :controller => 'reports',:action => 'maintenance',:id => @task.device_id
   rescue

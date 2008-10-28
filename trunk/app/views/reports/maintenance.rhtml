@@ -16,18 +16,18 @@
 							<td><%= task.completed_by or '-' %></td>
                         <% elsif task.pastdue_notified %>
 		                    <td><a href="/maintenance/complete/<%= task.id%>" title="Complete task"><%= task.description %></a></td>
-							<td style="text-align:center;color:white;background-color:red;" colspan="2">
+							<td colspan="2">
 		                    	<a href="/maintenance/complete/<%= task.id%>" title="Complete task"><b><i>
 									<% if task.is_scheduled? %>
 				                        Past due on <%= task.target_at.strftime("%Y-%m-%d") %>
 									<% else %>
-				                        Past due about <%= Math.abs(task.target_runtime - task.reviewed_runtime) / 60 / 60 %> runtime hours ago
+				                        Past due about <%= (task.target_runtime - task.reviewed_runtime).abs / 60 / 60 %> runtime hours ago
 									<% end %>
 								</i></b></a>
 							</td>
 						<% elsif task.reminder_notified %>
 		                    <td><a href="/maintenance/complete/<%= task.id%>" title="Complete task"><%= task.description %></a></td>
-							<td style="text-align:center;background-color:yellow;" colspan="2">
+							<td colspan="2">
 		                    	<a href="/maintenance/complete/<%= task.id%>" title="Complete task"><i>
 									<% if task.is_scheduled? %>
 				                        Due on <%= task.target_at.strftime("%Y-%m-%d") %>

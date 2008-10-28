@@ -5,7 +5,7 @@
     </div>
 
     <form method="post" id="geofence_form" onsubmit="return validate();">
-      <div style="background-color: #EDF3FE; padding: 10px;">
+      <div style="background-color: #EDF3FE; padding: 10px;" class="form_table">
         <div>
           <div>
             <strong>This geofence applies to:</strong>
@@ -24,14 +24,14 @@
          <div>
            <strong>Geofence name:</strong>
          </div>
-         <input name="name" type="text" class="text_width" />
+         <input name="name" type="text" class="long_text" />
        </div>
 	
        <div>
          <div>
            <strong>Geofence address:</strong>
          </div>
-         <input id="address" name="address" type="text" class="text_width" />
+         <input id="address" name="address" type="text" class="long_text" />
        </div>
 
        <div>
@@ -53,7 +53,7 @@
      <input type="hidden" name="bounds"/>
 
      <div style="margin-top: 15px;">    
-       <input name="Create geofence" type="submit" value="create geofence"/>	    
+       <input name="Create geofence" type="submit" value="create geofence" class="bold_button" />	    
        <a href="<%= session[:referral_url] %>" >cancel</a>
      </div>
    </form>

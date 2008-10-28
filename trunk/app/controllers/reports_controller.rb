@@ -88,6 +88,8 @@ class ReportsController < ApplicationController
     conditions = get_device_and_dates_with_duration_conditions
     @runtime_events = RuntimeEvent.paginate(:per_page=>ResultCount, :page=>params[:page],:conditions => conditions,:order => "created_at desc")
     @runtime_total = RuntimeEvent.sum(:duration,:conditions => conditions)
+    active_event = RuntimeEvent.find(:first,:conditions => "#{conditions} and duration is null")
+    @runtime_total += ((Time.now - active_event.created_at) / 60).to_i if active_event
     @readings = @runtime_events
     @record_count = RuntimeEvent.count('id', :conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data going to be diferent in numbers.
