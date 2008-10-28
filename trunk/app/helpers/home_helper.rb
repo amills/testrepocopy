@@ -1,9 +1,5 @@
 module HomeHelper
 
-  def update_readings_automatically?
-    params[:action] == "index"
-  end
-
   def decide_action 
      content=""  
      if @from_reports
