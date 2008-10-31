@@ -89,6 +89,7 @@ before "deploy", "daemons:stop"
 after "deploy", "daemons:start"
 after "deploy", "setup_db_procs"
 after "deploy:migrate", "setup_db_procs"
+after "deploy:migrations", "setup_db_procs"
 
 # =============================================================================
 namespace :mongrel do
