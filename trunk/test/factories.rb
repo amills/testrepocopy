@@ -60,6 +60,12 @@ Factory.define :group_notification do |gn|
   gn.user {|user| user.association(:user)}
 end
 
+Factory.define :idle_event do |i|
+  i.latitude 1
+  i.longitude 2
+  i.created_at Time.now
+end
+
 Factory.define :device_profile do |dp|
   dp.name {Factory.next(:profile_name)}
   dp.gpio1_labels "gpio1\tlow\thigh\tlow_notice\thigh_notice"
