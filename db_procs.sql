@@ -180,6 +180,7 @@ DROP PROCEDURE IF EXISTS process_idle_events;;
 CREATE PROCEDURE process_idle_events()
 BEGIN
 	DECLARE num_events_to_check INT;
+	DROP TEMPORARY TABLE IF EXISTS open_idle_events;
 	CREATE TEMPORARY TABLE open_idle_events(idle_event_id INT(11), checked BOOLEAN);
 	INSERT INTO open_idle_events SELECT id, FALSE FROM idle_events where duration IS NULL;
 	SELECT COUNT(*) INTO num_events_to_check FROM open_idle_events WHERE checked=FALSE;
