@@ -98,20 +98,6 @@ class DatabaseProcTest < Test::Unit::TestCase
     assert_equal(3, runtime_events.size, "should allowed runtime event in the past")
   end
   
-  def test_engine_off
-    IdleEvent.delete_all
-    now = Time.now
-    insert_idle(1.2,2.3, now, devices(:device1).imei)
-    idle_events = IdleEvent.find :all
-    assert_equal(1, idle_events.size, "should have been one idle event")
-    idle_event = IdleEvent.find(:first)
-    assert_nil idle_event.duration
-    
-    insert_engine_off(1.2, 2.3, now+120, devices(:device1).imei)
-    idle_event.reload
-    assert_equal 5, idle_event.duration
-  end
-  
   def test_reading_insert
     Reading.delete_all
     now = Time.now
