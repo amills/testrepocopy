@@ -93,16 +93,6 @@ CREATE PROCEDURE insert_engine_off_event(
 	_reading_id INT(11)
 )
 BEGIN
-	DECLARE latestIdleID INT(11);
-	DECLARE deviceID INT(11);
-	DECLARE latestDuration INT(11);
-	DECLARE idleTimestamp DATETIME;
-	
-	SELECT id INTO deviceID FROM devices WHERE imei=_modem;
-	SELECT id,duration,created_at INTO latestIdleID,latestDuration,idleTimestamp FROM idle_events WHERE device_id=deviceID AND created_at <= _created ORDER BY created_at desc limit 1;
-	IF latestDuration IS NULL THEN
-		UPDATE idle_events SET duration=TIMESTAMPDIFF(MINUTE, idleTimestamp, _created)+3 WHERE id=latestIdleID;
-	END IF;
 	
 END;;
 
@@ -180,12 +170,13 @@ DROP PROCEDURE IF EXISTS process_idle_events;;
 CREATE PROCEDURE process_idle_events()
 BEGIN
 	DECLARE num_events_to_check INT;
+	DROP TEMPORARY TABLE IF EXISTS open_idle_events;
 	CREATE TEMPORARY TABLE open_idle_events(idle_event_id INT(11), checked BOOLEAN);
 	INSERT INTO open_idle_events SELECT id, FALSE FROM idle_events where duration IS NULL;
 	SELECT COUNT(*) INTO num_events_to_check FROM open_idle_events WHERE checked=FALSE;
 	WHILE num_events_to_check>0 DO BEGIN
 		DECLARE eventID INT;
-		DECLARE first_move_after_idle_id INT;
+		DECLARE first_move_or_off_after_idle_id INT;
 		DECLARE idleDuration INT;
 		DECLARE deviceID INT;
 		DECLARE idleTime DATETIME;
@@ -194,11 +185,11 @@ BEGIN
 		SELECT device_id, created_at into deviceID, idleTime FROM idle_events where id=eventID;
 		UPDATE open_idle_events SET checked=TRUE WHERE idle_event_id=eventId;
 		
-		SELECT id INTO first_move_after_idle_id FROM readings  
-		  WHERE device_id=deviceID AND speed>1 AND created_at>idleTime ORDER BY created_at ASC LIMIT 1;
+		SELECT id INTO first_move_or_off_after_idle_id FROM readings  
+		  WHERE device_id=deviceID AND (speed>1 OR ignition=0) AND created_at>idleTime ORDER BY created_at ASC LIMIT 1;
 		  
-		IF first_move_after_idle_id IS NOT NULL THEN	 
-			SELECT TIMESTAMPDIFF(MINUTE, idleTime, created_at) INTO idleDuration FROM readings where id=first_move_after_idle_id;
+		IF first_move_or_off_after_idle_id IS NOT NULL THEN	 
+			SELECT TIMESTAMPDIFF(MINUTE, idleTime, created_at) INTO idleDuration FROM readings where id=first_move_or_off_after_idle_id;
 			UPDATE idle_events SET duration = idleDuration+3 where id=eventID;
 		END IF;
 		
