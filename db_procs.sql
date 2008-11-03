@@ -186,7 +186,7 @@ BEGIN
 	SELECT COUNT(*) INTO num_events_to_check FROM open_idle_events WHERE checked=FALSE;
 	WHILE num_events_to_check>0 DO BEGIN
 		DECLARE eventID INT;
-		DECLARE first_move_after_idle_id INT;
+		DECLARE first_move_or_off_after_idle_id INT;
 		DECLARE idleDuration INT;
 		DECLARE deviceID INT;
 		DECLARE idleTime DATETIME;
@@ -195,11 +195,11 @@ BEGIN
 		SELECT device_id, created_at into deviceID, idleTime FROM idle_events where id=eventID;
 		UPDATE open_idle_events SET checked=TRUE WHERE idle_event_id=eventId;
 		
-		SELECT id INTO first_move_after_idle_id FROM readings  
-		  WHERE device_id=deviceID AND speed>1 AND created_at>idleTime ORDER BY created_at ASC LIMIT 1;
+		SELECT id INTO first_move_or_off_after_idle_id FROM readings  
+		  WHERE device_id=deviceID AND (speed>1 OR ignition=0) AND created_at>idleTime ORDER BY created_at ASC LIMIT 1;
 		  
-		IF first_move_after_idle_id IS NOT NULL THEN	 
-			SELECT TIMESTAMPDIFF(MINUTE, idleTime, created_at) INTO idleDuration FROM readings where id=first_move_after_idle_id;
+		IF first_move_or_off_after_idle_id IS NOT NULL THEN	 
+			SELECT TIMESTAMPDIFF(MINUTE, idleTime, created_at) INTO idleDuration FROM readings where id=first_move_or_off_after_idle_id;
 			UPDATE idle_events SET duration = idleDuration+3 where id=eventID;
 		END IF;
 		
