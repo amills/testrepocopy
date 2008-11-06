@@ -32,6 +32,10 @@ class Admin::UsersController < ApplicationController
       if @users.size == 0
         @user.is_master = 1
       end
+      
+      if params[:user][:is_admin].to_i == 1
+        @user.is_admin = 1
+      end
 	  
       # Check that passwords match
       if params[:user][:password] == params[:user][:password_confirmation]
@@ -56,6 +60,7 @@ class Admin::UsersController < ApplicationController
   def update
     if request.post?
       @user = User.find(params[:id])
+      update_attribute_by_checkbox(@user, :is_admin, params[:user])
       @user.update_attributes(params[:user])
       
       if @user.save
