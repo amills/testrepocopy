@@ -5,9 +5,8 @@
   <%= render :partial => 'device_summary_header',:locals => {:column_span => 5,:sub_heading => nil} %>
   <tr>
     <th>Name</th>	  
-    <th>&nbsp;</th>
-    <th>Last Maintenance Occurred</th>
-    <th>Next Maintenance Required</th>
+    <th>Next Maintenance Task</th>
+    <th>Due</th>
     <th>Status</th>
   </tr>           
   <%= render :partial => "group_rows",:locals => {:column_span => 5,:callback => "show_maintenance"} %>

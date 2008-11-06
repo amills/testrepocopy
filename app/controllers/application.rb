@@ -87,6 +87,14 @@ class ApplicationController < ActionController::Base
     end                    
   end    
 
+  def get_date(date_inputs)
+    date =''
+    date_inputs.each{|key,value|   date= date + value + " "}
+    date=date.strip.split(' ')
+    date = "#{date[2]}-#{date[0]}-#{date[1]}".to_date
+    return date
+  end
+
 private
 
   def authorize

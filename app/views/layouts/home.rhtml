@@ -51,7 +51,7 @@
               <tr>
                 <td class="header" >                                         
                   <div style="float: left;">Locations for All Devices</div>
-                  <% if update_readings_automatically? %><div id="updating">Updating locations...</div><% end %>                                         
+                  <div id="updating">Updating locations...</div>
                 </td>                                       
               </tr>
             
@@ -64,19 +64,16 @@
       </table>    
     </div>
   
-    <% if update_readings_automatically? %>
-      <script>   
-       window.setInterval("updateLocations();", 30000);                    
-       function updateLocations() 
-         {   
-           if (grp_id) 
-            getRecentReadings(true,grp_id);                                                               
-           else{                     
-             getRecentReadings(false);                                                               
-           }
-         }
-     </script>
-    <% end %>                
+	<script>   
+		window.setInterval("updateLocations();", 30000);                    
+		function updateLocations() 
+		{   
+			if (grp_id) 
+				getRecentReadings(true,grp_id);                                                               
+			else
+				getRecentReadings(false);                                                               
+		}
+	</script>
   
     <%= render :partial => 'layouts/includes/footer' %>
   </body>     

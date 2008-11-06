@@ -1,9 +1,5 @@
 module HomeHelper
 
-  def update_readings_automatically?
-    params[:action] == "index"
-  end
-
   def decide_action 
      content=""  
      if @from_reports
@@ -83,48 +79,46 @@ module HomeHelper
   end
 
   def show_maintenance(device)
-    # TODO replace with real data
-    @counter ||= 1
-    case @counter
-      when 1
-      maintenance_date = device.created_at.strftime("%Y-%m-%d")
-      next_required = "after 103 more hours"
-      maintenance_status = "OK"
-      status_color = "style='text-align:center;color:white;background-color:green;'"
-      when 2
-      maintenance_date = device.created_at.strftime("%Y-%m-%d")
-      next_required = (Time.now + (60 * 60 * 24 * 60)).strftime("%Y-%m-%d")
-      maintenance_status = "OK"
-      status_color = "style='text-align:center;color:white;background-color:green;'"
-      when 3
-      maintenance_date = device.created_at.strftime("%Y-%m-%d")
-      next_required = "after 5 more hours"
-      maintenance_status = "PENDING"
-      status_color = "style='text-align:center;background-color:yellow;'"
-      when 4
-      maintenance_date = device.created_at.strftime("%Y-%m-%d")
-      next_required = "30 hours ago"
-      maintenance_status = "PAST DUE"
-      status_color = "style='text-align:center;color:white;background-color:red;'"
-    else
-      maintenance_date = "Unspecified"
-      next_required = "&nbsp;"
-      maintenance_status = "&nbsp;"
-    end
-    @counter += 1
-
     content = ""
-    content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}"> <td>)
+    content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}">)
+
     if device.latest_gps_reading
-      content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a>)
+      content << %(<td><a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a></td>)
     else
-      content << %(#{device.name})
+      content << %(<td>#{device.name}</td>)
+    end      
+
+    next_task = device.pending_tasks[0]
+    if next_task.nil?
+      content << %(<td><a title="Add a new maintenance task." href="/maintenance/new/#{device.id}">None</td><td>-</td><td>-</td>)
+    else
+      content << %(<td><a title="Review maintenance history." href="/reports/maintenance/#{device.id}">#{next_task.description}</td>)
+
+      if next_task.is_runtime?
+        remaining_runtime = next_task.target_runtime - next_task.reviewed_runtime
+        if remaining_runtime > 0
+          content << %(<td>in about #{(remaining_runtime / 60 / 60).round} runtime hours</td>)
+        else
+          content << %(<td>about #{-(remaining_runtime / 60 / 60).round} runtime hours ago</td>)
+        end
+      else
+        if next_task.target_at > Time.now
+          content << %(<td>in #{time_ago_in_words(next_task.target_at)}</td>)
+        else
+          content << %(<td>#{time_ago_in_words(next_task.target_at)} ago</td>)
+        end
+      end
+  
+      if next_task.pastdue_notified
+        content << %(<td style='text-align:center;color:white;background-color:red;'>PAST&nbsp;DUE</td>)
+      elsif next_task.reminder_notified
+        content << %(<td style='text-align:center;background-color:yellow;'>PENDING</td>)
+      else
+        content << %(<td style='text-align:center;color:white;background-color:green;'>OK</td>)
+      end
     end
-    content << %(</td>
-    <td style="font-size:11px;">
-      <a href="/reports/all/#{device.id}" title="View device details" class="link-all1">details</a>
-    </td>
-    <td>#{maintenance_date}<td>#{next_required}<td #{status_color}><b>#{maintenance_status}</b>)
+
+    content << %(</tr>)
 
     content
   end
