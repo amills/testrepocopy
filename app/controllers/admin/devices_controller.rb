@@ -73,6 +73,7 @@ class Admin::DevicesController < ApplicationController
     if request.post?
       device = Device.find(params[:id])
       device.update_attribute(:provision_status_id, 2)
+      device.update_attribute(:name, "-") if device.name == ""
       device.save!
       flash[:success] = "#{device.name} deleted successfully"
     end  
