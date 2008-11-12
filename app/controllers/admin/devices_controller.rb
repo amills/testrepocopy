@@ -58,7 +58,14 @@ class Admin::DevicesController < ApplicationController
     if request.post?
       device = Device.find(params[:id])
       params[:device][:is_public].nil? ? device.is_public = false : device.is_public = true
+      
+      # Let's determine if the device is being moved between accounts. If so, we need to nil the group_id
+      if device.account_id.to_s != params[:device][:account_id]
+        params[:device][:group_id] = nil
+      end
+      
       device.update_attributes(params[:device])
+      
       flash[:success] = "#{device.name} updated successfully"
     
       if params[:device][:account_id]
