@@ -17,7 +17,7 @@ class Admin::DevicesController < ApplicationController
       @devices = Device.find(:all, :order => "profile_id,name")
     end
     
-    @accounts = Account.find(:all, :order => "company")
+    @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def show
@@ -26,12 +26,12 @@ class Admin::DevicesController < ApplicationController
 
   def new
    @device = Device.new
-   @accounts = Account.find(:all, :order => "company")
+   @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def edit
     @device = Device.find(params[:id])
-    @accounts = Account.find(:all, :order => "company")
+    @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def create

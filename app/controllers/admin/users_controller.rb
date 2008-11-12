@@ -7,7 +7,7 @@ class Admin::UsersController < ApplicationController
       else
         @users = User.find(:all, :order => "last_name")
       end
-      @accounts = Account.find(:all, :order => "company")
+      @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def show
@@ -15,12 +15,12 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
-    @accounts = Account.find(:all, :order => "company")
+    @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def edit
     @user = User.find(params[:id])
-    @accounts = Account.find(:all, :order => "company")
+    @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def create
