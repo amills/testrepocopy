@@ -56,6 +56,16 @@ class Admin::DevicesControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => "index"
     assert_equal flash[:success], "device 1 deleted successfully"
   end
+  
+  def test_delete_device_with_account_filter
+    # Prior to the deletion there should be 5 devices
+    assert_equal 5, Device.get_devices(1).size
+    post :destroy, {:id => 1, :account_id => 1}, get_user
+    assert_redirected_to :action => "index"
+    assert_equal flash[:success], "device 1 deleted successfully"
+    # Verify that there are only 4 devices after the deletion
+    assert_equal 4, Device.get_devices(1).size
+  end
 
   def get_user
     {:user => users(:dennis).id, :account_id => accounts(:dennis).id, :is_super_admin => users(:dennis).is_super_admin}

@@ -2,7 +2,7 @@
 
 <%= error_messages_for 'group'%>
 
-<%= form_tag :action => 'new_group'%>
+<form method="post" action="/devices/new_group" class="form_table">
 
 <!-- Content starts here -->
   <div class="grp_3">
@@ -80,7 +80,8 @@
 <div style="margin-top: 10px">
   <%= submit_tag "create group" %> &nbsp;&nbsp;<a href="javascript:history.go(-1);">cancel</a>
 </div>
-  
+</form>
+
 <script type="text/javascript">
 	window.onload = function() {
 		document.getElementById("group_name").focus();

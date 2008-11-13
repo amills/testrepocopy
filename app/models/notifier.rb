@@ -70,6 +70,15 @@ class Notifier < ActionMailer::Base
     end
   end
   
+  def self.send_maintenance_notifications(logger)
+    tasks_to_notify = MaintenanceTask.find(:all,:conditions => "completed_at is null",:order => "device_id,established_at")
+    tasks_to_notify.each do |task|
+      action = task.update_status
+      send_notify_task_to_users(action,task) if action
+      task.save
+    end
+  end
+  
   def self.send_speed_notifications(logger)
     devices_to_notify = Device.find_by_sql("select devices.* from devices,device_profiles,accounts where provision_status_id = 1 and profile_id = device_profiles.id and device_profiles.speeds and account_id = accounts.id and max_speed is not null")
     devices_to_notify.each do |device|
@@ -105,7 +114,21 @@ class Notifier < ActionMailer::Base
       end    
     end
   end
-
+  
+  def self.send_notify_task_to_users(action,task)
+    task.device.account.users.each do |user|
+      if user.enotify == 1       
+        logger.info("notifying(1): #{user.email} about: #{action}\n")
+        mail = deliver_notify_task(user, action, task)
+      elsif user.enotify == 2         
+        device_ids = user.group_devices_ids
+        if  !device_ids.empty? && device_ids.include?(task.device.id)
+          logger.info("notifying(2): #{user.email} about: #{action}\n")
+          mail = deliver_notify_task(user, action, task)            
+        end    
+      end    
+    end
+  end
   
   def forgot_password(user, url=nil)
     setup_email(user)
@@ -146,6 +169,21 @@ class Notifier < ActionMailer::Base
       Time.zone = 'Central Time (US & Canada)'  
     end     
     @body["display_time"] = reading.get_local_time(reading.created_at.in_time_zone.inspect)
+  end
+
+  def notify_task(user,action,task)
+    @recipients = user.email
+    @from = "alerts@ublip.com"
+    @subject = task.device.name + ' ' + action
+    @body["action"] = action
+    @body["name"] = "#{user.first_name} #{user.last_name}"
+    @body["device_name"] = task.device.name
+    if !user.nil? && user.time_zone
+      Time.zone = user.time_zone 
+    else
+      Time.zone = 'Central Time (US & Canada)'  
+    end     
+    @body["display_time"] = task.get_local_time(task.reviewed_at.in_time_zone.inspect)
   end
   
   def device_offline(user, device)

@@ -34,6 +34,8 @@ while($running) do
   
   NotificationState.instance.end_reading_bounds
   
+  Notifier.send_maintenance_notifications(logger)
+  
   sleep 60
 
 end
