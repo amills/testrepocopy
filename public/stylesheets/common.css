@@ -96,7 +96,8 @@ div#header_login #logo {
 /*submenu CSS*/	
 
 #submenu{
-	color:#999999; 
+	color:#333333; 
+	font-weight:bold;
 	background-color:#eaeaea; 
 	padding:7px 2%}
 #submenu .current{
@@ -155,7 +156,8 @@ div#login_form_container {
 
 .form_table input {
 	font-weight: bold;
-	color: #006699;}
+	color: #006699;
+}
 	
 .bold_button {
 	font-weight: bold;

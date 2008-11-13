@@ -7,7 +7,7 @@ class Admin::UsersController < ApplicationController
       else
         @users = User.find(:all, :order => "last_name")
       end
-      @accounts = Account.find(:all, :order => "company")
+      @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def show
@@ -15,12 +15,12 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
-    @accounts = Account.find(:all, :order => "company")
+    @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def edit
     @user = User.find(params[:id])
-    @accounts = Account.find(:all, :order => "company")
+    @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def create
@@ -31,6 +31,10 @@ class Admin::UsersController < ApplicationController
       # If this is the first user for this account make them the master
       if @users.size == 0
         @user.is_master = 1
+      end
+      
+      if params[:user][:is_admin].to_i == 1
+        @user.is_admin = 1
       end
 	  
       # Check that passwords match
@@ -56,6 +60,7 @@ class Admin::UsersController < ApplicationController
   def update
     if request.post?
       @user = User.find(params[:id])
+      update_attribute_by_checkbox(@user, :is_admin, params[:user])
       @user.update_attributes(params[:user])
       
       if @user.save

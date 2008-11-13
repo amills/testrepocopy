@@ -17,7 +17,7 @@ class Admin::DevicesController < ApplicationController
       @devices = Device.find(:all, :order => "profile_id,name")
     end
     
-    @accounts = Account.find(:all, :order => "company")
+    @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def show
@@ -26,12 +26,12 @@ class Admin::DevicesController < ApplicationController
 
   def new
    @device = Device.new
-   @accounts = Account.find(:all, :order => "company")
+   @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def edit
     @device = Device.find(params[:id])
-    @accounts = Account.find(:all, :order => "company")
+    @accounts = Account.find(:all, :order => "company", :conditions => "is_deleted=0")
   end
 
   def create
@@ -58,7 +58,14 @@ class Admin::DevicesController < ApplicationController
     if request.post?
       device = Device.find(params[:id])
       params[:device][:is_public].nil? ? device.is_public = false : device.is_public = true
+      
+      # Let's determine if the device is being moved between accounts. If so, we need to nil the group_id
+      if device.account_id.to_s != params[:device][:account_id]
+        params[:device][:group_id] = nil
+      end
+      
       device.update_attributes(params[:device])
+      
       flash[:success] = "#{device.name} updated successfully"
     
       if params[:device][:account_id]
@@ -73,10 +80,16 @@ class Admin::DevicesController < ApplicationController
     if request.post?
       device = Device.find(params[:id])
       device.update_attribute(:provision_status_id, 2)
+      device.update_attribute(:name, "-") if device.name == ""
       device.save!
       flash[:success] = "#{device.name} deleted successfully"
     end  
-    redirect_to :action => 'index'
+    
+    if params[:account_id]
+      redirect_to :action => 'index', :id => params[:account_id].to_s
+    else
+      redirect_to :action => 'index'
+    end
     
   end
   
