@@ -108,7 +108,7 @@ class Device < ActiveRecord::Base
       end
     end
 
-    results = [REPORT_TYPE_RUNTIME,latest_runtime_event.duration.nil? ? "On" : "Off"]  if profile.runs and results.nil? and latest_runtime_event
+    results = [REPORT_TYPE_RUNTIME,(latest_runtime_event.nil? or latest_runtime_event.duration) ? "Off" : "On"]  if profile.runs and results.nil?
 
     if profile.gpio1_name and latest_data_reading
       gpio1_status = (latest_data_reading.gpio1 ? profile.gpio1_high_status : profile.gpio1_low_status)
