@@ -185,7 +185,7 @@ private
       events.each do |event|
         local_time = event.get_local_time(event.created_at.in_time_zone.inspect)
         address = event.reading.nil? ? "#{event.latitude};#{event.longitude}" : event.reading.short_address
-        csv << [address,((event.duration.to_s.strip.size > 0) ? event.duration : 'Unknown'),local_time, event.latitude,event.longitude]
+        csv << [address,((event.duration.to_s.strip.size > 0) ? event.duration : 'In Progress'),local_time, event.latitude,event.longitude]
       end
     end
 
