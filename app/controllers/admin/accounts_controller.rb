@@ -5,7 +5,7 @@ class Admin::AccountsController < ApplicationController
   helper_method :encode_account_options
   
   def encode_account_options(account)
-    (account.show_idle ? "I" : "-") + (account.show_runtime ? "R" : "-") + (account.show_statistics ? "S" : "-") + (account.show_maintenance ? "M" : "-")
+    (account.show_runtime ? "R" : "-") + (account.show_statistics ? "S" : "-") + (account.show_maintenance ? "M" : "-")
   end
   
   def index
@@ -87,7 +87,7 @@ class Admin::AccountsController < ApplicationController
 
 private
   def apply_options_to_account(params,account)
-    update_attributes_with_checkboxes(account,[:show_idle,:show_runtime,:show_statistics,:show_maintenance],params[:options])
+    update_attributes_with_checkboxes(account,[:show_runtime,:show_statistics,:show_maintenance],params[:options])
   end
 
 end
