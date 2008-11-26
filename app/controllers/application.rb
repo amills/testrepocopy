@@ -93,6 +93,8 @@ class ApplicationController < ActionController::Base
     date=date.strip.split(' ')
     date = "#{date[2]}-#{date[0]}-#{date[1]}".to_date
     return date
+  rescue
+    raise "Invalid date: #{date[0]}/#{date[1]}/#{date[2]}"
   end
 
 private
