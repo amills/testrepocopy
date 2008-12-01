@@ -8,7 +8,7 @@ body {
 	
 
 #nav_tabs {
-	background-color: #0066FF;
+	background-color: #3366FF;
 	position: absolute;
 	width: 100%;
 	bottom: 0px;}
@@ -65,7 +65,7 @@ div#header {
 	padding: 0;
 	margin: 0;
 	height: 80px;
-	background-color: #0066FF;
+	background-color: #3366FF;
 	position: relative;}
 
 div#logo {
@@ -135,7 +135,7 @@ a:hover {
 
 div#login_form_container {
 	padding: 10px;
-	border: 6px solid #336699;
+	border: 6px solid #3366FF;
 	background-color: #DEE8F3;}
 
 div#login_form_container {
@@ -581,7 +581,7 @@ div#content_login {
 div#content_login h1{
 color:#666666;
 font-family:Arial,Helvetica,sans-serif;
-font-size:30px;
+font-size:24px;
 margin-bottom: 15px;}
 
 #new{
@@ -615,10 +615,6 @@ h4 {
 	font-weight: bold;
 	color: #003366;}
 
-.dark_gray_header {
-	font-size: 16px;
-	color: #333333;}
-
 .ub_dev_list{
 	float:left;
 	clear:left;
@@ -643,7 +639,7 @@ h4 {
 
 
 .panel_table .header {
-	background-color: #6699CC;
+	background-color: #666666;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -679,7 +675,7 @@ h4 {
 	border: 1px solid #FFFFFF;
 	padding: 5px;}
 #ub-table tr.header{ 
-	background-color:#6699cc;  
+	background-color:#666666;  
 	color:#ffffff; 
 	font-weight:normal; 
 	font-size:12px; 
