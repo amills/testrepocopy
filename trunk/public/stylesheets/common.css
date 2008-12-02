@@ -81,7 +81,9 @@ div#header_login {
 	vertical-align: middle;}
 
 div#header_login #logo {
-	float: left;}
+	float: left;
+	margin-bottom: 20px;
+}
 
 .header_{
     background-color: #6699CC;
