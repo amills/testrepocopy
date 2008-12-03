@@ -260,6 +260,7 @@ private
       @end_date = Date.today
       @start_date =  Date.today -  NUMBER_OF_DAYS
     end
+    @start_date,@end_date = @end_date,@start_date if @end_date < @start_date
     @start_dt_str = @start_date.to_s + ' 00:00:00'
     @end_dt_str   = @end_date.to_s + ' 23:59:59'
   end
