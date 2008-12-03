@@ -9,7 +9,7 @@
 		<tr><td>Show Runtime:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[show_runtime]" <%if @account.show_runtime %>checked<% end %>/></td></tr>
 		<tr><td>Show Statistics:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[show_statistics]" <%if @account.show_statistics %>checked<% end %>/></td></tr>
 		<tr><td>Show Maintenance:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[show_maintenance]" <%if @account.show_maintenance %>checked<% end %>/></td></tr>
-		<% if params[:action] == "edit" || params[:action] == "new" %>
+		<% if params[:action] == "edit" || params[:action] == "new" || params[:action] == "create" %>
 		<tr><td colspan="3"><input type="submit" value="Save" /> <a href="javascript: history.go(-1);">cancel</a></td></tr>
 		<% end %>
 	</table>

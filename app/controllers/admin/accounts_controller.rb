@@ -22,22 +22,23 @@ class Admin::AccountsController < ApplicationController
 
   def create
     if request.post?
-      account = Account.new(params[:account])
-      apply_options_to_account(params,account)
-      account.is_verified = 1
+      @account = Account.new(params[:account])
+      apply_options_to_account(params,@account)
+      @account.is_verified = 1
       
-      if account.save
-        flash[:success] = "#{account.subdomain} created successfully"
+      if @account.save
+        flash[:success] = "#{@account.subdomain} created successfully"
         redirect_to :action => 'index' and return
       else
         error_msg = ''
         
-        account.errors.each{ |field, msg|
+        @account.errors.each{ |field, msg|
           error_msg += msg + '<br />'
         }
-        
+
+        @account.destroy         
         flash[:error] = error_msg
-        redirect_to :action => 'new' and return
+        render :action => 'new'
       end
     end
   end

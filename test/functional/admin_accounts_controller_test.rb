@@ -41,8 +41,12 @@ class Admin::AccountsControllerTest < Test::Unit::TestCase
   
   def test_create_account_without_subdomain
     post :create, {:account => {:company => "New Co", :zip => 12345}}, get_user
-    assert_redirected_to :action => "new"
     assert_equal flash[:error], "Please specify a subdomain<br />"
+  end
+  
+  def test_create_account_with_duplicate_subdomain
+    post :create, {:account => {:company => "New Co", :zip => 12345, :subdomain => "dennis"}}, get_user
+    assert_equal flash[:error], "Please choose another subdomain; this one is already taken<br />"
   end
   
   def test_create_account_with_subdomain
