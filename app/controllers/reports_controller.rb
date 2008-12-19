@@ -32,6 +32,9 @@ class ReportsController < ApplicationController
     @record_count = Reading.count(:conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data are going to be different in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  rescue
+    flash[:error] = $!.to_s
+    redirect_to :back
   end
 
   # TODO consider how to use the word "task" instead of "reading" for these elements
@@ -55,6 +58,9 @@ class ReportsController < ApplicationController
     @record_count = Reading.count('id', :conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data are going to be different in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  rescue
+    flash[:error] = $!.to_s
+    redirect_to :back
   end
   
   def stop
@@ -67,6 +73,9 @@ class ReportsController < ApplicationController
     @record_count = StopEvent.count('id', :conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data going to be diferent in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  rescue
+    flash[:error] = $!.to_s
+    redirect_to :back
   end
 
   def idle
@@ -79,6 +88,9 @@ class ReportsController < ApplicationController
     @record_count = IdleEvent.count('id', :conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data going to be diferent in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  rescue
+    flash[:error] = $!.to_s
+    redirect_to :back
   end
 
   def runtime
@@ -94,6 +106,9 @@ class ReportsController < ApplicationController
     @record_count = RuntimeEvent.count('id', :conditions => conditions)
     @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data going to be diferent in numbers.
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  rescue
+    flash[:error] = $!.to_s
+    redirect_to :back
   end
 
   # Display geofence exceptions
@@ -107,6 +122,9 @@ class ReportsController < ApplicationController
     @record_count = Reading.count('id', :conditions => conditions)
     @actual_record_count = @record_count
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  rescue
+    flash[:error] = $!.to_s
+    redirect_to :back
   end
 
   # Display gpio1 events
@@ -119,6 +137,9 @@ class ReportsController < ApplicationController
     @record_count = Reading.count('id', :conditions => conditions)
     @actual_record_count = @record_count
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  rescue
+    flash[:error] = $!.to_s
+    redirect_to :back
   end
 
   # Display gpio2 events
@@ -131,6 +152,9 @@ class ReportsController < ApplicationController
     @record_count = Reading.count('id', :conditions => conditions)
     @actual_record_count = @record_count
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  rescue
+    flash[:error] = $!.to_s
+    redirect_to :back
   end
 
   # Export report data to CSV
@@ -169,6 +193,9 @@ class ReportsController < ApplicationController
     send_data csv_string,
       :type => 'text/csv; charset=iso-8859-1; header=present',
       :disposition => "attachment; filename=#{@filename}"
+  rescue
+    flash[:error] = $!.to_s
+    redirect_to :back
   end
 
   def speed
@@ -233,6 +260,7 @@ private
       @end_date = Date.today
       @start_date =  Date.today -  NUMBER_OF_DAYS
     end
+    @start_date,@end_date = @end_date,@start_date if @end_date < @start_date
     @start_dt_str = @start_date.to_s + ' 00:00:00'
     @end_dt_str   = @end_date.to_s + ' 23:59:59'
   end
