@@ -266,6 +266,6 @@ CREATE TRIGGER trig_readings_after_insert AFTER INSERT ON readings FOR EACH ROW 
     DECLARE last_reading_time DATETIME;
     SELECT r.created_at INTO last_reading_time FROM devices d,readings r WHERE d.id=NEW.device_id AND r.id=d.recent_reading_id;
     IF NEW.created_at > last_reading_time OR last_reading_time IS NULL THEN
-        UPDATE DEVICES SET recent_reading_id=NEW.id WHERE id=NEW.device_id;
+        UPDATE devices SET recent_reading_id=NEW.id WHERE id=NEW.device_id;
     END IF;
 END;;
