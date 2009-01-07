@@ -3,6 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class UserTest < Test::Unit::TestCase
 
   def setup
+    Account.delete_all
+    User.delete_all 
     account = Factory.create(:account, :subdomain => 'dennis', :is_verified => true)
     @dennis = Factory.create(:user, :account => account, :first_name => 'dennis', :last_name => 'baldwin', :password => 'testing',  :email => 'dennis@ublip.com')
   end
