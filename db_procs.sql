@@ -234,7 +234,10 @@ END;;
 DROP PROCEDURE IF EXISTS create_stop_events;;
 CREATE PROCEDURE create_stop_events()
 BEGIN
-
+       SELECT r.latitude, r.longitude, d.imei, r.created_at, r.id INTO @lat, @lng, @imei, @created, @reading_id
+        FROM devices d, readings r 
+        WHERE d.gateway_name='xirgo' AND r.id=d.recent_reading_id AND r.speed=0 AND TIMESTAMPDIFF(MINUTE, r.created_at, now())>3;
+        CALL insert_stop_event(@lat, @lng, @imei, @created, @reading_id);
 END;;
 
 DROP PROCEDURE IF EXISTS migrate_stop_data;;
