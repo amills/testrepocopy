@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class TriggerTest < Test::Unit::TestCase
-  self.use_transactional_fixtures = false
-  fixtures :accounts, :devices, :geofences
+  
+  fixtures :geofences, :devices, :accounts
 
   def setup
     
@@ -47,8 +47,6 @@ class TriggerTest < Test::Unit::TestCase
   
   def test_account_level
     reading = save_reading(32.7977, -79.9603, 1)
-    puts "device id: #{reading.device_id}"
-    puts "event_type #{reading.event_type}"
     assert_equal "entergeofen_4", reading.event_type
     
     reading = save_reading(32.7977, -69.9603, 1)

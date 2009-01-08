@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081119215058) do
+ActiveRecord::Schema.define(:version => 49) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company",          :limit => 75
@@ -26,11 +26,10 @@ ActiveRecord::Schema.define(:version => 20081119215058) do
     t.boolean  "show_runtime",                    :default => false
     t.boolean  "show_statistics",                 :default => false
     t.boolean  "show_maintenance",                :default => false
-    t.integer  "max_speed",        :limit => 11
   end
 
   create_table "device_profiles", :force => true do |t|
-    t.string  "name",                            :null => false
+    t.string  "name",         :default => "",    :null => false
     t.boolean "speeds",       :default => false, :null => false
     t.boolean "stops",        :default => false, :null => false
     t.boolean "idles",        :default => false, :null => false
@@ -59,8 +58,6 @@ ActiveRecord::Schema.define(:version => 20081119215058) do
     t.boolean  "last_gpio1"
     t.boolean  "last_gpio2"
     t.string   "gateway_name"
-    t.datetime "speeding_at"
-    t.boolean  "transient"
   end
 
   add_index "devices", ["imei"], :name => "imei", :unique => true
@@ -118,28 +115,6 @@ ActiveRecord::Schema.define(:version => 20081119215058) do
     t.datetime "created_at"
   end
 
-  create_table "maintenance_tasks", :force => true do |t|
-    t.integer  "device_id",         :limit => 11
-    t.string   "description",                                    :null => false
-    t.integer  "task_type",         :limit => 11, :default => 0, :null => false
-    t.datetime "established_at",                                 :null => false
-    t.datetime "remind_at"
-    t.integer  "remind_runtime",    :limit => 11
-    t.datetime "target_at"
-    t.integer  "target_runtime",    :limit => 11
-    t.datetime "reviewed_at"
-    t.integer  "reviewed_runtime",  :limit => 11, :default => 0
-    t.datetime "completed_at"
-    t.string   "completed_by"
-    t.integer  "completed_runtime", :limit => 11
-    t.datetime "reminder_notified"
-    t.datetime "pastdue_notified"
-  end
-
-  create_table "notification_states", :force => true do |t|
-    t.integer "last_reading_id", :limit => 11, :default => 0, :null => false
-  end
-
   create_table "notifications", :force => true do |t|
     t.integer  "user_id",           :limit => 11
     t.integer  "device_id",         :limit => 11
@@ -159,21 +134,16 @@ ActiveRecord::Schema.define(:version => 20081119215058) do
     t.float    "altitude"
     t.float    "speed"
     t.float    "direction"
-    t.integer  "device_id",     :limit => 11
+    t.integer  "device_id",  :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "event_type",    :limit => 25
+    t.string   "event_type", :limit => 25
     t.string   "note"
-    t.string   "address",       :limit => 1024
-    t.boolean  "notified",                      :default => false
+    t.string   "address",    :limit => 1024
+    t.boolean  "notified",                   :default => false
     t.boolean  "ignition"
     t.boolean  "gpio1"
     t.boolean  "gpio2"
-    t.boolean  "geocoded",                      :default => false, :null => false
-    t.string   "street_number"
-    t.string   "street"
-    t.string   "place_name"
-    t.string   "admin_name1"
   end
 
   add_index "readings", ["device_id", "created_at"], :name => "readings_device_id_created_at"
@@ -207,14 +177,6 @@ ActiveRecord::Schema.define(:version => 20081119215058) do
     t.integer  "device_id",  :limit => 11
     t.datetime "created_at"
     t.integer  "reading_id", :limit => 11
-  end
-
-  create_table "trip_events", :force => true do |t|
-    t.integer  "device_id",        :limit => 11
-    t.integer  "reading_start_id", :limit => 11
-    t.integer  "reading_stop_id",  :limit => 11
-    t.integer  "duration",         :limit => 11
-    t.datetime "created_at"
   end
 
   create_table "users", :force => true do |t|

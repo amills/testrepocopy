@@ -19,11 +19,10 @@
       <li <% if controller == 'admin/users' %> class="selected_subnav"<% end %>><a href="/admin/users">Users</a></li>
       <li <% if controller == 'admin/devices' %> class="selected_subnav"<% end %>><a href="/admin/devices">Devices</a></li>
       <li <% if controller == 'admin/device_profiles' %> class="selected_subnav"<% end %>><a href="/admin/device_profiles">Device Profiles</a></li>
-	  <li class="far_right"></li>
       <% for gateway in Gateway.all %>
-		<li <%if controller == gateway.name %> class="selected right"<% elsif controller_parts[0] == gateway.name %> class="selected_subnav right"<% else %>class="right"<% end %>><a href="/<%= gateway.name %>"><%= gateway.label %></a></li>
+        <li <%if controller == gateway.name %> class="selected"<% elsif controller_parts[0] == gateway.name %> class="selected_subnav"<% end %>><a href="/<%= gateway.name %>"><%= gateway.label %></a></li>
       <% end %>
-	  </ul>
+    </ul>
   </div>
 </div>
 

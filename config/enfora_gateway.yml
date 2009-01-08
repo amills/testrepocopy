@@ -6,7 +6,7 @@ device_class: Enfora::Device
 
 development:
   adapter: mysql
-  database: enfora_development
+  database: enfora_enfora
   username: root
   password: 
   host: localhost
