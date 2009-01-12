@@ -15,6 +15,8 @@ BEGIN
    * cos(((lng1 - lng2)*pi()/180))))*180/pi())*60*1.1515);
 END;;
 
+/*comment to make netbeans sql editor happy */
+
 DROP TRIGGER IF EXISTS trig_readings_insert;;
 DROP TRIGGER IF EXISTS trig_readings_before_insert;;
 CREATE TRIGGER trig_readings_before_insert BEFORE INSERT ON readings FOR EACH ROW BEGIN

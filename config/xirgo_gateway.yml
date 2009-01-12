@@ -1,26 +1,26 @@
-name: enfora
-label: Enfora Gateway
-overview_uri: /enfora
-device_uri: /enfora/command_request/list
-device_class: Enfora::Device
+name: xirgo
+label: Xirgo Gateway
+overview_uri: /xirgo
+device_uri: /xirgo/command_request/list
+device_class: Xirgo::Device
 
 development:
   adapter: mysql
-  database: enfora_development
+  database: xirgo_development
   username: root
   password: 
   host: localhost
 
 production:
   adapter: mysql
-  database: enfora_enfora
+  database: xirgo_prod
   username: root
   password: 
   host: localhost
 
 slicehost:
   adapter: mysql
-  database: enfora_prod
+  database: xirgo_slicehost
   username: root
   password: rootpass
   host: localhost

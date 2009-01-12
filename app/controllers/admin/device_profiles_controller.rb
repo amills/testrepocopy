@@ -5,7 +5,7 @@ class Admin::DeviceProfilesController < ApplicationController
   helper_method :encode_profile_options
   
   def encode_profile_options(profile)
-    (profile.speeds ? "F" : "-") + (profile.stops ? "S" : "-") + (profile.idles ? "I" : "-") + (profile.runs ? "R" : "-") + (profile.watch_gpio1 ? "1" : "-") + (profile.watch_gpio2 ? "2" : "-")
+    (profile.trips ? "T" : "-") + (profile.speeds ? "F" : "-") + (profile.stops ? "S" : "-") + (profile.idles ? "I" : "-") + (profile.runs ? "R" : "-") + (profile.watch_gpio1 ? "1" : "-") + (profile.watch_gpio2 ? "2" : "-")
   end
   
   def index
@@ -88,7 +88,7 @@ class Admin::DeviceProfilesController < ApplicationController
   
 private
   def apply_options_to_profile(params,profile)
-    update_attributes_with_checkboxes(profile,[:speeds,:stops,:idles,:runs],params[:options])
+    update_attributes_with_checkboxes(profile,[:trips,:speeds,:stops,:idles,:runs],params[:options])
   end
   
   def apply_gpio_options(profile,options,watch,labels)
