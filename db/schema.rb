@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081119215058) do
+ActiveRecord::Schema.define(:version => 20090112141802) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company",          :limit => 75
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20081119215058) do
     t.boolean "watch_gpio2",  :default => false, :null => false
     t.string  "gpio1_labels"
     t.string  "gpio2_labels"
+    t.boolean "trips",        :default => false, :null => false
   end
 
   create_table "devices", :force => true do |t|
