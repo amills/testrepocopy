@@ -54,7 +54,7 @@ end
 task :staging do
   role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
   role :app, DeployManagerClient.get_staging_app_server(customer_name), :mongrel => true
-  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/tags/current_staging_build"
+  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/trunk"
 end
 
 # =============================================================================
