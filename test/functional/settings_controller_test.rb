@@ -30,7 +30,7 @@ class SettingsControllerTest < Test::Unit::TestCase
     assert_response :success
     account = assigns(:account)
     user = assigns(:user)
-    assert_equal 'Dennis Co', account.company
+    assert_equal 'Tracking Co', account.company
     assert_equal 'Central Time (US & Canada)', user.time_zone
     assert_equal 1, user.enotify
     

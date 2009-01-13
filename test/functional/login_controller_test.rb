@@ -18,10 +18,10 @@ class LoginControllerTest < Test::Unit::TestCase
   end
   
   def test_login
-   @request.host="dennis.ublip.com"
+   @request.host="app.ublip.com"
    post :index, {:email => users(:dennis).email, :password => "testing"} 
    assert_redirected_to :controller => "home", :action => "index"
-   assert_equal accounts(:dennis).id, @request.session[:account_id]
+   assert_equal accounts(:app).id, @request.session[:account_id]
    assert_equal users(:dennis).id, @request.session[:user_id]
    assert_equal users(:dennis).id, @request.session[:user]
    assert_equal users(:dennis).email, @request.session[:email]
@@ -30,7 +30,7 @@ class LoginControllerTest < Test::Unit::TestCase
  end
  
  def test_login_same_email_diff_act
-   @request.host="nick.ublip.com"
+   @request.host="app2.ublip.com"
    post :index, {:email => users(:dennis2).email, :password => "testing"} 
    assert_redirected_to :controller => "home", :action => "index"
    assert_equal accounts(:nick).id, @request.session[:account_id]
@@ -50,7 +50,7 @@ class LoginControllerTest < Test::Unit::TestCase
  end
  
  def test_login_failure
-   @request.host="dennis.ublip.com"
+   @request.host="app.ublip.com"
    post :index, {:email => users(:dennis).email, :password => "wrong"} 
    assert flash[:username]
    assert_redirected_to "/login"

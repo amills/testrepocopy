@@ -1,7 +1,7 @@
-dennis:
+app:
  id: 1
- company: Dennis Co
- subdomain: dennis
+ company: Tracking Co
+ subdomain: app
  created_at: <%= 1.day.ago.to_s :db %>
  is_verified: 1
  show_idle: 1
@@ -9,14 +9,14 @@ dennis:
 
 nick:
  id: 2
- company: Nick Co
- subdomain: nick
+ company: Tracking Co 2
+ subdomain: app2
  created_at: <%= 2.day.ago.to_s :db %>
  is_verified: 1
  
 ken:
  id: 3
- company: Ken Co
+ company: Tracking Co 3
  subdomain: ken
  created_at: <%= 3.day.ago.to_s :db %>
  is_verified: 1

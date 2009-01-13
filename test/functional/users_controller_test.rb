@@ -25,7 +25,7 @@ class UsersControllerTest < Test::Unit::TestCase
   end
   
   def test_index
-    get :index, {:id => 1}, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:dennis)}
+    get :index, {:id => 1}, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:app)}
     assert_response :success
   end
   
