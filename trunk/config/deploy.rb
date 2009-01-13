@@ -1,39 +1,26 @@
-# =============================================================================
-# ENGINE YARD REQUIRED VARIABLES
-# =============================================================================
-# You must always specify the application and repository for every recipe. The
-# repository must be the URL of the repository you want this recipe to
-# correspond to. The deploy_to path must be the path on each machine that will
-# form the root of the application path.
-
 set(:customer_name) do
-  Capistrano::CLI.ui.ask "Enter Customer name: "
+  "amj"
 end
 
 set(:rails_env) do
-  Capistrano::CLI.ui.ask "Rails Environment [staging, production, slicehost]: "
+  "slicehost"
 end
 
 set(:monited) do
-  Capistrano::CLI.ui.ask "start mongrels using monit (y/n): "
+  "n"
 end
 
 set :keep_releases, 5
 set :application,   'ublip'
-set :scm_username,  'deploy'
-set :scm_password,  'wucr5ch8v0'
+set :scm_username,  'rsinek'
+set :scm_password,  'ch5tryng'
 set :user,          'ublip'
-#set :password,      'mop3j6x4'
+#set :password,      's7aPRA7r'
 set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
 set :deploy_via,    :export
 set :monit_group,   'mongrel'
 set :scm,           :subversion
 set :runner, 'ublip'
-
-
-# Staging DB vars
-set :staging_database, "ublip_prod"
-set :staging_dbhost,   "mysql50-5"
 
 # comment out if it gives you trouble. newest net/ssh needs this set.
 ssh_options[:paranoid] = false
@@ -234,38 +221,6 @@ namespace(:deploy) do
     end
   end
 end
-
-
-# =============================================================================
-set :production_database,'ublip_prod'
-set :stage_database, 'ublip_stage'
-set :sql_user, 'ublip_db'
-set :sql_pass, 'pr1c7lic6'
-set :sql_host, 'mysql50-2'
-
-namespace :db do
-  task :backup_name do
-    now = Time.now
-    run "mkdir -p #{shared_path}/db_backups"
-    backup_time = [now.year,now.month,now.day,now.hour,now.min,now.sec].join('-')
-    set :backup_file, "#{shared_path}/db_backups/#{environment_database}-snapshot-#{backup_time}.sql"
-  end
-  
-  desc "Clone Production Database to Staging Database."
-  task :clone_prod_to_stage, :roles => :db, :only => { :primary => true } do
-    backup_name
-    on_rollback { run "rm -f #{backup_file}" }
-    run "mysqldump --add-drop-table -u #{sql_user} -h #{sql_host} -p#{sql_pass} #{production_database} > #{backup_file}"
-    run "mysql -u #{sql_user} -p#{sql_pass} -h #{sql_host} #{stage_database} < #{backup_file}"
-    run "rm -f #{backup_file}"
-  end
-  
-  desc "Backup your Database to #{shared_path}/db_backups"
-  task :dump, :roles => :db, :only => {:primary => true} do
-    backup_name
-    run "mysqldump --add-drop-table -u #{sql_user} -h #{sql_host} -p#{sql_pass} #{environment_database} | bzip2 -c > #{backup_file}.bz2"
-  end
-end 
 
 namespace :daemons do
   desc "Start all daemons"
