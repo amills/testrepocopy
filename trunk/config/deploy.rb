@@ -15,7 +15,7 @@ set :application,   'ublip'
 set :scm_username,  'rsinek'
 set :scm_password,  'ch5tryng'
 set :user,          'ublip'
-#set :password,      's7aPRA7r'
+set :password,      's7aPRA7r'
 set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
 set :deploy_via,    :export
 set :monit_group,   'mongrel'
