@@ -31,15 +31,21 @@ class StopDetectionTest < Test::Unit::TestCase
       setup do
         account = Factory.create(:account)
         @device1 = Factory.create(:device, :gateway_name => "xirgo", :account => account)
+        @device2 = Factory.create(:device, :gateway_name => "xirgo", :account => account)
         @reading1 = Factory.create(:reading, :device => @device1, :speed => 0, :latitude =>1, :longitude =>2, :created_at => Time.now-250)
+        @reading2 = Factory.create(:reading, :device => @device2, :speed => 0, :latitude =>1, :longitude =>2, :created_at => Time.now-250)
         @reading1.connection.execute("call create_stop_events();")
       end
       should "create stop events" do
         @device1.reload
+        @device2.reload
         assert_equal 1, @device1.stop_events.size
+        assert_equal 1, @device2.stop_events.size
         @reading1.connection.execute("call create_stop_events();")
         @device1.reload
+        @device2.reload
         assert_equal 1, @device1.stop_events.size, "should not duplicate stop event"
+        assert_equal 1, @device2.stop_events.size, "should not duplicate stop event"
       end
     end
 
