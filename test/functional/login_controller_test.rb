@@ -19,14 +19,14 @@ class LoginControllerTest < Test::Unit::TestCase
   
   def test_login
    @request.host="app.ublip.com"
-   post :index, {:email => users(:dennis).email, :password => "testing"} 
+   post :index, {:email => users(:testuser).email, :password => "testing"} 
    assert_redirected_to :controller => "home", :action => "index"
    assert_equal accounts(:app).id, @request.session[:account_id]
-   assert_equal users(:dennis).id, @request.session[:user_id]
-   assert_equal users(:dennis).id, @request.session[:user]
-   assert_equal users(:dennis).email, @request.session[:email]
-   assert_equal users(:dennis).first_name, @request.session[:first_name]
-   assert_equal users(:dennis).account.company, @request.session[:company]
+   assert_equal users(:testuser).id, @request.session[:user_id]
+   assert_equal users(:testuser).id, @request.session[:user]
+   assert_equal users(:testuser).email, @request.session[:email]
+   assert_equal users(:testuser).first_name, @request.session[:first_name]
+   assert_equal users(:testuser).account.company, @request.session[:company]
  end
  
  def test_login_same_email_diff_act
@@ -43,7 +43,7 @@ class LoginControllerTest < Test::Unit::TestCase
  
  def test_login_wrong_subdomain
    @request.host="app3.ublip.com"
-   post :index, {:email => users(:dennis).email, :password => "testing"} 
+   post :index, {:email => users(:testuser).email, :password => "testing"} 
    assert_redirected_to "/login"
    assert_nil @request.session[:account_id]
    assert_nil @request.session[:user_id]
@@ -51,7 +51,7 @@ class LoginControllerTest < Test::Unit::TestCase
  
  def test_login_failure
    @request.host="app.ublip.com"
-   post :index, {:email => users(:dennis).email, :password => "wrong"} 
+   post :index, {:email => users(:testuser).email, :password => "wrong"} 
    assert flash[:username]
    assert_redirected_to "/login"
  end
@@ -73,10 +73,10 @@ class LoginControllerTest < Test::Unit::TestCase
      @request.cookies['admin_user_id'] = CGI::Cookie.new('admin_user_id', '1')     
      get :admin_login,{}
      assert_redirected_to(:controller => '/home', :action => 'index')
-     assert_equal "dennis@ublip.com",@request.session[:user].email
+     assert_equal "testuser@ublip.com",@request.session[:user].email
      assert_equal 4, @request.session[:account_id]
      assert_equal 1, @request.session[:user_id]          
-     assert_equal "dennis", @request.session[:first_name]
+     assert_equal "test", @request.session[:first_name]
      assert_equal "Tracking Co 4", @request.session[:company] 
  end
 

@@ -28,7 +28,7 @@ class GroupTest < Test::Unit::TestCase
   end
  
   def test_is_group_notification_true
-     assert_equal true,@group.is_selected_for_notification(users(:dennis)) 
+     assert_equal true,@group.is_selected_for_notification(users(:testuser)) 
   end
 
   def test_is_group_notification_false

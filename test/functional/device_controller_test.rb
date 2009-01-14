@@ -25,23 +25,23 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
   
   def test_index   
-    get :index, {}, { :user => users(:dennis), :account_id => 1}     
+    get :index, {}, { :user => users(:testuser), :account_id => 1}     
     assert_response :success            
   end
    
    def test_index_with_group_selection
-     get :index, {:group_id => 1}, {:user => users(:dennis), :account_id => 1}
+     get :index, {:group_id => 1}, {:user => users(:testuser), :account_id => 1}
      devices = assigns(:devices)
      assert_equal 2, devices.size
    end
 
    def test_view
-     get :view, {:id=>"2"},{:user => users(:dennis), :account_id => "1"} 
+     get :view, {:id=>"2"},{:user => users(:testuser), :account_id => "1"} 
      assert_response :success     
    end
    
   def test_new_group 
-     post :new_group, {:id => "7", :name=>"summer of code", :select_devices=>[4], :image_value=>"4", :account_id=>"1"}, {:user => users(:dennis), :account_id => "1"}          
+     post :new_group, {:id => "7", :name=>"summer of code", :select_devices=>[4], :image_value=>"4", :account_id=>"1"}, {:user => users(:testuser), :account_id => "1"}          
      assert_equal "Group summer of code was successfully added",flash[:success]
      group=Group.find_by_name("summer of code")
      assert_equal group.name, "summer of code"            
@@ -49,13 +49,13 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
     
   def test_new_group_invalid
-      post :new_group, {:id => "7", :name=>"", :select_devices=>nil, :image_value=>"4", :account_id=>"1"}, {:user => users(:dennis), :account_id => "1"}          
+      post :new_group, {:id => "7", :name=>"", :select_devices=>nil, :image_value=>"4", :account_id=>"1"}, {:user => users(:testuser), :account_id => "1"}          
       assert_equal "Group name can't be blank <br/>You must select at least one device ",flash[:error]
       assert_redirected_to :controller => "devices", :action=>"new_group"
   end   
   
   def test_edits_group
-     post :edits_group, {:id => "1", :name=>"summer of code", :select_devices=>[4], :image_value=>"4", :account_id=>"1"}, {:user => users(:dennis), :account_id => "1"}           
+     post :edits_group, {:id => "1", :name=>"summer of code", :select_devices=>[4], :image_value=>"4", :account_id=>"1"}, {:user => users(:testuser), :account_id => "1"}           
      assert_equal "Group summer of code was updated successfully ",flash[:success]
      group=Group.find_by_name("summer of code")
      assert_equal group.name, "summer of code"
@@ -63,24 +63,24 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
 
   def test_group_edits_for_group_id
-      get :edits_group, {:group_id=>"1"}, {:user => users(:dennis), :account_id => "1"}          
+      get :edits_group, {:group_id=>"1"}, {:user => users(:testuser), :account_id => "1"}          
       assert_equal 'Dennis', flash[:group_name]
   end
   
   def test_edits_group_invalid
-      post :edits_group, {:id => "1", :name=>"", :select_devices=>nil, :image_value=>"4", :account_id=>"1"}, {:user => users(:dennis), :account_id => "1"}          
+      post :edits_group, {:id => "1", :name=>"", :select_devices=>nil, :image_value=>"4", :account_id=>"1"}, {:user => users(:testuser), :account_id => "1"}          
       assert_equal "Group name can't be blank <br/>You must select at least one device ",flash[:error]
       assert_redirected_to :controller => "devices", :action=>"edits_group", :group_id=>1
   end   
 
   def test_delete_group
-      post :delete_group, {:id=>"1"}, { :user => users(:dennis), :account_id => "1"}
+      post :delete_group, {:id=>"1"}, { :user => users(:testuser), :account_id => "1"}
       assert_equal "Group Dennis was deleted successfully ", flash[:success]
       assert_redirected_to :controller => "devices", :action=>'groups'
   end   
   
   def test_groups
-      get :groups, {}, { :user => users(:dennis), :account_id => "1"}
+      get :groups, {}, { :user => users(:testuser), :account_id => "1"}
       assert_response :success
   end
   
@@ -90,14 +90,14 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
   
   def test_edit_post
-    post :edit, {:id => "1", :device => {:name => "qwerty", :imei=>"000000"}}, { :user => users(:dennis), :account_id => "1", :is_admin => users(:dennis).is_admin}
+    post :edit, {:id => "1", :device => {:name => "qwerty", :imei=>"000000"}}, { :user => users(:testuser), :account_id => "1", :is_admin => users(:testuser).is_admin}
     assert_equal devices(:device1).name, "qwerty"
     assert_equal devices(:device1).imei, "000000"
     assert_redirected_to :controller => "devices"
   end
   
   def test_edit_for_uniqueness_of_imei
-     post :edit, {:id => "1", :device => {:name => "qwerty", :imei=>"551211"}}, { :user => users(:dennis), :account_id => "1", :is_admin => users(:dennis).is_admin}
+     post :edit, {:id => "1", :device => {:name => "qwerty", :imei=>"551211"}}, { :user => users(:testuser), :account_id => "1", :is_admin => users(:testuser).is_admin}
      assert_equal flash[:error], "Imei has already been taken<br/>"    
   end
   
@@ -109,7 +109,7 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
   
   def test_edit_get
-    get :edit, {:id => "1"}, { :user => users(:dennis), :account_id => "1" }
+    get :edit, {:id => "1"}, { :user => users(:testuser), :account_id => "1" }
     assert_equal devices(:device1).name, "device 1"
     assert_equal devices(:device1).imei, "1234"
     assert_response :success
@@ -121,7 +121,7 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
   
   def test_admin_delete_device
-    post :delete, {:id => "1"}, { :user => users(:dennis), :account_id => "1", :is_admin => users(:dennis).is_admin }
+    post :delete, {:id => "1"}, { :user => users(:testuser), :account_id => "1", :is_admin => users(:testuser).is_admin }
     assert_redirected_to :controller => "devices"
     assert_equal 2, devices(:device1).provision_status_id
   end
@@ -140,14 +140,14 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
   
   def test_choose_MT
-    post :choose_MT, {:imei => "33333", :name => "device 1"}, { :user => users(:dennis), :account_id => "1" }
+    post :choose_MT, {:imei => "33333", :name => "device 1"}, { :user => users(:testuser), :account_id => "1" }
     assert_redirected_to :controller => "devices"
     assert_equal devices(:device5).provision_status_id, 1
     assert_equal devices(:device5).account_id, 1
   end
   
   def test_choose_new_MT
-    post :choose_MT, {:imei => "314159", :name => "new device"}, { :user => users(:dennis), :account_id => "1" }
+    post :choose_MT, {:imei => "314159", :name => "new device"}, { :user => users(:testuser), :account_id => "1" }
     assert_redirected_to :controller => "devices"
     newDevice = Device.find_by_imei("314159")
     assert_equal 1, newDevice.provision_status_id
@@ -156,13 +156,13 @@ class DeviceControllerTest < Test::Unit::TestCase
   end
 
   def test_choose_already_provisioned
-    post :choose_MT, {:imei => "1234"}, { :user => users(:dennis), :account_id => "1" }
+    post :choose_MT, {:imei => "1234"}, { :user => users(:testuser), :account_id => "1" }
     assert_equal flash[:error] , 'This device has already been added'
     assert_response :success
   end
 
   def test_search_devices
-     get :search_devices, {:device_search=>'device'} , { :user => users(:dennis), :account_id => "1" }
+     get :search_devices, {:device_search=>'device'} , { :user => users(:testuser), :account_id => "1" }
      assert_response :success
   end
   
@@ -170,7 +170,7 @@ class DeviceControllerTest < Test::Unit::TestCase
 # and the offending code (Text_Message_Webservice) was commented out a couple weeks ago
 =begin
    def test_choose_phone
-    post :choose_phone, {:imei => "33333", :name => "device 1", :phone_number => "5551212"}, { :user => users(:dennis), :account_id => "1" }
+    post :choose_phone, {:imei => "33333", :name => "device 1", :phone_number => "5551212"}, { :user => users(:testuser), :account_id => "1" }
     assert_redirected_to :controller => "devices"
     assert_equal devices(:device5).provision_status_id, 1
     assert_equal devices(:device5).account_id, 1

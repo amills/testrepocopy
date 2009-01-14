@@ -15,14 +15,14 @@ class ReadingsControllerTest < Test::Unit::TestCase
   end
   
   def test_recent
-    get :recent, {}, {:user=>users(:dennis), :account_id => accounts(:app).id}
+    get :recent, {}, {:user=>users(:testuser), :account_id => accounts(:app).id}
     assert_response :success
   end
 
   def test_last
     @request.host="app.ublip.com"
-    @request.env["Authorization"] = "Basic " + Base64.encode64("dennis@ublip.com:testing")
-    get :last, { :id => "1"}, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:app)}
+    @request.env["Authorization"] = "Basic " + Base64.encode64("testuser@ublip.com:testing")
+    get :last, { :id => "1"}, {:user => users(:testuser), :user_id => users(:testuser), :account_id => accounts(:app)}
     
     assert_select "channel>item" do |element|
        assert_tag :tag => "georss:point", :content => "32.6358 -97.1757"
@@ -31,16 +31,16 @@ class ReadingsControllerTest < Test::Unit::TestCase
   
   def test_all
     @request.host = "app.ublip.com"
-     @request.env["Authorization"] = "Basic " + Base64.encode64("dennis@ublip.com:testing")
-     get :all, {}, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:app)}
+     @request.env["Authorization"] = "Basic " + Base64.encode64("testuser@ublip.com:testing")
+     get :all, {}, {:user => users(:testuser), :user_id => users(:testuser), :account_id => accounts(:app)}
      # Simple test to validate there are 5 items in the georss response
      assert_select "channel item", 5
   end
   
   def test_last_not_auth
     @request.host="app.ublip.com"
-    @request.env["Authorization"] = "Basic " + Base64.encode64("dennis@ublip.com:testing")
-    get :last, { :id => 7}, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:app)}
+    @request.env["Authorization"] = "Basic " + Base64.encode64("testuser@ublip.com:testing")
+    get :last, { :id => 7}, {:user => users(:testuser), :user_id => users(:testuser), :account_id => accounts(:app)}
     
     assert_select "channel" do |element|
       element[0].children.each do |tag|
@@ -53,27 +53,27 @@ class ReadingsControllerTest < Test::Unit::TestCase
   
   def test_last_for_session_user
       @request.host="app.ublip.com"
-      get :last, { :id => 1}, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:app)}
+      get :last, { :id => 1}, {:user => users(:testuser), :user_id => users(:testuser), :account_id => accounts(:app)}
       assert_select "channel item", 1
   end
 
   def test_all_for_session_user
       @request.host="app.ublip.com"
-      get :all, {}, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:app)}
+      get :all, {}, {:user => users(:testuser), :user_id => users(:testuser), :account_id => accounts(:app)}
       assert_select "channel item", 5
   end
 
   # Make sure that we're requiring HTTP auth
   def test_require_http_auth_for_last
     @request.host="app.ublip.com"
-    get :last, {:id => 1}#, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:dennis)}
+    get :last, {:id => 1}#, {:user => users(:testuser), :user_id => users(:testuser), :account_id => accounts(:app)}
     assert_equal @response.body, "Couldn't authenticate you"
   end  
   
   # Make sure that we're requiring HTTP auth
   def test_require_http_auth_for_all
     @request.host="app.ublip.com"
-    get :all, {}#, {:user => users(:dennis), :user_id => users(:dennis), :account_id => accounts(:dennis)}
+    get :all, {}#, {:user => users(:testuser), :user_id => users(:testuser), :account_id => accounts(:app)}
     assert_equal @response.body, "Couldn't authenticate you"
   end
   
