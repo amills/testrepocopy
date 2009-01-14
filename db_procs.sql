@@ -236,7 +236,7 @@ CREATE PROCEDURE create_stop_events()
 BEGIN
         DROP TEMPORARY TABLE IF EXISTS new_stops;
         CREATE TEMPORARY TABLE new_stops(latitude float, longitude float, imei VARCHAR(22), created DATETIME, reading_id INT(11), processed BOOLEAN);
-        INSERT INTO new_stops SELECT r.latitude, r.longitude, d.imei, r.created_at, r.id, FALSE FROM devices d, readings r
+            INSERT INTO new_stops SELECT r.latitude, r.longitude, d.imei, r.created_at, r.id, FALSE FROM devices d, readings r
             WHERE d.gateway_name='xirgo' AND r.id=d.recent_reading_id AND r.speed=0 AND TIMESTAMPDIFF(MINUTE, r.created_at, now())>3;
         
         SELECT COUNT(*) INTO @i FROM new_stops WHERE processed=FALSE;
@@ -277,7 +277,7 @@ DROP TRIGGER IF EXISTS trig_readings_after_insert;;
 CREATE TRIGGER trig_readings_after_insert AFTER INSERT ON readings FOR EACH ROW BEGIN
     DECLARE last_reading_time DATETIME;
     SELECT r.created_at INTO last_reading_time FROM devices d,readings r WHERE d.id=NEW.device_id AND r.id=d.recent_reading_id;
-    IF NEW.created_at > last_reading_time OR last_reading_time IS NULL THEN
+    IF NEW.created_at >= last_reading_time OR last_reading_time IS NULL THEN
         UPDATE devices SET recent_reading_id=NEW.id WHERE id=NEW.device_id;
     END IF;
 END;;
