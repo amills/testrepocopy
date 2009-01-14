@@ -52,7 +52,7 @@ class Admin::UsersControllerTest < Test::Unit::TestCase
   end
   
   def test_create_user_duplicate_email
-    post :create, {:user => {:first_name => "dennis", :last_name => "baldwin", :email => "dennis@ublip.com", :password => "helloworld", :password_confirmation => "helloworld", :account_id => 1}}, get_user
+    post :create, {:user => {:first_name => "test", :last_name => "user", :email => "testuser@ublip.com", :password => "helloworld", :password_confirmation => "helloworld", :account_id => 1}}, get_user
     assert_redirected_to :action => "new"
     assert_equal flash[:error], "Email has already been taken<br />"
   end
@@ -77,11 +77,11 @@ class Admin::UsersControllerTest < Test::Unit::TestCase
   def test_delete_user
     post :destroy, {:id => 1}, get_user
     assert_redirected_to :action => "index"
-    assert_equal flash[:success], "dennis@ublip.com deleted successfully"
+    assert_equal flash[:success], "testuser@ublip.com deleted successfully"
   end
   
   def get_user
-    {:user => users(:dennis).id, :account_id => accounts(:dennis).id, :is_super_admin => users(:dennis).is_super_admin}
+    {:user => users(:testuser).id, :account_id => accounts(:app).id, :is_super_admin => users(:testuser).is_super_admin}
   end
 
 end

@@ -68,7 +68,7 @@ class Admin::DevicesControllerTest < Test::Unit::TestCase
   end
 
   def get_user
-    {:user => users(:dennis).id, :account_id => accounts(:dennis).id, :is_super_admin => users(:dennis).is_super_admin}
+    {:user => users(:testuser).id, :account_id => accounts(:app).id, :is_super_admin => users(:testuser).is_super_admin}
   end
 
 end

@@ -45,7 +45,7 @@ class Admin::AccountsControllerTest < Test::Unit::TestCase
   end
   
   def test_create_account_with_duplicate_subdomain
-    post :create, {:account => {:company => "New Co", :zip => 12345, :subdomain => "dennis"}}, get_user
+    post :create, {:account => {:company => "New Co", :zip => 12345, :subdomain => "app"}}, get_user
     assert_equal flash[:error], "Please choose another subdomain; this one is already taken<br />"
   end
   
@@ -75,7 +75,7 @@ class Admin::AccountsControllerTest < Test::Unit::TestCase
   def test_delete_account
     post :destroy, {:id => 1}, get_user
     assert_redirected_to :action => "index"
-    assert_equal flash[:success], "dennis deleted successfully"
+    assert_equal flash[:success], "app deleted successfully"
   end
   
   def test_super_admin_can_access_across_subdomains
@@ -98,7 +98,7 @@ class Admin::AccountsControllerTest < Test::Unit::TestCase
   end
 
   def get_user
-    {:user => users(:dennis).id, :account_id => accounts(:dennis).id, :is_super_admin => users(:dennis).is_super_admin}
+    {:user => users(:testuser).id, :account_id => accounts(:app).id, :is_super_admin => users(:testuser).is_super_admin}
   end
 
 end
