@@ -2,9 +2,9 @@
 
 dennis:
  id: 1
- first_name: dennis
- last_name: baldwin
- email: dennis@ublip.com
+ first_name: user
+ last_name: one
+ email: userone@ublip.com
  salt: <%= @SALT %>
  crypted_password: <%= User.encrypt('testing', @SALT) %>
  account_id: 1
