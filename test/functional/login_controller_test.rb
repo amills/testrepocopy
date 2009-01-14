@@ -33,7 +33,7 @@ class LoginControllerTest < Test::Unit::TestCase
    @request.host="app2.ublip.com"
    post :index, {:email => users(:dennis2).email, :password => "testing"} 
    assert_redirected_to :controller => "home", :action => "index"
-   assert_equal accounts(:nick).id, @request.session[:account_id]
+   assert_equal accounts(:app2).id, @request.session[:account_id]
    assert_equal users(:dennis2).id, @request.session[:user_id]
    assert_equal users(:dennis2).id, @request.session[:user]
    assert_equal users(:dennis2).email, @request.session[:email]
@@ -42,7 +42,7 @@ class LoginControllerTest < Test::Unit::TestCase
  end
  
  def test_login_wrong_subdomain
-   @request.host="ken.ublip.com"
+   @request.host="app3.ublip.com"
    post :index, {:email => users(:dennis).email, :password => "testing"} 
    assert_redirected_to "/login"
    assert_nil @request.session[:account_id]
@@ -68,7 +68,7 @@ class LoginControllerTest < Test::Unit::TestCase
  end
 
  def test_admin_login
-     @request.host="byron.ublip.com"
+     @request.host="app4.ublip.com"
      @request.cookies['account_value'] = CGI::Cookie.new('account_value', '4')
      @request.cookies['admin_user_id'] = CGI::Cookie.new('admin_user_id', '1')     
      get :admin_login,{}
@@ -77,7 +77,7 @@ class LoginControllerTest < Test::Unit::TestCase
      assert_equal 4, @request.session[:account_id]
      assert_equal 1, @request.session[:user_id]          
      assert_equal "dennis", @request.session[:first_name]
-     assert_equal "Byron Co", @request.session[:company] 
+     assert_equal "Tracking Co 4", @request.session[:company] 
  end
 
  def test_admin_login_with_invalid_account_number
