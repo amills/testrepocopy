@@ -2,8 +2,8 @@
 	<div id="company" ><%= session[:company] %></div>
 	
 	<div id="ub-login">
-		Welcome, <%= session[:first_name] %> | <% if session[:is_super_admin] == true %><a href="/admin" >Admin</a> | <% end %> <a href="/logout" title="Logout">Logout</a>&nbsp;&nbsp;
-		<a href="http://www.ublip.com" target="_blank"><img src="/images/ublip_logo_small.png" alt="Ublip logo" border ="0" style="vertical-align: middle;" /></a>
+		<!-- Not sure if we're keeping this
+		Welcome, <%= session[:first_name] %> | <% if session[:is_super_admin] == true %><a href="/admin" >Admin</a> | <% end %> <a href="/logout" title="Logout">Logout</a>&nbsp;&nbsp;-->
 	</div>
 
 	<div style="clear:both;"></div>
@@ -13,12 +13,12 @@
 	
 	<div id="nav_tabs">
 		<ul>
-	   		<li <% if page_name== 'home'%> class="selected "<% end %> style="margin-left: 10px"><a href="/home">Overview</a></li>
-			<li <% if page_name == 'reports' %> class="selected_subnav"<% end %>><a href="/reports">Reports</a></li>
-			<li <% if page_name == 'contact' %> class="selected"<% end %> style="float:right; margin-right: 10px;"><a href="/contact">Contact</a></li>
-			<li <% if page_name == 'settings' %> class="selected"<% end %> style="float:right;"><a href="/settings">Settings</a></li>
-			<li <% if page_name == 'users' %> class="selected_subnav"<% end %> style="float:right;"><a href="/users">Users</a></li>
-			<li <% if page_name == 'devices' || page_name == 'geofence' || page_name == 'maintenance' %> class="selected_subnav"<% end %> style="float: right;"><a href="/devices">Devices</a></li>
+			<li style="margin-left: 10px"><a href="http://www.navseeker.com">Home</a></li>
+	   		<li <% if page_name== 'home'%> class="selected "<% end %>><a href="/home">Summary</a></li>
+			<li <% if page_name == 'reports' %> class="selected"<% end %>><a href="/reports">History</a></li>
+			<li <% if page_name == 'geofence' %> class="selected"<% end %>><a href="/geofence">Geofence</a></li>
+			<li <% if page_name == 'settings' %> class="selected"<% end %>><a href="/settings">Settings</a></li>
+			<li <% if page_name == 'users' %> class="selected"<% end %>><a href="/users">Accounts</a></li>
 		</ul>
     </div>
      
