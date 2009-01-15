@@ -13,16 +13,16 @@ class GadgetControllerTest < Test::Unit::TestCase
 
   # Replace this with your real tests.
   def test_all
-     @request.host="dennis.ublip.com"
+     @request.host="app.ublip.com"
      get :all
      subdomain = assigns(:subdomain)
-    assert_equal "dennis", subdomain
+    assert_equal "app", subdomain
   end
   
   def test_single
-     @request.host="dennis.ublip.com"
+     @request.host="app.ublip.com"
      get :single, {:id => "4"}
      subdomain = assigns(:subdomain)
-     assert_equal "dennis", subdomain
+     assert_equal "app", subdomain
   end
 end

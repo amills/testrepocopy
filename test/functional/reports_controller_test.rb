@@ -27,7 +27,7 @@ class ReportsControllerTest < Test::Unit::TestCase
   # Test all readings report
   def test_all
     # Device 1, page 1
-    get :all, {:id => 1}, {:user => users(:dennis), :account_id => 1}
+    get :all, {:id => 1}, {:user => users(:testuser), :account_id => 1}
     assert_response :success
     readings = assigns(:readings)
     assert_equal "6762 Big Springs Dr, Arlington, TX", readings[0].short_address
@@ -38,60 +38,60 @@ class ReportsControllerTest < Test::Unit::TestCase
   end
   
   def test_all_for_start_and_end_time
-      get :all, {:id => 1, :start_date=>"2008-07-18",:end_date=>"2004-07-18"}, {:user => users(:dennis), :account_id => 1}
+      get :all, {:id => 1, :start_date=>"2008-07-18",:end_date=>"2004-07-18"}, {:user => users(:testuser), :account_id => 1}
       assert_response :success
   end
   
    
   def test_all_for_start_and_end_time_page_number
-      get :all, {:id => 1, :start_date=>"2008-07-18", :end_date=>"2004-07-18", :page=>3}, {:user => users(:dennis), :account_id => 1}
+      get :all, {:id => 1, :start_date=>"2008-07-18", :end_date=>"2004-07-18", :page=>3}, {:user => users(:testuser), :account_id => 1}
       assert_response :success
   end
 
   def test_index
-     get :index, {:id => 1}, {:user => users(:dennis), :account_id => 1}
+     get :index, {:id => 1}, {:user => users(:testuser), :account_id => 1}
      assert_response :success
   end
   
   def test_index_for_gmap_session_to_all
-    get :index, {}, { :user => users(:dennis), :account_id => 1},{:gmap_value=>"all"}     
+    get :index, {}, { :user => users(:testuser), :account_id => 1},{:gmap_value=>"all"}     
     assert_response :success            
    end    
    
    def test_index_for_gmap_session_to_default
-        get :index, {}, { :user => users(:dennis), :account_id => 1},{:gmap_value=>"default"}     
+        get :index, {}, { :user => users(:testuser), :account_id => 1},{:gmap_value=>"default"}     
         assert_response :success            
    end    
 
    def test_index_for_gmap_session_to_group_number
-        get :index, {}, { :user => users(:dennis), :account_id => 1},{:gmap_value=>1}     
+        get :index, {}, { :user => users(:testuser), :account_id => 1},{:gmap_value=>1}     
         assert_response :success            
    end
    
    def test_index_with_group_selection
-     get :index, {:group_id => 1}, {:user => users(:dennis), :account_id => 1}
+     get :index, {:group_id => 1}, {:user => users(:testuser), :account_id => 1}
      devices = assigns(:devices)
      assert_equal 2, devices.size
    end
 
   # Need to extend the following reports with tests that actually verify page content
   def test_idle
-    get :idle, {:id => 1}, {:user => users(:dennis), :account_id => 1}
+    get :idle, {:id => 1}, {:user => users(:testuser), :account_id => 1}
     assert_response :success
   end
   
   def test_runtime
-    get :runtime, {:id => 1}, {:user => users(:dennis), :account_id => 1}
+    get :runtime, {:id => 1}, {:user => users(:testuser), :account_id => 1}
     assert_response :success
   end   
   
   def test_gpio1
-    get :gpio1, {:id => 1}, {:user => users(:dennis), :account_id => 1}
+    get :gpio1, {:id => 1}, {:user => users(:testuser), :account_id => 1}
     assert_response :success
   end
   
   def test_gpio2
-    get :gpio2, {:id => 1}, {:user => users(:dennis), :account_id => 1}
+    get :gpio2, {:id => 1}, {:user => users(:testuser), :account_id => 1}
     assert_response :success
   end
 
@@ -112,13 +112,13 @@ class ReportsControllerTest < Test::Unit::TestCase
 
   # Test stop report
   def test_stop
-    get :stop, {:id => 1, :start_date=>{"month"=>"4", "day"=>"27", "year"=>"2007"}, :end_date=>{"month"=>"7", "day"=>"1", "year"=>"2008"}}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
+    get :stop, {:id => 1, :start_date=>{"month"=>"4", "day"=>"27", "year"=>"2007"}, :end_date=>{"month"=>"7", "day"=>"1", "year"=>"2008"}}, {:user => users(:testuser), :account_id => users(:testuser).account_id}
     assert_equal 5, assigns(:record_count)
     assert_response :success
 =begin
     pretend_now_is(Time.at(1185490000)) do
       puts "now is:" + Time.now.to_s
-      get :stop, {:id=>"1", :t=>"1", :start_time1=>"Thu May 24 21:24:10 +0530 2004",:end_time1=>"Thu Jun 25 21:24:10 +0530 2008"}, {:user => users(:dennis), :account_id => users(:dennis).account_id } 
+      get :stop, {:id=>"1", :t=>"1", :start_time1=>"Thu May 24 21:24:10 +0530 2004",:end_time1=>"Thu Jun 25 21:24:10 +0530 2008"}, {:user => users(:testuser), :account_id => users(:testuser).account_id } 
       stops = assigns(:stops)
       assert_equal 8, assigns(:record_count)
       assert_response :success
@@ -143,7 +143,7 @@ class ReportsControllerTest < Test::Unit::TestCase
       
      
       
-      get :stop, {:id=>"3", :t=>"1", :p => "2", :start_time1=>"Thu May 24 21:24:10 +0530 2004",:end_time1=>"Thu Jun 25 21:24:10 +0530 2008"}, { :user => users(:dennis), :account_id => users(:dennis).account_id }
+      get :stop, {:id=>"3", :t=>"1", :p => "2", :start_time1=>"Thu May 24 21:24:10 +0530 2004",:end_time1=>"Thu Jun 25 21:24:10 +0530 2008"}, { :user => users(:testuser), :account_id => users(:testuser).account_id }
       stops = assigns(:stops)
       
       assert_equal 5, stops.size
@@ -163,7 +163,7 @@ class ReportsControllerTest < Test::Unit::TestCase
   
   # Test geofence report
   def test_geofence
-    get :geofence, {:id => '1', :start_date=>{"month"=>"4", "day"=>"27", "year"=>"2007"}, :end_date=>{"month"=>"7", "day"=>"1", "year"=>"2008"}}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
+    get :geofence, {:id => '1', :start_date=>{"month"=>"4", "day"=>"27", "year"=>"2007"}, :end_date=>{"month"=>"7", "day"=>"1", "year"=>"2008"}}, {:user => users(:testuser), :account_id => users(:testuser).account_id}
     assert_response :success
     readings = assigns(:readings)
     assert_equal "Yates Dr, Hurst, TX", readings[1].short_address
@@ -178,29 +178,29 @@ class ReportsControllerTest < Test::Unit::TestCase
   end
  
  def test_for_valid_time
-    get :all, {:id => 1, :t => 30, :start_date=>{"month"=>"4", "day"=>"27", "year"=>"2008"}, :end_date=>{"month"=>"6", "day"=>"26", "year"=>"2008"}}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
+    get :all, {:id => 1, :t => 30, :start_date=>{"month"=>"4", "day"=>"27", "year"=>"2008"}, :end_date=>{"month"=>"6", "day"=>"26", "year"=>"2008"}}, {:user => users(:testuser), :account_id => users(:testuser).account_id}
     assert_response :success    
  end    
   
   # Report exports.  Needs support for readings, stops, and geofence exports
   def test_export
-    get :export, {:id => 6, :type => 'all', :start_date=>"2008-05-24", :end_date=>"2008-06-26"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}
+    get :export, {:id => 6, :type => 'all', :start_date=>"2008-05-24", :end_date=>"2008-06-26"}, {:user => users(:testuser), :account_id => users(:testuser).account_id}
     assert_response :success
     assert_kind_of String, @response.body
     output = StringIO.new
     #assert_nothing_raised { @response.body.call(@response, output) }
     #assert_equal csv_data, output.string
     # for stop events
-    get :export, {:id => 6, :type => 'stop', :start_date=>"2008-05-24", :end_date=>"2008-06-25"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}    
+    get :export, {:id => 6, :type => 'stop', :start_date=>"2008-05-24", :end_date=>"2008-06-25"}, {:user => users(:testuser), :account_id => users(:testuser).account_id}    
     assert_response :success
     # for geofence 
-    get :export, {:id => 6, :type => 'geofence', :start_date=>"2008-05-24", :end_date=>"2008-06-25"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}    
+    get :export, {:id => 6, :type => 'geofence', :start_date=>"2008-05-24", :end_date=>"2008-06-25"}, {:user => users(:testuser), :account_id => users(:testuser).account_id}    
     assert_response :success
     
-    get :export, {:id => 6, :type => 'idle', :start_date=>"2008-05-24", :end_date=>"2008-06-25"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}    
+    get :export, {:id => 6, :type => 'idle', :start_date=>"2008-05-24", :end_date=>"2008-06-25"}, {:user => users(:testuser), :account_id => users(:testuser).account_id}    
     assert_response :success
 
-    get :export, {:id => 6, :type => 'runtime', :start_date=>"2008-05-24", :end_date=>"2008-06-25"}, {:user => users(:dennis), :account_id => users(:dennis).account_id}    
+    get :export, {:id => 6, :type => 'runtime', :start_date=>"2008-05-24", :end_date=>"2008-06-25"}, {:user => users(:testuser), :account_id => users(:testuser).account_id}    
     assert_response :success
    
    

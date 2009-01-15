@@ -28,7 +28,7 @@ class ContactControllerTest < Test::Unit::TestCase
   end
 
   def test_submit
-    post :thanks, {:feedback => "testing feedback form"}, {:user => users(:dennis), :email => "dennis@ublip.com"}
+    post :thanks, {:feedback => "testing feedback form"}, {:user => users(:testuser), :email => "testuser@ublip.com"}
     assert_response :success
   end
 end

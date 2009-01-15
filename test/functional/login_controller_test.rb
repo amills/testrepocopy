@@ -18,22 +18,22 @@ class LoginControllerTest < Test::Unit::TestCase
   end
   
   def test_login
-   @request.host="dennis.ublip.com"
-   post :index, {:email => users(:dennis).email, :password => "testing"} 
+   @request.host="app.ublip.com"
+   post :index, {:email => users(:testuser).email, :password => "testing"} 
    assert_redirected_to :controller => "home", :action => "index"
-   assert_equal accounts(:dennis).id, @request.session[:account_id]
-   assert_equal users(:dennis).id, @request.session[:user_id]
-   assert_equal users(:dennis).id, @request.session[:user]
-   assert_equal users(:dennis).email, @request.session[:email]
-   assert_equal users(:dennis).first_name, @request.session[:first_name]
-   assert_equal users(:dennis).account.company, @request.session[:company]
+   assert_equal accounts(:app).id, @request.session[:account_id]
+   assert_equal users(:testuser).id, @request.session[:user_id]
+   assert_equal users(:testuser).id, @request.session[:user]
+   assert_equal users(:testuser).email, @request.session[:email]
+   assert_equal users(:testuser).first_name, @request.session[:first_name]
+   assert_equal users(:testuser).account.company, @request.session[:company]
  end
  
  def test_login_same_email_diff_act
-   @request.host="nick.ublip.com"
+   @request.host="app2.ublip.com"
    post :index, {:email => users(:dennis2).email, :password => "testing"} 
    assert_redirected_to :controller => "home", :action => "index"
-   assert_equal accounts(:nick).id, @request.session[:account_id]
+   assert_equal accounts(:app2).id, @request.session[:account_id]
    assert_equal users(:dennis2).id, @request.session[:user_id]
    assert_equal users(:dennis2).id, @request.session[:user]
    assert_equal users(:dennis2).email, @request.session[:email]
@@ -42,16 +42,16 @@ class LoginControllerTest < Test::Unit::TestCase
  end
  
  def test_login_wrong_subdomain
-   @request.host="ken.ublip.com"
-   post :index, {:email => users(:dennis).email, :password => "testing"} 
+   @request.host="app3.ublip.com"
+   post :index, {:email => users(:testuser).email, :password => "testing"} 
    assert_redirected_to "/login"
    assert_nil @request.session[:account_id]
    assert_nil @request.session[:user_id]
  end
  
  def test_login_failure
-   @request.host="dennis.ublip.com"
-   post :index, {:email => users(:dennis).email, :password => "wrong"} 
+   @request.host="app.ublip.com"
+   post :index, {:email => users(:testuser).email, :password => "wrong"} 
    assert flash[:username]
    assert_redirected_to "/login"
  end
@@ -68,16 +68,16 @@ class LoginControllerTest < Test::Unit::TestCase
  end
 
  def test_admin_login
-     @request.host="byron.ublip.com"
+     @request.host="app4.ublip.com"
      @request.cookies['account_value'] = CGI::Cookie.new('account_value', '4')
      @request.cookies['admin_user_id'] = CGI::Cookie.new('admin_user_id', '1')     
      get :admin_login,{}
      assert_redirected_to(:controller => '/home', :action => 'index')
-     assert_equal "dennis@ublip.com",@request.session[:user].email
+     assert_equal "testuser@ublip.com",@request.session[:user].email
      assert_equal 4, @request.session[:account_id]
      assert_equal 1, @request.session[:user_id]          
-     assert_equal "dennis", @request.session[:first_name]
-     assert_equal "Byron Co", @request.session[:company] 
+     assert_equal "test", @request.session[:first_name]
+     assert_equal "Tracking Co 4", @request.session[:company] 
  end
 
  def test_admin_login_with_invalid_account_number

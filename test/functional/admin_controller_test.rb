@@ -30,17 +30,17 @@ class AdminControllerTest < Test::Unit::TestCase
   end
   
   def test_super_admin
-    get :index, {}, {:user => users(:dennis).id, :account_id => accounts(:dennis).id, :is_super_admin => users(:dennis).is_super_admin}
+    get :index, {}, {:user => users(:testuser).id, :account_id => accounts(:app).id, :is_super_admin => users(:testuser).is_super_admin}
     assert_response :success
   end
   
   def test_not_super_admin
-    get :index, {}, {:user => users(:demo).id, :account_id => accounts(:dennis).id, :is_super_admin => users(:demo).is_super_admin} 
+    get :index, {}, {:user => users(:demo).id, :account_id => accounts(:app).id, :is_super_admin => users(:demo).is_super_admin} 
     assert_redirected_to :controller => "home"
   end
   
   def test_page_contents
-    get :index, {}, {:user => users(:dennis).id, :account_id => accounts(:dennis).id, :is_super_admin => users(:dennis).is_super_admin}
+    get :index, {}, {:user => users(:testuser).id, :account_id => accounts(:app).id, :is_super_admin => users(:testuser).is_super_admin}
     assert_select "ul.list li", 4 # Verify 3 elements in the list
     assert_select "ul.list li:first-child", :text => "6 active Accounts - view or create"
     assert_select "ul.list li:nth-child(2)", :text => "7 active Users - view or create"
