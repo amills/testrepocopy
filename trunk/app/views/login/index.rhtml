@@ -1,7 +1,13 @@
-<h1><%= @account.company  %> </h1>
+<h1>Client Login</h1>
 
 <div id="login_form_container">
-
+ <div class="roundcont">
+   <div class="roundtop">
+	 <img src="/images/home_lefttop_tab.png" alt="" 
+	 width="15" height="15" class="corner" 
+	 style="display: none" />
+	 
+    
     <%= render :partial=>"/layouts/flash_message" %>    
 
     <%if session[:user_id] %>
@@ -11,8 +17,8 @@
     <%if user != nil%>    
       <form action="/login" method="post" id="logform">
         <table class="form_table">
-          <tr>
-            <th>Email::</th>
+           <tr>
+            <th>Email:</th>
             <td><input type="text" id="username" name="email" class="input" value="<%=user.email%>" style="width: 162px;"/></td>
           </tr>
           
@@ -30,7 +36,7 @@
             <th></th>
             <td><input type="submit" value="Log In" /></td>
           </tr>
-          
+           
         </table>
       </form>                    
     <%else%>
@@ -43,10 +49,13 @@
           
           <tr>
             <th>Password:</th>
-            <td><input type="password" id="password" name="password" value="" class="input"/> <a href="/login/forgot_password">Forgot password?</a></td>
+            <td><input type="password" id="password" name="password" value="" class="input"/></td>
           </tr>
-          
           <tr>
+		  <th></th>
+		  <td><a href="/login/forgot_password">Forgot password?</a></td>
+		  </tr>
+		  <tr>
             <th></th>
             <td><input type="checkbox" id="remember_me" name="remember_me"/> <span class="gray_text">Remember me on this computer</span></td>
           </tr>
@@ -55,7 +64,7 @@
             <th>
             </th><td><input type="submit" value="Log In" /></td>
           </tr>
-          
+          				 
         </table>	
       </form>    
     <%end%>    
