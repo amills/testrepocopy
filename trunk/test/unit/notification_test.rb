@@ -59,8 +59,8 @@ class NotificationTest < Test::Unit::TestCase
       @response = Notifier.deliver_app_feedback(@user, "qwerty", "your app rocks!")
     end
     should "have the proper content" do
-      assert_equal 'Feedback from qwerty.ublip.com', @response.subject
-      assert_equal "support@ublip.com", @response.destinations[0]
+      assert_equal 'Feedback from qwerty.navseeker.com', @response.subject
+      assert_equal "support@navseeker.com", @response.destinations[0]
     end
   end
   
@@ -75,7 +75,7 @@ class NotificationTest < Test::Unit::TestCase
     should "have the correct content" do
       assert_equal  @response_user1.subject, "#{@reading.device.name} did something"
       assert_equal  [@user1.email], @response_user1.to
-      assert_equal ["alerts@ublip.com"], @response_user1.from
+      assert_equal ["alerts@navseeker.com"], @response_user1.from
       assert_equal "Dear #{@user1.first_name} #{@user1.last_name},\n\n#{@reading.device.name} did something at Sat, Jan 01 2000 20:15:01\n", @response_user1.body
       assert_equal "Dear #{@user2.first_name} #{@user2.last_name},\n\n#{@reading.device.name} did something at Sat, Jan 01 2000 12:15:01\n", @response_user2.body
     end

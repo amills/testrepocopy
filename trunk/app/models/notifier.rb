@@ -204,7 +204,7 @@ class Notifier < ActionMailer::Base
   
   # Send email to support from contact page
   def app_feedback(email, subdomain, feedback)
-    @from = "support@ublip.com"
+    @from = "support@navseeker.com"
     @recipients = "support@navseeker.com"
     @subject = "Feedback from #{subdomain}.navseeker.com"
     @body["feedback"] = feedback
