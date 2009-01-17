@@ -1,9 +1,9 @@
 xml.instruct! :xml, :version=>"1.0"
 xml.rss(:version=>"2.0", "xmlns:georss" => "http://www.georss.org/georss"){
   xml.channel{
-    xml.title("Ublip Location Feed")
-    xml.link("http://www.ublip.com")
-    xml.description("Location Matters")
+    xml.title("NavSeeker Location Feed")
+    xml.link("http://www.navseeker.com")
+    xml.description("NavSeeker Locator")
     xml.language("en-us")
     for device in @devices
       reading = device.latest_gps_reading

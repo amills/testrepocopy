@@ -64,17 +64,6 @@ class NotificationTest < Test::Unit::TestCase
     end
   end
   
-  context "an order confirmation email" do
-    setup do
-      @user = Factory.build(:user)
-      @response = Notifier.deliver_order_confirmation(42, 42, "order_details", @user.email, "password", "qwerty")
-    end
-    should "have the correct content" do
-      assert_equal 'Thank you for ordering from Ublip', @response.subject
-      assert_equal @user.email, @response.destinations[0]
-    end
-  end
-  
   context "A reading notification" do
     setup do
       @user1 = Factory.build(:user, :time_zone => "GMT")

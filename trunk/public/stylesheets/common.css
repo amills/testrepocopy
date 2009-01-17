@@ -59,6 +59,24 @@ body {
 
 /*tabs CSS  End*/	
 
+input.disabled_button {
+	background-color: #4D4D4D;
+	color: #FFFFFF;
+	padding: 2px;
+}
+
+input.blue_button {
+	background-color: #0066CC;
+	color: #FFFFFF;
+	padding: 2px;
+}
+
+input.red_button {
+	background-color: #FF0000;
+	color: #FFFFFF;
+	padding: 2px;
+}
+
 /*header CSS */
 
 div#header {
@@ -377,10 +395,16 @@ div#paging {
 	color: #1364B2;}	
 
 .light_row {
-	background-color: #FFFFFF;}
+	background-color: #FFFFFF;
+	}
 
 .dark_row {
-	background-color: #EEEEEE;}
+	background-color: #EEEEEE;
+	}
+	
+tr.dark_row {
+	border: 1px solid #FFFFFF;
+}
 
 .selected_row {
 	background-color: #FFFFCC;}
@@ -627,7 +651,7 @@ h4 {
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	border-collapse: collapse;}
+}
 
 .panel_table th {
 	background-color: #CCCCCC;
@@ -637,7 +661,7 @@ h4 {
 
 .panel_table td {
 	padding: 5px;
-	border: 1px solid #FFFFFF;}
+	border: 1px solid #000000;}
 
 
 .panel_table .header {
@@ -646,6 +670,10 @@ h4 {
 	font-size: 12px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	padding: 5px;}
+	
+.panel_table .spacer {
+	border: 1px solid #FFFFFF;
+}
 
 .panel_table .bluebar1{ 
 	background: url(../images/red_small.png) no-repeat left; 
