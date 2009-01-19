@@ -50,7 +50,7 @@ class LoginController < ApplicationController
         end
         # Send them back to the login page with appropriate error message
       else
-        flash[:error] = 'Please specify a valid username and password.'
+        flash[:error] = 'Please enter a valid username and password.'
         flash[:username] = params[:email]
         if params[:frm_m] == 'mobile'
           redirect_to(:controller=>'/mobile',:action=>'index')
