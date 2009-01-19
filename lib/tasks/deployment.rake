@@ -26,13 +26,13 @@ namespace :ublip do
   desc 'Create a new customer branch'
   task :create_new_branch do
     branch_name = ENV['branch_name']
-    svn_base = DeployManagerClient.get_repo("xirgodev")
+    svn_base = DeployManagerClient.get_repo("SharedFleet")
     check = execute_cmd("svn info #{svn_base}/branches/#{branch_name}")
     if(check.length==0)
-      #execute_cmd("svn mkdir https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/#{branch_name} -m \"creating new customer branch\"")
-      #execute_cmd("svn mkdir https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/#{branch_name}/tags -m 'creating new customer branch'")
-      execute_cmd("svn copy https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/xirgo-dev.ublip.com/tags/current_production_build https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/#{branch_name}/trunk -m 'creating new customer branch'")
-      execute_cmd("svn copy https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/xirgo-dev.ublip.com/tags/current_production_build https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/#{branch_name}/tags/current_production_build -m \"creating new customer branch\"")
+      execute_cmd("svn mkdir https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/#{branch_name} -m \"creating new customer branch\"")
+      execute_cmd("svn mkdir https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/#{branch_name}/tags -m 'creating new customer branch'")
+      execute_cmd("svn copy #{svn_base}/tags/current_production_build #{svn_base}/branches/#{branch_name}/trunk -m 'creating new customer branch'")
+      execute_cmd("svn copy #{svn_base}/tags/current_production_build #{svn_base}/branches/#{branch_name}/tags/current_production_build -m 'creating new customer branch'")
     else
       puts "Branch Already Exists!"
     end
@@ -41,7 +41,7 @@ namespace :ublip do
   desc 'Update customer branch to latest from trunk'
   task :update_branch do
      customer = ENV['customer']
-     svn_base = DeployManagerClient.get_repo("xirgodev")
+     svn_base = DeployManagerClient.get_repo("SharedFleet")
      cust_svn_base = DeployManagerClient.get_repo(customer)
      prod_url = "#{cust_svn_base}/tags/current_production_build"
      cust_trunk = "#{cust_svn_base}/trunk"
