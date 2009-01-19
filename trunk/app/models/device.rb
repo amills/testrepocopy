@@ -10,6 +10,8 @@ class Device < ActiveRecord::Base
   REPORT_TYPE_RUNTIME   = 4
   REPORT_TYPE_GPIO1     = 5
   REPORT_TYPE_GPIO2     = 6
+  
+  FINDIT_DELAY = 60 * 60
 
   belongs_to :account
   belongs_to :group
@@ -17,7 +19,8 @@ class Device < ActiveRecord::Base
   
   validates_uniqueness_of :imei
   validates_presence_of :name, :imei
-  
+
+  has_one :latest_reading, :class_name => "Reading", :order => "created_at desc"
   has_one :latest_gps_reading, :class_name => "Reading", :order => "created_at desc", :conditions => "latitude is not null"
   has_one :latest_speed_reading, :class_name => "Reading", :order => "created_at desc", :conditions => "speed is not null"
   has_one :latest_data_reading, :class_name => "Reading", :order => "created_at desc", :conditions => "ignition is not null"
@@ -68,6 +71,18 @@ class Device < ActiveRecord::Base
   # Get names/ids for list box - don't want to get an entire devices object
   def self.get_names(account_id)
     find_by_sql(["select id, name from devices where account_id = ? and provision_status_id = 1 order by name", account_id])
+  end
+  
+  def request_location?
+    gateway_device and gateway_device.respond_to?('submit_location_request')
+  end
+
+  def last_location_request
+    gateway_device.last_location_request if request_location?
+  end
+  
+  def submit_location_request
+    gateway_device.submit_location_request if request_location?
   end
   
   def gateway_device

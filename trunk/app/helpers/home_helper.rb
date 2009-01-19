@@ -14,11 +14,21 @@ module HomeHelper
          content << %(select_action(this,'from_home'))
      end
      content
- end
+  end
  
   def show_device(device)
     content = ""
-    content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}"> <td>)
+    content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}">)
+
+    content << %(<td nowrap>)
+    if device.request_location?
+      content << %(<a href='/devices/find_now/#{device.id}' title='Request the location of this device'>find now</a>) 
+    else
+      content << %(&nbsp;)
+    end
+    content << %(</td>)
+
+    content << %(<td>)
     if device.latest_gps_reading
       content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a>)
     else
@@ -40,11 +50,12 @@ module HomeHelper
 
     content << %(<td>)
     if device.latest_gps_reading
-      content << %(#{time_ago_in_words device.latest_gps_reading.created_at} ago)
+      content << %(#{time_ago_in_words(device.latest_gps_reading.created_at)} ago)
     else
       content << %(N/A)
     end
     content << %(</td>)
+    
     content << %(</tr>)
 
     content

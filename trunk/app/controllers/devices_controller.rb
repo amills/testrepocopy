@@ -1,6 +1,26 @@
 class DevicesController < ApplicationController
   include GeoKit::Mappable
   before_filter :authorize
+  
+  def find_now
+    @device = Device.find_by_id(params[:id], :conditions => ["account_id = ? and provision_status_id=1", session[:account_id]])
+    if @device.nil?
+      flash[:error] = 'Invalid action.'
+      redirect_to :controller => 'devices'
+    elsif request.post?
+      unless @device.request_location?
+        flash[:error] = "This device does not support requesting its location."
+      else
+        last_request = @device.last_location_request
+        if last_request and last_request.start_date_time + Device::FINDIT_DELAY >= Time.now
+          minutes_ago = ((Time.now - last_request.start_date_time) / 60).to_i
+          flash[:error] = "The location was requested about #{minutes_ago} minutes ago. Please wait another #{(Device::FINDIT_DELAY / 60).to_i - minutes_ago} minutes and try again."
+        else
+          @device.submit_location_request
+        end
+      end
+    end
+  end
 
   # Device details view
   def view
