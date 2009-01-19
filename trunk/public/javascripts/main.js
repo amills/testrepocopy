@@ -384,8 +384,8 @@ function getMarkerType(index, obj) {
 	icon.infoWindowAnchor = new GPoint(11, 34);
     icon.shadow = "/images/ublip_marker_shadow.png";
 	
-	if(event.indexOf('geofen') > -1 || event.indexOf('stop') > -1) {
-		icon.image = "/icons/" + (index+1) + "_red.png";
+	if(event.indexOf('geofen') > -1 || event.indexOf('stop') > -1 || event.indexOf('idle') > -1) {
+		icon.image = "/icons/" + (index+1) + "_alarm.png";
 	} else {
 	    icon.image = "/icons/" + (index+1) + ".png";
 	}
