@@ -1,5 +1,34 @@
-<%= render :partial => 'report_header' %>
-
+<form action="/reports/all/<%= params[:id] %>" method="get" style="display:inline">                                         
+	<table class="text_width">
+		<tr>
+			<td><center class="dark_blue_header">Select Locator</span></td>
+			<td class="dark_blue_header">Time</td>
+			<td><input type="radio" name="time_period" value="hour"<% if @time_period == 'hour' %> checked<% end %>/>Last 1 hour</td>
+		</tr>
+		<tr>
+			<td>
+				<center>
+			        <select onchange="changeDevice(this.options[this.selectedIndex].value, '<%= params[:action] %>', '<%= @start_date %>', '<%= @end_date%>');">
+			          <% for device in @device_names %>
+			            <option value="<%= device.id %>" <% if params[:id].to_i == device.id %>selected="selected"<% end %>><%= device.name %></option>
+			          <% end %>
+			        </select>              
+				</center>
+			</td>
+			<td>&nbsp;</td>
+			<td><input type="radio" name="time_period" value="day"<% if @time_period == 'day' %> checked<% end %>/>Last 24 hours</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td><input type="radio" name="time_period" value="range"<% if @time_period == 'range' %> checked<% end %>/>From
+				<%= select_date(@start_date, :order=>[:month,:day,:year], :use_short_month => true, :prefix=>"start_date")%>
+			    to <%= select_date(@end_date, :order=>[:month,:day,:year], :use_short_month => true, :prefix=>"end_date")%>
+				<input type="submit" class="blue_button" value="Update History"/></td>
+			</td>
+		</tr>
+	</table>
+</form>
 <table class="text_width" id="main_table" >
   <tr>
     <td id="left_panel" valign="top" width="50%">                    

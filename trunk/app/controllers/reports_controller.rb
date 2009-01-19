@@ -248,21 +248,36 @@ private
   end
 
   def get_start_and_end_date
-    if !params[:end_date].nil?
-      if params[:end_date].class.to_s == "String"
-        @end_date = params[:end_date].to_date
-        @start_date = params[:start_date].to_date
+    case (@time_period = (params[:time_period] || 'hour'))
+      when 'hour'
+        @end_date_str = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+        @start_date_str = (Time.now - 60 * 60).strftime('%Y-%m-%d %H:%M:%S')
+
+        @end_date = Date.today
+        @start_date =  Date.today -  NUMBER_OF_DAYS
+      when 'day'
+        @end_date_str = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+        @start_date_str = (Time.now - 24 * 60 * 60).strftime('%Y-%m-%d %H:%M:%S')
+
+        @end_date = Date.today
+        @start_date =  Date.today -  NUMBER_OF_DAYS
       else
-        @end_date = get_date(params[:end_date])
-        @start_date = get_date(params[:start_date])
-      end
-    else
-      @end_date = Date.today
-      @start_date =  Date.today -  NUMBER_OF_DAYS
+        if params[:end_date]
+          if params[:end_date].class.to_s == "String"
+            @end_date = params[:end_date].to_date
+            @start_date = params[:start_date].to_date
+          else
+            @end_date = get_date(params[:end_date])
+            @start_date = get_date(params[:start_date])
+          end
+        else
+          @end_date = Date.today
+          @start_date =  Date.today -  NUMBER_OF_DAYS
+        end
+        @start_date,@end_date = @end_date,@start_date if @end_date < @start_date
+        @start_dt_str = @start_date.to_s + ' 00:00:00'
+        @end_dt_str   = @end_date.to_s + ' 23:59:59'
     end
-    @start_date,@end_date = @end_date,@start_date if @end_date < @start_date
-    @start_dt_str = @start_date.to_s + ' 00:00:00'
-    @end_dt_str   = @end_date.to_s + ' 23:59:59'
   end
 
 end
