@@ -19,17 +19,17 @@ class MobileControllerTest < Test::Unit::TestCase
   end
    
    def test_devices
-       get :devices, {},{:user => users(:dennis), :account_id => "1"} 
+       get :devices, {},{:user => users(:testuser), :account_id => "1"} 
        assert_response :success    
    end    
 
    def test_show_device
-       get :show_device, {:id=>"1"},{:user => users(:dennis), :account_id => "1"} 
+       get :show_device, {:id=>"1"},{:user => users(:testuser), :account_id => "1"} 
        assert_response :success
    end
    
    def test_view_all
-      get :view_all, {},{:user => users(:dennis), :account_id => "1"}   
+      get :view_all, {},{:user => users(:testuser), :account_id => "1"}   
       assert_response :success
    end
    

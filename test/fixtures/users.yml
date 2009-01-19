@@ -1,10 +1,10 @@
 <% @SALT = 'salty' %>
 
-dennis:
+testuser:
  id: 1
- first_name: dennis
- last_name: baldwin
- email: dennis@ublip.com
+ first_name: test
+ last_name: user
+ email: testuser@ublip.com
  salt: <%= @SALT %>
  crypted_password: <%= User.encrypt('testing', @SALT) %>
  account_id: 1

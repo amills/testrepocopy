@@ -1,7 +1,13 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < Test::Unit::TestCase
-  fixtures :users,:accounts
+
+  def setup
+    Account.delete_all
+    User.delete_all 
+    account = Factory.create(:account, :subdomain => 'dennis', :is_verified => true)
+    @dennis = Factory.create(:user, :account => account, :first_name => 'dennis', :last_name => 'baldwin', :password => 'testing',  :email => 'dennis@ublip.com')
+  end
 
   def test_should_create_user
     assert_difference 'User.count' do
@@ -25,13 +31,13 @@ class UserTest < Test::Unit::TestCase
   end
 
   def test_should_reset_password
-    users(:dennis).update_attributes(:password => 'new password', :password_confirmation => 'new password')
-    assert_equal users(:dennis), User.authenticate('dennis', 'dennis@ublip.com', 'new password')
+    @dennis.update_attributes(:password => 'new password', :password_confirmation => 'new password')
+    assert_equal @dennis, User.authenticate('dennis', 'dennis@ublip.com', 'new password')
   end
 
   def test_should_not_rehash_password
-    users(:dennis).update_attributes(:first_name => 'dennis2')
-    assert_equal users(:dennis), User.authenticate('dennis', 'dennis@ublip.com', 'testing')
+    @dennis.update_attributes(:first_name => 'dennis2')
+    assert_equal @dennis, User.authenticate('dennis', 'dennis@ublip.com', 'testing')
   end
   
   def test_should_not_authenticate_user
@@ -39,36 +45,34 @@ class UserTest < Test::Unit::TestCase
   end
 
   def test_should_authenticate_user
-    assert_equal users(:dennis), User.authenticate('dennis', 'dennis@ublip.com', 'testing')
+    assert_equal @dennis, User.authenticate('dennis', 'dennis@ublip.com', 'testing')
   end
   
   def test_should_set_remember_token
-    users(:dennis).remember_me
-    assert_not_nil users(:dennis).remember_token
-    assert_not_nil users(:dennis).remember_token_expires_at
+    @dennis.remember_me
+    assert_not_nil @dennis.remember_token
+    assert_not_nil @dennis.remember_token_expires_at
   end
 
   def test_should_unset_remember_token
-    users(:dennis).remember_me
-    assert_not_nil users(:dennis).remember_token
-    users(:dennis).forget_me
-    assert_nil users(:dennis).remember_token
+    @dennis.remember_me
+    assert_not_nil @dennis.remember_token
+    @dennis.forget_me
+    assert_nil @dennis.remember_token
   end
   
   def test_save
-    users(:dennis).password = 'testing'
-    users(:dennis).save!
+    @dennis.password = 'testing'
+    @dennis.save!
   end
   
   def test_edit
-    user = users(:dennis)
-    assert_equal 'dennis', user.first_name
-    assert_equal 'baldwin', user.last_name
-    assert_equal User.encrypt('testing', user.salt), user.crypted_password
-    user.first_name = 'dennis2'
-    user.last_name = 'baldwin2'
-    user.password = 'testing123'
-    user.save!
+    assert_equal 'dennis', @dennis.first_name
+    assert_equal 'baldwin', @dennis.last_name
+    assert_equal User.encrypt('testing', @dennis.salt), @dennis.crypted_password
+    @dennis.first_name = 'dennis2'
+    @dennis.last_name = 'baldwin2'
+    @dennis.save!
   end
   
   def test_generate_token
