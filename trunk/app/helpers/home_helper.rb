@@ -22,7 +22,7 @@ module HomeHelper
 
     content << %(<td nowrap>)
     if device.request_location?
-      content << %(<a href='/devices/find_now/#{device.id}' title='Request the location of this device'>find now</a>) 
+      content << %(<a href='/devices/find_now/#{device.id}' title='Request the location of this device'><img src="/images/find_now.png" alt="Find Now" border="0" /></a>) 
     else
       content << %(&nbsp;)
     end
