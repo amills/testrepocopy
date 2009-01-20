@@ -53,9 +53,9 @@
                 <%end%>    
               </td>
               
-              <% if @device.profile.speeds %><td><%= reading.speed %></td><% end %>
+              <% if @device.profile.speeds %><td><center><%= reading.speed %></center></td><% end %>
              
-              <td><%= render :partial => 'event_display',:locals => {:reading => reading} %></td>
+              <td><center><%= render :partial => 'event_display',:locals => {:reading => reading} %></center></td>
               
               <%if @device.profile.gpio1_name %>
                 <% if reading.gpio1.nil? %>

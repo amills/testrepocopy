@@ -15,12 +15,8 @@
      <%if !(@geofences.nil? || @geofences.empty?)%>
        <% @geofences.each do |geofence| %>
          <tr  class="<%= cycle('dark_row', 'light_row') %>">
-           <td><a href="<%= detail_url(:id=>geofence.id)%>"><%= geofence.name %></a></td>
-           <td>
-             <a href="/geofence/view<% if !geofence.device.nil? %>?id=device<%= geofence.device_id %>&gf=<%= geofence.id %><% else %>?id=account<%= geofence.account_id %>&gf=<%= geofence.id %><% end %>">
-               <% if !geofence.device.nil? %><%= geofence.device.name %><% else %><%= geofence.account.subdomain %><% end %>
-             </a>
-           </td>
+           <td><%= geofence.name %></td>
+           <td><% if !geofence.device.nil? %><%= geofence.device.name %><% else %><%= geofence.account.subdomain %><% end %></td>
            <td ><%= geofence.get_lat_lng %></td>
            <td ><%= geofence.radius.to_s + ' ' + 'miles' %></td>
            <td class="spacer" style="background-color:#FFFFFF;width:100px;">
