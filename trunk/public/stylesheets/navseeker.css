@@ -125,12 +125,24 @@ div {
 	}
 	
 	.panel_table .header {
-		background-color: #C6D9F1;
-		border: 2px solid #5990FF;
-		color: #333333;
+		background-color: #6699CC;
+		border-color: #6699CC;
+		color: #FFFFFF;
 		font-weight: bold;
 		font-size: 14px;
-		font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+		font-family: Arial, Helvetica, sans-serif;
 		padding: 5px;
 		text-align: center;
 		}
+		
+	.report_map_header{
+		width:99.7%; 
+		float: left; 
+		background-color:#6699CC;
+		color:#FFFFFF;
+		font-family:Arial,Helvetica,sans-serif;
+		font-size:14px;
+		padding:5px;	
+		font-weight: bold;
+		text-align: center;
+	}
