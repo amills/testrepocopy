@@ -8,7 +8,7 @@ body {
 	
 
 #nav_tabs {
-	background-color: #0066FF;
+	background-color: #000000;
 	position: absolute;
 	width: 100%;
 	bottom: 0px;}
@@ -21,7 +21,7 @@ body {
 	float:left;
 	list-style-type: none;
 	display: inline;
-	background-color: #003366;
+	background-color: #990000;
 	padding: 4px 0; /* 1px less padding for IE */
 	margin: 0 1px;
 }
@@ -34,27 +34,27 @@ body {
 
 #nav_tabs a:hover {
 	background-color: #FFFFFF;
-    color: #003366;
+    color: #000000;
     padding: 5px 10px;}
 
 #nav_tabs .selected a {
 	font-weight: bold;
-	color: #0066CC;
+	color: #000000;
 	background-color: #FFFFFF;
 	padding: 5px 10px;}
 
 #nav_tabs .selected a:hover {
 	font-weight: bold;
-	color: #0066CC;}
+	color: #000000;}
 
 #nav_tabs .selected_subnav a {
 	font-weight: bold;
-	color: #0066CC;
+	color: #000000;
 	background-color: #EEEEEE;
 	padding: 5px 10px;}
 
 #nav_tabs .selected_subnav a:hover {
-	color: #0066CC;
+	color: #000000;
 	background-color: #EEEEEE;}
 
 /*tabs CSS  End*/	
@@ -65,7 +65,7 @@ div#header {
 	padding: 0;
 	margin: 0;
 	height: 80px;
-	background-color: #0066FF;
+	background-color: #000000;
 	position: relative;}
 
 div#logo {
@@ -101,7 +101,7 @@ div#header_login #logo {
 	background-color:#eaeaea; 
 	padding:7px 2%}
 #submenu .current{
-	color:#1364B2; 
+	color:#000000; 
 	font-family:Arial, Helvetica, sans-serif; 
 	font-size:12px;
 	font-weight:bold;
@@ -112,19 +112,19 @@ div#header_login #logo {
 /*link CSS */
 
 a:link {
-	color:#1364B2; 
+	color:#990000; 
 	font-family:Arial, Helvetica, sans-serif; 
 	font-size:12px;
 	font-weight:normal;
 	text-decoration:underline; }
 a:visited {
-	color:#1364B2; 
+	color:#990000; 
 	font-family:Arial, Helvetica, sans-serif; 
 	font-size:12px;
 	font-weight:normal;
 	text-decoration:underline;}
 a:hover {
-	color:#1364B2;
+	color:#000000;
 	text-decoration:none;}
 /*link CSS end*/
 
@@ -136,8 +136,8 @@ a:hover {
 
 div#login_form_container {
 	padding: 10px;
-	border: 6px solid #336699;
-	background-color: #DEE8F3;}
+	border: 6px solid #000000;
+	background-color: #CCCCCC;}
 
 div#login_form_container {
 	line-height: 30px;}
@@ -156,7 +156,7 @@ div#login_form_container {
 
 .form_table input {
 	font-weight: bold;
-	color: #006699;
+	color: #000000;
 }
 	
 .bold_button {
@@ -278,9 +278,6 @@ div#subnav {
 	padding: 7px;
 	margin: 5px;
 	color: #666666;}
-
-#device_list a {
-	color: #333333;}
 
 div#title {
 	margin: 10px 10px 0 10px;
@@ -583,7 +580,7 @@ div#content_login {
 div#content_login h1{
 color:#666666;
 font-family:Arial,Helvetica,sans-serif;
-font-size:30px;
+font-size:24px;
 margin-bottom: 15px;}
 
 #new{
@@ -607,7 +604,7 @@ margin-bottom: 15px;}
 
 h3 {
 	font-size: 18px;
-	color: #003366;}
+	color: #000000;}
 
 h4 {
 	color: #666666;}
@@ -630,8 +627,8 @@ h4 {
 	border-collapse: collapse;}
 
 .panel_table th {
-	background-color: #CCCCCC;
-	color: #003366;
+	background-color: #666666;
+	color: #FFFFFF;
 	padding: 5px;
 	border: 1px solid #FFFFFF;}
 
@@ -641,7 +638,7 @@ h4 {
 
 
 .panel_table .header {
-	background-color: #6699CC;
+	background-color: #990000;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -672,12 +669,12 @@ h4 {
 	padding:0pt;
 	width:100%;}
 #ub-table th {
-	background-color:#6699CC;
+	background-color:#990000;
 	color: #FFFFFF;
 	border: 1px solid #FFFFFF;
 	padding: 5px;}
 #ub-table tr.header{ 
-	background-color:#6699cc;  
+	background-color:#990000;  
 	color:#ffffff; 
 	font-weight:normal; 
 	font-size:12px; 
@@ -689,22 +686,6 @@ h4 {
 #ub-table td {
 	border: 1px solid #FFFFFF;
 	padding: 5px;}
-
-#ub-table a:link {
-	color:#1364B2; 
-	font-family:Arial, Helvetica, sans-serif; 
-	font-size:12px;
-	font-weight:normal;
-	text-decoration:none; }
-#ub-table a:visited {
-	color:#1364B2; 
-	font-family:Arial, Helvetica, sans-serif; 
-	font-size:12px;
-	font-weight:normal;
-	text-decoration:none;}
-#ub-table a:hover {
-	color:#1364B2;
-	text-decoration: underline;}
 
 .short_text {
 	width: 150px;}
@@ -994,7 +975,7 @@ div#success_message {
 	
 #top_head h3 {
 	font-size: 18px;
-	color: #003366; 
+	color: #000000; 
 	padding:0px; 
 	margin:0px; 
 	width:70%; 
@@ -1064,5 +1045,5 @@ div#footer {
 .title {
 	font-size: 18px;
 	font-weight: bold;
-	color: #003366;
+	color: #000000;
 }
