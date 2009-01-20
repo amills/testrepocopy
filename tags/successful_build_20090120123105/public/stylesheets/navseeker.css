@@ -1,0 +1,148 @@
+body {
+	color: #333333;
+}
+
+div#header {
+	padding: 0;
+	margin: 0;
+	height: 60px;
+	background-color: #FFFFFF;
+	position: relative;}
+	
+#nav_tabs {
+	background-color: #FFFFFF;
+	position: absolute;
+	width: 100%;
+	bottom: 0px;}
+
+#nav_tabs li {
+	float:left;
+	list-style-type: none;
+	display: inline;
+	background-color: #4D4D4D;
+	padding: 12px;  /*1px less padding for IE */
+	margin: 0 4px;
+	border: 2px solid #C0C0C0;
+}
+
+#nav_tabs li:hover {
+	background-color: #0066FF;
+	color: #FFFFFF;
+}
+
+#nav_tabs a {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+	
+#nav_tabs a:hover {
+	background-color: #0066FF;
+	color: #FFFFFF;
+}
+
+#nav_tabs .selected {
+	border: 2px solid #99CCFF;
+	background-color: #0066FF;
+}
+
+#nav_tabs .selected a {
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #0066FF;
+	}
+
+#nav_tabs .selected a:hover {
+	font-weight: bold;
+	background-color: #0066FF;
+	color: #FFFFFF;}
+	
+div#content {
+	margin: 10px 0;
+	min-height: 400px;
+	}
+
+	.panel_table {
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		}
+
+.panel_table th {
+	background-color: #CCCCCC;
+	color: #333333;
+	padding: 5px;
+	border: 1px solid #000000;
+}
+
+.indicator {
+	width: 100px;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.indicator img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.ok {
+	background-color: #009900;
+	color: #FFFFFF;
+	font-weight: bold;
+	border: 2px solid #85E278;
+}
+
+.warning {
+	background-color: #FFCC00;
+	color: #000000;
+	font-weight: bold;
+	border: 2px solid #FFFF00;
+}
+
+.error {
+	background-color: #FF0000;
+	color: #FFFFFF;
+	font-weight: bold;
+	border: 2px solid #FF7979;
+}
+
+div {
+	margin: 0;
+}
+
+.panel_table {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	}
+
+.panel_table th {
+	background-color: #CCCCCC;
+	color: #333333;
+	padding: 5px;
+	border: 1px solid #000000;
+	}
+	
+	.panel_table .header {
+		background-color: #6699CC;
+		border-color: #6699CC;
+		color: #FFFFFF;
+		font-weight: bold;
+		font-size: 14px;
+		font-family: Arial, Helvetica, sans-serif;
+		padding: 5px;
+		text-align: center;
+		}
+		
+	.report_map_header{
+		width:99.7%; 
+		float: left; 
+		background-color:#6699CC;
+		color:#FFFFFF;
+		font-family:Arial,Helvetica,sans-serif;
+		font-size:14px;
+		padding:5px;	
+		font-weight: bold;
+		text-align: center;
+	}
