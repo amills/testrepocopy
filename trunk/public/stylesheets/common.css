@@ -59,33 +59,6 @@ body {
 
 /*tabs CSS  End*/	
 
-input.disabled_button {
-	background-color: #4D4D4D;
-	color: #FFFFFF;
-	padding: 2px;
-}
-
-input.blue_button {
-	background-color: #0066FF;
-	color: #FFFFFF;
-	padding: 2px;
-	cursor:pointer;
-}
-
-input.green_button {
-	background-color: #5ABD5A;
-	color: #FFFFFF;
-	padding: 2px;
-	cursor:pointer;
-}
-
-input.red_button {
-	background-color: #FF0000;
-	color: #FFFFFF;
-	padding: 2px;
-	cursor:pointer;
-}
-
 /*header CSS */
 
 div#header {
