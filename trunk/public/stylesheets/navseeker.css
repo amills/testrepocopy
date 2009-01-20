@@ -1,5 +1,6 @@
 body {
 	color: #333333;
+	min-width: 850px;
 }
 
 div#header {
