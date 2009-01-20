@@ -12,6 +12,7 @@ class Enfora::CommandRequest < ActiveRecord::Base
       when 'N/A'
         return 'In Progress'
       else
+        return 'Success' if status.index('AT->') == 0
         return status
     end
   end
