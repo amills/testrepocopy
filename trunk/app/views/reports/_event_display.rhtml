@@ -18,8 +18,6 @@
 	Idle
 <% elsif @device.profile.speeds and reading.event_type == 'speeding' %>
 	Speeding
-<% elsif (@device.profile.runs or @device.profile.idles) and reading.event_type.index('engine') %>
-	<%= reading.event_type.titleize %>
 <% else %>
-	-
+	<%= reading.event_type.titleize %>
 <% end %>

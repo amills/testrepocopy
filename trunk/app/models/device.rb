@@ -94,33 +94,7 @@ class Device < ActiveRecord::Base
   end
   
   def latest_status
-    results = nil
-    
-    if profile.idles and latest_idle_event and latest_idle_event.duration.nil?
-      results = [REPORT_TYPE_IDLE,"Idling"]
-    elsif profile.stops and latest_stop_event and latest_stop_event.duration.nil?
-      results = [REPORT_TYPE_STOP,"Stopped"]
-    elsif profile.speeds and latest_speed_reading
-      if account.max_speed and latest_speed_reading.speed > account.max_speed
-        results = [REPORT_TYPE_SPEEDING,"Speeding (#{latest_speed_reading.speed}mph)"]
-      else
-        results = [REPORT_TYPE_ALL,"Moving"]
-      end
-    end
-
-    results = [REPORT_TYPE_RUNTIME,latest_runtime_event.duration.nil? ? "On" : "Off"]  if profile.runs and results.nil? and latest_runtime_event
-
-    if profile.gpio1_name and latest_data_reading
-      gpio1_status = (latest_data_reading.gpio1 ? profile.gpio1_high_status : profile.gpio1_low_status)
-      results = [REPORT_TYPE_GPIO1,gpio1_status] unless gpio1_status.blank?
-    end
-    
-    if profile.gpio2_name and latest_data_reading
-      gpio2_status = (latest_data_reading.gpio2 ? profile.gpio2_high_status : profile.gpio2_low_status)
-      results = [REPORT_TYPE_GPIO2,gpio2_status] unless gpio2_status.blank?
-    end
-    
-    results
+    [REPORT_TYPE_ALL,latest_gps_reading.event_type] if latest_gps_reading
   end
   
   def online?
