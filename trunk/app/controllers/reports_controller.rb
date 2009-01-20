@@ -241,14 +241,14 @@ private
   def get_start_and_end_date
     case (@time_period = (params[:time_period] || 'hour'))
       when 'hour'
-        @end_date_str = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-        @start_date_str = (Time.now - 60 * 60).strftime('%Y-%m-%d %H:%M:%S')
+        @end_dt_str = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+        @start_dt_str = (Time.now - 60 * 60).strftime('%Y-%m-%d %H:%M:%S')
 
         @end_date = Date.today
         @start_date =  Date.today -  NUMBER_OF_DAYS
       when 'day'
-        @end_date_str = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-        @start_date_str = (Time.now - 24 * 60 * 60).strftime('%Y-%m-%d %H:%M:%S')
+        @end_dt_str = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+        @start_dt_str = (Time.now - 24 * 60 * 60).strftime('%Y-%m-%d %H:%M:%S')
 
         @end_date = Date.today
         @start_date =  Date.today -  NUMBER_OF_DAYS
