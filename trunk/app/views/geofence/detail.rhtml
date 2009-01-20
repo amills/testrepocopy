@@ -21,8 +21,8 @@
       <% end %>
       
       <div id="ub-ajax_butt">
-        <input type="button" onclick="document.location='<%= edit_url(:id=>@geofence.id)%>';" value="edit" />
-        <input type="button" onclick="if(confirm('Are you sure you want to delete this geofence ?'))document.location='<%= delete_url(:id=>@geofence.id) %>';" value="delete"/>
+        <input type="button" class="blue_button" style="width:100px;" onclick="document.location='<%= edit_url(:id=>@geofence.id)%>';" value="Edit" />
+        <input type="button" class="red_button" style="width:100px;" onclick="if(confirm('Are you sure you want to delete this geofence ?'))document.location='<%= delete_url(:id=>@geofence.id) %>';" value="Delete"/>
       </div>    
     </div>
     

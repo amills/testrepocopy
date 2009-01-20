@@ -66,7 +66,13 @@ input.disabled_button {
 }
 
 input.blue_button {
-	background-color: #0066CC;
+	background-color: #0066FF;
+	color: #FFFFFF;
+	padding: 2px;
+}
+
+input.green_button {
+	background-color: #5ABD5A;
 	color: #FFFFFF;
 	padding: 2px;
 }

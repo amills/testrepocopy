@@ -2,10 +2,13 @@
 <div id="ub_account_tbl">
     <div><h3>Edit Geofence</h3></div>
     <div>
-   <form method="post" id="geofence_form" onSubmit="return validate();">
-    <div> <input type="radio" id="radio" name="radio" value="1" <% if @geofence.account_id != 0 %>checked<%end%> onclick="enableDevice(this);"/> Account Level   <input type="radio" id="radio" name="radio" onclick="<%if @devices.empty?%>alert('You can\'t create device level geofence.');<%else%>enableDevice(this);<%end%>" value="2" <% if @geofence.device_id != 0 %>checked<%end%> /> Device Level</div>
+   	<form method="post" id="geofence_form" onSubmit="return validate();">
+		<div><strong>This geofence applies to:</strong></div>	 			
+   	
+		<input type="radio" id="radio" name="radio" value="1" <% if @geofence.account_id != 0 %>checked<%end%> onclick="enableDevice(this);"/> All NavSeeker Locators<br/>
+		<input type="radio" id="radio" name="radio" onclick="<%if @devices.empty?%>alert('You can\'t create device level geofence.');<%else%>enableDevice(this);<%end%>" value="2" <% if @geofence.device_id != 0 %>checked<%end%> /> A Single NavSeeker Locator
     
-    <div class="ub_editform">Choose the device: <br/>
+    <div class="ub_editform">
 		<select id="device" name="device" class="text_width" <% if @geofence.account_id != 0 && @geofence.device_id == 0%>disabled<% end %>>
 		<% @devices.each do |device| %>
 			<option value="<%= device.id %>" <%= "selected='selected'" if @geofence.device_id == device.id %>><%= device.name %></option>
@@ -13,21 +16,21 @@
 		</select>	  
     </div>
 	
-    <div>Geofence name: <br/>
+    <div><strong>Geofence name:</strong> <br/>
       <input   name="name" type="text" class="text_width" value="<%= @geofence.name %>" />
     </div>
 	<input type="hidden" name="ref_url" value="<%= session[:referral_url] %>">
     
-    <div>Geofence address: <br/>
+    <div><strong>Geofence address:</strong> <br/>
 		<input  id="address" name="address" class="text_width" value="<%= @geofence.address %>" type="text" />
     </div>
 
     <div>
-		<input type="button" name="Preview" value="preview" onclick="geocode(document.getElementById('address').value); return false;" />
+		<input type="button" class="blue_button" value="preview" onclick="geocode(document.getElementById('address').value); return false;" />
     </div>
 
 	
-    <div>Radius: <br/>
+    <div><strong>Radius:</strong> <br/>
 		<select id="radius" name="radius" >                
                  <% RADIUS_ARRAY.each do |rad|%>
 			      <option value="<%=rad%>" <%= "selected='selected'" if @geofence.radius == rad %>><%= rad%></option>
@@ -39,8 +42,8 @@
   <input type="hidden" name="bounds" />
   
   <div>
-    <input name="Create geofence" type="submit" value="update geofence" style="cursor:pointer;"/>	
-    <a href="<%= session[:referral_url] %>" >cancel</a>
+    <input type="submit" value="Update Geofence" style="cursor:pointer;"/>	
+	<input type="button" class="red_button" value="Cancel" onclick="window.location = '<%= session[:referral_url] %>'; return false;"/>
   </div>
   </form>
 </div>
