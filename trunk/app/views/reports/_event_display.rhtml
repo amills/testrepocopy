@@ -28,6 +28,8 @@
 	<% else %>
 		<%= reading.event_type.titleize %>
 	<% end %>
+<% elsif reading.event_type == 'Location Request' %>
+	Location Request
 <% else %>
 	-
 <% end %>
