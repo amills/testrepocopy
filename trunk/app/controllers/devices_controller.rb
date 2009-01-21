@@ -3,11 +3,12 @@ class DevicesController < ApplicationController
   before_filter :authorize
   
   def find_now
+    @original_referral_url = (params[:original_referral_url] || session[:referral_url])
     @device = Device.find_by_id(params[:id], :conditions => ["account_id = ? and provision_status_id=1", session[:account_id]])
     if @device.nil?
       flash[:error] = 'Invalid action.'
       redirect_to :controller => 'devices'
-    elsif request.post?
+    else
       unless @device.request_location?
         flash[:error] = "This device does not support requesting its location."
       else
@@ -16,6 +17,8 @@ class DevicesController < ApplicationController
           flash[:error] = "A location request is already in progress. Please wait a few minutes and try again."
         else
           @device.submit_location_request
+          flash[:success] = "The location has been requested"
+          redirect_to @original_referral_url if @original_referral_url
         end
       end
     end
