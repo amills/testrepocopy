@@ -18,14 +18,6 @@
   <body onload="load();">
     <%= render :partial => 'layouts/includes/header' %>
   
-    <% if current_account.show_statistics or current_account.show_maintenance %>
-      <div id="submenu" style="background-color:white;padding-bottom:0px;">
-        <% if params[:action] == 'index' %><a href="<%= url_for(:controller=>"home") %>" class="current" >Locations</a><% else %><a href="<%= url_for(:controller=>"home")%>">Locations</a><% end %>  
-        <% if current_account.show_statistics %> | <% if params[:action] == 'statistics' %><a href="<%= url_for(:controller=>"home",:action=>"statistics") %>" class="current" >Statistics</a><% else %><a href="<%= url_for(:controller=>"home",:action=>"statistics")%>">Statistics</a><% end %><% end %>
-        <% if current_account.show_maintenance %> | <% if params[:action] == 'maintenance' %><a href="<%= url_for(:controller=>"home",:action=>"maintenance") %>" class="current" >Maintenance</a><% else %><a href="<%= url_for(:controller=>"home",:action=>"maintenance")%>">Maintenance</a><% end %><% end %>
-      </div>
-    <% end %>
-  
     <div id="content">
       <table  width="100%">                                        
         <tr>
@@ -46,7 +38,7 @@
             </a>
           </td>         
         
-          <td valign="top" width="50%" id="right_panel">                                                   
+          <td valign="top" width="50%" id="right_panel" style="min-width:400px;">                                                   
             <table class="panel_table">
               <tr>
                 <td class="header" >                                         
