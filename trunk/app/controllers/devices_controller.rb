@@ -12,9 +12,8 @@ class DevicesController < ApplicationController
         flash[:error] = "This device does not support requesting its location."
       else
         last_request = @device.last_location_request
-        if last_request and last_request.start_date_time + Device::FINDIT_DELAY >= Time.now
-          minutes_ago = ((Time.now - last_request.start_date_time) / 60).to_i
-          flash[:error] = "The location was requested about #{minutes_ago} minutes ago. Please wait another #{(Device::FINDIT_DELAY / 60).to_i - minutes_ago} minutes and try again."
+        if last_request and last_request.end_date_time.nil?
+          flash[:error] = "A location request is already in progress. Please wait a few minutes and try again."
         else
           @device.submit_location_request
         end

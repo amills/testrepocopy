@@ -11,8 +11,6 @@ class Device < ActiveRecord::Base
   REPORT_TYPE_GPIO1     = 5
   REPORT_TYPE_GPIO2     = 6
   
-  FINDIT_DELAY = 60 * 60
-
   belongs_to :account
   belongs_to :group
   belongs_to :profile,:class_name => 'DeviceProfile'
