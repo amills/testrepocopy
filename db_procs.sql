@@ -276,8 +276,29 @@ END;;
 DROP TRIGGER IF EXISTS trig_readings_after_insert;;
 CREATE TRIGGER trig_readings_after_insert AFTER INSERT ON readings FOR EACH ROW BEGIN
     DECLARE last_reading_time DATETIME;
+    CALL check_for_trip_change(NEW.device_id, NEW.id, NEW.created_at, NEW.ignition);
     SELECT r.created_at INTO last_reading_time FROM devices d,readings r WHERE d.id=NEW.device_id AND r.id=d.recent_reading_id;
     IF NEW.created_at >= last_reading_time OR last_reading_time IS NULL THEN
         UPDATE devices SET recent_reading_id=NEW.id WHERE id=NEW.device_id;
+    END IF;
+END;;
+
+DROP PROCEDURE IF EXISTS check_for_trip_change;;
+CREATE PROCEDURE check_for_trip_change(
+    _device_id INT(11),
+    _reading_id INT(11),
+    _timestamp DATETIME,
+    _ignition BOOLEAN
+)
+BEGIN
+    SELECT ignition INTO @previous_ignition FROM readings WHERE device_id=_device_id AND created_at < _timestamp AND ignition IS NOT NULL ORDER BY created_at DESC LIMIT 1;
+    IF _ignition=TRUE AND (@previous_ignition=FALSE OR @previous_ignition IS NULL) THEN
+        INSERT INTO trip_events (device_id, reading_start_id, created_at) VALUES (_device_id, _reading_id, _timestamp);
+    END IF;
+    IF _ignition=FALSE AND @previous_ignition=TRUE THEN
+        SELECT duration,id INTO @duration,@trip_id FROM trip_events WHERE device_id=_device_id AND created_at<_timestamp ORDER BY created_at desc limit 1;
+        IF @duration IS NULL THEN
+            UPDATE trip_events SET duration=TIMESTAMPDIFF(MINUTE,created_at,_timestamp) WHERE id=@trip_id;
+        END IF;
     END IF;
 END;;
