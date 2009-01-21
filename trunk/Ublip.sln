@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{325B8569-0C7C-4A6A-8AF8-89C3B6BC9E74}") = "Ublip", "Ublip.stproj", "{AC95A502-A52B-4F6C-BEB7-8D265E8A3FBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC95A502-A52B-4F6C-BEB7-8D265E8A3FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC95A502-A52B-4F6C-BEB7-8D265E8A3FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC95A502-A52B-4F6C-BEB7-8D265E8A3FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC95A502-A52B-4F6C-BEB7-8D265E8A3FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

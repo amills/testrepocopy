@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081114211002) do
+ActiveRecord::Schema.define(:version => 20090121212856) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company",          :limit => 75
@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(:version => 20081114211002) do
     t.string   "time_zone"
     t.boolean  "is_super_admin",                          :default => false
     t.string   "access_key"
+    t.integer  "cellphone",                 :limit => 11
   end
 
 end
