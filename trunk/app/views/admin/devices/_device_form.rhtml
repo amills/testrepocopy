@@ -30,6 +30,7 @@
 			</select>
 		</td>
 	</tr>
+	<tr><td>Offline Threshold:</td><td>&nbsp;</td><td><input type="text" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="device[online_threshold]" value="<%= @device.online_threshold %>" /></td><td>Minutes</td></tr>
 	<tr>
 		<td>Make GeoRSS Public?</td><td>&nbsp;</td><td style="text-align: left"><input type="checkbox" name="device[is_public]" value="1" <% if @device.is_public == 1 %>checked="checked"<% end %> /></td>
 	</tr>

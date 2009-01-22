@@ -14,6 +14,11 @@
       <td><input type="text" name="device[imei]" value="<%= @device.imei %>"<% unless session[:is_admin] %> disabled<% end %>/></td>
     </tr>
     
+    <tr>
+      <th>Offline Threshold</th>
+      <td><input type="text" name="device[online_threshold]" value="<%= @device.online_threshold %>"<% unless session[:is_admin] %> disabled<% end %>/></td><td>Minutes</td>
+    </tr>
+	
     <% if session[:is_admin] %>
       <tr>
         <td></td>
@@ -22,7 +27,7 @@
     <% else %>
       <tr>
         <td></td>
-        <td><span class="gray_small">(You must be an administrator to change the IMEI)</span></td>
+        <td><span class="gray_small">(You must be an administrator to change the IMEI and Offline Threshold)</span></td>
       </tr>
     <% end %>
     
