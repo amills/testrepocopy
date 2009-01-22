@@ -1,5 +1,6 @@
 class MaintenanceTask < ActiveRecord::Base
   belongs_to :device
+  include ApplicationHelper
   
   validates_presence_of :description
   
