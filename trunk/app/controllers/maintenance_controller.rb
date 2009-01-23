@@ -42,7 +42,7 @@ class MaintenanceController < ApplicationController
     @task.description = params[:description]
     @task.task_type = params[:task_type] == 'scheduled' ? MaintenanceTask::TYPE_SCHEDULED : MaintenanceTask::TYPE_RUNTIME
     @task.target_runtime = params[:runtime_hours].to_f * 60 * 60
-    @task.target_at = get_date(params[:target_at])
+    @task.target_at = get_date(params[:target_at]).to_time
     @task.remind_runtime = nil
     @task.remind_at = nil
     @task.reminder_notified = nil
