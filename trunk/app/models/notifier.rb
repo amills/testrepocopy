@@ -56,7 +56,7 @@ class Notifier < ActionMailer::Base
           device.save
           action = reading.gpio1 ? device.profile.gpio1_high_notice : device.profile.gpio1_low_notice
           send_notify_reading_to_users(action,reading) if action
-        end
+		end
         if device.last_gpio2.nil?
           device.last_gpio2 = reading.gpio2
           device.save
@@ -65,7 +65,7 @@ class Notifier < ActionMailer::Base
           device.save
           action = reading.gpio2 ? device.profile.gpio2_high_notice : device.profile.gpio2_low_notice
           send_notify_reading_to_users(action,reading) if action
-        end
+		end
       end
     end
   end
@@ -103,15 +103,16 @@ class Notifier < ActionMailer::Base
   def self.send_notify_reading_to_users(action,reading)
     reading.device.account.users.each do |user|
       if user.enotify == 1       
-        logger.info("notifying(1): #{user.email} about: #{action}\n")
-        mail = deliver_notify_reading(user, action, reading)
+		  logger.info("notifying(1): #{user.email} about: #{action}\n")
+		  mail = deliver_notify_reading(user, action, reading)
       elsif user.enotify == 2         
-        device_ids = user.group_devices_ids
-        if  !device_ids.empty? && device_ids.include?(reading.device.id)
-          logger.info("notifying(2): #{user.email} about: #{action}\n")
-          mail = deliver_notify_reading(user, action, reading)            
-        end    
-      end    
+		  device_ids = user.group_devices_ids
+		  if  !device_ids.empty? && device_ids.include?(reading.device.id)
+			  logger.info("notifying(2): #{user.email} about: #{action}\n")
+			  mail = deliver_notify_reading(user, action, reading)            
+		  end    
+      end
+	  save_notification(action, user)
     end
   end
   
@@ -128,6 +129,16 @@ class Notifier < ActionMailer::Base
         end    
       end    
     end
+  end
+  
+  def self.save_notification(action, user)
+	  if user.enotify != 0
+		  notification = Notification.new
+		  notification.user_id = user.id
+		  notification.device_id = device.id
+		  notification.notification_type = action
+		  notification.save   
+	  end
   end
   
   def forgot_password(user, url=nil)
