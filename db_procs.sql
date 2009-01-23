@@ -133,8 +133,9 @@ CREATE PROCEDURE insert_reading_with_io(
 	_gpio2 TINYINT(1)
 )
 BEGIN
-	CALL insert_reading(_latitude, _longitude, _altitude, _speed, _heading, _modem, _created,_event_type);
-	UPDATE readings SET ignition=_ignition, gpio1=_gpio1, gpio2=_gpio2 WHERE id=LAST_INSERT_ID();
+	SELECT id INTO @deviceID FROM devices WHERE imei=_modem;
+	INSERT INTO readings (device_id, latitude, longitude, altitude, speed, direction, event_type, created_at, ignition, gpio1, gpio2)
+		VALUES (@deviceID, _latitude, _longitude, _altitude, _speed, _heading, _event_type, _created, _ignition, _gpio1, _gpio2);
 END;;
 
 DROP PROCEDURE IF EXISTS process_stop_events;;
