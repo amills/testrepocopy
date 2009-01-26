@@ -49,12 +49,13 @@ class TripTest < Test::Unit::TestCase
       setup do
         Factory.create(:reading, :device => @device1, :speed => 0, :ignition => 1, :latitude =>1, :longitude =>2, :created_at => Time.now-180)
         Factory.create(:reading, :device => @device1, :speed => 10,:ignition => 1, :latitude =>1, :longitude =>2, :created_at => Time.now-150)
-        Factory.create(:reading, :device => @device1, :speed => 0, :ignition => 0,:latitude =>1, :longitude =>2, :created_at => Time.now)
+        @stop = Factory.create(:reading, :device => @device1, :speed => 0, :ignition => 0,:latitude =>1, :longitude =>2, :created_at => Time.now)
       end
       should "create and close a trip event" do
         @device1.reload
         assert_equal 1, @device1.trip_events.size
         assert_equal 3, @device1.trip_events[0].duration
+        assert_equal @stop.id, @device1.trip_events[0].reading_stop_id
       end
     end
   end

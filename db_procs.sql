@@ -17,6 +17,7 @@ END;;
 
 /*comment to make netbeans sql editor happy*/
 
+
 DROP PROCEDURE IF EXISTS insert_stop_event;;
 CREATE PROCEDURE insert_stop_event(
 	_latitude FLOAT,
@@ -299,7 +300,7 @@ BEGIN
     IF _ignition=FALSE AND @previous_ignition=TRUE THEN
         SELECT duration,id INTO @duration,@trip_id FROM trip_events WHERE device_id=_device_id AND created_at<_timestamp ORDER BY created_at desc limit 1;
         IF @duration IS NULL THEN
-            UPDATE trip_events SET duration=TIMESTAMPDIFF(MINUTE,created_at,_timestamp) WHERE id=@trip_id;
+            UPDATE trip_events SET reading_stop_id=_reading_id, duration=TIMESTAMPDIFF(MINUTE,created_at,_timestamp) WHERE id=@trip_id;
         END IF;
     END IF;
 END;;
