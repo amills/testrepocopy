@@ -137,6 +137,7 @@ class Notifier < ActionMailer::Base
 		  notification.user_id = user.id
 		  notification.device_id = reading.device_id
 		  notification.notification_type = action
+		  notification.created_at = reading.created_at
 		  notification.save   
 	  end
   end

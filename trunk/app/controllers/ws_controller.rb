@@ -17,6 +17,8 @@ class WsController < ApplicationController
       reading.speed = params[:spd]
       reading.direction = params[:dir]
       reading.note = params[:note]
+	  reading.gpio1 = params[:gpio1]
+	  reading.gpio2 = params[:gpio2]
       reading.device_id = device.id
       reading.event_type = "DEFAULT"
       
