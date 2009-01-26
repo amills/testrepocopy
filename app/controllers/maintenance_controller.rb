@@ -79,4 +79,18 @@ class MaintenanceController < ApplicationController
   rescue
     flash[:error] = $!.to_s
   end
+
+  def delete
+    unless session[:is_admin]
+      flash[:error] = 'Only administrators can delete maintenance tasks'
+      return redirect_to(:controller => 'reports', :action => 'maintenance', :id => params[:id])
+    end
+      
+    if request.post?
+      task = MaintenanceTask.find(params[:id])
+      task.destroy
+      flash[:success] = task.description + ' was deleted successfully'
+      redirect_to(:controller => 'reports', :action => 'maintenance', :id => params[:id])
+    end
+  end
 end
