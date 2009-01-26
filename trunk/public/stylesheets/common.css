@@ -21,7 +21,7 @@ body {
 	float:left;
 	list-style-type: none;
 	display: inline;
-	background-color: #003366;
+	background: #003366 url(../images/nav_blue_left.jpg) left top no-repeat;
 	padding: 4px 0; /* 1px less padding for IE */
 	margin: 0 1px;
 }
@@ -33,14 +33,14 @@ body {
 	padding: 5px 10px;}
 
 #nav_tabs a:hover {
-	background-color: #FFFFFF;
+	background: #FFFFFF url(../images/nav_white_left.jpg) left top no-repeat;
     color: #003366;
     padding: 5px 10px;}
 
 #nav_tabs .selected a {
 	font-weight: bold;
 	color: #0066CC;
-	background-color: #FFFFFF;
+	background: #FFFFFF url(../images/nav_white_left.jpg) left top no-repeat;
 	padding: 5px 10px;}
 
 #nav_tabs .selected a:hover {
