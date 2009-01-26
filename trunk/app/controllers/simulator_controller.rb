@@ -1,5 +1,6 @@
 class SimulatorController < ApplicationController
   before_filter :authorize
+  
 
   def index
     @devices = Device.get_devices(session[:account_id])
@@ -11,7 +12,9 @@ class SimulatorController < ApplicationController
     reading.device_id = params[:device_id]
     reading.latitude = params[:lat]
     reading.longitude = params[:lng]
-    reading.speed = 0
+    reading.speed = 53
+	reading.gpio1 = 0
+	reading.gpio2 = 1
     reading.save
     render :text => "ok"
   end

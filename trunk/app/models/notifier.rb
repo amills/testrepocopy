@@ -112,7 +112,7 @@ class Notifier < ActionMailer::Base
 			  mail = deliver_notify_reading(user, action, reading)            
 		  end    
       end
-	  save_notification(action, user)
+	  save_notification( user, action, reading)
     end
   end
   
@@ -131,11 +131,11 @@ class Notifier < ActionMailer::Base
     end
   end
   
-  def self.save_notification(action, user)
+  def self.save_notification( user, action, reading)
 	  if user.enotify != 0
 		  notification = Notification.new
 		  notification.user_id = user.id
-		  notification.device_id = device.id
+		  notification.device_id = reading.device_id
 		  notification.notification_type = action
 		  notification.save   
 	  end
