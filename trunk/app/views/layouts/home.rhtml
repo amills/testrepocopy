@@ -23,7 +23,8 @@
         <% if params[:action] == 'index' %><a href="<%= url_for(:controller=>"home") %>" class="current" >Locations</a><% else %><a href="<%= url_for(:controller=>"home")%>">Locations</a><% end %>  
         <% if current_account.show_statistics %> | <% if params[:action] == 'statistics' %><a href="<%= url_for(:controller=>"home",:action=>"statistics") %>" class="current" >Statistics</a><% else %><a href="<%= url_for(:controller=>"home",:action=>"statistics")%>">Statistics</a><% end %><% end %>
         <% if current_account.show_maintenance %> | <% if params[:action] == 'maintenance' %><a href="<%= url_for(:controller=>"home",:action=>"maintenance") %>" class="current" >Maintenance</a><% else %><a href="<%= url_for(:controller=>"home",:action=>"maintenance")%>">Maintenance</a><% end %><% end %>
-      </div>
+        <% if current_account.show_notifications %> | <% if params[:action] == 'notifications' %><a href="<%= url_for(:controller=>"home",:action=>"notifications") %>" class="current" >Notifications</a><% else %><a href="<%= url_for(:controller=>"home",:action=>"notifications")%>">Notifications</a><% end %><% end %>   
+	  </div>
     <% end %>
   
     <div id="content">

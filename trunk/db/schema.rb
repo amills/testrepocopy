@@ -9,24 +9,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090122141143) do
+ActiveRecord::Schema.define(:version => 20090126184206) do
 
   create_table "accounts", :force => true do |t|
-    t.string   "company",          :limit => 75
-    t.string   "address",          :limit => 50
-    t.string   "city",             :limit => 50
-    t.string   "state",            :limit => 25
-    t.string   "zip",              :limit => 15
-    t.string   "subdomain",        :limit => 100
+    t.string   "company",            :limit => 75
+    t.string   "address",            :limit => 50
+    t.string   "city",               :limit => 50
+    t.string   "state",              :limit => 25
+    t.string   "zip",                :limit => 15
+    t.string   "subdomain",          :limit => 100
     t.datetime "updated_at"
     t.datetime "created_at"
-    t.boolean  "is_verified",                     :default => false
-    t.boolean  "is_deleted",                      :default => false
-    t.boolean  "show_idle",                       :default => false
-    t.boolean  "show_runtime",                    :default => false
-    t.boolean  "show_statistics",                 :default => false
-    t.boolean  "show_maintenance",                :default => false
-    t.integer  "max_speed",        :limit => 11
+    t.boolean  "is_verified",                       :default => false
+    t.boolean  "is_deleted",                        :default => false
+    t.boolean  "show_idle",                         :default => false
+    t.boolean  "show_runtime",                      :default => false
+    t.boolean  "show_statistics",                   :default => false
+    t.boolean  "show_maintenance",                  :default => false
+    t.integer  "max_speed",          :limit => 11
+    t.boolean  "show_notifications",                :default => false
   end
 
   create_table "device_profiles", :force => true do |t|

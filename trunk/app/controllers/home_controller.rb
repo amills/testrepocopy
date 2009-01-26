@@ -18,7 +18,12 @@ class HomeController < ApplicationController
     index 
   end
   
-  def show_devices                 
+  def notifications
+	  @from_notifications = true 
+	  index 
+  end
+  
+  def show_devices
     params[:group_type].nil? || params[:group_type]=="all" ?  session[:group_value]="all" : session[:group_value] = params[:group_type]
     if params[:frm]=='from_statistics'
       @from_statistics  = true        
@@ -26,7 +31,10 @@ class HomeController < ApplicationController
     elsif params[:frm]=='from_maintenance'
       @from_maintenance = true     
       redirect_to :action=>'maintenance'
-    else    
+	elsif params[:frm]=='from_notifications'
+	@from_maintenance = true     
+	redirect_to :action=>'notifications'
+	else
       redirect_to :action=>'index'
     end
   end
