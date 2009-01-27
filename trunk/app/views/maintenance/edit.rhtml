@@ -39,3 +39,10 @@
 		showHideRadioSections($('runtime_section'),$('scheduled_section'));
 	<% end %>
 </script>
+<hr /><br />
+<% if session[:is_admin] %> 
+	<form method="post" action="/maintenance/delete">
+    <input type="hidden" name="id" value="<%= @task.id %>" />
+    <input type="submit" value="delete" class="bold_button" />
+  </form>    
+		<% end %> 

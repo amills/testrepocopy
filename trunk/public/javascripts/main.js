@@ -121,7 +121,7 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
         var addresses = xml.documentElement.getElementsByTagName("address");
         var statuses = xml.documentElement.getElementsByTagName("status");
         var notes = xml.documentElement.getElementsByTagName("note");
-        var icon_id = xml.documentElement.getElementsByTagName("icon_id");		        
+        var icon_id = xml.documentElement.getElementsByTagName("icon_id");
         for(var i = 0; i < lats.length; i++) {              
           if(lats[i].firstChild) {
             if (lats[i].firstChild != null)
@@ -289,12 +289,14 @@ function getDeviceById(id) {
 function createDeviceHtml(id) {
 	var device = getDeviceById(id);
 	
-	var html = '<div class="dark_grey"><span class="blue_bold">' + device.name + '</span> last reported from ' + '<br /><span class="blue_bold">' + device.address + '</span><br /><span class="blue_bold">' + device.dt + '</span><br /> Last reported status: ' + '<span class="blue_bold">' + device.status + '</span><br />';
+	var html = '<div class="dark_grey"><span class="blue_bold">' + device.name + '</span> last reported from ' + '<br /><span class="blue_bold">' + device.address + '</span><br /><span class="blue_bold">' + device.dt + '</span><br /> Last reported status: ' + '<span class="blue_bold">' + device.status + '</span><br /> Pending Tasks: ' + '<span class="blue_bold">' + device.pending_tasks + '</span><br />';
 	
 	if(device.note != '')
 		html += '<br /><strong>Note:</strong> ' + device.note + '<br/>';
 		
-	html += '<br /><a href="javascript:gmap.setZoom(15);">Zoom in</a> | <a href="/reports/all/' + id + '">View details</a></div>';
+	html += '<br /><a href="javascript:gmap.setZoom(15);">Zoom in</a> | <a href="/reports/all/' + id + '">View details</a> | <a href="/reports/maintenance/' + id + '">Manage Tasks</a></div>';
+		
+	
 	return html;
 }
 
@@ -408,7 +410,8 @@ function getBreadcrumbs(id) {
 		var addresses = xml.documentElement.getElementsByTagName("address");
 		var events = xml.documentElement.getElementsByTagName("event_type");
 		var notes = xml.documentElement.getElementsByTagName("note");
-				
+		var pending_tasks = xml.documentElement.getElementsByTagName("pending_tasks");			
+		
 		for(var i = lats.length-1; i >= 0; i--) {
 			if(lats[i].firstChild) {
 				// Check for existence of address
@@ -423,7 +426,7 @@ function getBreadcrumbs(id) {
 					
 				var speed = spds[i].firstChild.nodeValue;
 				var event = events[i].firstChild.nodeValue;
-				var reading = {id: ids[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, event: event};
+				var reading = {id: ids[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, event: event, pending_tasks: pending_tasks[i].firstChild.nodeValue};
 				readings.push(reading);
 		        var point = new GLatLng(reading.lat, reading.lng);
 				

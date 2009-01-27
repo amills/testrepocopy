@@ -57,26 +57,39 @@ class MaintenanceController < ApplicationController
   end
   
   def complete
-    @task = MaintenanceTask.find(params[:id])
-    if @task.completed_at
-      flash[:error] = "'#{@task.description}' for #{@task.device.name} has already been completed"
-      redirect_to :controller => 'reports',:action => 'maintenance',:id => @task.device_id
-    end
-    
-    @task.completed_at = Date.today
-    return unless request.post?
-
-    @task.completed_at = get_date(params[:completed_at])
-    @task.completed_by = session[:email]
-    @task.save!
-    @task.reload
-    # TODO calculate reviewed_runtime
-    new_date = @task.completed_at + (@task.completed_at - @task.established_at)
-    new_task = MaintenanceTask.create!(:device_id => @task.device_id,:description => @task.description,:task_type => @task.task_type,:established_at => @task.completed_at,:target_runtime => @task.target_runtime,:target_at => new_date,:reviewed_at => Time.now)
-
-    flash[:success] = "'#{@task.description}' for #{@task.device.name} completed successfully, and a new task has been started."
-    redirect_to :action => 'edit',:id => new_task
+	  @task = MaintenanceTask.find(params[:id])
+	  if @task.completed_at
+		  flash[:error] = "'#{@task.description}' for #{@task.device.name} has already been completed"
+		  redirect_to :controller => 'reports',:action => 'maintenance',:id => @task.device_id
+	  end
+	  
+	  @task.completed_at = Date.today
+	  return unless request.post?
+	  
+	  @task.completed_at = get_date(params[:completed_at])
+	  @task.completed_by = session[:email]
+	  @task.save!
+	  @task.reload
+	  # TODO calculate reviewed_runtime
+	  new_date = @task.completed_at + (@task.completed_at - @task.established_at)
+	  new_task = MaintenanceTask.create!(:device_id => @task.device_id,:description => @task.description,:task_type => @task.task_type,:established_at => @task.completed_at,:target_runtime => @task.target_runtime,:target_at => new_date,:reviewed_at => Time.now)
+	  
+	  flash[:success] = "'#{@task.description}' for #{@task.device.name} completed successfully, and a new task has been started."
+	  redirect_to :action => 'edit',:id => new_task
   rescue
-    flash[:error] = $!.to_s
+	  flash[:error] = $!.to_s
   end
-end
+  def delete
+	  unless session[:is_admin]
+		  flash[:error] = 'Only administrators can delete maintenance tasks'
+		  return redirect_to(:controller => 'reports', :action => 'maintenance', :id => task.device_id)
+	  end
+      
+	  if request.post?
+		  task = MaintenanceTask.find(params[:id])
+		  task.destroy
+		  flash[:success] = task.description + ' was deleted successfully'
+		  redirect_to(:controller => 'reports', :action => 'maintenance', :id => task.device_id)
+	  end
+  end
+  end
