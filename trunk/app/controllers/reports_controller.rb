@@ -49,6 +49,17 @@ class ReportsController < ApplicationController
     @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
   end
   
+  def notifications
+	  @device = Device.find(params[:id])
+	  @device_names = Device.get_names(session[:account_id])
+	  conditions = ["device_id = ?",params[:id]]
+	  @readings = Notification.paginate(:per_page => ResultCount,:page => params[:page],:conditions => conditions,
+		  :order => "(created_at is null) desc")
+	  @record_count = Notification.count(:conditions => conditions)
+	  @actual_record_count = @record_count # this is because currently we are putting  MAX_LIMIT on export data so export and view data are going to be different in numbers.
+	  @record_count = MAX_LIMIT if @record_count > MAX_LIMIT
+  end
+  
   def speeding
     get_start_and_end_date
     @device = Device.find(params[:id])    

@@ -1,0 +1,32 @@
+<%= render :partial => 'report_header' %>
+<table class="text_width" id="main_table">
+    <tr>
+	<td id="left_panel" valign="top" width="50%">
+	<table class="panel_table">
+		<tr>
+                    <th>Notification</th>
+		<th>Creation Date</th>
+                    <th>Acknowledged</th>
+		</tr>
+		<% for alert in @readings %>
+			<tr class="<%= cycle('dark_row', 'light_row') %>" id="row<%= alert.id %>">
+		                    <td><%= alert.notification_type or '&nbsp;' %></td>
+					<td><%= alert.created_at.strftime("%Y-%m-%d") %></td>
+							<td><%= '-' %></td>
+			</tr>
+			<% end %>
+            </table>
+            <%if @readings.empty? %><div class="alert">No notification history found.</div><%end %>
+        </td>
+        <td>
+            <a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a>
+        </td>
+        <td width="50%" valign="top" id="right_panel">
+            <div class="report_map_header">Current location of <%= @device.name %></div>
+            <div id="map" class="reports_map"></div>
+			<%= add_javascript_reading(@device.latest_gps_reading) %>
+        </td>
+    </tr>
+</table>
+<%= render :partial => 'report_footer' %>
+

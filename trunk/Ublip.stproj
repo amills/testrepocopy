@@ -125,9 +125,11 @@
     <EmbeddedRuby Include="app\views\home\index.rhtml" />
     <EmbeddedRuby Include="app\views\home\maintenance.rhtml" />
     <EmbeddedRuby Include="app\views\home\map.rhtml" />
+    <EmbeddedRuby Include="app\views\home\notifications.rhtml" />
     <EmbeddedRuby Include="app\views\home\statistics.rhtml" />
     <EmbeddedRuby Include="app\views\home\_device_summary_header.rhtml" />
     <EmbeddedRuby Include="app\views\home\_group_rows.rhtml" />
+    <EmbeddedRuby Include="app\views\home\_notifications_summary_header.rhtml" />
     <EmbeddedRuby Include="app\views\layouts\includes\_admin_header.rhtml" />
     <EmbeddedRuby Include="app\views\layouts\includes\_footer.rhtml" />
     <EmbeddedRuby Include="app\views\layouts\includes\_header.rhtml" />
@@ -186,6 +188,7 @@
     <EmbeddedRuby Include="app\views\reports\idle.rhtml" />
     <EmbeddedRuby Include="app\views\reports\index.rhtml" />
     <EmbeddedRuby Include="app\views\reports\maintenance.rhtml" />
+    <EmbeddedRuby Include="app\views\reports\notifications.rhtml" />
     <EmbeddedRuby Include="app\views\reports\runtime.rhtml" />
     <EmbeddedRuby Include="app\views\reports\speeding.rhtml" />
     <EmbeddedRuby Include="app\views\reports\stop.rhtml" />
@@ -198,6 +201,7 @@
     <EmbeddedRuby Include="app\views\users\edit.rhtml" />
     <EmbeddedRuby Include="app\views\users\index.rhtml" />
     <EmbeddedRuby Include="app\views\users\new.rhtml" />
+    <Ruby Include="app\views\notifier\20090126184206_add_notifications_to_accounts.rb" />
     <Ruby Include="config\environments\development.rb" />
     <Ruby Include="config\environments\production.rb" />
     <Ruby Include="config\environments\slicehost.rb" />

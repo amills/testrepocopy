@@ -31,7 +31,8 @@
       <% if @device.profile.gpio2_name %><% if params[:action] == 'gpio2' %><a href="<%= url_for(:controller=>"reports",:action=>"gpio2", :id=>params[:id], :start_date=>@start_date, :end_date=>@end_date)%>" class="current"><%= @device.profile.gpio2_name %></a><% else %><a href="<%= url_for(:controller=>"reports",:action=>"gpio2", :id=>params[:id], :start_date=>@start_date, :end_date=>@end_date)%>"><%= @device.profile.gpio2_name %></a><% end %> | <% end %>
       <% if params[:action] == 'geofence' %><a href="<%= url_for(:controller=>"reports",:action=>"geofence", :id=>params[:id], :start_date=>@start_date, :end_date=>@end_date)%>" class="current">Geofence</a><% else %><a href="<%= url_for(:controller=>"reports",:action=>"geofence", :id=>params[:id], :start_date=>@start_date, :end_date=>@end_date)%>">Geofence</a><% end %>
       <% if @device.account.show_maintenance %> | <% if params[:action] == 'maintenance' %><a href="<%= url_for(:controller=>'reports',:action=>'maintenance',:id=>params[:id]) %>" class="current">Maintenance</a><% else %><a href="<%= url_for(:controller=>'reports',:action=>'maintenance',:id=>params[:id]) %>">Maintenance</a><% end %><% end %>
-    <% end %>
+      <% if @device.account.show_notifications %> | <% if params[:action] == 'notifications' %><a href="<%= url_for(:controller=>'reports',:action=>'notifications',:id=>params[:id]) %>" class="current">Notifications</a><% else %><a href="<%= url_for(:controller=>'reports',:action=>'notifications',:id=>params[:id]) %>">Notifications</a><% end %><% end %>
+		  <% end %>
 	</div>
 	<%if @runtime_total %><div style="float:right;">Runtime This Period: <%= minutes_to_hours(@runtime_total) %></div><% end %>
 	<div style="clear:both;"></div>
