@@ -13,9 +13,9 @@ task :cruise do
   Rake::Task["test:units:rcov"].invoke
   mv 'coverage/units', "#{out}/unit test coverage" if out
   
-  ENV['SHOW_ONLY'] = 'controllers'
-  Rake::Task["test:functionals:rcov"].invoke
-  mv 'coverage/functionals', "#{out}/functional test coverage" if out
+  #ENV['SHOW_ONLY'] = 'controllers'
+  #Rake::Task["test:functionals:rcov"].invoke
+  #mv 'coverage/functionals', "#{out}/functional test coverage" if out
   
   # Commenting until we have integration tests...
   # Rake::Task["test:integration"].invoke
