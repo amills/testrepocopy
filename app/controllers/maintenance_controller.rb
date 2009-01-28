@@ -42,7 +42,7 @@ class MaintenanceController < ApplicationController
     @task.description = params[:description]
     @task.task_type = params[:task_type] == 'scheduled' ? MaintenanceTask::TYPE_SCHEDULED : MaintenanceTask::TYPE_RUNTIME
     @task.target_runtime = params[:runtime_hours].to_f * 60 * 60
-    @task.target_at = get_date(params[:target_at])
+    @task.target_at = get_date(params[:target_at]).to_time
     @task.remind_runtime = nil
     @task.remind_at = nil
     @task.reminder_notified = nil
@@ -78,5 +78,19 @@ class MaintenanceController < ApplicationController
     redirect_to :action => 'edit',:id => new_task
   rescue
     flash[:error] = $!.to_s
+  end
+
+  def delete
+    unless session[:is_admin]
+      flash[:error] = 'Only administrators can delete maintenance tasks'
+      return redirect_to(:controller => 'reports', :action => 'maintenance', :id => params[:id])
+    end
+      
+    if request.post?
+      task = MaintenanceTask.find(params[:id])
+      task.destroy
+      flash[:success] = task.description + ' was deleted successfully'
+      redirect_to(:controller => 'reports', :action => 'maintenance', :id => params[:id])
+    end
   end
 end

@@ -34,6 +34,11 @@
       <% if @device.account.show_maintenance %> | <% if params[:action] == 'maintenance' %><a href="<%= url_for(:controller=>'reports',:action=>'maintenance',:id=>params[:id]) %>" class="current">Maintenance</a><% else %><a href="<%= url_for(:controller=>'reports',:action=>'maintenance',:id=>params[:id]) %>">Maintenance</a><% end %><% end %>
     <% end %>
 	</div>
+	<% if params[:action] == 'maintenance' %>
+		<div style="float: right">
+			<a href="/maintenance/new/<%= params[:id] %>" title="Create new maintenance task">Add Maintenance Task</a>
+		</div>
+	<% end %>
 	<%if @runtime_total %><div style="float:right;">Runtime This Period: <%= minutes_to_hours(@runtime_total) %></div><% end %>
 	<div style="clear:both;"></div>
   </div>
