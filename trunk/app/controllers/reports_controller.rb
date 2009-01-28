@@ -53,7 +53,7 @@ class ReportsController < ApplicationController
     get_start_and_end_date
 	@device = Device.find(params[:id])
 	@device_names = Device.get_names(session[:account_id])
-    conditions = [get_device_and_dates_conditions,"user_id = ?",session[:user_id]]
+    conditions = ["user_id = ? AND "  + get_device_and_dates_conditions, session[:user_id].to_s]
 #	conditions = ["device_id = ?",params[:id]]
 	  @readings = Notification.paginate(:per_page => ResultCount,:page => params[:page],:conditions => conditions,
 		  :order => "created_at desc")
