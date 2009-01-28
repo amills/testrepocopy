@@ -21,6 +21,14 @@ xml.devices do
         xml.dt((time_ago_in_words device.latest_gps_reading.created_at) + ' ago')
         xml.note(device.latest_gps_reading.note)
         xml.status(latest_status_html(device))
+        			  if device.pending_tasks.count != 0 
+			   task = device.pending_tasks[0]
+			   task_description = task.description
+			   else
+				  task_description = "None" 
+			   end
+
+        xml.pending_tasks(task_description)
       end     
     end
   end

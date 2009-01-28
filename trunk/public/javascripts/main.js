@@ -122,6 +122,7 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
         var statuses = xml.documentElement.getElementsByTagName("status");
         var notes = xml.documentElement.getElementsByTagName("note");
         var icon_id = xml.documentElement.getElementsByTagName("icon_id");
+        var pending_tasks = xml.documentElement.getElementsByTagName("pending_tasks");
         for(var i = 0; i < lats.length; i++) {              
           if(lats[i].firstChild) {
             if (lats[i].firstChild != null)
@@ -141,9 +142,9 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
             // Check for existence of note
             var note = '';
             if(notes[i].firstChild != undefined)
-              note = notes[i].firstChild.nodeValue;        
-              
-            var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, status: statuses[i].firstChild.nodeValue};
+              note = notes[i].firstChild.nodeValue;      
+                 
+            var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, status: statuses[i].firstChild.nodeValue, pending_tasks: pending_tasks[i].firstChild.nodeValue};
             devices.push(device);    
             populate_the_table(device,frm_index,bounds); // Populate the table
         }
