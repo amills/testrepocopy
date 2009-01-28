@@ -59,8 +59,6 @@ function load()
           set_cookie("zvalue",zoom); 
 	});
 	    
-	// Only load this on home page
-	var page = document.location.href.split("/")[3];
 	var action = document.location.href.split("/")[4];
 	         
 	if(page == 'home' || page == 'admin' ||page=='devices') {        
