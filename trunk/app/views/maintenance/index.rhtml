@@ -35,7 +35,7 @@
 <% else %>
   <% for task in @tasks %>
     <div class="crt_group1"> 
-      <%= link_to "#{task.description} (#{task.task_count} total)" ,{:controller=>"maintenance", :action=>"index", :description=> task.description},:class => "grayboldtext"%>    
+      <%= link_to "#{task.description}" ,{:controller=>"maintenance", :action=>"edit", :id=>task.id},:class => "grayboldtext"%>    
     </div>
   <% end%>
 <% end%>
