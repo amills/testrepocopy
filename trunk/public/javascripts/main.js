@@ -290,7 +290,7 @@ function getDeviceById(id) {
 function createDeviceHtml(id) {
 	var device = getDeviceById(id);
 	
-	var html = '<div class="dark_grey"><span class="blue_bold">' + device.name + '</span> last reported from ' + '<br /><span class="blue_bold">' + device.address + '</span><br /><span class="blue_bold">' + device.dt + '</span><br /> Last reported status: ' + '<span class="blue_bold">' + device.status + '</span><br /> Pending Tasks: ' + '<span class="blue_bold">' + device.pending_tasks + '</span><br />';
+	var html = '<div class="dark_grey"><span class="blue_bold">' + device.name + '</span> last reported from ' + '<br /><span class="blue_bold">' + device.address + '</span><br /><span class="blue_bold">' + device.dt + '</span><br /> Last reported status: ' + '<span class="blue_bold">' + device.status + '</span><br /> Scheduled Tasks: ' + '<span class="blue_bold">' + device.pending_tasks + '</span><br />';
 	
 	if(device.note != '')
 		html += '<br /><strong>Note:</strong> ' + device.note + '<br/>';
