@@ -4,14 +4,14 @@
 	<td id="left_panel" valign="top" width="50%">
 	<table class="panel_table">
 		<tr>
-                    <th>Notification</th>
-		<th>Creation Date</th>
-                    <th>Acknowledged</th>
+			<th>Notification</th>
+			<th>Creation Date</th>
+			<th>Acknowledged</th>
 		</tr>
 		<% for alert in @readings %>
 			<tr class="<%= cycle('dark_row', 'light_row') %>" id="row<%= alert.id %>">
 		                    <td><%= alert.notification_type or '&nbsp;' %></td>
-					<td><%= alert.created_at.strftime("%c") %></td>
+					<td><%= alert.created_at.localtime.strftime("%c") %></td>
 							<td><%= '-' %></td>
 			</tr>
 			<% end %>

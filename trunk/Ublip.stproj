@@ -276,6 +276,7 @@
     <Ruby Include="db\migrate\20081114211002_breakout_address.rb" />
     <Ruby Include="db\migrate\20090121212856_add_cellphone_to_users.rb" />
     <Ruby Include="db\migrate\20090122141143_alter_cellphone_column_on_users.rb" />
+    <Ruby Include="db\migrate\20090126184206_add_notifications_to_accounts.rb" />
     <Ruby Include="db\schema.rb" />
     <Ruby Include="lib\daemons\notifier.rb" />
     <None Include="lib\tasks\capistrano.rake" />
