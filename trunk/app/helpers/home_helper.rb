@@ -90,14 +90,14 @@ module HomeHelper
       content << %(<td>#{device.name}</td>)
     end      
 
-    last_notification = device.notifications[0]
+	last_notification = device.notifications[0]
 		  
     if last_notification.nil?
       content << %(<td><a title="No active notifications.">No notifications for device</td><td>-</td><td>-</td>)
     else
 		if last_notification.user_id == session[:user_id]
 			content << %(<td><a title="Review notification history." href="/reports/notifications/#{device.id}">#{last_notification.notification_type}</td>)
-			content << %(<td>#{last_notification.created_at}</td>)
+			content << %(<td><script>document.write(displayLocalDT(#{last_notification.created_at.to_i*1000}));</script></td>)
 	  else
 			content << %(<td><a title="Review notification history." ">No notifications for current user.</td><td>-</td><td>-</td>)
 	  end
