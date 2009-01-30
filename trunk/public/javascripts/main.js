@@ -144,7 +144,7 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
             if(notes[i].firstChild != undefined)
               note = notes[i].firstChild.nodeValue;  
                   
-            if (pending_tasks[i].firstchild == undefined)
+            if (pending_tasks[i].firstChild == undefined)
              var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, status: statuses[i].firstChild.nodeValue, pending_tasks: ''};
            else     
             var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, status: statuses[i].firstChild.nodeValue, pending_tasks: pending_tasks[i].firstChild.nodeValue};
@@ -302,9 +302,10 @@ function createDeviceHtml(id) {
 	if(device.note != '')
 		html += '<br /><strong>Note:</strong> ' + device.note + '<br/>';
 		
+	if(device.pending_tasks != '')
 	html += '<br /><a href="javascript:gmap.setZoom(15);">Zoom in</a> | <a href="/reports/all/' + id + '">View details</a> | <a href="/reports/maintenance/' + id + '">Manage Tasks</a></div>';
-		
-	
+		else
+	html += '<br /><a href="javascript:gmap.setZoom(15);">Zoom in</a> | <a href="/reports/all/' + id + '">View details</a></div>';
 	return html;
 }
 
