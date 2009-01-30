@@ -45,9 +45,14 @@ function load() {
       if(remove_listener == 'false'){ //added
 			GEvent.addListener(gmap, "click", function(overlay, point) {
 				if(point) {
+					gmap.clearOverlays();
 					var latlng = point.lat() + ',' + point.lng();
 					document.getElementById('address').value = latlng;
-	          		geocode(latlng);
+	        var r = document.getElementById("radius")[document.getElementById("radius").selectedIndex].value;
+					drawGeofence(point, r);
+					setZoomFromRadius(r);
+					gmap.setZoom(zoom);
+					gmap.panTo(point);
 				}
 			});}
 			//displayGeofence(0);
@@ -74,22 +79,9 @@ function geocode(address) {
 				// Draw the fence
 				var r = document.getElementById("radius")[document.getElementById("radius").selectedIndex].value;
 				drawGeofence(point, r);
-						
-                                if(parseInt(r) > 25) {
-                                        zoom = 3;
-                                }
-                                else if(parseInt(r) > 5) {
-                                        zoom = 7;
-                                }
-                                else if(parseInt(r) >= 1) {
-                                        zoom = 10;
-                                }
-                                else {
-                                        zoom = 14;
-                                }
+				setZoomFromRadius(r);
+        gmap.panTo(point, zoom);
 
-                                gmap.panTo(point, zoom);
-                                gmap.setCenter(point, zoom);
 				// Populate the bounds field
 				form.bounds.value = point.lat() + ',' + point.lng() + ',' + r;            
 				// Display the last location for the device                
@@ -100,6 +92,21 @@ function geocode(address) {
       		}
     	}
   	);
+}
+
+function setZoomFromRadius(r) {
+	if(parseInt(r) > 25) {
+          zoom = 3;
+  }
+  else if(parseInt(r) > 5) {
+          zoom = 7;
+  }
+  else if(parseInt(r) >= 1) {
+          zoom = 10;
+  }
+  else {
+          zoom = 14;
+  }
 }
 
 // Draw geofence
