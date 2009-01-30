@@ -7,7 +7,7 @@ class MaintenanceController < ApplicationController
       @tasks = MaintenanceTask.find(:all,:conditions => conditions,:order => "description")
       @total_tasks = MaintenanceTask.count(:conditions => conditions)
     else
-      @tasks = MaintenanceTask.find_by_sql("select description,count(*) task_count from maintenance_tasks, devices where device_id = devices.id and account_id = #{current_account.id} and completed_at is null group by description order by description")
+      @tasks = MaintenanceTask.find_by_sql("select description, maintenance_tasks.id, count(*) task_count from maintenance_tasks, devices where device_id = devices.id and account_id = #{current_account.id} and completed_at is null group by description order by description")
       @total_tasks = MaintenanceTask.count_by_sql("select count(*) from maintenance_tasks, devices where device_id = devices.id and account_id = #{current_account.id} and completed_at is null")
     end
   end
