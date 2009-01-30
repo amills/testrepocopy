@@ -7,6 +7,14 @@ class UsersController < ApplicationController
     @users = User.find(:all, :conditions => ["account_id = ?", session[:account_id]])
   end
 
+  def change_language
+    user = User.find(:first, :conditions => ["id = ? and account_id = ?", params[:id], session[:account_id]])
+    if user and not params[:language].blank?
+      Locale.set(session[:language] = params[:language]) unless user.nil? or params[:language].blank?
+    end
+    redirect_to session[:referral_url]
+  end
+
   def edit
     if request.post?
       user = User.find(:first, :conditions => ["id = ? and account_id = ?", params[:id], session[:account_id]])

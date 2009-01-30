@@ -24,8 +24,8 @@
         <li <%if controller == gateway.name %> class="selected"<% elsif controller_parts[0] == gateway.name %> class="selected_subnav"<% end %>><a href="/<%= gateway.name %>"><%= gateway.label %></a></li>
       <% end %>
 	  <% if session[:is_super_admin] %>
-	  	<% show_new = false %>
 	    <li <% if controller == 'admin/transaction' %> class="selected_subnav"<% end %>><a href="/admin/transaction">Transaction</a></li>
+	    <li <% if controller == 'admin/translation' %> class="selected_subnav"<% end %>><a href="/admin/translation">Translation</a></li>
 	  <% end %>
     </ul>
   </div>

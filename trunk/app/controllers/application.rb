@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_page_title
   before_filter :create_referral_url
   before_filter :set_time_zone
+  before_filter :set_language
   
   helper_method :current_account
   
@@ -37,7 +38,11 @@ class ApplicationController < ActionController::Base
       Time.zone = 'Central Time (US & Canada)'  
     end    
   end
-
+  
+  def set_language
+    Locale.set(session[:language] ||= "en")
+  end
+  
   def create_referral_url
     unless request.env["HTTP_REFERER"].blank?
       unless request.env["HTTP_REFERER"][/register|login|logout|authenticate/]

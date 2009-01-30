@@ -1,11 +1,6 @@
 <div id="header">
 	<div id="company" ><%= session[:company] %></div>
 	
-	<div id="ub-login">
-		<!-- Not sure if we're keeping this
-		Welcome, <%= session[:first_name] %> | <% if session[:is_super_admin] == true %><a href="/admin" >Admin</a> | <% end %> <a href="/logout" title="Logout">Logout</a>&nbsp;&nbsp;-->
-	</div>
-
 	<div style="clear:both;"></div>
 
 	<% page_name = request.path_info.split("/")[1]  %>
@@ -14,14 +9,23 @@
 	<div id="nav_tabs">
 		<ul>
 			<li style="margin-left: 10px"><a href="http://www.navseeker.com">Home</a></li>
-	   		<li <% if page_name== 'home'%> class="selected "<% end %>><a href="/home">Summary</a></li>
-			<li <% if page_name == 'reports' %> class="selected"<% end %>><a href="/reports">History</a></li>
-			<li <% if page_name == 'geofence' %> class="selected"<% end %>><a href="/geofence">Geofence</a></li>
-			<li <% if page_name == 'alerts' %> class="selected"<% end %>><a href="/alerts">Alerts</a></li>
-			<li <% if page_name == 'settings' %> class="selected"<% end %>><a href="/settings">Settings</a></li>
-			<li <% if page_name == 'devices' %> class="selected"<% end %>><a href="/devices">Customize</a></li>
-			<li <% if page_name == 'users' %> class="selected"<% end %>><a href="/users">Accounts</a></li>
+	   		<li <% if page_name== 'home'%> class="selected "<% end %>><a href="/home"><%= "Summary".t %></a></li>
+			<li <% if page_name == 'reports' %> class="selected"<% end %>><a href="/reports"><%= "History".t %></a></li>
+			<li <% if page_name == 'geofence' %> class="selected"<% end %>><a href="/geofence"><%= "Geofence".t %></a></li>
+			<li <% if page_name == 'alerts' %> class="selected"<% end %>><a href="/alerts"><%= "Alerts".t %></a></li>
+			<li <% if page_name == 'settings' %> class="selected"<% end %>><a href="/settings"><%= "Settings".t %></a></li>
+			<li <% if page_name == 'devices' %> class="selected"<% end %>><a href="/devices"><%= "Customize".t %></a></li>
+			<li <% if page_name == 'users' %> class="selected"<% end %>><a href="/users"><%= "Accounts".t %></a></li>
 		</ul>
+		<div style="float:right;padding-right:20px;">
+			<select onchange="document.location.href='/users/change_language/<%= session[:user_id] %>?language=' + this.options[this.selectedIndex].value">
+				<option value="en">English</option>
+				<option value="es"<% if session[:language] == 'es' %> selected<% end %>>Spanish</option>
+				<option value="fi"<% if session[:language] == 'fi' %> selected<% end %>>Finnish</option>
+				<option value="no"<% if session[:language] == 'no' %> selected<% end %>>Norwegian</option>
+				<option value="sv"<% if session[:language] == 'sv' %> selected<% end %>>Swedish</option>
+			</select>
+		</div>
     </div>
      
 </div>

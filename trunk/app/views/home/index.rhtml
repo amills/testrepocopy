@@ -3,13 +3,13 @@
 </script>
 <table class="panel_table" >
 	<tr>     
-		<td colspan="4" class="header">Latest NavSeeker Locator Status</td>
+		<td colspan="4" class="header"><%= 'Latest NavSeeker Locator Status'.t %></td>
 	</tr>
 	<tr>
-		<th>Locator Name</th>        
-		<th>Last Location</th>
-		<th>Last Status</th>
-		<th>Last Report</th>
+		<th><%= 'Locator Name'.t %></th>        
+		<th><%= 'Last Location'.t %></th>
+		<th><%= 'Last Status'.t %></th>
+		<th><%= 'Last Report'.t %></th>
 	</tr>    
 	<script>
 		var devices=[];
@@ -30,18 +30,18 @@
 					<td class="spacer">&nbsp;</td>
 					<td class="spacer" valign="bottom">
 						<table cellpadding="0" cellspacing="0" style="width:100%">
-							<tr><td nowrap class="spacer" style="padding:0px;">Battery Level:</td><td class="spacer" style="padding:0px;"><input type="button" class="red_button" style="width:100%" value="OFF"/></td></tr>
-							<tr><td nowrap class="spacer" style="padding:0px;">SOS Alarm:</td><td class="spacer" style="padding:0px;"><input type="button" class="disabled_button" style="width:100%" value="Not Enabled"/></td></tr>
-							<tr><td nowrap class="spacer" style="padding:0px;">Speed Alert:</td><td class="spacer" style="padding:0px;"><input type="button" class="disabled_button" style="width:100%" value="Not Enabled"/></td></tr>
+							<tr><td nowrap class="spacer" style="padding:0px;"><%= 'Battery Level:'.t %></td><td class="spacer" style="padding:0px;"><input type="button" class="red_button" style="width:100%" value="<%= 'OFF'.t %>"/></td></tr>
+							<tr><td nowrap class="spacer" style="padding:0px;"><%= 'SOS Alarm:'.t %></td><td class="spacer" style="padding:0px;"><input type="button" class="disabled_button" style="width:100%" value="<%= 'Not Enabled'.t %>"/></td></tr>
+							<tr><td nowrap class="spacer" style="padding:0px;"><%= 'Speed Alert:'.t %></td><td class="spacer" style="padding:0px;"><input type="button" class="disabled_button" style="width:100%" value="<%= 'Not Enabled'.t %>"/></td></tr>
 						</table>
 					</td>
 					<td class="spacer">&nbsp;</td>
 					<td class="spacer" valign="bottom"><input type="button" class="blue_button" style="width:100%" value="Update Now"/></td>
 			<% else %>
 				<td><%= device.name %></td>
-				<td>N/A</td>
+				<td><%= "N/A".t %></td>
 				<td><%= device_latest_status %></td>
-				<td>N/A</td>
+				<td><%= "N/A".t %></td>
 			<% end %>
 		</tr>
 	<%end%>
