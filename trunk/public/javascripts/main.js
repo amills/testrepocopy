@@ -142,8 +142,11 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
             // Check for existence of note
             var note = '';
             if(notes[i].firstChild != undefined)
-              note = notes[i].firstChild.nodeValue;      
-                 
+              note = notes[i].firstChild.nodeValue;  
+                  
+            if (pending_tasks[i].firstchild == undefined)
+             var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, status: statuses[i].firstChild.nodeValue, pending_tasks: ''};
+           else     
             var device = {id: ids[i].firstChild.nodeValue, name: names[i].firstChild.nodeValue, lat: lats[i].firstChild.nodeValue, lng: lngs[i].firstChild.nodeValue, address: address, dt: dts[i].firstChild.nodeValue, note: note, status: statuses[i].firstChild.nodeValue, pending_tasks: pending_tasks[i].firstChild.nodeValue};
             devices.push(device);    
             populate_the_table(device,frm_index,bounds); // Populate the table
@@ -290,7 +293,11 @@ function getDeviceById(id) {
 function createDeviceHtml(id) {
 	var device = getDeviceById(id);
 	
-	var html = '<div class="dark_grey"><span class="blue_bold">' + device.name + '</span> last reported from ' + '<br /><span class="blue_bold">' + device.address + '</span><br /><span class="blue_bold">' + device.dt + '</span><br /> Last reported status: ' + '<span class="blue_bold">' + device.status + '</span><br /> Scheduled Tasks: ' + '<span class="blue_bold">' + device.pending_tasks + '</span><br />';
+	var html = '<div class="dark_grey"><span class="blue_bold">' + device.name + '</span> last reported from ' + '<br /><span class="blue_bold">' + device.address + '</span><br /><span class="blue_bold">' + device.dt + '</span><br /> Last reported status: ' + '<span class="blue_bold">' + device.status + '</span>';
+	
+	if(device.pending_tasks != '')
+		html += '<br /><span class="blue_bold">Scheduled Tasks:</span> ' + device.pending_tasks + '<br/>';
+		
 	
 	if(device.note != '')
 		html += '<br /><strong>Note:</strong> ' + device.note + '<br/>';

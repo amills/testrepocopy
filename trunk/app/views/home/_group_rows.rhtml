@@ -14,12 +14,17 @@
       <% group.ordered_devices.each do |device|%>                                            
         <%= send(callback,device) %>
           <%if !device.latest_gps_reading.nil? && device.latest_gps_reading.short_address !=', '%> 
-			  <% if device.pending_tasks.count != 0 
-			   task = device.pending_tasks[0]
-			   task_description = task.description
-			   else
-				  task_description = "None" 
-			   end %>
+			  <% if current_account.show_maintenance 
+					if device.pending_tasks.count != 0
+					 task = device.pending_tasks[0]
+					 task_description = task.description
+					  else
+					 task_description = "None" 
+				 end 
+			 else
+				 task_description = ''
+				  end
+				 %>
             <script>devices.push({id: <%= device.id%>, name: "<%= device.name%>", lat: <%= device.latest_gps_reading.latitude%>, lng: <%= device.latest_gps_reading.longitude%>, address: "<%= device.latest_gps_reading.short_address%>", dt: "<%= time_ago_in_words device.latest_gps_reading.created_at %> ago", note: "<%= device.latest_gps_reading.note%>", status: "<%= latest_status_html(device) %>", icon_id: <%= device.icon_id%>, group_id: '<%= device.group_id %>', pending_tasks: "<%= task_description  %>"});</script>                       
           <%end%> 
         <%end%>
@@ -42,12 +47,16 @@
   <% @default_devices.each do |device|%>                  
     <%= send(callback,device) %>
     <%if !device.latest_gps_reading.nil? && device.latest_gps_reading.short_address !=', ' %>
-			  <% if device.pending_tasks.count != 0 
-				  task = device.pending_tasks[0]
-				  task_description = task.description
-			  else
-				  task_description = "None" 
-			  end %>
+			 <% if current_account.show_maintenance 
+				 if device.pending_tasks.count != 0
+					 task = device.pending_tasks[0]
+					 task_description = task.description
+				 else
+					 task_description = "None" 
+				 end 
+			 else
+				 task_description = ''
+			 end %>
 			  <script>devices.push({id: <%= device.id%>, name: "<%= device.name%>", lat: <%= device.latest_gps_reading.latitude%>, lng: <%= device.latest_gps_reading.longitude%>, address: "<%= device.latest_gps_reading.short_address%>", dt: "<%= time_ago_in_words device.latest_gps_reading.created_at %> ago", note: "<%= device.latest_gps_reading.note%>", status: "<%= latest_status_html(device) %>", icon_id: <%= device.icon_id%>, group_id: '<%= device.group_id %>', pending_tasks: '<%= task_description %>'});</script>                       
     <%end%>
   <%end%>
