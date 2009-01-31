@@ -13,7 +13,7 @@
   <% action = params[:action]  %>
   <% controller_parts = controller.split('/') %>
   
-  <div id="nav_tabs">
+  <div id="nav_tabs" style="min-width:1000px;">
     <ul>
       <li <% if controller == 'admin' %> class="selected"<% end %> style="margin-left: 10px"><a href="/admin">Overview</a></li>
       <li <% if controller == 'admin/accounts' %><% show_new = true %> class="selected_subnav"<% end %>><a href="/admin/accounts">Accounts</a></li>
