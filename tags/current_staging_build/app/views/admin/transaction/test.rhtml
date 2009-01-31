@@ -1,0 +1,18 @@
+<div style="text-align:left;width:950px;">
+<% request_get = session[:request_type] == 'GET' %>
+<form name="remote_test" action="/admin/transaction<% if request_get %>/test<% end %>" target="_blank" method="post">
+	<table class="form_table" style="width:100%;">
+		<tr><td>
+			Enter XML to be submitted:
+			<%if @error %><b style="color:red;">(<%= @error %>)</b><% end %></td></tr>
+		<tr><td>
+			<input type="submit" name="submit" value="Submit XML" style="vertical-align:middle;" disabled/>
+			<input type="radio" name="request_type" value="/remote/test" style="vertical-align:middle;" onclick="document.remote_test.action = this.value;" <% if request_get %> checked<% end %>>GET</input>
+			<input type="radio" name="request_type" value="/remote" style="vertical-align:middle;" onclick="document.remote_test.action = this.value;" <% unless request_get %> checked<% end %>>POST</input>
+		</td></tr>
+		<tr><td>
+			<textarea name="xml" style="width:100%;height:500px;" onkeyup="document.remote_test.submit.disabled = this.value.length == 0;"></textarea>
+		</td></tr>
+	</table>
+</form>
+</div>
