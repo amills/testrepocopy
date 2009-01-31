@@ -1,0 +1,23 @@
+<% if reading.event_type.nil? %>
+	-
+<% elsif reading.event_type.index('enter') %>
+	<% if params[:action] == 'geofence' %>
+		Enter geofence
+	<% else %>
+		<a href="/reports/geofence/<%= params[:id] %>" title="View geofence report">Enter geofence</a>
+	<% end%>
+<% elsif reading.event_type.index('exit') %>
+	<% if params[:action] == 'geofence' %>
+		Exit geofence
+	<% else %>
+		<a href="/reports/geofence/<%= params[:id] %>" title="View geofence report">Exit geofence</a>
+	<% end%>
+<% elsif @device.profile.stops and (reading.event_type =='startstop_et41' || reading.event_type == 'stop') && reading.speed==0 %>
+	Stop
+<% elsif @device.profile.idles and reading.event_type == 'idle' %>
+	Idle
+<% elsif @device.profile.speeds and reading.event_type == 'speeding' %>
+	Speeding
+<% else %>
+	<%= reading.event_type.titleize %>
+<% end %>
