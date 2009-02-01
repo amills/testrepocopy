@@ -1,0 +1,37 @@
+<%= render :partial=>"/layouts/flash_message" %>    
+<form method="post">
+	<table class="panel_table">
+		<tr class="header">
+			<td colspan="3">
+				Language:
+				<select name="language">
+					<option value="en">English</option>
+					<option value="es"<% if @language.iso_639_1 == 'es' %> selected<% end %>>Spanish</option>
+					<option value="fi"<% if @language.iso_639_1 == 'fi' %> selected<% end %>>Finnish</option>
+					<option value="no"<% if @language.iso_639_1 == 'no' %> selected<% end %>>Norwegian</option>
+					<option value="sv"<% if @language.iso_639_1 == 'sv' %> selected<% end %>>Swedish</option>
+				</select>
+				<input type="submit" value="update"/>
+				<input type="checkbox" name="show_all"<% if @show_all %> checked<% end %>/>Show All
+			</td>
+		</tr>
+		<% if @translations %>
+			<tr>
+				<th>Type</th>
+				<th>English</th>
+				<th><%= @language.english_name %></th>
+			</tr>
+			<% for translation in @translations %>
+				<tr>
+					<td><%= translation.type %></td>
+					<td><%= translation.tr_key %></td>
+					<td>
+						<input type="text" size="80" name="new_value[<%= translation.id %>]" value="<%= translation.text %>"/>
+						<input type="hidden" name="old_value[<%= translation.id %>]" value="<%= translation.text %>"/>
+					</td>
+				</tr>
+			<% end %>
+		<% end%>
+	</table>
+</form>
+
