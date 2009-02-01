@@ -21,6 +21,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'admin/transaction/:action', :controller => 'admin/transaction'
   map.connect 'enfora/device/:action', :controller => 'enfora/device'
   map.connect 'enfora/command_request/:action', :controller => 'enfora/command_request'
+  map.connect 'simcom/device/:action', :controller => 'simcom/device'
+  map.connect 'simcom/command_request/:action', :controller => 'simcom/command_request'
   map.geofence 'geofence', :controller=>'geofence', :action=>'index'
   map.new 'geofence/new', :controller=>'geofence', :action=>'new'
   map.edit 'geofence/edit/:id', :controller=>'geofence', :action=>'edit', :id=>/\d+/    
