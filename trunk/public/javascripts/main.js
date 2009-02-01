@@ -61,14 +61,14 @@ function load()
 	    
 	// Only load this on home page
 	var page = document.location.href.split("/")[3];            
-	if(page == 'home' || page == 'admin' ||page=='devices')
+	if(page == '' || page == 'home' || page == 'admin' ||page=='devices')
         {        
         getRecentReadings(true,"from_load");                
         }
 	else if(page == 'reports' )        
 		getReportBreadcrumbs();
-	else 
-		getBreadcrumbs(device_id);	
+//	else 
+//		getBreadcrumbs(device_id);	
   }
 }
 
@@ -101,7 +101,7 @@ else
 // Display all devices on overview page
 function getRecentReadings(redrawMap,id)  // code cleanup remains
 {              
-  $("updating").style.visibility = 'visible';
+//  $("updating").style.visibility = 'visible';
   var bounds = new GLatLngBounds();
   var temp ;
   var no_data_flag=false;   
@@ -148,7 +148,7 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
             populate_the_table(device,frm_index,bounds); // Populate the table
         }
       }		
-      $("updating").style.visibility = 'hidden';		
+//      $("updating").style.visibility = 'hidden';		
       // Don't continue if there's no data
       if (ids.length == 0)
       {
@@ -175,7 +175,7 @@ function getRecentReadings(redrawMap,id)  // code cleanup remains
       populate_the_table(device,frm_index,bounds); // Populate the table
     }                                        
     checking_no_data_flag(no_data_flag,redrawMap,gmap,devices,bounds) //checking the no data flag varable & setting appropriate zoom level 
-    $("updating").style.visibility = 'hidden';                            
+//    $("updating").style.visibility = 'hidden';                            
   }          
 }
 
