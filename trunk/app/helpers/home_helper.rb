@@ -89,8 +89,8 @@ module HomeHelper
     else
       content << %(<td>#{device.name}</td>)
     end      
-
-	last_notification = device.notifications[0]
+	device_notifications = Notification.find(:all, :conditions => ["user_id = ? and device_id = ?", session[:user_id], device.id])
+	last_notification = device_notifications[0]
 		  
     if last_notification.nil?
       content << %(<td><a title="No active notifications.">No notifications for device</td><td>-</td><td>-</td>)

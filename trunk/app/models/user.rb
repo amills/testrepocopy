@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_length_of :password, :within => 6..30, :if => :password_required?
   before_save :encrypt_password
+  has_many :notification
   
   TimeZoneMapping = {
         "Pacific Time (US & Canada)"   => "America/Los_Angeles",

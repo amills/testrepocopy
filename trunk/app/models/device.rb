@@ -26,7 +26,7 @@ class Device < ActiveRecord::Base
   has_one :latest_stop_event, :class_name => "StopEvent", :order => "created_at desc"
   
   has_many :geofences, :order => "created_at desc", :limit => 300
-  has_many :notifications, :order => "created_at desc"
+  has_many :notifications, :class_name => "Notification", :order => "created_at desc"
   has_many :stop_events, :order => "created_at desc"
   has_many :pending_tasks,:class_name => "MaintenanceTask",:conditions => "completed_at is null",:order => "pastdue_notified desc,reminder_notified desc,established_at desc"
   
