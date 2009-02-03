@@ -13,9 +13,10 @@
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development:
   adapter: mysql
-  database: ublip_navseeker
+  database: ublip_v2_development
   username: root
   password: 
+  socket: /tmp/mysql.sock
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
@@ -25,3 +26,4 @@ test:
   database: ublip_v2_test
   username: root
   password: 
+  socket: /var/run/mysqld/mysqld.sock
