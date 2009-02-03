@@ -50,12 +50,12 @@ class MaintenanceTask < ActiveRecord::Base
         if self.reviewed_at > self.target_at
           unless self.pastdue_notified
             self.pastdue_notified = self.reviewed_at
-            return "Past Due: Maintenance task '#{task.description}' was due on #{task.target_at.strftime('%Y-%m-%d')}"
+            return "Past Due: Maintenance task '#{self.description}' was due on #{self.target_at.strftime('%Y-%m-%d')}"
           end
         elsif self.reviewed_at > self.remind_at
           unless self.reminder_notified
             self.reminder_notified = self.reviewed_at
-            return "Reminder: Maintenance task '#{task.description}' will be due on #{task.target_at.strftime('%Y-%m-%d')}"
+            return "Reminder: Maintenance task '#{self.description}' will be due on #{self.target_at.strftime('%Y-%m-%d')}"
           end
         end
     end
