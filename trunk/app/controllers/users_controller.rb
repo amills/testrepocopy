@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @current_user = User.find(session[:user_id])
+    @device_names = Device.get_names(session[:account_id])
     @users = User.find(:all, :conditions => ["account_id = ?", session[:account_id]])
   end
 

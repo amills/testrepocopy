@@ -70,6 +70,34 @@ class Device < ActiveRecord::Base
     find_by_sql(["select id, name from devices where account_id = ? and provision_status_id = 1 order by name", account_id])
   end
   
+  def is_power_enabled?
+    gateway_device_config and gateway_device_config.powerKeyEnabled
+  end
+  
+  def set_power_key(enable)
+    gateway_device.set_power_key(enable) if gateway_device and gateway_device.respond_to?('set_power_key')
+  end
+  
+  def battery_level
+    return gateway_device.powerState if gateway_device and gateway_device.respond_to?('powerState')
+  end
+  
+  def is_sos_enabled?
+    gateway_device_config and gateway_device_config.functionKeyEnabled and gateway_device_config.functionKeyMode == Simcom::DeviceConfig::FK_MODE_SOS
+  end
+  
+  def sos_status_reading
+    Reading.find(:first,:conditions => ["device_id = ? and event_type = 'SOS' and created_at >= ?",self.id,Time.now.advance(:hours => -24)])
+  end
+  
+  def is_speed_enabled?
+    gateway_device_config and gateway_device_config.functionKeyEnabled and gateway_device_config.functionKeyMode == Simcom::DeviceConfig::FK_MODE_SOS
+  end
+  
+  def speed_status_reading
+    Reading.find(:first,:conditions => ["device_id = ? and event_type = 'SOS' and created_at >= ?",self.id,Time.now.advance(:hours => -24)])
+  end
+  
   def gateway_device
     return if @gateway_device == :false
     return @gateway_device if @gateway_device
@@ -79,6 +107,15 @@ class Device < ActiveRecord::Base
     return if @gateway_device == :false
     @gateway_device.logical_device = self
     @gateway_device
+  end
+  
+  def gateway_device_config
+    return if @gateway_device_config == :false
+    return @gateway_device_config if @gateway_device_config
+    @gateway_device_config = gateway_device.device_config if gateway_device.respond_to?('device_config')
+    @gateway_device_config ||= :false
+    return if @gateway_device_config == :false
+    @gateway_device_config
   end
   
   def gateway_device=(value)

@@ -40,6 +40,7 @@ class LoginController < ApplicationController
         session[:account_id] = self.current_user.account_id # Store the account id
         session[:company] = self.current_user.account.company # Store the user's company name
         session[:first_name] = self.current_user.first_name # Store user's first name
+        session[:last_name] = self.current_user.last_name # Store user's first name
         session[:email] = self.current_user.email # Store user's email
         session[:is_super_admin] = self.current_user.is_super_admin
         session[:is_admin] = (self.current_user.is_admin or self.current_user.is_super_admin)
