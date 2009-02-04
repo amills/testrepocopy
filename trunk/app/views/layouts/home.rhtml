@@ -6,7 +6,7 @@
     <%= stylesheet_link_tag "common" %>        
     <%= render :partial => 'layouts/includes/map_key' %>
     <%= javascript_include_tag "main", "layers", "utils" %>
-    <%= javascript_include_tag :defaults%>
+    <%= javascript_include_tag :defaults %>
   </head>
   
   <script>        
@@ -18,7 +18,7 @@
   <body onload="load();">
     <%= render :partial => 'layouts/includes/header' %>
   
-    <% if current_account.show_statistics or current_account.show_maintenance %>
+    <% if current_account.show_statistics or current_account.show_maintenance or current_account.show_notifications %>
       <div id="submenu" style="background-color:white;padding-bottom:0px;">
         <% if params[:action] == 'index' %><a href="<%= url_for(:controller=>"home") %>" class="current" >Locations</a><% else %><a href="<%= url_for(:controller=>"home")%>">Locations</a><% end %>  
         <% if current_account.show_statistics %> | <% if params[:action] == 'statistics' %><a href="<%= url_for(:controller=>"home",:action=>"statistics") %>" class="current" >Statistics</a><% else %><a href="<%= url_for(:controller=>"home",:action=>"statistics")%>">Statistics</a><% end %><% end %>

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>Bindows gauge sample</title>        
+    <%= stylesheet_link_tag "common" %>        
+    <%= render :partial => 'layouts/includes/map_key' %>
+    <%= javascript_include_tag "main", "layers", "utils", "bindows_gauges/bindows_gauges", "bindows_gauges/gauge2.moz", "bindows_gauges/gauge2.ie" %>
+    <%= javascript_include_tag :defaults %>
+  </head>
+
+<body>
+<div id="gaugeDiv" style="width: 150; height: 150" ></div>
+<script>
+	var gauge = bindows.loadGaugeIntoDiv("gauges/g_clock_01.xml", "gaugeDiv");
+
+	// dynamically update the gauge at runtime
+	var t = 0;
+	function updateGauge() {
+		t += 100;
+		gauge.needle.setValue( 50 + 50 * Math.sin(t/1000) );
+	}
+	updateGauge();
+	setInterval(updateGauge, 100);
+</script>
+    <%= render :partial => 'layouts/includes/footer' %>
+	</body>
+</html>
