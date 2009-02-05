@@ -4,6 +4,7 @@
     <Ruby Include="app\controllers\admin\devices_controller.rb" />
     <Ruby Include="app\controllers\admin\device_profiles_controller.rb" />
     <Ruby Include="app\controllers\admin\users_controller.rb" />
+    <Ruby Include="app\controllers\bindows_controller.rb" />
     <Ruby Include="app\controllers\enfora\command_request_controller.rb" />
     <Ruby Include="app\controllers\enfora\common_controller.rb" />
     <Ruby Include="app\controllers\enfora\device_controller.rb" />
@@ -32,6 +33,7 @@
     <Ruby Include="app\helpers\account_helper.rb" />
     <Ruby Include="app\helpers\admin_helper.rb" />
     <Ruby Include="app\helpers\application_helper.rb" />
+    <Ruby Include="app\helpers\bindows_helper.rb" />
     <Ruby Include="app\helpers\contact_helper.rb" />
     <Ruby Include="app\helpers\device_helper.rb" />
     <Ruby Include="app\helpers\gadget_helper.rb" />
@@ -86,6 +88,7 @@
     <EmbeddedRuby Include="app\views\admin\users\new.rhtml" />
     <EmbeddedRuby Include="app\views\admin\users\_user_form.rhtml" />
     <EmbeddedRuby Include="app\views\admin\index.rhtml" />
+    <EmbeddedRuby Include="app\views\bindows\index.rhtml" />
     <EmbeddedRuby Include="app\views\contact\index.rhtml" />
     <EmbeddedRuby Include="app\views\contact\thanks.rhtml" />
     <EmbeddedRuby Include="app\views\devices\choose.rhtml" />
@@ -850,6 +853,7 @@
     <Folder Include="app\views\admin\devices\" />
     <Folder Include="app\views\admin\device_profiles\" />
     <Folder Include="app\views\admin\users\" />
+    <Folder Include="app\views\bindows" />
     <Folder Include="app\views\contact\" />
     <Folder Include="app\views\devices\" />
     <Folder Include="app\views\enfora\" />
@@ -1044,6 +1048,8 @@
     <Content Include="public\images\nav_blue_right.jpg" />
     <Content Include="public\images\nav_right_white.jpg" />
     <Content Include="public\images\nav_white_left.jpg" />
+    <Content Include="public\javascripts\gauge2.ie.js" />
+    <Content Include="public\javascripts\gauge2.moz.js" />
   </ItemGroup>
   <PropertyGroup>
     <RailsProject>True</RailsProject>
