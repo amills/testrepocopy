@@ -1,5 +1,6 @@
 <table>
 	<tr><td>* Name:</td><td>&nbsp;</td><td><input type="text" style="width:300px;" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="profile[name]" id="name" value="<%= @profile.name %>" /></td></tr>
+	<tr><td>Fixed Asset:</td><td></td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[is_fixed_asset]" <%if @profile.is_fixed_asset %>checked<% end %> /></td></tr>
 	<tr><td>Speeds:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[speeds]" <%if @profile.speeds %>checked<% end %>/></td></tr>
 	<tr><td>Stops:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[stops]" <%if @profile.stops %>checked<% end %>/></td></tr>
 	<tr><td>Idles:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[idles]" <%if @profile.idles %>checked<% end %>/></td></tr>

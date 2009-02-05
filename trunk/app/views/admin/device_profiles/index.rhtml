@@ -10,7 +10,7 @@
 			<tr class="<%= cycle("gray_row", "") %>">
 				<td><a href="/admin/device_profiles/edit/<%= profile.id %>">edit</a></td>
 				<td><a href="/admin/device_profiles/show/<%= profile.id %>"><%= profile.name %></a></td>
-				<td><%= encode_profile_options(profile) %></td>
+				<td><% if profile.is_fixed_asset %>Fixed<% else %><%= encode_profile_options(profile) %><% end %></td>
 				<td><%= profile.gpio1_name or '&nbsp;' %></td>
 				<td><%= profile.gpio1_low_value or '&nbsp;' %></td>
 				<td><%= profile.gpio1_high_value or '&nbsp;' %></td>

@@ -33,7 +33,7 @@
 	<% for device in @devices %>
 		<% if last_profile_id != device.profile_id %>
 			<% last_profile_id = device.profile_id %>
-			<tr><td class="bg_overview" colspan="10"><%= device.profile.name %></td></tr>
+			<tr><td class="bg_overview" colspan="10"><strong><%= device.profile.name %></strong></td></tr>
 		<% end %>
 		<tr class="<%= cycle("gray_row", "") %>">
 			<td><a href="/admin/devices/edit/<%= device.id %><% if params[:id] %>?account_id=<%= params[:id] %><% end %>">edit</a></td>

@@ -44,17 +44,6 @@
 	background-color: #FFFFFF;
 }
 
-.form td {
-	font-size: 16px;
-	height: 40px;
-	text-align: right;
-}
-
-/*.input {
-	font-size: 16px;
-	width: 200px;
-}*/
-
 .disabled {
 	font-size: 16px;
 	border: none;
@@ -63,4 +52,19 @@
 .faded_red {
 	background-color: #B34141;
 	color: #FFFFFF;
+}
+
+#map {
+	width: 100%;
+	height: 350px;
+	margin-bottom: 10px;
+}
+
+#map_update_form #address {
+	width: 500px;
+	font-size: 16px;
+}
+
+#map_save_form {
+	margin-top: 10px;
 }

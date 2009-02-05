@@ -21,7 +21,7 @@ module HomeHelper
   def show_device(device)
     content = ""
     content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}"> <td>)
-    if device.latest_gps_reading
+    if device.latest_gps_reading || device.profile.is_fixed_asset
       content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a>)
     else
       content << %(#{device.name})
@@ -29,7 +29,10 @@ module HomeHelper
     content << %(</td>)
 
     content << %(<td>)
-    if device.latest_gps_reading
+    
+    if device.profile.is_fixed_asset
+      #content << %(#{device.latitude}, #{device.longitude}, adsfasdfasf)
+    elsif device.latest_gps_reading
       content << %(#{device.latest_gps_reading.short_address})
     else
       content << %(N/A)

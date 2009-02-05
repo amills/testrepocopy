@@ -134,4 +134,9 @@ class Device < ActiveRecord::Base
       return false
     end
   end
+  
+  # Retrieve fixed location for the device
+  def fixed_reading
+    Reading.new(:latitude => self.latitude, :longitude => self.longitude, :address => self.address)
+  end
 end

@@ -12,6 +12,7 @@ var fullScreenMap = false;
 var infowindow;
 var new_drag_point;
 var zoom_val = get_cookie("zvalue");
+var is_fixed_asset = false;
 
 function load() 
 {
@@ -39,7 +40,7 @@ function load()
 	});
 	
 	GEvent.addListener(gmap, "click", function(marker, point) {               
-		if (marker) {
+		if (marker && !is_fixed_asset) {
 	    	highlightRow(marker.id);
 	  	}
 	});
@@ -370,8 +371,10 @@ function getReportBreadcrumbs() {
 		
 		if(i == 0) {
 			gmap.setCenter(point, zoom);
-			gmap.openInfoWindowHtml(point, createReadingHtml(id));
-			highlightRow(id);
+			if(!is_fixed_asset) {
+				gmap.openInfoWindowHtml(point, createReadingHtml(id));
+				highlightRow(id);
+			}
 		}
 	}
 	

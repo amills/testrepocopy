@@ -41,7 +41,12 @@ class Admin::DevicesController < ApplicationController
       params[:device][:is_public] == '1' ? device.is_public = true : device.is_public = false
   
       if device.save
-        redirect_to :action => 'index' and return
+        # For fixed assets we allow the user to manually enter the location
+        if device.profile.is_fixed_asset
+          redirect_to :action => 'map', :id => device.id and return
+        else
+          redirect_to :action => 'index' and return
+        end
         flash[:success] = "#{device.name} created successfully"
       else
         error_msg = ''
@@ -65,6 +70,11 @@ class Admin::DevicesController < ApplicationController
       end
       
       device.update_attributes(params[:device])
+      
+      # If this is a fixed asset we'll let them update the map
+      if device.profile.is_fixed_asset?
+        redirect_to :action => 'map', :id => device.id and return
+      end
       
       flash[:success] = "#{device.name} updated successfully"
     
@@ -91,6 +101,22 @@ class Admin::DevicesController < ApplicationController
       redirect_to :action => 'index'
     end
     
+  end
+  
+  # Action to allow the user to enter a static location for the asset
+  def map
+    @device = Device.find(params[:id])
+    
+    if !@device.profile.is_fixed_asset
+      redirect_to :action => 'index'
+    else
+      # Save the asset location
+      if request.post?
+        @device.update_attributes(params[:device])
+        redirect_to :action => 'index'
+        flash[:success] = "#{@device.name}'s location was updated successfully"
+      end
+    end
   end
   
 end

@@ -133,6 +133,7 @@ module ApplicationHelper
   end
   
   def add_javascript_reading(reading)
+    reading.id = 0 if reading.id == nil # Support for devices with fixed location and no readings
     %[<script>readings.push({id: #{reading.id}, lat: #{reading.latitude}, lng: #{reading.longitude}, address: '#{escape_javascript reading.short_address}', dt: displayLocalDT(#{reading.created_at.to_i*1000}), note: '#{escape_javascript reading.note}', event: '#{reading.event_type}'});</script>] if reading and reading.short_address != ', '
   end
 end
