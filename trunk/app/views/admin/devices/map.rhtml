@@ -1,0 +1,23 @@
+<h2>Please click on the map or enter an address for <%= @device.name %></h2>
+
+<div id="map"></div>
+<form onsubmit="return false;" id="map_update_form">
+	<input type="text" id="address" />
+	<input type="submit" value="Update map" onclick="geocode(this.form.address.value);" />
+</form>
+
+<form method="post" id="map_save_form">
+	<input type="submit" value="Save location" id="save" />
+	<input type="hidden" id="latitude" name="device[latitude]" />
+	<input type="hidden" id="longitude" name="device[longitude]" />
+	<input type="hidden" id="rgaddress" name="device[address]" />
+</form>
+
+<script>
+	<% if !@device.latitude.nil? %>
+	position = [<%= @device.latitude %>, <%= @device.longitude %>, '<%= @device.address %>'];
+	<% end %>
+	window.onload = load;
+	window.onunload = GUnload;
+</script>
+
