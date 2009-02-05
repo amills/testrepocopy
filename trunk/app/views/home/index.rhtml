@@ -76,12 +76,12 @@
 										speed_class = 'disabled_button'
 										if device.is_speed_enabled?
 											if (speed_status_reading = device.speed_status_reading)
-												speed_status = 'No alert last 24 hours'.t
-												speed_class = 'green_button'
-											else
 												time_distance = (Time.now - speed_status_reading.created_at).to_i / 60
 												speed_status = 'Alert %d hours %d minutes ago'.t / (time_distance / 60) / (time_distance % 60)
 												speed_class = 'red_button'
+											else
+												speed_status = 'No alert last 24 hours'.t
+												speed_class = 'green_button'
 											end
 										end
 									%>
