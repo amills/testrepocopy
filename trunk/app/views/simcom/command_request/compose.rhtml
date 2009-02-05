@@ -1,3 +1,18 @@
 <% form_tag({:controller=>'command_request',:action =>'submit'}) do %>
 <%= render :partial => 'command_form' %>
+<table class="panel_table">
+	<tr><td colspan="3" class="header">Command Format Summary</td></tr>
+	<tr>
+		<th>Command</th>
+		<th>Description</th>
+		<th>Comments</th>
+	</tr>
+	<% for entry in predefined_commands %>
+		<tr>
+			<td nowrap><%= entry[:command] %></td>
+			<td nowrap><%= entry[:name] %></td>
+			<td><%= entry[:advice] or '&nbsp;' %></td>
+		</tr>
+	<% end %>
+</table>
 <% end%>

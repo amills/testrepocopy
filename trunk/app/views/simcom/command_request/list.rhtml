@@ -1,24 +1,91 @@
+<table class="panel_table">
+	<tr>
+		<td valign="top" class="spacer">
+<!-- start standard table -->
 <% form_tag({:controller=>'command_request',:action =>'list',:id=>@device}) do %>
 	<table id="ub-table">
 		<tr class="header">
-			<td>Name</td>
-			<td>IMEI</td>
-			<td>Command</td>
-			<td>Status</td>
-			<td>Response</td>
-			<td>Start Date/Time</td>
-			<td>End Date/Time</td>
+			<td nowrap>Name</td>
+			<td nowrap>IMEI</td>
+			<td nowrap>Command</td>
+			<td nowrap>Description</td>
+			<td nowrap>Status</td>
+			<td nowrap>Response</td>
+			<td nowrap>Start Date/Time</td>
+			<td nowrap>End Date/Time</td>
 		</tr>
 		<% for command_request in @command_requests %>
 			<tr class="<%= cycle("gray_row", "") %>">
-				<td><%= Device.friendly_name_for_gateway_device(command_request.device) or '&nbsp;' %></td>
-				<td><%= link_to(command_request.device.imei,:id=>command_request.device) if command_request.device %>&nbsp;</td>
-				<td><%= link_to (command_request.command or '???'),:action => 'check_status',:id => command_request %></td>
-				<td><%= command_request.status or '&nbsp;' %></td>
-				<td><%= command_request.response or '&nbsp;' %></td>
+				<td nowrap><%= Device.friendly_name_for_gateway_device(command_request.device) or '&nbsp;' %></td>
+				<td nowrap><%= link_to(command_request.device.imei,:id=>command_request.device) if command_request.device %>&nbsp;</td>
+				<td nowrap><%= link_to (command_request.command or '???'),:action => 'check_status',:id => command_request %></td>
+				<td nowrap><%= predefined_command_name(command_request.command) or '&nbsp;' %></td>
+				<td nowrap><%= command_request.status or '&nbsp;' %></td>
+				<td nowrap><%= command_request.response or '&nbsp;' %></td>
 				<td><%= command_request.start_date_time %>&nbsp;</td>
 				<td><%= command_request.end_date_time %>&nbsp;</td>
 			</tr>
 		<% end %>
 	</table>
 <% end%>
+<!-- end standard list -->			
+		</td>
+<% if @device %>			
+<!-- start device status -->
+	<% if (config = @device.device_config) %>
+		<td valign="top" class="spacer">
+			<table>
+				<tr><td colspan="2" class="header">Device Configuration</td></tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">Nickname</th>
+					<td style="width:50%"><%= config.nickName or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">Password</th>
+					<td style="width:50%"><%= config.password or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">Server #1</th>
+					<td style="width:50%"><%= config.server1Ip or '&nbsp;' %>:<%= config.server1Port or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">Server #2</th>
+					<td style="width:50%"><%= config.server2Ip or '&nbsp;' %>:<%= config.server2Port or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">SMSC #1 &amp; &2</th>
+					<td style="width:50%"><%= config.smsc1 or '&nbsp;' %>:<%= config.smsc1 or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">Report Scheme</th>
+					<td style="width:50%"><%= config.rtrStartTime or '&nbsp;' %>:<%= config.rtrEndTime or '&nbsp;' %>:<%= config.rtrGPSFixInterval or '&nbsp;' %>:<%= config.rtrReportInterval or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">Power Key Enabled</th>
+					<td style="width:50%"><%= config.powerKeyEnabled or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">Function Key Enabled/Mode</th>
+					<td style="width:50%"><%= config.functionKeyEnabled or '&nbsp;' %>:<%= config.functionKeyMode or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">GSM Location Mode</th>
+					<td style="width:50%"><%= config.gsmLocationMode or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">Movement Detect Scheme</th>
+					<td style="width:50%"><%= config.movementDetectionMode or '&nbsp;' %>:<%= config.movementDetectionSpeed or '&nbsp;' %>:<%= config.movementDetectionDistance or '&nbsp;' %></td>
+				</tr>
+				<tr>
+					<th nowrap style="text-align:right;width:50%">Speed Check Enabled/Threshold</th>
+					<td style="width:50%"><%= config.speedChkEnabled or '&nbsp;' %>:<%= config.speedChkValue or '&nbsp;' %></td>
+				</tr>
+			</table>
+		</td>
+	<% else %>
+		<td class="header">The device has not yet reported its configuration.</td>
+	<% end %>
+<!-- end device status --> 			
+<% end %>
+	</tr>
+</table>
