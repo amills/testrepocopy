@@ -1,0 +1,18 @@
+<form action="/locators/edit/<%= params[:id] %>" method="get" style="display:inline">                                         
+	<table>
+		<tr>
+			<td><center class="dark_blue_header">Select Locator</span></td>
+		</tr>
+		<tr>
+			<td>
+				<center>
+			        <select onchange="changeDevice(this.options[this.selectedIndex].value, '<%= params[:action] %>', '<%= @start_date %>', '<%= @end_date%>');">
+			          <% for device in @device_names %>
+			            <option value="<%= device.id %>" <% if params[:id].to_i == device.id %>selected="selected"<% end %>><%= device.name %></option>
+			          <% end %>
+			        </select>              
+				</center>
+			</td>
+		</tr>
+	</table>
+</form>

@@ -1,0 +1,98 @@
+<%= render :partial=>"/layouts/flash_message" %>    
+
+<h3>These Alerts apply to:</h3>
+<table class="form_table">
+	<tr>
+		<td>
+			<input type="radio" name="apply_to" value="all" checked>All NavSeeker Locators</input><br/>
+			<input type="radio" name="apply_to" value="single">A Single NavSeeker Locator</input><br/>
+			<select name="single_device_id">
+				<% for device in @device_names %>
+					<option value="<%= device.id %>"><%= device.name %></option>
+				<% end %>
+			</select>              
+		</td>
+	</tr>
+</table>
+
+<h3>What Alert(s) do you want to receive?</h3>
+<table class="form_table">
+	<tr>
+		<td>
+			<input type="checkbox" name="sos_alert"/>EMERGENCY PUSH BUTTON notification (SOS Alarm)<br/>
+			<input type="checkbox" name="battery_alert"/>Low Battery notification<br/>
+			<input type="checkbox" name="power_alert"/>Power Off notification (battery is dead)<br/>
+			<input type="checkbox" name="geofence_alert"/>Geofence Event; the Locator is entering or leaving a Geofence<br/>
+			<input type="checkbox" name="speed_alert"/>Speed Alert: <input name="speed_value" type="text" value="" style="width:50px;"/> At what speed do you want the alert? (kmh)
+		</td>
+	</tr>
+</table>
+
+<h3>How do you want to be informed?</h3>
+<table class="form_table">
+	<tr>
+		<td><input type="checkbox" name="email"/></td>
+		<td><strong>By email:</strong> <%= session[:email] %></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" name="sms"/></td>
+		<td><strong>SMS sign up</strong></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>
+			Find your NavSeeker Locator using a mobile phone.
+			Simply text FIND to XXX-XXX-XXXX from your NavSeeker-registered mobile phone(s) and
+			you will then be prompted to reply back with your PIN number (enter below) and name of Locator.
+			The location of your NavSeeker device will be sent back to you via text message.</input>
+		</td>
+		<td style="width:50%;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>PIN Number: 4 digits, no spaces</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><input type="text" name="pin" style="width:50px;"/></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>
+			<table>
+				<tr>
+					<td valign="top"><input type="checkbox" name="agree"/></td>
+					<td>
+						I have read and agree to the <a href="#">SMS Terms and Conditions</a>.
+						All Navseekr SMS notifications are billed at standard SMS rates.
+						See your carrier's rate plan for more information.
+						Subscribers must opt-in to receive NavSeeker SMS notifications and can opt-out at any time.
+						For help, contact NavSeeker <a href="mailto:support@navseeker.com">support@navseeker.com</a>.
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						Simply text FIND to XXX-XXX-XXXX from your NavSeeker registered mobile phone(s) and
+						you will then be prompted to reply back with your PIN Number and Locator device name.
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						<strong>Mobile Number: XXX-XXX-XXXX</strong><br/>
+						<input type="text" name="phone_number"/>
+						<input type="button" class="blue_button" value="Send Test SMS"/>
+					</td>
+				</tr>
+			</table>
+			<div align="right">
+				<input type="button" class="green_button" value="Update Alerts"/>
+				<input type="button" class="red_button" value="Cancel"/>
+			</div>
+		</td>
+		<td style="width:50%;">&nbsp;</td>
+	</tr>
+</table>
