@@ -1,0 +1,86 @@
+<% if session[:is_admin] or session[:is_super_admin] %>
+<%= render :partial=>"/layouts/flash_message" %>
+<table style="width:850px;">
+	<tr>
+		<td valign="top" style="width:60%">
+			<ul class="list">
+				<li>
+					<h3>"<%= session[:first_name] %> <%= session[:last_name] %>"</h3>
+					<h3>Welcome to Your Account Settings</h3>
+					<table style="width:100%;">
+						<tr>
+							<td style="width:60%;">
+								<strong>Contact and Billing Information</strong><br/>
+								<input type="button" class="blue_button" value="Edit"/>
+							</td>
+							<td style="width:10px;">&nbsp;</td>
+							<td>
+								<input type="button" class="blue_button" value="Change PIN" style="width:100%"/><br/>
+								<input type="button" class="blue_button" value="Change Password" style="width:100%"/><br/>
+								<input type="button" class="blue_button" value="View Billing History" style="width:100%"/>
+							</td>
+						</tr>
+					</table>
+				</li>
+				<li>
+					<h3>Upgrade/Downgrade Your Plan.</h3>
+					<h3>It's easy to do!</h3>
+					Update your plan below and we will have you on a new plan within 48 hours.
+					We will send you an email when we have made the change.
+					<table>
+						<tr>
+							<td><center class="dark_blue_header">Select Locator</span></td>
+						</tr>
+						<tr>
+							<td>
+								<center>
+							        <select>
+							          <% for device in @device_names %>
+							            <option value="<%= device.id %>" <% if params[:id].to_i == device.id %>selected="selected"<% end %>><%= device.name %></option>
+							          <% end %>
+							        </select>              
+								</center>
+							</td>
+							<td>
+								Your current plan is: <strong style="color:red;">Basic</strong>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="radio" name="plan" value="royal"/> <a href="#">Royal Plan</a> <span style="color:red;">$16.95 a month</span><br/>
+								<input type="radio" name="plan" value="standard"/> <a href="#">Standard Plan</a> <span style="color:red;">$7.95 a month</span><br/>
+								<input type="radio" name="plan" value="basic"/> <a href="#">Basic Plan</a> <span style="color:red;">$0.00 a month</span><br/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right">
+								<input type="button" class="green_button" value="Submit"/>
+							</td>
+						</tr>
+					</table>
+				</li>				
+			</ul>
+		</td>
+		<td style="width:20px;">&nbsp;</td>
+		<td valign="top">
+			<h3>Your Current Users (<%= @users.size %> total)</h3>
+			Don't worry. The users you sign up will not be able to see your Account tab information.
+			They can access the Settings tab so they can refill your account if you have Basic Service.
+			<ul class="list">
+			    <% for user in @users%>
+			        <li>
+						<strong><%= user.first_name %> <%= user.last_name %></strong> (<%= user.email %>) - <a href="/users/edit/<%= user.id %>">edit</a><br />
+						<% if user.last_login_dt.nil? %>never logged in<% else %>logged in <%= time_ago_in_words user.last_login_dt %> ago<% end %>
+					</li>
+			    <% end %>
+			</ul>
+			<form action="<%= new_url%>" method="get" style="display:inline">
+				<input type="submit" class="blue_button" value="Add New User"/>
+			</form>
+		</td>
+	</tr>
+</table>
+<% else %>
+<% flash[:error] = 'This page is only available to Account owners and administrators.' %>
+<%= render :partial=>"/layouts/flash_message" %>    
+<% end %>
