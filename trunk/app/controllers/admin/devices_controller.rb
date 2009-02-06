@@ -42,6 +42,7 @@ class Admin::DevicesController < ApplicationController
   
       if device.save
         device.ensure_gateway_device
+        device.gateway_device_msisdn = params[:gateway_device][:msisdn] if params[:gateway_device]
         redirect_to :action => 'index' and return
         flash[:success] = "#{device.name} created successfully"
       else
@@ -67,6 +68,7 @@ class Admin::DevicesController < ApplicationController
       
       device.update_attributes(params[:device])
       device.ensure_gateway_device
+      device.gateway_device_msisdn = params[:gateway_device][:msisdn] if params[:gateway_device]
       
       flash[:success] = "#{device.name} updated successfully"
     

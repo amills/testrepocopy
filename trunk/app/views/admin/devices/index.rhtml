@@ -21,6 +21,7 @@
 		<td></td>
 		<td>Name</td>
 		<td>IMEI</td>
+		<td>MSISDN</td>
 		<td>Account</td>
 		<td>Provision Status</td>
 		<td>Last Online</td>
@@ -33,12 +34,13 @@
 	<% for device in @devices %>
 		<% if last_profile_id != device.profile_id %>
 			<% last_profile_id = device.profile_id %>
-			<tr><td class="bg_overview" colspan="10"><%= device.profile.name %></td></tr>
+			<tr><td class="bg_overview" colspan="11"><%= device.profile.name %></td></tr>
 		<% end %>
 		<tr class="<%= cycle("gray_row", "") %>">
 			<td><a href="/admin/devices/edit/<%= device.id %><% if params[:id] %>?account_id=<%= params[:id] %><% end %>">edit</a></td>
 			<td><%= device.name %></td>
 			<td><%= device_imei_or_link(device) %></td>
+			<td><%= device.gateway_device_msisdn or '&nbsp;' %></td>
 			<td><% if device.account.nil? %>No Account<% else %><a href="/admin/accounts/edit/<%= device.account.id %>"><%= device.account.company %></a><% end %></td>
 			<td<% if device.provision_status_id == Device::STATUS_DELETED %> class="faded_red"<% end %>><% if device.provision_status_id == Device::STATUS_INACTIVE %>Not Provisioned<% elsif device.provision_status_id == Device::STATUS_ACTIVE %>Provisioned<% elsif device.provision_status_id == Device::STATUS_DELETED %>Deleted<% else %>Unknown<% end %></td>
 			<td><% if device.last_online_time %><script>document.write(displayLocalDT(<%= device.last_online_time.to_i*1000 %>));</script><% else %>N/A<% end %></td>

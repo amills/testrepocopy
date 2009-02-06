@@ -131,6 +131,16 @@ class Device < ActiveRecord::Base
     @gateway_device = value
   end
   
+  def gateway_device_msisdn
+    return gateway_device.msisdn if gateway_device and gateway_device.respond_to?('msisdn')
+  end
+  
+  def gateway_device_msisdn=(value)
+    return unless gateway_device and gateway_device.respond_to?('msisdn')
+    gateway_device.msisdn = value
+    gateway_device.save
+  end
+  
   def get_fence_by_num(fence_num)
     Geofence.find(:all, :conditions => ['device_id = ? and fence_num = ?', id, fence_num])[0]
   end
