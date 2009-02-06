@@ -76,6 +76,7 @@
     <EmbeddedRuby Include="app\views\admin\accounts\_account_form.rhtml" />
     <EmbeddedRuby Include="app\views\admin\devices\edit.rhtml" />
     <EmbeddedRuby Include="app\views\admin\devices\index.rhtml" />
+    <EmbeddedRuby Include="app\views\admin\devices\map.rhtml" />
     <EmbeddedRuby Include="app\views\admin\devices\new.rhtml" />
     <EmbeddedRuby Include="app\views\admin\devices\_device_form.rhtml" />
     <EmbeddedRuby Include="app\views\admin\device_profiles\edit.rhtml" />
