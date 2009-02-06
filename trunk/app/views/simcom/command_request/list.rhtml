@@ -5,23 +5,20 @@
 <% form_tag({:controller=>'command_request',:action =>'list',:id=>@device}) do %>
 	<table id="ub-table">
 		<tr class="header">
-			<td nowrap>Name</td>
-			<td nowrap>IMEI</td>
-			<td nowrap>Command</td>
-			<td nowrap>Description</td>
-			<td nowrap>Status</td>
-			<td nowrap>Response</td>
+			<td>Name</td>
+			<td>IMEI</td>
+			<td>Command</td>
+			<td>Status</td>
+			<td>Response</td>
 			<td nowrap>Start Date/Time</td>
 			<td nowrap>End Date/Time</td>
 		</tr>
 		<% for command_request in @command_requests %>
 			<tr class="<%= cycle("gray_row", "") %>">
-				<td nowrap><%= Device.friendly_name_for_gateway_device(command_request.device) or '&nbsp;' %></td>
-				<td nowrap><%= link_to(command_request.device.imei,:id=>command_request.device) if command_request.device %>&nbsp;</td>
-				<td nowrap><%= link_to (command_request.command or '???'),:action => 'check_status',:id => command_request %></td>
-				<td nowrap><%= predefined_command_name(command_request.command) or '&nbsp;' %></td>
-				<td nowrap><%= command_request.status or '&nbsp;' %></td>
-				<td nowrap><%= command_request.response or '&nbsp;' %></td>
+				<td><%= Device.friendly_name_for_gateway_device(command_request.device) or '&nbsp;' %></td>
+				<td><%= link_to(command_request.device.imei,:id=>command_request.device) if command_request.device %>&nbsp;</td>
+				<td><%= link_to(command_request.command || '???',{:action => 'check_status',:id => command_request},{:title => predefined_command_name(command_request.command)}) %></td>
+				<td><%= link_to(command_request.status || '???',{:action => 'check_status',:id => command_request},{:title => command_request.response}) %></td>
 				<td><%= command_request.start_date_time %>&nbsp;</td>
 				<td><%= command_request.end_date_time %>&nbsp;</td>
 			</tr>
@@ -30,7 +27,7 @@
 <% end%>
 <!-- end standard list -->			
 		</td>
-<% if @device %>			
+<% unless @device.nil? or @device.new_record? %>			
 <!-- start device status -->
 	<% if (config = @device.device_config) %>
 		<td valign="top" class="spacer">
