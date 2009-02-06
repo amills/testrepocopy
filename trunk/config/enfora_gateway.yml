@@ -6,9 +6,9 @@ device_class: Enfora::Device
 
 development:
   adapter: mysql
-  database: enfora_enfora
+  database: ublip_v2_development
   username: root
-  password: 
+  password: 1210dpbt
   host: localhost
 
 production:
