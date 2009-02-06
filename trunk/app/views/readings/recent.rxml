@@ -7,7 +7,7 @@ xml.devices do
       xml.imei(device.imei)
        xml.icon_id(device.icon_id)
         # Just display empty nodes if this device has no readings
-      if device.latest_gps_reading.nil?
+      if device.latest_gps_reading.nil? and !device.profile.is_fixed_asset
         xml.lat
         xml.lng
         xml.address
@@ -16,22 +16,30 @@ xml.devices do
         xml.status
         xml.pending_tasks
       else # We got data
-        xml.lat(device.latest_gps_reading.latitude)
-        xml.lng(device.latest_gps_reading.longitude)
-        xml.address(device.latest_gps_reading.short_address)
-        xml.dt((time_ago_in_words device.latest_gps_reading.created_at) + ' ago')
-        xml.note(device.latest_gps_reading.note)
+      if !device.profile.is_fixed_asset
+            xml.lat(device.latest_gps_reading.latitude)
+            xml.lng(device.latest_gps_reading.longitude)
+            xml.address(device.latest_gps_reading.short_address)
+            xml.dt((time_ago_in_words device.latest_gps_reading.created_at) + ' ago')
+            xml.note(device.latest_gps_reading.note)
+        else
+            xml.lat(device.latitude)
+            xml.lng(device.longitude)
+            xml.address(device.address)
+            xml.dt((time_ago_in_words device.last_online_time) + ' ago')
+            xml.note
+        end
         xml.status(latest_status_html(device))
-					if current_account.show_maintenance
-        			  if device.pending_tasks.count != 0 
-			   task = device.pending_tasks[0]
-			   task_description = task.description
-			   else
-				  task_description = "None" 
-			   end
-		    else
+	    if current_account.show_maintenance
+            if device.pending_tasks.count != 0 
+			    task = device.pending_tasks[0]
+			    task_description = task.description
+			else
+			    task_description = "None" 
+			end
+		else
 			task_description = '' 
-		 end
+		end
         xml.pending_tasks(task_description)
       end     
     end
