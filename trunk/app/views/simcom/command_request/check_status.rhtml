@@ -11,8 +11,12 @@
 			</td>
 		</tr>
 		<tr>
+			<td><b>Command Description:</b></td>
+			<td><%= predefined_command_name(@command_request.command) or 'Custom command' %></td>
+		</tr>
+		<tr>
 			<td><b>Command Submitted:</b></td>
-			<td><%= @command_request.command %></td>
+			<td><%= @command_request.command or '&nbsp;' %></td>
 		</tr>
 		<% status_lines = @command_request.status.split("\r\n") %>
 		<tr>
@@ -22,6 +26,10 @@
 		<% for line in status_lines[1..(status_lines.length - 1)] %>
 			<tr><td>&nbsp;</td><td><%= line or '&nbsp;' %></td></tr>
 		<% end %>
+		<tr>
+			<td><b>Command Response:</b></td>
+			<td><%= @command_request.response or '&nbsp;' %></td>
+		</tr>
 		<tr>
 			<td><b>Start Date/Time:</b></td>
 			<td><%= @command_request.start_date_time %></td>
