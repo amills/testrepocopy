@@ -7,7 +7,7 @@ class AddFixedAssets < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :device_profiles, :fixed_asset
+    remove_column :device_profiles, :is_fixed_asset
 	  remove_column :devices, :latitude
 	  remove_column :devices, :longitude
 	  remove_column :devices, :address
