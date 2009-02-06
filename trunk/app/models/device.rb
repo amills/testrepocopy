@@ -98,11 +98,20 @@ class Device < ActiveRecord::Base
     Reading.find(:first,:conditions => ["device_id = ? and event_type = 'SOS' and created_at >= ?",self.id,Time.now.advance(:hours => -24)])
   end
   
+  def ensure_gateway_device
+    return gateway_device if gateway_device
+    gateway = Gateway.find(gateway_name)
+    new_statement = %[#{gateway.device_class}.create!(:imei => '#{imei}')]
+    @gateway_device = eval(new_statement)
+    @gateway_device.logical_device = self
+    @gateway_device
+  end
+  
   def gateway_device
     return if @gateway_device == :false
     return @gateway_device if @gateway_device
     return unless (gateway = Gateway.find(gateway_name))
-    find_statement = %(#{gateway.device_class}.find(:first,:conditions => "imei = '#{imei}'"))
+    find_statement = %[#{gateway.device_class}.find(:first,:conditions => "imei = '#{imei}'")]
     @gateway_device = (eval(find_statement) or :false)
     return if @gateway_device == :false
     @gateway_device.logical_device = self

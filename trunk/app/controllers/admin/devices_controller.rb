@@ -41,6 +41,7 @@ class Admin::DevicesController < ApplicationController
       params[:device][:is_public] == '1' ? device.is_public = true : device.is_public = false
   
       if device.save
+        device.ensure_gateway_device
         redirect_to :action => 'index' and return
         flash[:success] = "#{device.name} created successfully"
       else
@@ -65,6 +66,7 @@ class Admin::DevicesController < ApplicationController
       end
       
       device.update_attributes(params[:device])
+      device.ensure_gateway_device
       
       flash[:success] = "#{device.name} updated successfully"
     
