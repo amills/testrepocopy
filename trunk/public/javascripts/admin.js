@@ -71,5 +71,5 @@ function addMarker(point) {
 	document.getElementById("save").disabled = false;
 	document.getElementById("latitude").value = point.lat();
 	document.getElementById("longitude").value = point.lng();
-	document.getElementById("address").value = document.getElementById("address").value;
+	document.getElementById("rgaddress").value = document.getElementById("address").value;
 }
