@@ -65,12 +65,12 @@ module HomeHelper
 
     content = ""
     content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}"> <td>)
-    if device.latest_gps_reading
-      content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a>)
-    else
-      content << %(#{device.name})
-    end
-    content << %(</td>
+if device.latest_gps_reading || device.profile.is_fixed_asset
+	content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a>)
+else
+	content << %(#{device.name})
+end
+content << %(</td>
     <td style="font-size:11px;">
       <a href="/reports/all/#{device.id}" title="View device details" class="link-all1">details</a>
     </td>
@@ -87,7 +87,7 @@ module HomeHelper
     content = ""
     content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}">)
 
-    if device.latest_gps_reading
+    if device.latest_gps_reading || device.profile.is_fixed_asset
       content << %(<td><a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a></td>)
     else
       content << %(<td>#{device.name}</td>)
@@ -116,7 +116,7 @@ module HomeHelper
 	  content = ""
 	  content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}">)
 	  
-	  if device.latest_gps_reading
+	  if device.latest_gps_reading || device.profile.is_fixed_asset
 		  content << %(<td><a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a></td>)
 	  else
 		  content << %(<td>#{device.name}</td>)
