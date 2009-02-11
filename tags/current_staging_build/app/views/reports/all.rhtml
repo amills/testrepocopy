@@ -1,0 +1,105 @@
+<form action="/reports/all/<%= params[:id] %>" method="get" style="display:inline">                                         
+	<table class="text_width">
+		<tr>
+			<td><center class="dark_blue_header">Select Locator</span></td>
+			<td class="dark_blue_header">Time</td>
+			<td><input type="radio" name="time_period" value="hour"<% if @time_period == 'hour' %> checked<% end %>/>Last 1 hour</td>
+		</tr>
+		<tr>
+			<td>
+				<center>
+			        <select onchange="changeDevice(this.options[this.selectedIndex].value, '<%= params[:action] %>', '<%= @start_date %>', '<%= @end_date%>');">
+			          <% for device in @device_names %>
+			            <option value="<%= device.id %>" <% if params[:id].to_i == device.id %>selected="selected"<% end %>><%= device.name %></option>
+			          <% end %>
+			        </select>              
+				</center>
+			</td>
+			<td>&nbsp;</td>
+			<td><input type="radio" name="time_period" value="day"<% if @time_period == 'day' %> checked<% end %>/>Last 24 hours</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td><input type="radio" name="time_period" value="range"<% if @time_period == 'range' %> checked<% end %>/>From
+				<%= select_date(@start_date, :order=>[:month,:day,:year], :use_short_month => true, :prefix=>"start_date")%>
+			    to <%= select_date(@end_date, :order=>[:month,:day,:year], :use_short_month => true, :prefix=>"end_date")%>
+				<input type="submit" class="blue_button" value="Update History"/></td>
+			</td>
+		</tr>
+	</table>
+</form>
+<table class="text_width" id="main_table" >
+  <tr>
+    <td id="left_panel" valign="top" width="50%">                    
+      <table class="panel_table">
+        <tr>
+          <th>Location</th>
+          <% if @device.profile.speeds %><th>Speed (mph)</th><% end %>
+          <th>Event Type</th>
+          <% if @device.profile.gpio1_name %><th><%= @device.profile.gpio1_name %></th><% end %>
+          <% if @device.profile.gpio2_name %><th><%= @device.profile.gpio2_name %></th><% end %>
+          <th>When</th>
+        </tr>                
+        
+        <%if  !@readings.empty?%> 
+          <% for reading in @readings %>
+            <tr class="<%= cycle('dark_row', 'light_row') %>" id="row<%= reading.id %>">
+              <td>
+                <%if reading.short_address==', '%>
+                  GPS Not Available
+                <%else%>
+                  <a href="javascript:centerMapOnReading(<%= reading.id %>);highlightRow(<%= reading.id %>)" title="Center map on this location" ><%= reading.short_address %></a>
+                <%end%>    
+              </td>
+              
+              <% if @device.profile.speeds %><td><center><%= reading.speed %></center></td><% end %>
+             
+              <td><center><%= render :partial => 'event_display',:locals => {:reading => reading} %></center></td>
+              
+              <%if @device.profile.gpio1_name %>
+                <% if reading.gpio1.nil? %>
+                  <td>-</td>
+                <% else %>
+                  <td><a href="/reports/gpio1/<%= params[:id] %>" title="View <%= @device.profile.gpio1_name %> report"><%= reading.gpio1 ? @device.profile.gpio1_high_value : @device.profile.gpio1_low_value %></a></td>
+                <% end %>
+              <% end %>
+              
+              <%if @device.profile.gpio2_name %>
+                <% if reading.gpio2.nil? %>
+                  <td>-</td>
+                <% else %>
+                  <td><a href="/reports/gpio2/<%= params[:id] %>" title="View <%= @device.profile.gpio2_name %> report"><%= reading.gpio2 ? @device.profile.gpio2_high_value : @device.profile.gpio2_low_value %></a></td>
+                <% end %>
+              <% end %>
+              
+              <td><script>document.write(displayLocalDT(<%= reading.created_at.to_i*1000 %>));</script></td>            
+            </tr>
+            
+            <%= add_javascript_reading(reading) %>
+          <% end %>
+        <%else%>
+          <%flag=true%>
+        <%end%>
+      </table>                                            
+      <%if flag%>
+        <div class="alert">
+          <span>No readings found.</span>
+        </div>                        
+      <%end%>        
+    </td>
+        
+    <td>                
+      <a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a>                
+    </td>
+           
+    <td width="50%" valign="top" id="right_panel">                    
+      <div class="report_map_header">Locations for <%= @device.name%></div> 
+      <div id="map" class="reports_map" ></div>                 
+    </td>
+  </tr>
+</table>
+
+
+<%= render :partial => 'report_footer' %>
+
