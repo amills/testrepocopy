@@ -13,6 +13,10 @@ class Simcom::Device < ActiveRecord::Base
     submit_command("GTSFR:#{device_config.powerKeyEnabled}:#{device_config.functionKeyEnabled}:#{device_config.functionKeyMode}:#{device_config.movementDetectionMode}:#{device_config.movementDetectionSpeed}:#{device_config.movementDetectionDistance}")
   end
   
+  def request_location
+    submit_command('GTRTO:1')
+  end
+  
   def submit_command(command)
     Simcom::CommandRequest.create!(:device_id => self.id,:command => command,:note => command,:start_date_time => Time.now)
   end
