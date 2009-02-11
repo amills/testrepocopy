@@ -14,6 +14,8 @@ class LocatorsController < ApplicationController
       flash[:error] = 'Invalid action.'
     elsif request.post?
       if @device.update_attributes(params[:device])
+        enable_power_button = params[:power_key] == 'on'
+        @device.set_power_key(enable_power_button) if enable_power_button != @device.is_power_key_enabled?
         flash[:success] = @device.name + ' was updated successfully'
       else
         flash[:error] =""

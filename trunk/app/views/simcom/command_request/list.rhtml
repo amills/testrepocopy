@@ -18,7 +18,7 @@
 				<td><%= Device.friendly_name_for_gateway_device(command_request.device) or '&nbsp;' %></td>
 				<td><%= link_to(command_request.device.imei,:id=>command_request.device) if command_request.device %>&nbsp;</td>
 				<td><%= command_request.device.msisdn if command_request.device %>&nbsp;</td>
-				<td><%= link_to(command_request.command ? (predefined_command_name(command_request.command) || 'Custom command') : '???',{:action => 'check_status',:id => command_request},{:title => (command_request.command || '???')}) %></td>
+				<td><%= link_to(command_request.command ? (predefined_command_name(command_request.note) || 'Custom command') : '???',{:action => 'check_status',:id => command_request},{:title => (command_request.command || '???')}) %></td>
 				<td><%= link_to(command_request.status || '???',{:action => 'check_status',:id => command_request},{:title => command_request.response}) %></td>
 				<td><%= command_request.start_date_time %>&nbsp;</td>
 				<td><%= command_request.end_date_time %>&nbsp;</td>

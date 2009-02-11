@@ -15,6 +15,14 @@ class HomeController < ApplicationController
   def map
     render :action => "home/map", :layout => "map_only"   
   end
+
+  def update_now
+    device = Device.find(params[:id])
+    device.request_location
+    render :update do |page|
+      page.replace_html "update_now_#{device.id}", :partial => 'update_requested'
+    end
+  end
  
 end
 

@@ -70,8 +70,8 @@ class Device < ActiveRecord::Base
     find_by_sql(["select id, name from devices where account_id = ? and provision_status_id = 1 order by name", account_id])
   end
   
-  def is_power_enabled?
-    gateway_device_config and gateway_device_config.powerKeyEnabled
+  def is_power_key_enabled?
+    gateway_device_config and gateway_device_config.powerKeyEnabled == 1
   end
   
   def set_power_key(enable)
@@ -95,7 +95,11 @@ class Device < ActiveRecord::Base
   end
   
   def speed_status_reading
-    Reading.find(:first,:conditions => ["device_id = ? and event_type = 'SOS' and created_at >= ?",self.id,Time.now.advance(:hours => -24)])
+    Reading.find(:first,:conditions => ["device_id = ? and event_type = 'Speeding' and created_at >= ?",self.id,Time.now.advance(:hours => -24)])
+  end
+  
+  def request_location
+    gateway_device.request_location if gateway_device and gateway_device.respond_to?('request_location')
   end
   
   def ensure_gateway_device

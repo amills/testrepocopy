@@ -6,6 +6,7 @@ class Simcom::CommandRequestController < Simcom::CommonController
   
   def submit
     @command_request = Simcom::CommandRequest.new(params[:command_request])
+    @command_request.note = @command_request.command
     @command_request.start_date_time = Time.now
     @command_request.save!
     redirect_to :action => "check_status",:id => @command_request
