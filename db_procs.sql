@@ -293,11 +293,12 @@ CREATE PROCEDURE check_for_trip_change(
     _ignition BOOLEAN
 )
 BEGIN
-    SELECT ignition INTO @previous_ignition FROM readings WHERE device_id=_device_id AND created_at < _timestamp AND ignition IS NOT NULL ORDER BY created_at DESC LIMIT 1;
-    IF _ignition=TRUE AND (@previous_ignition=FALSE OR @previous_ignition IS NULL) THEN
+    DECLARE previous_ignition boolean;
+    SELECT ignition INTO previous_ignition FROM readings WHERE device_id=_device_id AND created_at < _timestamp AND ignition IS NOT NULL ORDER BY created_at DESC LIMIT 1;
+    IF _ignition=TRUE AND (previous_ignition=FALSE OR previous_ignition IS NULL) THEN
         INSERT INTO trip_events (device_id, reading_start_id, created_at) VALUES (_device_id, _reading_id, _timestamp);
     END IF;
-    IF _ignition=FALSE AND @previous_ignition=TRUE THEN
+    IF _ignition=FALSE AND previous_ignition=TRUE THEN
         SELECT duration,id INTO @duration,@trip_id FROM trip_events WHERE device_id=_device_id AND created_at<_timestamp ORDER BY created_at desc limit 1;
         IF @duration IS NULL THEN
             UPDATE trip_events SET reading_stop_id=_reading_id, duration=TIMESTAMPDIFF(MINUTE,created_at,_timestamp) WHERE id=@trip_id;
