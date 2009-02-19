@@ -8,7 +8,7 @@ body {
 	
 
 #nav_tabs {
-	background-color: #0066FF;
+	background-color: #3366FF;
 	position: absolute;
 	width: 100%;
 	bottom: 0px;}
@@ -57,15 +57,6 @@ body {
 	color: #0066CC;
 	background-color: #EEEEEE;}
 
-#nav_tabs .right {
-	float: right;
-}
-
-#nav_tabs .far_right {
-	float: right;
-	margin-right: 10px;
-}
-
 /*tabs CSS  End*/	
 
 /*header CSS */
@@ -74,7 +65,7 @@ div#header {
 	padding: 0;
 	margin: 0;
 	height: 80px;
-	background-color: #0066FF;
+	background-color: #3366FF;
 	position: relative;}
 
 div#logo {
@@ -90,7 +81,9 @@ div#header_login {
 	vertical-align: middle;}
 
 div#header_login #logo {
-	float: left;}
+	float: left;
+	margin-bottom: 20px;
+}
 
 .header_{
     background-color: #6699CC;
@@ -105,8 +98,7 @@ div#header_login #logo {
 /*submenu CSS*/	
 
 #submenu{
-	color:#333333; 
-	font-weight:bold;
+	color:#999999; 
 	background-color:#eaeaea; 
 	padding:7px 2%}
 #submenu .current{
@@ -145,7 +137,7 @@ a:hover {
 
 div#login_form_container {
 	padding: 10px;
-	border: 6px solid #336699;
+	border: 6px solid #3366FF;
 	background-color: #DEE8F3;}
 
 div#login_form_container {
@@ -165,8 +157,7 @@ div#login_form_container {
 
 .form_table input {
 	font-weight: bold;
-	color: #006699;
-}
+	color: #006699;}
 	
 .bold_button {
 	font-weight: bold;
@@ -592,7 +583,7 @@ div#content_login {
 div#content_login h1{
 color:#666666;
 font-family:Arial,Helvetica,sans-serif;
-font-size:30px;
+font-size:24px;
 margin-bottom: 15px;}
 
 #new{
@@ -650,7 +641,7 @@ h4 {
 
 
 .panel_table .header {
-	background-color: #6699CC;
+	background-color: #666666;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -686,7 +677,7 @@ h4 {
 	border: 1px solid #FFFFFF;
 	padding: 5px;}
 #ub-table tr.header{ 
-	background-color:#6699cc;  
+	background-color:#666666;  
 	color:#ffffff; 
 	font-weight:normal; 
 	font-size:12px; 
