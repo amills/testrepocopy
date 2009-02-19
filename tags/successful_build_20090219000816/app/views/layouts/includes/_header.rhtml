@@ -1,0 +1,24 @@
+<div id="header">
+	<div id="company" ><%= session[:company] %></div>
+	
+	<div id="ub-login" style="margin-top: 5px; margin-right: 5px;">
+		Welcome, <%= session[:first_name] %> | <% if session[:is_super_admin] == true %><a href="/admin" >Admin</a> | <% end %> <a href="/logout" title="Logout">Logout</a>
+	</div>
+
+	<div style="clear:both;"></div>
+
+	<% page_name = request.path_info.split("/")[1]  %>
+	<% page_action = request.path_info.split("/")[2]  %>
+	
+	<div id="nav_tabs">
+		<ul>
+	   		<li <% if page_name== 'home'%> class="selected "<% end %> style="margin-left: 10px"><a href="/home">Overview</a></li>
+			<li <% if page_name == 'reports' %> class="selected_subnav"<% end %>><a href="/reports">Reports</a></li>
+			<li <% if page_name == 'contact' %> class="selected far_right"<% else %>class="far_right"<% end %>><a href="/contact">Contact</a></li>
+			<li <% if page_name == 'settings' %> class="selected right"<% else %>class="right"<% end %>><a href="/settings">Settings</a></li>
+			<li <% if page_name == 'users' %> class="selected_subnav right"<% else %>class="right"<% end %>><a href="/users">Users</a></li>
+			<li <% if page_name == 'devices' || page_name == 'geofence' || page_name == 'maintenance' %> class="selected_subnav right"<% else %>class="right"<% end %>><a href="/devices">Devices</a></li>
+		</ul>
+    </div>
+     
+</div>
