@@ -165,7 +165,7 @@ private
   end
     
   def set_page_title
-    @page_title = "Ublip - Location Matters"
+    @page_title = "EquipClick - Global Remote Equipment Monitoring and Tracking"
   end
 end
 

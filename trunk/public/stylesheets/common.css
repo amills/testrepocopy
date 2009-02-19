@@ -8,7 +8,7 @@ body {
 	
 
 #nav_tabs {
-	background-color: #0066FF;
+	background-color: #666666;
 	position: absolute;
 	width: 100%;
 	bottom: 0px;}
@@ -21,7 +21,7 @@ body {
 	float:left;
 	list-style-type: none;
 	display: inline;
-	background-color: #003366;
+	background-color: #D66D2B;
 	padding: 4px 0; /* 1px less padding for IE */
 	margin: 0 1px;
 }
@@ -34,27 +34,27 @@ body {
 
 #nav_tabs a:hover {
 	background-color: #FFFFFF;
-    color: #003366;
+    color: #333333;
     padding: 5px 10px;}
 
 #nav_tabs .selected a {
 	font-weight: bold;
-	color: #0066CC;
+	color: #333333;
 	background-color: #FFFFFF;
 	padding: 5px 10px;}
 
 #nav_tabs .selected a:hover {
 	font-weight: bold;
-	color: #0066CC;}
+	color: #333333;}
 
 #nav_tabs .selected_subnav a {
 	font-weight: bold;
-	color: #0066CC;
+	color: #333333;
 	background-color: #EEEEEE;
 	padding: 5px 10px;}
 
 #nav_tabs .selected_subnav a:hover {
-	color: #0066CC;
+	color: #333333;
 	background-color: #EEEEEE;}
 
 #nav_tabs .right {
@@ -74,7 +74,7 @@ div#header {
 	padding: 0;
 	margin: 0;
 	height: 80px;
-	background-color: #0066FF;
+	background-color: #666666;
 	position: relative;}
 
 div#logo {
@@ -145,8 +145,8 @@ a:hover {
 
 div#login_form_container {
 	padding: 10px;
-	border: 6px solid #336699;
-	background-color: #DEE8F3;}
+	border: 6px solid #D26D2B;
+	background-color: #EEEEEE;}
 
 div#login_form_container {
 	line-height: 30px;}
@@ -165,7 +165,7 @@ div#login_form_container {
 
 .form_table input {
 	font-weight: bold;
-	color: #006699;
+	color: #333333;
 }
 	
 .bold_button {
@@ -585,12 +585,12 @@ div#content {
 	min-height: 400px;}
 
 div#content_login {
-	margin: 0 auto;
+	margin: 20px auto;
 	width: 850px;
 	clear: both;}
 
 div#content_login h1{
-color:#666666;
+color:#999999;
 font-family:Arial,Helvetica,sans-serif;
 font-size:30px;
 margin-bottom: 15px;}
@@ -650,7 +650,7 @@ h4 {
 
 
 .panel_table .header {
-	background-color: #6699CC;
+	background-color: #999999;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -686,7 +686,7 @@ h4 {
 	border: 1px solid #FFFFFF;
 	padding: 5px;}
 #ub-table tr.header{ 
-	background-color:#6699cc;  
+	background-color:#999999;  
 	color:#ffffff; 
 	font-weight:normal; 
 	font-size:12px; 
