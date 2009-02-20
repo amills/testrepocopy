@@ -2,34 +2,34 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 
 class NotificationTest < Test::Unit::TestCase
-  
+
   def setup
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
     @notified_users = Array.new
     @notified_readings = Array.new
-    
+
   end
-  
+
   def record_notification(user, reading)
     @notified_users.push(user)
     @notified_readings.push(reading)
   end
-  
+
   context "a device offline notification" do
     setup do
       @user = Factory.build(:user)
       @device = Factory.build(:device)
       @response = Notifier.deliver_device_offline(@user, @device)
     end
-    
+
     should "have the correct content" do
       assert_equal 'Device Offline Notification', @response.subject
       assert_match /Dear #{@user.first_name} #{@user.last_name},\n\n#{@device.name} seems to be offline/, @response.body
     end
   end
-  
+
   context "a forgotten password notification" do
     setup do
       @user = Factory.build(:user)
@@ -40,8 +40,8 @@ class NotificationTest < Test::Unit::TestCase
       assert_equal @user.email, @response.destinations[0]
     end
   end
-  
-  
+
+
   context "A password change notification" do
     setup do
       @user = Factory.build(:user)
@@ -52,7 +52,7 @@ class NotificationTest < Test::Unit::TestCase
       assert_equal @user.email, @response.destinations[0]
     end
   end
-  
+
   context "A feedback notification" do
     setup do
       @user = Factory.build(:user)
@@ -63,7 +63,7 @@ class NotificationTest < Test::Unit::TestCase
       assert_equal "support@ublip.com", @response.destinations[0]
     end
   end
-  
+
   context "an order confirmation email" do
     setup do
       @user = Factory.build(:user)
@@ -74,7 +74,7 @@ class NotificationTest < Test::Unit::TestCase
       assert_equal @user.email, @response.destinations[0]
     end
   end
-  
+
   context "A reading notification" do
     setup do
       @user1 = Factory.build(:user, :time_zone => "GMT")
@@ -91,14 +91,14 @@ class NotificationTest < Test::Unit::TestCase
       assert_equal "Dear #{@user2.first_name} #{@user2.last_name},\n\n#{@reading.device.name} did something at Sat, Jan 01 2000 12:15:01\n", @response_user2.body
     end
   end
-  
+
   context "reading notifications" do
     setup do
       module MockNotify
         def set_test(test)
           @test = test
         end
-        
+
         def deliver_notify_reading(user, action, reading)
           puts "notifying #{user.first_name}"
           @test.record_notification(user, reading)
@@ -106,21 +106,21 @@ class NotificationTest < Test::Unit::TestCase
       end
       Notifier.extend(MockNotify)
       Notifier.set_test(self)
-      User.delete_all 
+      User.delete_all
       Group.delete_all
       Device.delete_all
       GroupNotification.delete_all
       Account.delete_all
       Reading.delete_all
       end
-    
+
     teardown do
       Object.class_eval do
         remove_const :Notifier.to_s
         load "notifier.rb"
       end
     end
-    
+
     context "without groups" do
       setup do
         account = Factory.create :account
@@ -131,18 +131,18 @@ class NotificationTest < Test::Unit::TestCase
         @reading = Factory.create :reading, :device => device
         Notifier.send_notify_reading_to_users("testing",@reading)
       end
-      
+
       should "notify users with all notifications on" do
         assert_equal 2, @notified_users.size
         assert @notified_users.include?(@user1)
         assert @notified_users.include?(@user2)
       end
-      
+
       should "not notify users with all notifications off" do
         assert_equal false, @notified_users.include?(@user3)
       end
     end
-    
+
     context "with groups" do
       setup do
         @notified_users = Array.new
@@ -162,7 +162,7 @@ class NotificationTest < Test::Unit::TestCase
         Notifier.send_notify_reading_to_users("testing", @reading2)
         Notifier.send_notify_reading_to_users("testing", @reading3)
       end
-      
+
       should "only notify user for subscribed groups" do
       assert_equal 2, @notified_users.size, "wrong number of notified users"
       assert_equal @user4, @notified_users[0]
@@ -173,6 +173,17 @@ class NotificationTest < Test::Unit::TestCase
       assert_equal false, @notified_readings.include?(@reading3)
     end
   end
-  
+
+  context "with an unassigned device" do
+    setup do
+      device = Factory.create :device, :account_id => 0, :account => nil
+      @reading = Factory.create :reading, :device => device
+      Notifier.send_notify_reading_to_users("testing",@reading)
+    end
+    should "not crash" do
+      assert true
+    end
+  end
+
 end
 end
