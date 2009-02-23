@@ -1,0 +1,43 @@
+<%= render :partial=>"/layouts/flash_message" %>    
+
+<% task_title = params[:description] ? " '#{params[:description]}' " : " " %>
+<div class="container">
+  <div id="top_head">
+    <h3>Your<%= task_title %>Maintenance Tasks (<%= @total_tasks %> total)</h3>
+  </div>
+</div>
+
+<div id="helper">
+  Maintenance tasks are a great way to record the service history of your vehicle or machine and to provide you with reminders as each task comes due.
+  You can create and track maintenance tasks by date (like an annual inspection) or by runtime hours.
+</div>
+   
+<% if @tasks.empty? %>
+  <div class="crt_group1"> 
+    You don't have any<%= task_title %>maintenance tasks yet.
+  </div>
+<% elsif params[:description] %>
+  <% for task in @tasks %>
+    <div class="crt_group1">
+      <%
+	  	task_summary = nil
+		if task.pastdue_notified
+		  task_summary = "#{task.device.name} was <i><b>past due</b></i> on #{task.pastdue_notified.strftime('%Y-%m-%d')}"
+        elsif task.is_scheduled?
+		  task_summary = "#{task.device.name} is due in #{time_ago_in_words(task.target_at - Time.now)}"
+        else
+		  task_summary = "#{task.device.name} is due in about #{(task.target_runtime - task.reviewed_runtime) / 60 / 60} runtime hours"
+        end
+      %>
+      <%= link_to task_summary,{:controller=>"maintenance", :action=>"complete", :id=>task.id},:class => "grayboldtext"%>    
+    </div>
+  <% end%>
+<% else %>
+  <% for task in @tasks %>
+    <div class="crt_group1"> 
+      <%= link_to "#{task.description} (#{task.task_count} total)" ,{:controller=>"maintenance", :action=>"index", :description=> task.description},:class => "grayboldtext"%>    
+    </div>
+  <% end%>
+<% end%>
+
+
