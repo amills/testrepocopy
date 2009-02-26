@@ -37,7 +37,7 @@ function getLongDateTime(millis) {
 	if (hour   == 0) { hour = 12;             }
 	if (minute < 10) { minute = "0" + minute; }
 	if (second < 10) { second = "0" + second; }
-	return days[day] + " " + months[month] + " " + (dt.getDate()) + " " + (year+1900) + " " + hour + ':' + minute + ':' + second + " " + ap;
+	return days[day] + " " + months[month] + " " + (day+1) + " " + (year+1900) + " " + hour + ':' + minute + ':' + second + " " + ap;
 }
 
 // Popup dynamically sized window
