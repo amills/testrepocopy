@@ -57,7 +57,16 @@
         <td width="50%" valign="top" id="right_panel">
             <div class="report_map_header">Current location of <%= @device.name %></div>
             <div id="map" class="reports_map"></div>
-			<%= add_javascript_reading(@device.latest_gps_reading) %>
+			<% if @device.profile.is_fixed_asset %>
+				<%= add_javascript_reading(@device.fixed_reading)%>
+					<script>
+					 // Defined as global in main.js
+					 is_fixed_asset = true;
+				</script>
+			<%else %>
+				<%= add_javascript_reading(@device.latest_gps_reading) %>
+			<% end %>
+						  
         </td>
     </tr>
 </table>

@@ -40,7 +40,14 @@
         <div class="alert">
           <span>No <%= @device.profile.gpio2_name %> events found.</span>
         </div>                                       
-      <%end%>                
+			<% if @device.profile.is_fixed_asset %>
+				<%= add_javascript_reading(@device.fixed_reading)%>
+				<script>
+				// Defined as global in main.js
+				is_fixed_asset = true;
+				</script>
+			<% end %>
+				<%end%>                
     </td>
     
     <td><a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a></td>
