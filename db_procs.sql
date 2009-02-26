@@ -285,6 +285,17 @@ CREATE TRIGGER trig_readings_after_insert AFTER INSERT ON readings FOR EACH ROW 
     END IF;
 END;;
 
+DROP PROCEDURE IF EXISTS insert_trip_event;;
+CREATE PROCEDURE insert_trip_event( _reading_start_id INT(11) )
+BEGIN
+    DECLARE identical_trip_count INT(11);
+    SELECT count(*) INTO identical_trip_count FROM trip_events te, readings r
+        where r.id=_reading_start_id AND te.created_at=r.created_at AND te.device_id=r.device_id;
+    IF identical_trip_count=0 THEN
+        INSERT INTO trip_events (device_id, reading_start_id, created_at) SELECT device_id, id, created_at FROM readings where id=_reading_start_id;
+    END IF;
+END;;
+
 DROP PROCEDURE IF EXISTS check_for_trip_change;;
 CREATE PROCEDURE check_for_trip_change(
     _device_id INT(11),
@@ -296,7 +307,7 @@ BEGIN
     DECLARE previous_ignition boolean;
     SELECT ignition INTO previous_ignition FROM readings WHERE device_id=_device_id AND created_at < _timestamp AND ignition IS NOT NULL ORDER BY created_at DESC LIMIT 1;
     IF _ignition=TRUE AND (previous_ignition=FALSE OR previous_ignition IS NULL) THEN
-        INSERT INTO trip_events (device_id, reading_start_id, created_at) VALUES (_device_id, _reading_id, _timestamp);
+        CALL insert_trip_event(_reading_id);
     END IF;
     IF _ignition=FALSE AND previous_ignition=TRUE THEN
         SELECT duration,id INTO @duration,@trip_id FROM trip_events WHERE device_id=_device_id AND created_at<_timestamp ORDER BY created_at desc limit 1;
