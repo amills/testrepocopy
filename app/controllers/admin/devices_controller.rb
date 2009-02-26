@@ -68,10 +68,10 @@ class Admin::DevicesController < ApplicationController
       
       if success
         flash[:success] = "#{device.name} updated successfully"
-        if params[:device][:account_id]
-           redirect_to :action => 'index', :id => params[:device][:account_id].to_s
+        if params[:account_id]
+          redirect_to :action => 'index', :id => params[:account_id]
         else
-           redirect_to :action => 'index'
+          redirect_to :action => 'index'
         end
       else # Error updating device
         error_msg = 'Please fix the following errors:<br />'

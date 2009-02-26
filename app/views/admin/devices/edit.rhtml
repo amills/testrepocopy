@@ -2,7 +2,7 @@
 
 <%= render :partial=>"/layouts/flash_message"%>    
 
-<form method="post" class="form" action="/admin/devices/update">
+<form method="post" class="form" action="/admin/devices/update<% if params[:account_id] %>?account_id=<%= params[:account_id] %><% end %>">
 	<%= render :partial => "device_form" %>
 </form>
 
