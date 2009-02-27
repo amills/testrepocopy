@@ -4,6 +4,6 @@ class ChangeDefaultThresholdTime < ActiveRecord::Migration
   end
 
   def self.down
-    change_column :devices, :online_threshold, :integer, :default => :null
+    change_column :devices, :online_threshold, :integer, :null => true
   end
 end

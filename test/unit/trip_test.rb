@@ -45,6 +45,17 @@ class TripTest < Test::Unit::TestCase
           assert_equal 1, @device1.trip_events.size
         end
     end
+    context "with a duplicate ignition on" do
+      setup do
+        timestamp = Time.now-250
+        Factory.create(:reading, :device => @device1, :speed => 0, :latitude =>1, :longitude =>2, :created_at => timestamp, :ignition => 1)
+        Factory.create(:reading, :device => @device1, :speed => 0, :latitude =>1, :longitude =>2, :created_at => timestamp, :ignition => 1)
+      end
+      should "only create one trip event" do
+        @device1.reload
+        assert_equal 1, @device1.trip_events.size
+      end
+    end
     context "with a complete set of on...off readings" do
       setup do
         Factory.create(:reading, :device => @device1, :speed => 0, :ignition => 1, :latitude =>1, :longitude =>2, :created_at => Time.now-180)

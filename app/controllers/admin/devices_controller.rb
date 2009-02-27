@@ -64,15 +64,25 @@ class Admin::DevicesController < ApplicationController
         params[:device][:group_id] = nil
       end
       
-      device.update_attributes(params[:device])
+      success = device.update_attributes(params[:device])
       
-      flash[:success] = "#{device.name} updated successfully"
-    
-      if params[:device][:account_id]
-         redirect_to :action => 'index', :id => params[:device][:account_id].to_s
-       else
-         redirect_to :action => 'index'
-       end
+      if success
+        flash[:success] = "#{device.name} updated successfully"
+        if params[:account_id]
+          redirect_to :action => 'index', :id => params[:account_id]
+        else
+          redirect_to :action => 'index'
+        end
+      else # Error updating device
+        error_msg = 'Please fix the following errors:<br />'
+        
+        device.errors.each{ |field, msg|
+          error_msg += '- ' + field + ' ' + msg + '<br />'
+        }
+        
+        flash[:error] = error_msg
+        redirect_to :action => 'edit', :id => params[:id]
+      end
     end
   end
 

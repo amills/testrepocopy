@@ -7,7 +7,7 @@ class AddIo < ActiveRecord::Migration
 
   def self.down
     remove_column :readings, :ignition
-    remove_column :readigns, :gpio1
+    remove_column :readings, :gpio1
     remove_column :readings, :gpio2
   end
 end
