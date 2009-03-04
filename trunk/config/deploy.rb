@@ -19,7 +19,7 @@ set(:monited) do
 end
 
 set :keep_releases, 5
-set :application,   'ublip'
+set :application,   'ublip_rsccomm'
 set :scm_username,  'deploy'
 set :scm_password,  'wucr5ch8v0'
 set :user,          'ublip'
