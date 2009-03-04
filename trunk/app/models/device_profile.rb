@@ -60,7 +60,7 @@ class DeviceProfile < ActiveRecord::Base
   def update_gpio_attributes(watch,labels,name,low_value,high_value,low_notice,high_notice,low_status,high_status)
     combined_values = "#{name}\t#{low_value}\t#{high_value}\t#{low_notice}\t#{high_notice}\t#{low_status}\t#{high_status}" unless name.blank?
     update_attribute(labels,combined_values)
-    update_attribute(watch,(combined_values and not (low_notice.blank? and high_notice.blank?)))
+    update_attribute(watch,((not combined_values.blank?) and not (low_notice.blank? and high_notice.blank?)))
     reset_gpio
     true
   end

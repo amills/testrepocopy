@@ -40,6 +40,13 @@
         <div class="alert">
           <span>No <%= @device.profile.gpio2_name %> events found.</span>
         </div>                                       
+    </td>
+    
+    <td><a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a></td>
+    
+    <td width="50%" valign="top" id="right_panel">
+      <div class="report_map_header">Locations for <%= @device.name%></div> 
+      <div id="map" class="reports_map"></div>
 			<% if @device.profile.is_fixed_asset %>
 				<%= add_javascript_reading(@device.fixed_reading)%>
 				<script>
@@ -48,14 +55,7 @@
 				</script>
 			<% end %>
 				<%end%>                
-    </td>
-    
-    <td><a href="javascript:toggleMap();" title="Expand map view" id="toggler_link"><img src="/images/collapse.png" border="0" id="toggler" /></a></td>
-    
-    <td width="50%" valign="top" id="right_panel">
-      <div class="report_map_header">Locations for <%= @device.name%></div> 
-      <div id="map" class="reports_map"></div>
-    </td>
+				</td>
     
   </tr>
 </table>

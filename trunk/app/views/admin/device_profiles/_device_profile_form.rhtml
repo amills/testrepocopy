@@ -1,10 +1,36 @@
+<script language="javascript" type="text/javascript">
+function addLoadEvent(func) { var oldonload = window.onload; if (typeof window.onload != 'function') { window.onload = func; } else { window.onload = function() { if (oldonload) { oldonload(); } func(); } }}addLoadEvent(nameOfSomeFunctionToRunOnPageLoad);addLoadEvent(SetFixed() { /* more code to run on page load */ });</script>
+
+
+<script language="javascript" type="text/javascript">
+function SetFixed()
+{
+	var f = document.getElementById("fixed");
+	if (f.checked)
+	{
+		document.getElementById("speeds").checked = false;
+		document.getElementById("speeds").disabled = true;
+		document.getElementById("stops").checked = false;
+		document.getElementById("stops").disabled = true;
+		document.getElementById("idles").checked = false;
+		document.getElementById("idles").disabled = true;
+	}
+	else
+	{
+		document.getElementById("speeds").disabled = false;
+		document.getElementById("stops").disabled = false;
+		document.getElementById("idles").disabled = false;
+		}
+}
+</script>
+
 <table>
 	<tr><td>* Name:</td><td>&nbsp;</td><td><input type="text" style="width:300px;" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="profile[name]" id="name" value="<%= @profile.name %>" /></td></tr>
-	<tr><td>Fixed Asset:</td><td></td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[is_fixed_asset]" <%if @profile.is_fixed_asset %>checked<% end %> /></td></tr>
-	<tr><td>Speeds:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[speeds]" <%if @profile.speeds %>checked<% end %>/></td></tr>
-	<tr><td>Stops:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[stops]" <%if @profile.stops %>checked<% end %>/></td></tr>
-	<tr><td>Idles:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[idles]" <%if @profile.idles %>checked<% end %>/></td></tr>
-	<tr><td>Runs:</td><td>&nbsp;</td><td><input type="checkbox" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[runs]" <%if @profile.runs %>checked<% end %>/></td></tr>
+	<tr><td>Fixed Asset:</td><td></td><td><input type="checkbox" id="fixed" onClick="SetFixed();" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[is_fixed_asset]" <%if @profile.is_fixed_asset %>checked<% end %> /></td></tr>
+	<tr><td>Speeds:</td><td>&nbsp;</td><td><input type="checkbox" id="speeds" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<%  else %> class="input"<% end %> <% if @profile.is_fixed_asset %> disabled="disabled"<% end %> name="options[speeds]" <%if @profile.speeds and !@profile.is_fixed_asset %>checked<% end %>/></td></tr>
+	<tr><td>Stops:</td><td>&nbsp;</td><td><input type="checkbox" id="stops"<% if params[:action] == "show"  %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> <% if @profile.is_fixed_asset %> disabled="disabled"<% end %> name="options[stops]" <%if @profile.stops and !@profile.is_fixed_asset %>checked<% end %>/></td></tr>
+	<tr><td>Idles:</td><td>&nbsp;</td><td><input type="checkbox" id="idles"<% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> <% if @profile.is_fixed_asset %> disabled="disabled"<% end %>name="options[idles]" <%if @profile.idles and !@profile.is_fixed_asset %>checked<% end %>/></td></tr>
+	<tr><td>Runs:</td><td>&nbsp;</td><td><input type="checkbox" id="runs"<% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="options[runs]" <%if @profile.runs and !@profile.is_fixed_asset %>checked<% end %>/></td></tr>
 	<tr><td>GPIO #1:</td><td>&nbsp;</td><td><input type="checkbox" class="disabled" disabled="disabled"<%if @profile.gpio1_labels %> checked<% end %>/></td></tr>
 	<% if params[:action] != 'show' or @profile.gpio1_labels %>
 		<tr><td>&gt; Name:</td><td>&nbsp;</td><td><input type="text" <% if params[:action] == "show" %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="gpio1[name]" value="<%= @profile.gpio1_name %>" /></td></tr>

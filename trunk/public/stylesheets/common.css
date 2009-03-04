@@ -167,8 +167,8 @@ div#login_form_container {
 
 .form_table td > input[type="text"], input[type="password"] {
 	width: 200px;
-	padding:2px;}
-
+	padding:2px;
+    }
 input[type="text"], input[type="password"]{
 	padding:2px;}
 
@@ -179,6 +179,8 @@ input[type="text"], input[type="password"]{
 	
 .input { width:162px;
 	height:20px;}	
+
+
 /*form CSS End */
 
 /*map CSS */
