@@ -1,5 +1,5 @@
 require "rubygems"
-require "dm_client.rb"
+#require "dm_client.rb"
 
 namespace :ublip do
   
