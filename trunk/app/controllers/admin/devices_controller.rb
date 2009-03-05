@@ -72,7 +72,7 @@ class Admin::DevicesController < ApplicationController
       device.update_attributes(params[:device])
       
       # If this is a fixed asset we'll let them update the map
-      if device.profile.is_fixed_asset? and device.address == ""
+      if device.profile.is_fixed_asset? and (device.address == "" or device.address.nil?)
         redirect_to :action => 'map', :id => device.id and return
       end
       
@@ -113,7 +113,7 @@ class Admin::DevicesController < ApplicationController
       # Save the asset location
       if request.post?
         @device.update_attributes(params[:device])
-        redirect_to :action => 'index'
+        redirect_to :action => 'edit', :id => @device.id
         flash[:success] = "#{@device.name}'s location was updated successfully"
       end
     end

@@ -178,7 +178,8 @@ input[type="text"], input[type="password"]{
 	font-size: 12px;}
 	
 .input { width:162px;
-	height:20px;}	
+	height:20px;
+    float:left;}	
 
 
 /*form CSS End */
