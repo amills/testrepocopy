@@ -73,7 +73,10 @@ class Device < ActiveRecord::Base
   
   def vin
     return 'Unavailable' unless gateway_device and gateway_device.respond_to?('vin')
-    gateway_device.vin || 'Unknown'
+    result = gateway_device.vin
+    return 'Unknown' unless result
+    return 'OBD failure' if result.blank?
+    return result
   end
   
   def gateway_device
