@@ -1,5 +1,5 @@
 require "rubygems"
-require "dm_client.rb"
+#require "dm_client.rb"
 
 task :setup_db_procs do
   begin
