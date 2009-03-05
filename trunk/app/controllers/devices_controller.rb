@@ -9,6 +9,17 @@ class DevicesController < ApplicationController
     @readings = Reading.find(:all, :conditions => ["device_id = ?", @device.id], :limit => 20, :order => "created_at desc")
     render :layout => 'application'
   end
+  
+  def request_vin
+    return unless request.post?
+    if session[:is_admin] and (device = Device.find_by_id(params[:id], :conditions => ["account_id = ?", session[:account_id]])) and device.gateway_device and device.gateway_device.responds_to?('request_vin')
+      device.gateway_device.request_vin
+      flash[:success] = 'VIN requested.'
+    else
+      flash[:error] = 'Invalid action.'
+    end
+    redirect_to :controller => "devices"
+  end
 
   def choose_phone
     if (request.post? && params[:imei] != '')

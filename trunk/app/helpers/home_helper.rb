@@ -20,9 +20,9 @@ module HomeHelper
     content = ""
     content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}"> <td>)
     if device.latest_gps_reading
-      content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a>)
+      content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.vin}</a>)
     else
-      content << %(#{device.name})
+      content << %(#{device.vin})
     end      
     content << %(</td>)
 
@@ -61,9 +61,9 @@ module HomeHelper
     content = ""
     content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}"> <td>)
     if device.latest_gps_reading
-      content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a>)
+      content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.vin}</a>)
     else
-      content << %(#{device.name})
+      content << %(#{device.vin})
     end
     content << %(</td>
     <td style="font-size:11px;">
@@ -83,9 +83,9 @@ module HomeHelper
     content << %(<tr class="#{cycle('dark_row', 'light_row')}" id="row#{device.id}">)
 
     if device.latest_gps_reading
-      content << %(<td><a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.name}</a></td>)
+      content << %(<td><a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.vin}</a></td>)
     else
-      content << %(<td>#{device.name}</td>)
+      content << %(<td>#{device.vin}</td>)
     end      
 
     next_task = device.pending_tasks[0]

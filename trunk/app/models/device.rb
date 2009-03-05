@@ -71,6 +71,11 @@ class Device < ActiveRecord::Base
     find_by_sql(["select id, name from devices where account_id = ? and provision_status_id = 1 order by name", account_id])
   end
   
+  def vin
+    return 'Unavailable' unless gateway_device and gateway_device.respond_to?('vin')
+    gateway_device.vin || 'Unknown'
+  end
+  
   def gateway_device
     return if @gateway_device == :false
     return @gateway_device if @gateway_device
