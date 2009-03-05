@@ -12,7 +12,7 @@ class DevicesController < ApplicationController
   
   def request_vin
     return unless request.post?
-    if session[:is_admin] and (device = Device.find_by_id(params[:id], :conditions => ["account_id = ?", session[:account_id]])) and device.gateway_device and device.gateway_device.responds_to?('request_vin')
+    if session[:is_admin] and (device = Device.find_by_id(params[:id], :conditions => ["account_id = ?", session[:account_id]])) and device.gateway_device and device.gateway_device.respond_to?('request_vin')
       device.gateway_device.request_vin
       flash[:success] = 'VIN requested.'
     else
