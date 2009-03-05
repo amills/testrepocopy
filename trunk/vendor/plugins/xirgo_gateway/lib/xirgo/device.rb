@@ -3,7 +3,7 @@ class Xirgo::Device < ActiveRecord::Base
   attr_accessor :logical_device
   
   def request_vin
-    Xirgo::CommandRequest.create! :device_id => self.id,:imei => self.imei,:command => '+XT:7002'
+    Xirgo::CommandRequest.create! :device_id => self.id,:imei => self.imei,:command => '+XT:7002',:start_date_time => Time.now
   end
   
   def vin

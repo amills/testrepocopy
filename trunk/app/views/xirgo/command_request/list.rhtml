@@ -40,6 +40,8 @@
 						<strong>Mileage</strong> <% if cmd[1].to_i == 0 %>disabled<% else %>over <strong><%= cmd[1] %></strong> miles<% end %>
 					<% elsif cmd[0].index('3007') %>
 						<strong>Acceleration/Deceleration</strong> <% if cmd[1].to_i == 0 %>disabled<% else %>at <strong><%= cmd[1] %></strong> mph/s<% end %>
+				    <% else %>
+					    <strong>Other:</strong> <%= command_request.command %>
 					<% end %>
 					
 				</td>
