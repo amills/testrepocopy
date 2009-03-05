@@ -1,64 +1,37 @@
-<h1><%= @account.company  %> Login</h1>
-
 <div id="login_form_container">
+	<div id="login_watermark">
+		<img src="/images/Watermark1.gif" alt="Ublip - Location Matters" title="Ublip - Location Matters" border="0" />
+	</div>
+	
+	<div id="login_form_container_inner">
+		<h1><%= @account.company  %></h1>
+		<h2>Asset Tracker Login</h2>
+	    <%= render :partial=>"/layouts/flash_message" %>    
 
-    <%= render :partial=>"/layouts/flash_message" %>    
+	    <%if session[:user_id] %>
+	        <%user = User.find(session[:user_id])%>
+	    <%end%>
 
-    <%if session[:user_id] %>
-        <%user = User.find(session[:user_id])%>
-    <%end%>
-
-    <%if user != nil%>    
-      <form action="/login" method="post" id="logform">
-        <table class="form_table">
-          <tr>
-            <th>Email:</th>
-            <td><input type="text" id="username" name="email" class="input" value="<%=user.email%>" style="width: 162px;"/></td>
-          </tr>
-          
-          <tr>
-            <th>Password:</th>
-            <td><input type="password" id="password" name="password" value="" class="input" onfocus="settext(this.id);"/> <a href="/login/forgot_password">Forgot password?</a></td>
-          </tr>
-          
-          <tr>
-            <th></th>
-            <td><input type="checkbox" id="remember_me" name="remember_me"/> <span class="gray_text">Remember me on this computer</span></td>
-          </tr>
-          
-          <tr>
-            <th></th>
-            <td><input type="submit" value="Sign In" /></td>
-          </tr>
-          
-        </table>
-      </form>                    
-    <%else%>
-      <form action="/login" method="post" id="logform">
-        <table class="form_table">
-          <tr>
-            <th>Email:</th>
-            <td><input type="text" id="username" name="email" class="input" value="<%= flash[:username] %>"/></td>
-          </tr>
-          
-          <tr>
-            <th>Password:</th>
-            <td><input type="password" id="password" name="password" value="" class="input"/> <a href="/login/forgot_password">Forgot password?</a></td>
-          </tr>
-          
-          <tr>
-            <th></th>
-            <td><input type="checkbox" id="remember_me" name="remember_me"/> <span class="gray_text">Remember me on this computer</span></td>
-          </tr>
-          
-          <tr>
-            <th>
-            </th><td><input type="submit" value="Sign In" /></td>
-          </tr>
-          
-        </table>	
-      </form>    
-    <%end%>    
+	    <%if user != nil%>
+	           <form action="/login" method="post" id="logform">
+	                <table class="form_table">
+	                    <tr><th>Email:</th><td><input type="text" id="username" name="email" class="input" value="<%=user.email%>" style="width: 162px;"/></td></tr>
+	                    <tr><th>Password:</th><td><input type="password" id="password" name="password" value="" class="input" onfocus="settext(this.id);"/></td></tr>
+	                    <tr><th></th><td><input type="checkbox" id="remember_me" name="remember_me"/> <span class="gray_text">Remember me on this computer</span></td></tr>
+						<tr><th></th><td><input type="submit" value="Sign In" />&nbsp;&nbsp;<a href="/login/forgot_password">Forgot password?</a></td></tr>
+	                </table>
+	            </form>                    
+	    <%else%>
+	        <form action="/login" method="post" id="logform">
+	            <table class="form_table">
+	                <tr><th>Email:</th><td><input type="text" id="username" name="email" class="input" value="<%= flash[:username] %>"/></td></tr>
+	                <tr><th>Password:</th><td><input type="password" id="password" name="password" value="" class="input"/> </td></tr>
+	                <tr><th></th><td><input type="checkbox" id="remember_me" name="remember_me"/> <span class="gray_text">Remember me on this computer</span></td></tr>
+	                <tr><th></th><td><input type="submit" value="Sign In" />&nbsp;&nbsp;<a href="/login/forgot_password">Forgot password?</a></td></tr>
+	            </table>	
+	        </form>    
+	    <%end%>    
+	</div>
 </div>
 
 <script type="text/javascript">
