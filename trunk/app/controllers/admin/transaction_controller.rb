@@ -3,13 +3,12 @@ require 'libxml'
 class Admin::TransactionController < ApplicationController
   include AuthenticatedSystem
 
-  before_filter :authorize_super_admin,:except => [:ok,:error]
   layout 'admin',:except => [:ok,:error]
   
   def index
     @validate_only = params[:validate] == 'true'
     session[:request_type] = 'POST' if request.post?
-    return redirect_to :action => 'document' unless params[:xml] or @validate_only
+    return redirect_to(:action => 'document') unless params[:xml] or @validate_only
     parse_xml(params[:xml])
     return show_error(@errors.join('; ')) if @errors.any?
     redirect_to :action => 'ok'
@@ -28,7 +27,7 @@ class Admin::TransactionController < ApplicationController
 
   def test
     session[:request_type] = 'GET' if request.post?
-    return redirect_to :action => 'index',:xml => params[:xml] unless params[:xml].blank?
+    return redirect_to(:action => 'index',:xml => params[:xml]) unless params[:xml].blank?
     @error = "No XML specified" if request.post?
   end
   
@@ -57,15 +56,27 @@ private
   
   def process_transaction(node)
     case node.name
-      when 'xxx'
-        xxx(node)
+      when 'add-account'
+        add_account(node)
       else
         @errors.push("Unknown transaction: #{node.name}")
     end
   end
   
-  def xxx(node)
+  def add_account(node)
     check_no_subelements(node)
+    raise 'No subdomain defined' if (subdomain = node['subdomain']).blank?
+    raise 'No company defined' if (company = node['company']).blank?
+    raise 'No language defined' if (language = node['language']).blank?
+    raise 'No first name defined' if (first = node['first']).blank?
+    raise 'No last name defined' if (last = node['last']).blank?
+    raise 'No email defined' if (email = node['email']).blank?
+    raise 'No password defined' if (password = node['password']).blank?
+
+    Account.transaction do
+      account = Account.create!(:subdomain => subdomain,:company => company,:is_verified => true)
+      user = User.create!(:account_id => account.id,:email => email,:first_name => first,:last_name => last,:password => password,:is_admin => true)
+    end
   rescue
     @errors.push($!.to_s)
   end
