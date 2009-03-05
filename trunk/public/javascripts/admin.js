@@ -21,6 +21,7 @@ function load() {
 		// The fixed asset already has a location so display it
 		if(position != undefined) {
 			addMarker(new GLatLng(position[0], position[1]), icon);
+			gmap.setCenter(new GLatLng(position[0], position[1]), 15);
 			document.getElementById("address").value = position[2];
 		}
 		
@@ -44,8 +45,9 @@ function getAddress(point) {
 			// No valid address found so populate address with lat/lng
 			addMarker(point);
 		} else {
-			var place = response.Placemark[0];
-			document.getElementById("address").value = place.address;
+		var place = response.Placemark[0];
+			if (document.getElementById("address").value == "")
+			    document.getElementById("address").value = place.address;
 			addMarker(point);
 		}
 	});
@@ -59,7 +61,8 @@ function geocode(address) {
     	if (!point) {
       	alert("We're sorry, this address cannot be located");
       } else {
-				addMarker(point, icon);
+                addMarker(point, icon);
+                gmap.setCenter(point, 15);
 			}
 		});
 }

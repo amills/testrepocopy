@@ -36,10 +36,9 @@
 		<td>Make GeoRSS Public?</td><td>&nbsp;</td><td style="text-align: left"><input type="checkbox" name="device[is_public]" value="1" <% if @device.is_public == 1 %>checked="checked"<% end %> /></td>
 	</tr>
 	<% if params[:action] == "edit" || params[:action] == "new" %>
-	<tr><td colspan="3"><input type="submit" value="Save" /> <a href="javascript: history.go(-1);">cancel</a></td></tr>
+	<tr><td colspan="3"><input type="submit" value="Save" /> <a href="/admin/devices/index">cancel</a></td></tr>
 	<% end %>
 </table>
-
 <% if params[:id] %>
 <input type="hidden" name="id" value="<%= params[:id] %>" />
 <% end %>

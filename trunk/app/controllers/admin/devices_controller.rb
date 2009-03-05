@@ -42,7 +42,7 @@ class Admin::DevicesController < ApplicationController
   
       if device.save
         # For fixed assets we allow the user to manually enter the location
-        if device.profile.is_fixed_asset and device.address == ""
+        if device.profile.is_fixed_asset and (device.address == "" or device.address.nil?)
           redirect_to :action => 'map', :id => device.id and return
         else
           redirect_to :action => 'index' and return
