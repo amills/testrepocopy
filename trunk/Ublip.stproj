@@ -282,6 +282,7 @@
     <Ruby Include="db\migrate\20090122141143_alter_cellphone_column_on_users.rb" />
     <Ruby Include="db\migrate\20090126184206_add_notifications_to_accounts.rb" />
     <Ruby Include="db\migrate\20090205190209_add_fixed_assets.rb" />
+    <Ruby Include="db\migrate\20090309140006_add_notification_text.rb" />
     <Ruby Include="db\schema.rb" />
     <Ruby Include="lib\daemons\notifier.rb" />
     <None Include="lib\tasks\capistrano.rake" />
@@ -899,10 +900,12 @@
     <Folder Include="public\flex\images\" />
     <Folder Include="public\flex\images\icons\" />
     <Folder Include="public\flex\stylesheets\" />
+    <Folder Include="public\gauges" />
     <Folder Include="public\icons\" />
     <Folder Include="public\icons\arrows\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
+    <Folder Include="public\javascripts\bindows_gauges" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="public\widgets\" />
     <Folder Include="script\" />
@@ -1031,11 +1034,32 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\database.yml.mine.bak" />
+    <Content Include="db\schema.rb.bak" />
     <Content Include="nbproject\private\private.properties" />
     <Content Include="nbproject\private\private.xml" />
     <Content Include="nbproject\private\rake-d.txt" />
     <Content Include="nbproject\project.properties" />
     <Content Include="nbproject\project.xml" />
+    <Content Include="public\gauges\g_boat_directions.xml" />
+    <Content Include="public\gauges\g_clock_01.xml" />
+    <Content Include="public\gauges\g_clock_02.xml" />
+    <Content Include="public\gauges\g_clock_bindows.xml" />
+    <Content Include="public\gauges\g_gasmeter_01.xml" />
+    <Content Include="public\gauges\g_gasmeter_02.xml" />
+    <Content Include="public\gauges\g_general_01.xml" />
+    <Content Include="public\gauges\g_general_02.xml" />
+    <Content Include="public\gauges\g_general_03.xml" />
+    <Content Include="public\gauges\g_half_circle.xml" />
+    <Content Include="public\gauges\g_radial_double.xml" />
+    <Content Include="public\gauges\g_rectangular.xml" />
+    <Content Include="public\gauges\g_speedometer_01.xml" />
+    <Content Include="public\gauges\g_speedometer_02.xml" />
+    <Content Include="public\gauges\g_speedometer_03.xml" />
+    <Content Include="public\gauges\g_speedometer_04.xml" />
+    <Content Include="public\gauges\g_temperature_pressure.xml" />
+    <Content Include="public\gauges\g_weather_station.xml" />
+    <Content Include="public\gauges\g_wind_directions.xml" />
+    <Content Include="public\gauges\g_wind_speed.xml" />
     <Content Include="public\icons\ublip_alarm.png" />
     <Content Include="public\images\home_image.png" />
     <Content Include="public\images\home_leftbottom_tab.png" />
@@ -1050,6 +1074,9 @@
     <Content Include="public\images\nav_right_white.jpg" />
     <Content Include="public\images\nav_white_left.jpg" />
     <Content Include="public\javascripts\admin.js" />
+    <Content Include="public\javascripts\bindows_gauges\bindows_gauges.js" />
+    <Content Include="public\javascripts\bindows_gauges\gauge2.ie.js" />
+    <Content Include="public\javascripts\bindows_gauges\gauge2.moz.js" />
   </ItemGroup>
   <PropertyGroup>
     <RailsProject>True</RailsProject>
@@ -1067,7 +1094,7 @@
     <SQLServerPath>C:\Program Files\Microsoft SQL Server\90\Tools\binn</SQLServerPath>
     <TraceLevel>1</TraceLevel>
     <UseCylon>True</UseCylon>
-    <UseVisualRailsWorkbench>False</UseVisualRailsWorkbench>
+    <UseVisualRailsWorkbench>True</UseVisualRailsWorkbench>
     <WebServerScript>C:\Program Files\SapphireSteel Software\Ruby In Steel\v1.0\Scripts\webbrick_server.bat</WebServerScript>
     <ProjectGuid>{ac95a502-a52b-4f6c-beb7-8d265e8a3fbe}</ProjectGuid>
     <AutoUpdateRWBFiles>True</AutoUpdateRWBFiles>
@@ -1079,7 +1106,7 @@
     <DebugProximitySingletonMethods>False</DebugProximitySingletonMethods>
     <Framework>Rails2</Framework>
     <ImagePathRWB>../../public</ImagePathRWB>
-    <JITDebugging>False</JITDebugging>
+    <JITDebugging>True</JITDebugging>
     <KeepStackFrames>True</KeepStackFrames>
     <SubstituteFslash>False</SubstituteFslash>
     <StyleRWB>
@@ -1096,10 +1123,32 @@ SyntaxCheck</SynchronizationExcludeDirectories>
     <SynchronizationExcludeHiddenFiles>True</SynchronizationExcludeHiddenFiles>
     <SynchronizationExcludeNoExtension>True</SynchronizationExcludeNoExtension>
     <ERBTimeout>60</ERBTimeout>
+    <DiffMergeTool>C:\Program Files\WinMerge\WinMerge.exe</DiffMergeTool>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Name>Debug</Name>
     <OutputPath>Debug\</OutputPath>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+    <RailsDebugScript>C:\Program Files\SapphireSteel Software\Ruby In Steel\v1.0\Scripts\webbrick_service.rb</RailsDebugScript>
+    <RailsServer>WEBrick</RailsServer>
+    <RubyInterpreter>c:\ruby\bin\ruby.exe</RubyInterpreter>
+    <RubyInterpreterFlags>
+    </RubyInterpreterFlags>
+    <RubyLibraryFiles>
+    </RubyLibraryFiles>
+    <RubyLibraryPaths>
+    </RubyLibraryPaths>
+    <RubyScriptArguments>
+    </RubyScriptArguments>
+    <RubyStartFile>
+    </RubyStartFile>
+    <RubyType>Standard</RubyType>
+    <ServerPort>3000</ServerPort>
+    <WebServerScript>C:\Program Files\SapphireSteel Software\Ruby In Steel\v1.0\Scripts\webbrick_server.bat</WebServerScript>
+    <RakeWorkingDirectory>C:\Documents and Settings\rsinek.ADVANCEDFLOW0\My Documents\Visual Studio 2008\Projects\Ublip</RakeWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <Name>Release</Name>
