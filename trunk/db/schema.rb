@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090205190209) do
+ActiveRecord::Schema.define(:version => 20090309140006) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company",            :limit => 75
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20090205190209) do
     t.integer  "device_id",         :limit => 11
     t.datetime "created_at"
     t.string   "notification_type", :limit => 25
+    t.string   "notification_text", :limit => 1024
   end
 
   create_table "orders", :force => true do |t|

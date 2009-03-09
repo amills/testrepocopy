@@ -7,7 +7,7 @@ xml.devices do
       xml.imei(device.imei)
        xml.icon_id(device.icon_id)
         # Just display empty nodes if this device has no readings
-      if device.latest_gps_reading.nil? and !device.profile.is_fixed_asset?
+      if device.latest_gps_reading.nil? and !device.profile.is_fixed_asset
         xml.lat
         xml.lng
         xml.address
@@ -16,7 +16,7 @@ xml.devices do
         xml.status
         xml.pending_tasks
       else # We got data
-      if !device.profile.is_fixed_asset?
+      if !device.profile.is_fixed_asset
             xml.lat(device.latest_gps_reading.latitude)
             xml.lng(device.latest_gps_reading.longitude)
             xml.address(device.latest_gps_reading.short_address)
