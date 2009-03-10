@@ -75,7 +75,7 @@ class Device < ActiveRecord::Base
     return 'Unavailable' unless gateway_device and gateway_device.respond_to?('vin')
     result = gateway_device.vin
     return 'Unknown' unless result
-    return 'OBD failure' if result.blank?
+    return 'Not Readable' if result.blank?
     return result
   end
   
