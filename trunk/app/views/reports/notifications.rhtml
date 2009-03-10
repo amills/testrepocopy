@@ -4,9 +4,9 @@
 	<td id="left_panel" valign="top" width="50%">
 	<table class="panel_table">
 		<tr>
-			<th>Notification</th>
-			<th>Creation Date</th>
-			<th>Acknowledged</th>
+			<th width="60%">Notification</th>
+			<th width="20%">Creation Date</th>
+			<th width="20%">Acknowledged</th>
 		</tr>
 		<% for alert in @readings %>
 			<tr class="<%= cycle('dark_row', 'light_row') %>" id="row<%= alert.id %>">
