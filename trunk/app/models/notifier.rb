@@ -128,7 +128,7 @@ class Notifier < ActionMailer::Base
           mail = deliver_notify_task(user, action, task)            
         end    
       end    
-	  save_notification( user, action, reading)
+	 # save_notification( user, action, reading)
 	  end
   end
   
