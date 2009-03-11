@@ -29,11 +29,6 @@ class UserTest < Test::Unit::TestCase
     assert_equal users(:dennis), User.authenticate('dennis', 'dennis@ublip.com', 'new password')
   end
 
-  def test_should_not_rehash_password
-    users(:dennis).update_attributes(:first_name => 'dennis2')
-    assert_equal users(:dennis), User.authenticate('dennis', 'dennis@ublip.com', 'testing')
-  end
-  
   def test_should_not_authenticate_user
     assert_nil User.authenticate('dennis', 'dennis@ublip.com', 'badpassword')
   end
