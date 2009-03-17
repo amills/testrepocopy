@@ -28,7 +28,6 @@ namespace :ublip do
     branch_name = ENV['branch_name']
     svn_base = DeployManagerClient.get_repo("SharedFleet")
     check = execute_cmd("svn info #{svn_base}/branches/#{branch_name}")
-    # For some reason SVN info is not returning length 0 so gotta comment out below to create new branch
     if(check.length==0)
       execute_cmd("svn mkdir https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/#{branch_name} -m \"creating new customer branch\"")
       execute_cmd("svn mkdir https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/#{branch_name}/tags -m 'creating new customer branch'")
