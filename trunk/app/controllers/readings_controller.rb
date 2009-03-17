@@ -79,4 +79,20 @@ class ReadingsController < ApplicationController
     @readings = Reading.find(:all, :conditions => ["device_id = ?", params[:id]], :limit => 1, :order => "created_at desc")
     render_xml reading.to_xml
   end
+  
+  # Display all readings for all devices since a given date
+  def last_since
+    account_id = Account.find_by_subdomain(request.host.split('.')[0]).id
+    @start_date = params[:start]
+    #If a device Id is supplied, filter the reading list by that Id
+    if(params[:id] != nil)
+      device = Device.find(params[:id])
+      @devices = Array.new
+      @devices[0] = device
+    else
+      #If no params are provided, just return all readings for all devices (bad - too much data here...)
+      @devices = Device.get_devices(account_id)
+    end    
+    render :layout => false
+  end
 end

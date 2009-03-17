@@ -25,6 +25,7 @@ class Device < ActiveRecord::Base
   has_one :latest_runtime_event, :class_name => "RuntimeEvent", :order => "created_at desc"
   has_one :latest_stop_event, :class_name => "StopEvent", :order => "created_at desc"
   
+  has_many :readings, :order => "created_at desc"
   has_many :geofences, :order => "created_at desc", :limit => 300
   has_many :notifications, :order => "created_at desc"
   has_many :stop_events, :order => "created_at desc"
