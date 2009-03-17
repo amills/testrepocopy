@@ -1,5 +1,5 @@
 xml.instruct! :xml, :version=>"1.0"
-xml.feed{
+xml.readingFeed{
   @current_time = Time.now
   xml.startDateUtc(Time.at(@start_date.to_i).utc)
   xml.startDateEpoch(@start_date)
