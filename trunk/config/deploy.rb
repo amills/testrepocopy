@@ -1,21 +1,13 @@
-# =============================================================================
-# ENGINE YARD REQUIRED VARIABLES
-# =============================================================================
-# You must always specify the application and repository for every recipe. The
-# repository must be the URL of the repository you want this recipe to
-# correspond to. The deploy_to path must be the path on each machine that will
-# form the root of the application path.
-
 set(:customer_name) do
-  Capistrano::CLI.ui.ask "Enter Customer name: "
+  "tessenderlo"
 end
 
 set(:rails_env) do
-  Capistrano::CLI.ui.ask "Rails Environment [staging, production, slicehost]: "
+  "slicehost"
 end
 
 set(:monited) do
-  Capistrano::CLI.ui.ask "start mongrels using monit (y/n): "
+  "n"
 end
 
 set :keep_releases, 5
@@ -67,7 +59,7 @@ end
 task :staging do
   role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
   role :app, DeployManagerClient.get_staging_app_server(customer_name), :mongrel => true
-  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/tags/current_staging_build"
+  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/trunk"
 end
 
 # =============================================================================
