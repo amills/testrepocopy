@@ -31,7 +31,7 @@ set :deploy_via,    :export
 set :monit_group,   'mongrel'
 set :scm,           :subversion
 set :runner, 'ublip'
-set :monited = "n"
+set :monited, "n"
 set :rails_env, 'slicehost'
 
 # Staging DB vars
