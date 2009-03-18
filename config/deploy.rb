@@ -10,6 +10,7 @@ set(:customer_name) do
   Capistrano::CLI.ui.ask "Enter Customer name: "
 end
 
+=begin
 set(:rails_env) do
   Capistrano::CLI.ui.ask "Rails Environment [staging, production, slicehost]: "
 end
@@ -17,6 +18,7 @@ end
 set(:monited) do
   Capistrano::CLI.ui.ask "start mongrels using monit (y/n): "
 end
+=end
 
 set :keep_releases, 5
 set :application,   'ublip'
@@ -29,7 +31,8 @@ set :deploy_via,    :export
 set :monit_group,   'mongrel'
 set :scm,           :subversion
 set :runner, 'ublip'
-
+set :monited = "n"
+set :rails_env, 'slicehost'
 
 # Staging DB vars
 set :staging_database, "ublip_prod"
@@ -52,6 +55,8 @@ set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
 set :db_admin, DeployManagerClient.get_db_admin(customer_name)
 
 task :production do
+  set :monited, 'y'
+  set :rails_env, 'production'
   role :db, DeployManagerClient.get_app_servers(customer_name)[0], :primary => true
   app_servers = DeployManagerClient.get_app_servers(customer_name)
   app_servers.each_index do |index|
@@ -65,6 +70,16 @@ task :production do
 end
 
 task :staging do
+  set :monited, 'y'
+  set :rails_env, 'staging'
+  role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
+  role :app, DeployManagerClient.get_staging_app_server(customer_name), :mongrel => true
+  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/tags/current_staging_build"
+end
+
+task :slicehost do
+  set :monited, 'n'
+  set :rails_env, 'slicehost'
   role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
   role :app, DeployManagerClient.get_staging_app_server(customer_name), :mongrel => true
   set :repository, "#{DeployManagerClient.get_repo(customer_name)}/tags/current_staging_build"

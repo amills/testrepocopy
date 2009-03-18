@@ -30,14 +30,14 @@ function getLongDateTime(millis) {
 	var second = dt.getSeconds();
 	var day = dt.getDay();
 	var month = dt.getMonth();
-	var year = dt.getYear();
+	var year = dt.getFullYear();
 	var ap = "AM";
 	if (hour   > 11) { ap = "PM";             }
 	if (hour   > 12) { hour = hour - 12;      }
 	if (hour   == 0) { hour = 12;             }
 	if (minute < 10) { minute = "0" + minute; }
 	if (second < 10) { second = "0" + second; }
-	return days[day] + " " + months[month] + " " + (day+1) + " " + (year+1900) + " " + hour + ':' + minute + ':' + second + " " + ap;
+	return days[day] + " " + months[month] + " " + (dt.getDate()) + " " + year + " " + hour + ':' + minute + ':' + second + " " + ap;
 }
 
 // Popup dynamically sized window
