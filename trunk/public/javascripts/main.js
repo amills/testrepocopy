@@ -190,9 +190,9 @@ function populate_the_table(device,frm_index,bounds)
       if (row && row.getElementsByTagName) 
         {
           var tds = row.getElementsByTagName("td");                
-          tds[1].innerHTML = device.address;
-          tds[2].innerHTML = device.status;
-          tds[3].innerHTML = device.dt
+          tds[2].innerHTML = device.address;
+          tds[3].innerHTML = device.status;
+          tds[4].innerHTML = device.dt
         }   
     }	                        
     var point = new GLatLng(device.lat, device.lng);                
