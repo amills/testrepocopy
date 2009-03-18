@@ -7,8 +7,6 @@ xml.readingFeed{
   xml.endDateEpoch(@current_time.to_i)
   for device in @devices
     xml.device{
-      xml.id(device.id)
-      xml.name(device.name)
       xml.imei(device.imei)
       for reading in device.readings
         if(!reading.nil? and reading.created_at.to_i > @start_date.to_i )
