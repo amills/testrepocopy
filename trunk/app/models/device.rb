@@ -17,7 +17,8 @@ class Device < ActiveRecord::Base
   
   validates_uniqueness_of :imei
   validates_presence_of :name, :imei
-  
+
+  has_one :latest_reading, :class_name => "Reading", :order => "created_at desc"
   has_one :latest_gps_reading, :class_name => "Reading", :order => "created_at desc", :conditions => "latitude is not null"
   has_one :latest_speed_reading, :class_name => "Reading", :order => "created_at desc", :conditions => "speed is not null"
   has_one :latest_data_reading, :class_name => "Reading", :order => "created_at desc", :conditions => "ignition is not null"
@@ -77,6 +78,18 @@ class Device < ActiveRecord::Base
     return 'Unknown' unless result
     return 'Not Readable' if result.blank?
     return result
+  end
+
+  def request_location?
+    gateway_device and gateway_device.respond_to?('submit_location_request')
+  end
+  
+  def last_location_request
+    gateway_device.last_location_request if request_location?
+  end
+  
+  def submit_location_request
+    gateway_device.submit_location_request if request_location?
   end
   
   def gateway_device

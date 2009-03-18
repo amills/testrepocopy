@@ -4,7 +4,7 @@
 <% if !@groups.nil?%> 
   <% @groups.each do |group|%> 
     <tr>
-      <td colspan="<%= column_span or 4 %>" class="bg_overview">
+      <td colspan="<%= column_span or 5 %>" class="bg_overview">
         <span style=" background:url(/icons/<%= GROUP_IMAGES[group.image_value]%>) no-repeat left;" class="group_name">
           <%= group.name%>
         </span>
@@ -26,7 +26,7 @@
 <%if !@default_devices.empty? && @show_default_devices %>
   <%if !@groups.empty? || session[:gmap_value] == 'default'%>
     <tr>
-      <td colspan="<%= column_span or 4 %>" class="bg_overview">
+      <td colspan="<%= column_span or 5 %>" class="bg_overview">
         <span style=" background:url(/icons/blue_small.png) no-repeat left;" class="group_name">
           Default   
         </span>

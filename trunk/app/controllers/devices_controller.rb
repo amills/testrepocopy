@@ -1,6 +1,28 @@
 class DevicesController < ApplicationController
   include GeoKit::Mappable
   before_filter :authorize
+  
+  def find_now
+    @original_referral_url = (params[:original_referral_url] || session[:referral_url])
+    @device = Device.find_by_id(params[:id], :conditions => ["account_id = ? and provision_status_id=1", session[:account_id]])
+    if @device.nil?
+      flash[:error] = 'Invalid action.'
+      redirect_to :controller => 'devices'
+    else
+      unless @device.request_location?
+        flash[:error] = "This device does not support requesting its location."
+      else
+        last_request = @device.last_location_request
+        if last_request and last_request.end_date_time.nil?
+          flash[:error] = "A location request is already in progress. Please wait a few minutes and try again."
+        else
+          @device.submit_location_request
+          flash[:success] = "The location has been requested"
+          redirect_to @original_referral_url if @original_referral_url
+        end
+      end
+    end
+  end
 
   # Device details view
   def view
