@@ -1,0 +1,54 @@
+<%= render :partial => 'report_header' %>
+
+<table class="text_width" id="main_table">
+	<tr>
+		<td id="left_panel" valign="top">
+			<table class="panel_table">
+				<tr><th>&nbsp;</th><th>On</th><th>At</th><th>Departed</th><th>Travel Time</th><th>Miles</th><th>Arrived</th><th>At</th><th>Idle Time</th><th>Stop Time</th></tr>
+				<% last_start,trip = nil,nil %>
+				<% for next_trip in @trip_events %>
+					<% if trip %>
+						<%= render :partial => 'trip_row',:locals => {:trip => trip,:last_start => last_start,:next_start => next_trip.reading_start.created_at} %>
+						<% last_start = trip.reading_start.created_at %>
+					<% end %>
+					<% trip = next_trip %>
+				<% end %>
+				<% if trip %>
+					<%= render :partial => 'trip_row',:locals => {:trip => trip,:last_start => last_start,:next_start => nil} %>
+				<% end %>
+			</table>
+			<%if @trip_events.empty? %>
+				<div class="alert">
+					<span>No trips found.</span>
+				</div>
+			<% else %>
+				<center>
+					<table>
+						<tr>
+							<td colspan="6">&nbsp;</td>
+							<td><strong>Total Travel Time</strong></td>
+							<td><%= standard_duration(@total_travel_time) %></td>
+						</tr>
+						<tr>
+							<td colspan="6">&nbsp;</td>
+							<td><strong>Total Distance</strong></td>
+							<td><%= sprintf('%2.1f',@total_distance) %></td>
+						</tr>
+						<tr>
+							<td colspan="6">&nbsp;</td>
+							<td><strong>Total Idle Time</strong></td>
+							<td><%= standard_duration(@total_idle_time) %></td>
+						</tr>
+						<tr>
+							<td colspan="6">&nbsp;</td>
+							<td><strong>Max Speed</strong></td>
+							<td><%= @max_speed %></td>
+						</tr>
+					</table>
+				</center>
+			<%end%>        
+		</td>
+	</tr>
+</table>
+
+<%= render :partial => 'report_footer' %>
