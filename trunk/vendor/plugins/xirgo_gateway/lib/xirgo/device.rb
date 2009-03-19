@@ -16,6 +16,6 @@ class Xirgo::Device < ActiveRecord::Base
   end
   
   def submit_location_request
-    Xirgo::CommandRequest.create!(:device_id => self.id,:command => Xirgo::CommandRequest::LOCATION_REQUEST,:start_date_time => Time.now)
+    Xirgo::CommandRequest.create!(:device_id => self.id,:imei => self.imei,:command => Xirgo::CommandRequest::LOCATION_REQUEST,:start_date_time => Time.now)
   end
 end
