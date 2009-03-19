@@ -5,6 +5,7 @@ class SettingsController < ApplicationController
     @groups = Group.find(:all,:conditions=>["account_id=?",session[:account_id]])
     if request.post?
       if session[:is_admin]
+        @account.update_attribute('max_speed', params[:max_speed])
         @account.update_attribute('company', params[:company])
         session[:company] = params[:company]
       end

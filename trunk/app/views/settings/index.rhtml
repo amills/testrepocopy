@@ -17,8 +17,9 @@
 
 <div class="settings_box">
 	<h2>Notifications</h2>
-	Check the box below if you'd like to receive exception notifications for this account.  All exceptions will be sent to the email address associated with your account.  Exceptions
-	include entering a geofence, exiting a geofence, and when a device goes offline.<br />
+	Check the box below if you'd like to receive exception notifications for this account.
+	All exceptions will be sent to the email address associated with your account.
+	Exceptions include entering a geofence, exiting a geofence, and when a device goes offline.<br />
     <div class="settings_notification">
      <div><input name="notify"    type="radio"  value="0" <% if @user.enotify == 0 %> checked="checked"<% end %> onclick="Element.hide('to_update');" /> Disable Notifications </div>
      <div><input name="notify"   type="radio"  value="1"  <% if @user.enotify == 1%> checked="checked"<% end %> onclick="Element.hide('to_update');"/> Enable notifications for all devices in this account</div>
@@ -35,6 +36,19 @@
          <%end%>
      </div>     
 </div>
+
+<% if session[:is_admin] or (@account.max_speed and @account.max_speed > 0) %>     
+<div class="settings_box">
+	<h2>Speed Threshold</h2>
+	<% if session[:is_admin] %>
+		Enter a speed threshold if you want to receive an email whenever a device exceeds a certain speed. Leave it blank otherwise.
+	<% else %>
+		Whenever a device exceeds the speed threshold, users will be sent an email if they have chosen to receive notifications.
+	<% end %>
+	<br /><br />    
+	<input type="text" <% unless session[:is_admin] %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="max_speed" value="<%= @account.max_speed %>" /></td><td>MPH</td></tr>
+</div><br />
+<% end %>
      
 <div class="settings_box">
 	<h2>Time Zone</h2>
@@ -47,6 +61,7 @@
 		<% } %>
 	</select>    
 </div><br />
+
 <div><input type="submit" value="save" /></div>
 
 </form>
