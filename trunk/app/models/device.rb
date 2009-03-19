@@ -116,6 +116,10 @@ class Device < ActiveRecord::Base
   end
   
   def latest_status
+    return [REPORT_TYPE_ALL,"Offline"] unless online?
+    
+    return [REPORT_TYPE_ALL,"GPS Not Available"] if latest_reading.nil? or latest_reading.latitude.nil? or latest_reading.longitude.nil?
+    
     results = nil
     
     if profile.idles and latest_idle_event and latest_idle_event.duration.nil?
@@ -146,14 +150,9 @@ class Device < ActiveRecord::Base
   end
   
   def online?
-    if(online_threshold.nil?)
-       return true
-    end
-  
-    if(!last_online_time.nil? && Time.now-last_online_time < online_threshold*60)
-       return true
-     else
-      return false
-    end
+    return false if transient
+    return true unless online_threshold
+    return false unless last_online_time
+    return (Time.now - last_online_time) < (online_threshold * 60)
   end
 end
