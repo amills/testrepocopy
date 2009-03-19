@@ -1,9 +1,9 @@
 xml.instruct! :xml, :version=>"1.0"
 xml.readingFeed{
   @current_time = Time.now
-  xml.startDateUtc(Time.at(@start_date.to_i).utc)
+  xml.startDateUtc(Time.at(@start_date.to_i).utc.strftime("%Y-%m-%dT%H:%M:%SZ"))
   xml.startDateEpoch(@start_date)
-  xml.endDateUtc(@current_time.utc)
+  xml.endDateUtc(@current_time.utc.strftime("%Y-%m-%dT%H:%M:%SZ"))
   xml.endDateEpoch(@current_time.to_i)
   for device in @devices
     xml.device{
@@ -11,7 +11,7 @@ xml.readingFeed{
       for reading in device.readings
         if(!reading.nil? and reading.created_at.to_i > @start_date.to_i )
           xml.reading do
-            xml.createdUtc(reading.created_at.utc)
+            xml.createdUtc(reading.created_at.utc.strftime("%Y-%m-%dT%H:%M:%SZ"))
             xml.latitude(reading.latitude.to_s)
             xml.longitude(reading.longitude.to_s)
             xml.readingType(reading.event_type.to_s)
