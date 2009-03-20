@@ -1,0 +1,28 @@
+name: xirgo
+label: Xirgo Gateway
+overview_uri: /xirgo
+device_uri: /xirgo/command_request/list
+device_class: Xirgo::Device
+
+development:
+  adapter: mysql
+  database: ublip_v2_development
+  username: root
+  password: 1210dpbt
+  host: localhost
+
+production:
+  adapter: mysql
+  database: enfora_enfora
+  username: root
+  password: 
+  host: localhost
+
+slicehost:
+  adapter: mysql
+  database: enfora_prod
+  username: root
+  password: rootpass
+  host: localhost
+  socket: /var/run/mysqld/mysqld.sock
+
