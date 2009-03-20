@@ -51,10 +51,10 @@ ssh_options[:paranoid] = false
 # what the purpose of each machine is. You can also specify options that can
 # be used to single out a specific subset of boxes in a particular role, like
 # :primary => true.
-set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
 set :db_admin, DeployManagerClient.get_db_admin(customer_name)
 
 task :production do
+  set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
   set :monited, 'y'
   set :rails_env, 'production'
   role :db, DeployManagerClient.get_app_servers(customer_name)[0], :primary => true
@@ -70,6 +70,7 @@ task :production do
 end
 
 task :staging do
+  set :deploy_to, DeployManagerClient.get_staging_app_directory(customer_name)
   set :monited, 'y'
   set :rails_env, 'staging'
   role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
@@ -78,6 +79,7 @@ task :staging do
 end
 
 task :slicehost do
+  set :deploy_to, DeployManagerClient.get_staging_app_directory(customer_name)
   set :monited, 'n'
   set :rails_env, 'slicehost'
   role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
