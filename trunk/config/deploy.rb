@@ -2,25 +2,19 @@ set(:customer_name) do
   "amj"
 end
 
-set(:rails_env) do
-  "slicehost"
-end
-
-set(:monited) do
-  "n"
-end
-
 set :keep_releases, 5
 set :application,   'ublip'
 set :scm_username,  'rsinek'
 set :scm_password,  'ch5tryng'
 set :user,          'ublip'
-set :password,      's7aPRA7r'
+#set :password,      's7aPRA7r' # Removing password since it differs on staging and prod
 set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
 set :deploy_via,    :export
 set :monit_group,   'mongrel'
 set :scm,           :subversion
 set :runner, 'ublip'
+set :monited, "n"
+set :rails_env, 'slicehost'
 
 # comment out if it gives you trouble. newest net/ssh needs this set.
 ssh_options[:paranoid] = false
@@ -39,6 +33,9 @@ set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
 set :db_admin, DeployManagerClient.get_db_admin(customer_name)
 
 task :production do
+  set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
+  set :monited, 'y'
+  set :rails_env, 'production'
   role :db, DeployManagerClient.get_app_servers(customer_name)[0], :primary => true
   app_servers = DeployManagerClient.get_app_servers(customer_name)
   app_servers.each_index do |index|
@@ -48,10 +45,14 @@ task :production do
       role :app, app_servers[index], :no_release => true, :no_symlink => true, :no_daemons => true
     end
   end
-  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/tags/current_production_build"
+  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/trunk"
 end
 
+# Leaving as "staging" for now since customer is already doing deployments with this task
 task :staging do
+  set :deploy_to, DeployManagerClient.get_staging_app_directory(customer_name)
+  set :monited, 'n' # Because this staging is on SH
+  set :rails_env, 'slicehost'
   role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
   role :app, DeployManagerClient.get_staging_app_server(customer_name), :mongrel => true
   set :repository, "#{DeployManagerClient.get_repo(customer_name)}/trunk"
