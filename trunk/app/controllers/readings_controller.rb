@@ -85,8 +85,8 @@ class ReadingsController < ApplicationController
     account_id = Account.find_by_subdomain(request.host.split('.')[0]).id
     @start_date = params[:start]
     #If a device Id is supplied, filter the reading list by that Id
-    if(params[:id] != nil)
-      device = Device.find(params[:id])
+    if(params[:imei] != nil)
+      device = Device.get_by_imei(params[:imei])
       @devices = Array.new
       @devices[0] = device
     else

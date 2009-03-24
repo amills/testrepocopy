@@ -66,6 +66,10 @@ class Device < ActiveRecord::Base
     find(device_id, :conditions => ['provision_status_id = 1 and account_id = ?', account_id])
   end
   
+  def self.get_by_imei(device_imei)
+    find(:first, :conditions => "imei = '#{device_imei}'")
+  end
+  
   # Get names/ids for list box - don't want to get an entire devices object
   def self.get_names(account_id)
     find_by_sql(["select id, name from devices where account_id = ? and provision_status_id = 1 order by name", account_id])
