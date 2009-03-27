@@ -38,8 +38,8 @@ namespace :ublip do
     end
   end
   
-  desc 'Update customer branch to latest from trunk'
-  task :update_branch do
+  desc 'Update customer\'s production branch to latest from trunk'
+  task :update_production_branch do
      customer = ENV['customer']
      svn_base = DeployManagerClient.get_repo("SharedFleet")
      cust_svn_base = DeployManagerClient.get_repo(customer)
@@ -49,6 +49,19 @@ namespace :ublip do
      execute_cmd("svn delete #{cust_trunk} -m 'removing previous production build'")
      execute_cmd("svn copy #{svn_base}/tags/current_production_build #{cust_trunk} -m \"updating branch to latest prod build from trunk\"")
      execute_cmd("svn copy #{svn_base}/tags/current_production_build #{prod_url} -m \"updating branch to latest prod build from trunk\"")
+  end
+  
+  desc 'Update customer\'s staging branch to latest from trunk'
+  task :update_staging_branch do
+     customer = ENV['customer']
+     svn_base = DeployManagerClient.get_repo("SharedFleet")
+     cust_svn_base = DeployManagerClient.get_repo(customer)
+     prod_url = "#{cust_svn_base}/tags/current_staging_build"
+     cust_trunk = "#{cust_svn_base}/trunk"
+     execute_cmd("svn delete #{prod_url} -m 'removing previous staging build'")
+     execute_cmd("svn delete #{cust_trunk} -m 'removing previous staging build'")
+     execute_cmd("svn copy #{svn_base}/tags/current_staging_build #{cust_trunk} -m \"updating branch to latest staging build from trunk\"")
+     execute_cmd("svn copy #{svn_base}/tags/current_staging_build #{prod_url} -m \"updating branch to latest staging build from trunk\"")
   end
   
 end
