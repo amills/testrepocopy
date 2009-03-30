@@ -1,0 +1,50 @@
+<%= render :partial=>"/layouts/flash_message" %>
+<h3>Maintenance Task for <%= @task.device.name %></h3>
+<form method="post" class="form_table">
+    <table>
+        <tr>
+            <th>Description</th>
+            <td><input type="text" name="description" value="<%= h @task.description %>" /></td>
+        </tr>
+        <tr>
+            <th>Type of Task</th>
+            <td>
+            	<input type="radio" name="task_type" onclick="showHideRadioSections($('runtime_section'),$('scheduled_section'))" value="runtime"<% if @task.is_runtime? %> checked<% end%>>Runtime Hours
+				&nbsp;&nbsp;
+            	<input type="radio" name="task_type" onclick="showHideRadioSections($('scheduled_section'),$('runtime_section'))" value="scheduled"<% if @task.is_scheduled? %> checked<% end%>>Scheduled Date
+			</td>
+        </tr>
+        <tr id="runtime_section" style="display:none;">
+            <th>Runtime Hours</th>
+            <td><input type="text" name="runtime_hours" value="<%= @task.target_runtime / 60 / 60 if @task.target_runtime %>"/></td>
+        </tr>
+        <tr id="scheduled_section" style="display:none;">
+            <th>Scheduled Date</th>
+            <td><%= select_date(@task.target_at, :order=>[:month,:day,:year], :use_short_month => true, :prefix=>"target_at") %></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right"><input type="submit" value="update" />&nbsp;&nbsp;<a href="javascript:history.go(-1)">cancel </a></td>
+        </tr>
+    </table>
+</form>
+<script>
+	function showHideRadioSections(showSection,hideSection)
+	{
+		hideSection.style.display = 'none';
+		showSection.style.display = '';
+	}
+	<% if @task.is_scheduled? %>
+		showHideRadioSections($('scheduled_section'),$('runtime_section'));
+	<% else %>
+		showHideRadioSections($('runtime_section'),$('scheduled_section'));
+	<% end %>
+</script>
+
+<hr /><br />
+<% if session[:is_admin] %> 
+  <form method="post" action="/maintenance/delete" onsubmit="return confirm('Are you sure you want to delete this maintenance task?');">
+    <input type="hidden" name="id" value="<%= @task.device.id %>" />
+    <input type="submit" value="delete" class="bold_button" />
+  </form>	
+<% end %>
+
