@@ -1,0 +1,154 @@
+body {
+	color: #333333;
+	min-width: 900px;
+	max-width: 1277px;
+}
+
+div#header {
+	margin: 0 4px;
+	height: 118px;
+	background-color: #FFFFFF;
+	min-width: 967px;
+	position: relative;}
+	
+#nav_tabs {
+	bottom: 0px;
+	position: absolute;
+	top: 94px;}
+
+#nav_tabs li {
+	float:left;
+	list-style-type: none;}
+
+#nav_tabs li:hover {
+	background: #822418 url(../images/navseeker_bg_nav.png) repeat-x scroll 0 -24px;
+	color: #FFFFFF;
+}
+
+#nav_tabs a {
+	font-family: "Arial Narrow";
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: 1.166em;
+	font-weight: bold;
+	line-height: 24px;
+	text-transform: uppercase;
+}
+	
+div#content {
+	margin: 0;
+	min-height: 400px;
+	min-width: 955px;
+	}
+
+	.panel_table {
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		}
+
+.panel_table th {
+	background-color: #CCCCCC;
+	color: #333333;
+	padding: 5px;
+	border: 1px solid #000000;
+}
+
+.indicator {
+	width: 100px;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.indicator img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.ok {
+	background-color: #009900;
+	color: #FFFFFF;
+	font-weight: bold;
+	border: 2px solid #85E278;
+}
+
+.warning {
+	background-color: #FFCC00;
+	color: #000000;
+	font-weight: bold;
+	border: 2px solid #FFFF00;
+}
+
+.error {
+	background-color: #FF0000;
+	color: #FFFFFF;
+	font-weight: bold;
+	border: 2px solid #FF7979;
+}
+
+div {
+	margin: 0;
+}
+
+.panel_table {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	}
+
+.panel_table th {
+	background-color: #CCCCCC;
+	color: #333333;
+	padding: 5px;
+	border: 1px solid #000000;
+	}
+	
+	.panel_table .header {
+		background-color: #6699CC;
+		border-color: #6699CC;
+		color: #FFFFFF;
+		font-weight: bold;
+		font-size: 14px;
+		font-family: Arial, Helvetica, sans-serif;
+		padding: 5px;
+		text-align: center;
+		}
+		
+	.report_map_header{
+		width:99.7%; 
+		float: left; 
+		background-color:#6699CC;
+		color:#FFFFFF;
+		font-family:Arial,Helvetica,sans-serif;
+		font-size:14px;
+		padding:5px;	
+		font-weight: bold;
+		text-align: center;
+	}
+
+input.disabled_button {
+	background-color: #4D4D4D;
+	color: #FFFFFF;
+	padding: 2px;
+}
+
+input.blue_button {
+	background-color: #0066FF;
+	color: #FFFFFF;
+	padding: 2px;
+	cursor:pointer;
+}
+
+input.green_button {
+	background-color: #5ABD5A;
+	color: #FFFFFF;
+	padding: 2px;
+	cursor:pointer;
+}
+
+input.red_button {
+	background-color: #FF0000;
+	color: #FFFFFF;
+	padding: 2px;
+	cursor:pointer;
+}
