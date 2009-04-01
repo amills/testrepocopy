@@ -21,7 +21,8 @@ function load()
     gmap.addControl(new GLargeMapControl());
     gmap.addControl(new GMapTypeControl());
     gmap.setCenter(new GLatLng(37.0625, -95.677068), zoom);
-	
+    gmap.setMapType(G_HYBRID_MAP);
+    
 	iconALL = new GIcon();
 	
    // iconALL.image = "/icons/ublip_marker.png";

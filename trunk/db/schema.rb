@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090309140006) do
+ActiveRecord::Schema.define(:version => 20090311204326) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company",            :limit => 75
@@ -138,6 +138,16 @@ ActiveRecord::Schema.define(:version => 20090309140006) do
     t.integer  "completed_runtime", :limit => 11
     t.datetime "reminder_notified"
     t.datetime "pastdue_notified"
+  end
+
+  create_table "notification_modes", :force => true do |t|
+    t.integer  "user_id",    :limit => 11
+    t.integer  "report",     :limit => 1,  :default => 1
+    t.integer  "email",      :limit => 1,  :default => 1
+    t.integer  "sms",        :limit => 1,  :default => 0
+    t.integer  "voice",      :limit => 1,  :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "notification_states", :force => true do |t|

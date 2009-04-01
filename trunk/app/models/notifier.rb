@@ -9,7 +9,7 @@ class Notifier < ActionMailer::Base
     readings_to_notify.each do |reading|
       action = reading.event_type.include?('exit') ? "exited geofence " : "entered geofence "
       action += reading.get_fence_name unless reading.get_fence_name.nil?
-      send_notify_reading_to_users(action,reading)
+      send_notify_reading_to_users(action,reading,1)
     end
   end
   
@@ -55,7 +55,7 @@ class Notifier < ActionMailer::Base
           device.last_gpio1 = reading.gpio1
           device.save
           action = reading.gpio1 ? device.profile.gpio1_high_notice : device.profile.gpio1_low_notice
-          send_notify_reading_to_users(action,reading) if action
+          send_notify_reading_to_users(action,reading,1) if action
 		end
         if device.last_gpio2.nil?
           device.last_gpio2 = reading.gpio2
@@ -64,7 +64,7 @@ class Notifier < ActionMailer::Base
           device.last_gpio2 = reading.gpio2
           device.save
           action = reading.gpio2 ? device.profile.gpio2_high_notice : device.profile.gpio2_low_notice
-          send_notify_reading_to_users(action,reading) if action
+          send_notify_reading_to_users(action,reading,1) if action
 		end
       end
     end
@@ -94,38 +94,71 @@ class Notifier < ActionMailer::Base
             reading.event_type = 'speeding'
             reading.save
           end
-          send_notify_reading_to_users("maximum speed of #{device.account.max_speed} MPH exceeded",reading)
+          send_notify_reading_to_users("maximum speed of #{device.account.max_speed} MPH exceeded",reading,1)
         end
       end
     end
   end
   
-  def self.send_notify_reading_to_users(action,reading)
+  def self.send_notify_reading_to_users(action,reading,priority)
     reading.device.account.users.each do |user|
       if user.enotify == 1       
 		  logger.info("notifying(1): #{user.email} about: #{action}\n")
-		  mail = deliver_notify_reading(user, action, reading)
-      elsif user.enotify == 2         
+		  process_user_reading_notifications(user,action,reading,priority)
+	 elsif user.enotify == 2         
 		  device_ids = user.group_devices_ids
 		  if  !device_ids.empty? && device_ids.include?(reading.device.id)
 			  logger.info("notifying(2): #{user.email} about: #{action}\n")
-			  mail = deliver_notify_reading(user, action, reading)            
+			  process_user_reading_notifications(user,action,reading,priority)
 		  end    
       end
-	  save_notification( user, action, reading)
     end
   end
   
-  def self.send_notify_task_to_users(action,task)
+  def self.process_user_reading_notifications(user,action,reading,priority)
+	  if priority >= user.notificationmode.email and user.notificationmode.email != 0
+		  mail = deliver_notify_reading(user, action, reading)
+	  end
+	  if priority >= user.notificationmode.sms and user.notificationmode.sms != 0
+		  msgText = reading.device.name + ' has reported ' + action + ' at: ' + reading.get_local_time(reading.created_at.in_time_zone.inspect) 
+		  Text_Message_Webservice.sendMessage(user.cellphone.to_s, msgText)
+		  # mail = deliver_notify_reading(user, action, reading)
+	  end
+	  if priority >= user.notificationmode.voice and user.notificationmode.voice != 0
+		  # mail = deliver_notify_reading(user, action, reading)
+	  end
+	  if priority >= user.notificationmode.report and user.notificationmode.report != 0
+		  save_notification( user, action, reading)
+	  end
+  end
+  
+ def self.process_user_task_notifications(user,action,task,priority)
+	 if priority >= user.notificationmode.email and user.notificationmode.email != 0
+		 mail = deliver_notify_task(user, action, task)
+	 end
+	 if priority >= user.notificationmode.sms and user.notificationmode.sms != 0
+		 msgText = task.device.name + ' has reported ' + action + ' at: ' + task.get_local_time(task.reviewed_at.in_time_zone.inspect) 
+		 Text_Message_Webservice.sendMessage(user.cellphone.to_s, msgText)
+		 # mail = deliver_notify_reading(user, action, reading)
+	 end
+	 if priority >= user.notificationmode.voice and user.notificationmode.voice != 0
+		 # mail = deliver_notify_reading(user, action, reading)
+	 end
+	 if priority >= user.notificationmode.report and user.notificationmode.report != 0
+		 #save_notification( user, action, reading)
+	 end
+ end
+ 
+ def self.send_notify_task_to_users(action,task)
     task.device.account.users.each do |user|
       if user.enotify == 1       
         logger.info("notifying(1): #{user.email} about: #{action}\n")
-        mail = deliver_notify_task(user, action, task)
+        process_user_task_notifications(user, action, task,1)
       elsif user.enotify == 2         
         device_ids = user.group_devices_ids
         if  !device_ids.empty? && device_ids.include?(task.device.id)
           logger.info("notifying(2): #{user.email} about: #{action}\n")
-          mail = deliver_notify_task(user, action, task)            
+          process_user_task_notifications(user, action, task,1)            
         end    
       end    
 	 # save_notification( user, action, reading)
@@ -220,7 +253,7 @@ class Notifier < ActionMailer::Base
   # Send email to support from contact page
   def app_feedback(email, subdomain, feedback)
     @from = "support@ublip.com"
-    @recipients = "support@ublip.com"
+    @recipients = "rsinek@zimtech.net"
     @subject = "Feedback from #{subdomain}.ublip.com"
     @body["feedback"] = feedback
     @body["sender"] = email

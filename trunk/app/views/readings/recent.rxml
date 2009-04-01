@@ -29,7 +29,7 @@ xml.devices do
             if !device.last_online_time.nil?
                 xml.dt((time_ago_in_words device.last_online_time) + ' ago')
             else
-                xml.dt(' Device Offline ')
+                xml.dt(' N/A ')
             end
             xml.note
         end

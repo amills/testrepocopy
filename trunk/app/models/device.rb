@@ -96,9 +96,9 @@ class Device < ActiveRecord::Base
   def latest_status
     results = nil
     
-    if profile.idles and latest_idle_event and latest_idle_event.duration.nil?
-      results = [REPORT_TYPE_IDLE,"Idling"]
-    elsif profile.stops and latest_stop_event and latest_stop_event.duration.nil?
+	if profile.idles and latest_idle_event and latest_idle_event.duration.nil?
+		results = [REPORT_TYPE_IDLE,"Idling"]
+	elsif profile.stops and latest_stop_event and latest_stop_event.duration.nil?
       results = [REPORT_TYPE_STOP,"Stopped"]
     elsif profile.speeds and latest_speed_reading
       if account.max_speed and latest_speed_reading.speed > account.max_speed

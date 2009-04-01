@@ -19,8 +19,15 @@ class WsController < ApplicationController
       reading.note = params[:note]
 	  reading.gpio1 = params[:gpio1]
 	  reading.gpio2 = params[:gpio2]
+	  reading.ignition = params[:ign]
       reading.device_id = device.id
-      reading.event_type = "DEFAULT"
+	  if reading.ignition.nil?
+		reading.event_type = "NORMAL"
+	  elsif reading.ignition
+		reading.event_type = "engine on"
+	  else
+		reading.event_type = "engine off"
+	  end
       
       # Save the reading
       if reading.save

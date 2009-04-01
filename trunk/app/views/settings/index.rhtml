@@ -20,9 +20,9 @@
 	Check the box below if you'd like to receive exception notifications for this account.  All exceptions will be sent to the email address associated with your account.  Exceptions
 	include entering a geofence, exiting a geofence, and when a device goes offline.<br />
     <div class="settings_notification">
-     <div><input name="notify"    type="radio"  value="0" <% if @user.enotify == 0 %> checked="checked"<% end %> onclick="Element.hide('to_update');" /> Disable Notifications </div>
-     <div><input name="notify"   type="radio"  value="1"  <% if @user.enotify == 1%> checked="checked"<% end %> onclick="Element.hide('to_update');"/> Enable notifications for all devices in this account</div>
-     <div><input name="notify"  type="radio"  value="2" <% if @user.enotify == 2%> checked="checked"<% end %> onclick="Element.show('to_update');" /> Enable notifications for selected groups</div>
+     <div><input name="notify"    type="radio"  value="0" <% if @user.enotify == 0 %> checked="checked"<% end %> onclick="Element.hide('to_update');Element.hide('notify_update');" /> Disable Notifications </div>
+     <div><input name="notify"   type="radio"  value="1"  <% if @user.enotify == 1%> checked="checked"<% end %> onclick="Element.hide('to_update');Element.show('notify_update');"/> Enable notifications for all devices in this account</div>
+     <div><input name="notify"  type="radio"  value="2" <% if @user.enotify == 2%> checked="checked"<% end %> onclick="Element.show('to_update');Element.show('notify_update');" /> Enable notifications for selected groups</div>
      </div>
      <div id="to_update" class="gray_box" <%if !(@user.enotify == 2) %>style="display:none;" <%end%>>
          <div><strong>&nbsp;Please select one or more groups from the list below</strong></div>
@@ -34,7 +34,54 @@
               No groups added.
          <%end%>
      </div>     
-</div>
+     <div id="notify_update" class="gray_box" <%if (@user.enotify == 0) %>style="display:none;" <%end%>>
+         <div><strong>&nbsp;Please select one or more notification methods from the list below</strong></div>
+         <div>&nbsp;All Notifications matching the selected priority level or greater will be via the corresponding method.</div><br />
+		 <div>View Notifications in Report</div>
+
+	<select name="Reports">
+		<option value="0" <%if @user.notificationmode.report == 0 %> selected="selected"<% end %>>Disabled</option>
+		<option value="1" <%if @user.notificationmode.report == 1 %> selected="selected"<% end %>>Info</option>
+		<option value="2" <%if @user.notificationmode.report == 2 %> selected="selected"<% end %>>Warning</option>
+		<option value="3" <%if @user.notificationmode.report == 3 %> selected="selected"<% end %>>Error</option>
+		<option value="4" <%if @user.notificationmode.report == 4 %> selected="selected"<% end %>>Critical</option>
+		<option value="5" <%if @user.notificationmode.report == 5 %> selected="selected"<% end %>>Down</option>
+	</select>    
+	<div>
+	<div>Receive Notifications by Email</div>
+	<select name="Email">
+		<option value="0" <%if @user.notificationmode.email == 0 %> selected="selected"<% end %>>Disabled</option>
+		<option value="1" <%if @user.notificationmode.email == 1 %> selected="selected"<% end %>>Info</option>
+		<option value="2" <%if @user.notificationmode.email == 2 %> selected="selected"<% end %>>Warning</option>
+		<option value="3" <%if @user.notificationmode.email == 3 %> selected="selected"<% end %>>Error</option>
+		<option value="4" <%if @user.notificationmode.email == 4 %> selected="selected"<% end %>>Critical</option>
+		<option value="5" <%if @user.notificationmode.email == 5 %> selected="selected"<% end %>>Down</option>
+	</select>
+	</div>
+	<div>
+	<div>Receive Notifications by SMS</div>
+	<select name="SMS">
+		<option value="0" <%if @user.notificationmode.sms == 0 %> selected="selected"<% end %>>Disabled</option>
+		<option value="1" <%if @user.notificationmode.sms == 1 %> selected="selected"<% end %>>Info</option>
+		<option value="2" <%if @user.notificationmode.sms == 2 %> selected="selected"<% end %>>Warning</option>
+		<option value="3" <%if @user.notificationmode.sms == 3 %> selected="selected"<% end %>>Error</option>
+		<option value="4" <%if @user.notificationmode.sms == 4 %> selected="selected"<% end %>>Critical</option>
+		<option value="5" <%if @user.notificationmode.sms == 5 %> selected="selected"<% end %>>Down</option>
+	</select>
+	</div>
+	<div>
+	<div>Receive Notifications by Voice</div>
+	<select name="Voice">
+		<option value="0" <%if @user.notificationmode.voice == 0 %> selected="selected"<% end %>>Disabled</option>
+		<option value="1" <%if @user.notificationmode.voice == 1 %> selected="selected"<% end %>>Info</option>
+		<option value="2" <%if @user.notificationmode.voice == 2 %> selected="selected"<% end %>>Warning</option>
+		<option value="3" <%if @user.notificationmode.voice == 3 %> selected="selected"<% end %>>Error</option>
+		<option value="4" <%if @user.notificationmode.voice == 4 %> selected="selected"<% end %>>Critical</option>
+		<option value="5" <%if @user.notificationmode.voice == 5 %> selected="selected"<% end %>>Down</option>
+	</select>
+	</div>
+</div>     
+	</div>
      
 <div class="settings_box">
 	<h2>Time Zone</h2>
