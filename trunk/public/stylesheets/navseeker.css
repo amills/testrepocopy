@@ -1,66 +1,44 @@
 body {
 	color: #333333;
 	min-width: 900px;
+	max-width: 1277px;
 }
 
 div#header {
-	padding: 0;
-	margin: 0;
-	height: 60px;
+	margin: 0 4px;
+	height: 118px;
 	background-color: #FFFFFF;
+	min-width: 967px;
 	position: relative;}
 	
 #nav_tabs {
-	background-color: #FFFFFF;
+	bottom: 0px;
 	position: absolute;
-	width: 100%;
-	bottom: 0px;}
+	top: 94px;}
 
 #nav_tabs li {
 	float:left;
-	list-style-type: none;
-	display: inline;
-	background-color: #4D4D4D;
-	padding: 12px;  /*1px less padding for IE */
-	margin: 0 4px;
-	border: 2px solid #C0C0C0;
-}
+	list-style-type: none;}
 
 #nav_tabs li:hover {
-	background-color: #0066FF;
+	background: #822418 url(../images/navseeker_bg_nav.png) repeat-x scroll 0 -24px;
 	color: #FFFFFF;
 }
 
 #nav_tabs a {
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-family: "Arial Narrow";
 	color: #FFFFFF;
 	text-decoration: none;
-}
-	
-#nav_tabs a:hover {
-	background-color: #0066FF;
-	color: #FFFFFF;
-}
-
-#nav_tabs .selected {
-	border: 2px solid #99CCFF;
-	background-color: #0066FF;
-}
-
-#nav_tabs .selected a {
+	font-size: 1.166em;
 	font-weight: bold;
-	color: #FFFFFF;
-	background-color: #0066FF;
-	}
-
-#nav_tabs .selected a:hover {
-	font-weight: bold;
-	background-color: #0066FF;
-	color: #FFFFFF;}
+	line-height: 24px;
+	text-transform: uppercase;
+}
 	
 div#content {
-	margin: 10px 0;
+	margin: 0;
 	min-height: 400px;
+	min-width: 955px;
 	}
 
 	.panel_table {

@@ -8,44 +8,29 @@ body {
 	
 
 #nav_tabs {
-	background-color: #0066FF;
-	position: absolute;
-	width: 100%;
-	bottom: 0px;}
+	background:#494E55 url(../images/navseeker_bg_nav.png) repeat-x scroll 0 0;
+	left: 293px;}
 
 #nav_tabs ul {
 	padding: 0;
 	margin: 0;}
 
 #nav_tabs li {
-	float:left;
-	list-style-type: none;
-	display: inline;
-	background-color: #003366;
-	padding: 4px 0; /* 1px less padding for IE */
-	margin: 0 1px;
+	background: transparent none repeat scroll 0 0;
+	border-left: 1px solid #000000;
 }
 
 #nav_tabs a {
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	color: #FFFFFF;
-	text-decoration: none;
-	padding: 5px 10px;}
-
-#nav_tabs a:hover {
-	background-color: #FFFFFF;
-    color: #003366;
-    padding: 5px 10px;}
+	padding: 3px 15px;}
 
 #nav_tabs .selected a {
+	background: #822418 url(http://navseeker.com/img/bg_nav.png) repeat-x scroll 0 -25px;
 	font-weight: bold;
-	color: #0066CC;
-	background-color: #FFFFFF;
-	padding: 5px 10px;}
+	color: #FFFFFF;
+	}
 
 #nav_tabs .selected a:hover {
-	font-weight: bold;
-	color: #0066CC;}
+}
 
 #nav_tabs .selected_subnav a {
 	font-weight: bold;
@@ -62,6 +47,7 @@ body {
 /*header CSS */
 
 div#header {
+	background:transparent url(../images/navseeker_bg_header.png) no-repeat scroll 10px 27px;
 	padding: 0;
 	margin: 0;
 	height: 80px;
@@ -122,7 +108,7 @@ a:visited {
 	font-family:Arial, Helvetica, sans-serif; 
 	font-size:12px;
 	font-weight:normal;
-	text-decoration:underline;}
+	text-decoration: underline;}
 a:hover {
 	color:#1364B2;
 	text-decoration:none;}
@@ -222,10 +208,10 @@ div#map {
 /*Container CSS*/
 
 div#company {
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 24px;
-	float:left}
+	background: transparent url(../images/navseeker_logo.png) no-repeat scroll 0 0;
+	height: 118px;
+	width:  293px;
+	text-indent: -900em;}
 
 div {
 	margin: 0 auto;}
