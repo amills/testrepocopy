@@ -1,0 +1,57 @@
+<div style="text-align:left;width:950px;">
+<br/><br/>
+To perform transactions, you must have a super-admin username/password.
+Next, you must either login to create an active web session or include these credentials
+in the XML as parameters in your URL requests.
+<br/><br/>
+These transactions use simple HTTP GET or POST requests to the application server
+using SSL encryption (HTTPS)<% unless request.ssl? %> <i><b>in production only</b></i><% end %>.
+The interface supports the following URL parameters that may be provided in any order:
+<br/><br/>
+The URL for submitting the GET or POST requests is as follows:
+<br/><br/>
+<center><b><%= request.protocol %><%= request.host %><%= request.port_string %>/admin/transaction?xml=&lt;xml&gt;...&lt;/xml&gt;</b></center>
+<br/>
+The XML portion of the request may contain any of the following elements:
+<br/><br/>
+<table class="form_table" style="width:100%;">
+	<tr style="background-color:#CCCCCC"><td><b>ELEMENT</b></td><td colspan="2"><b>DESCRIPTION</b></td></tr>
+	<tr style="vertical-align:top;"><td><b>session</b></td><td colspan="2">
+		This XML element is used to aggregate any number of other elements defined in this list.
+		<br/><br/>
+		It may optionally contain login credentials that grant the permission required to perform the enclosed actions.
+		The credentials may be supplied only once if the calling program is maintaining an HTTP session that has already been authenticated.
+		<br/><br/>
+		The calling program may choose to perform single actions instead of aggregate requests.
+		In this case, the following attributes could be applied to any XML element passed.
+	</td></tr>
+	<tr><td>&nbsp;</td><td style="background-color:#CCCCCC"><b>ATTRIBUTE</b></td><td style="background-color:#CCCCCC"><b>DESCRIPTION</b></td></tr>
+	<tr><td>&nbsp;<td><b>username&nbsp;</b></td><td>A super-admin username for the application (optional if an HTTP session already exists)</td></tr>
+	<tr><td>&nbsp;</td><td><b>password&nbsp;</b></td><td>A valid password for the given username (optional if an HTTP session already exists)</td></tr>
+	<tr><td colspan="3">&nbsp;</td></tr>
+	
+	<tr style="background-color:#CCCCCC"><td><b>ELEMENT</b></td><td colspan="2"><b>DESCRIPTION</b></td></tr>
+	<tr style="vertical-align:top;"><td nowrap><b>add-account&nbsp;</b></td><td colspan="2">
+		This XML element is used to add a new Account to the application.
+		<br/><br/>
+		This method will return an XML "ERROR" response if not all attributes are provided, the <b>subdomain</b> is not unique,
+		or the <b>email</b> is not properly formed. Otherwise it will return an XML "OK" response.
+	</td></tr>
+	<tr><td>&nbsp;</td><td style="background-color:#CCCCCC"><b>ATTRIBUTE</b></td><td style="background-color:#CCCCCC"><b>DESCRIPTION</b></td></tr>
+	<tr><td>&nbsp;<td><b>subdomain&nbsp;</b></td><td>The DNS subdomain that will be used to uniquely identify this Account in the URL.</td></tr>
+	<tr><td>&nbsp;<td>&nbsp;</td><td><b>NOTE:</b> The subdomain also serves as a unique reference to the Account for the NavSeeker application.</td></tr>
+	<tr><td>&nbsp;<td><b>company&nbsp;</b></td><td>The name of the Account that will show at the top of the application when the User is logged in.</td></tr>
+	<tr><td>&nbsp;<td><b>language&nbsp;</b></td><td>The language code for this Account (e.g., "en" for English).</td></tr>
+	<tr><td>&nbsp;<td><b>first&nbsp;</b></td><td>The first name of the "Admin" User for this Account.</td></tr>
+	<tr><td>&nbsp;<td><b>last&nbsp;</b></td><td>The last name of the "Admin" User for this Account.</td></tr>
+	<tr><td>&nbsp;<td><b>email&nbsp;</b></td><td>The email address (i.e., the same as the username) of the "Admin" User for this Account.</td></tr>
+	<tr><td>&nbsp;<td><b>password&nbsp;</b></td><td>The password of the "Admin" User for this Account.</td></tr>
+	<tr><td colspan="3">&nbsp;</td></tr>
+</table>
+Use the following links to <a href="/admin/transaction/test">test</a> or <a href="/admin/transaction/validate">validate</a> your XML statements:
+<table class="form_table" style="width:100%;">
+	<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/transaction/test"><b><%= request.protocol %><%= request.host %><%= request.port_string %>/admin/transaction/test</b></a></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/transaction/validate"><b><%= request.protocol %><%= request.host %><%= request.port_string %>/admin/transaction/validate</b></a></td></tr>
+	<tr><td>&nbsp;</td></tr>
+</table>
+</div>
