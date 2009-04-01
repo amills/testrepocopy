@@ -1,4 +1,12 @@
 <div id="header">
+	<div style="float:right;padding-top:37px;width: 230px;">
+	<div>
+		<div style="padding-right: 15px; width: 55px; float: left;"><a style="font-family: arial; font-size: 10px; color: #FFFFFF; text-decoration: none;" href="https://navseeker.com/how_to_buy/activation_01/activate.html"><center>Activate<br /><img border="none" src="http://navseeker.ublip.com/images/navseeker_activate.png"></center></a></div>
+		<div style="padding-right: 15px; width: 55px; float: left;"><a style="font-family: arial; font-size: 10px; color: #FFFFFF; text-decoration: none;" href="/home"><center>Locate<br /><img border="none" src="http://navseeker.ublip.com/images/navseeker_locate.png"></center></a></div>
+		<div style="width: 55px; float: left; margin: 0; padding-right: 0;"><a style="font-family: arial; font-size: 10px; color: #FFFFFF; text-decoration: none;" href="/users"><center>My Account<br /><img border="none" src="http://navseeker.ublip.com/images/navseeker_accounts.png"></center></a></div>
+	</div>
+	</div>
+	
 	<div id="company" ><%= session[:company] %></div>
 	
 	<div style="clear:both;"></div>
@@ -9,23 +17,10 @@
 	<div id="nav_tabs">
 		<ul>
 			<li style="margin-left: 10px"><a href="http://www.navseeker.com">Home</a></li>
-	   		<li <% if page_name== 'home'%> class="selected "<% end %>><a href="/home"><%= "Summary".t %></a></li>
+	   		<li <% if page_name == 'home' %> class="selected "<% end %>><a href="/home"><%= "Summary".t %></a></li>
 			<li <% if page_name == 'reports' %> class="selected"<% end %>><a href="/reports"><%= "History".t %></a></li>
 			<li <% if page_name == 'geofence' %> class="selected"<% end %>><a href="/geofence"><%= "Geofence".t %></a></li>
 			<li <% if page_name == 'alerts' %> class="selected"<% end %>><a href="/alerts"><%= "Alerts".t %></a></li>
-			<li <% if page_name == 'settings' %> class="selected"<% end %>><a href="/settings"><%= "Settings".t %></a></li>
-			<li <% if page_name == 'locators' %> class="selected"<% end %>><a href="/locators"><%= "Customize".t %></a></li>
-			<li <% if page_name == 'users' %> class="selected"<% end %>><a href="/users"><%= "Accounts".t %></a></li>
-		</ul>
-		<div style="float:right;padding-right:20px;">
-			<select onchange="document.location.href='/users/change_language/<%= session[:user_id] %>?language=' + this.options[this.selectedIndex].value">
-				<option value="en">English</option>
-				<option value="es"<% if session[:language] == 'es' %> selected<% end %>>Spanish</option>
-				<option value="fi"<% if session[:language] == 'fi' %> selected<% end %>>Finnish</option>
-				<option value="no"<% if session[:language] == 'no' %> selected<% end %>>Norwegian</option>
-				<option value="sv"<% if session[:language] == 'sv' %> selected<% end %>>Swedish</option>
-			</select>
-		</div>
-    </div>
-     
+			<li <% if page_name == 'locators' %> class="selected"<% end %>><a href="/locators"><%= "Customize".t %></a></li>			
+		</ul>     
 </div>
