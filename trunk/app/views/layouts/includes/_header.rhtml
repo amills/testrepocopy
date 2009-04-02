@@ -17,7 +17,7 @@
 	<div id="nav_tabs">
 		<ul>
 			<li style="margin-left: 10px"><a href="http://www.navseeker.com">Home</a></li>
-	   		<li <% if page_name == 'home' %> class="selected "<% end %>><a href="/home"><%= "Summary".t %></a></li>
+	   		<li <% if page_name.blank? or page_name == 'home' %> class="selected "<% end %>><a href="/home"><%= "Summary".t %></a></li>
 			<li <% if page_name == 'reports' %> class="selected"<% end %>><a href="/reports"><%= "History".t %></a></li>
 			<li <% if page_name == 'geofence' %> class="selected"<% end %>><a href="/geofence"><%= "Geofence".t %></a></li>
 			<li <% if page_name == 'alerts' %> class="selected"<% end %>><a href="/alerts"><%= "Alerts".t %></a></li>
