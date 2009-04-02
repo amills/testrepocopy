@@ -22,12 +22,12 @@ class Notifier < ActionMailer::Base
             device.account.users.each do |user|
               if user.enotify == 1
                 logger.info("device offline, notifying: #{user.email}\n")
-                mail = deliver_device_offline(user, device)         
+                process_user_offline_notifications(user, device,1)         
               elsif user.enotify == 2
                 devices_ids = user.group_devices_ids
                 if devices_ids.include?(device.id)
                   logger.info("device offline, notifying: #{user.email}\n")
-                  mail = deliver_device_offline(user, device)                         
+                  process_user_offline_notifications(user, device,1)                         
                 end    
               end
               if user.enotify != 0
@@ -148,6 +148,23 @@ class Notifier < ActionMailer::Base
 		 #save_notification( user, action, reading)
 	 end
  end
+ 
+  def self.process_user_offline_notifications(user,device,priority)
+	  if priority >= user.notificationmode.email and user.notificationmode.email != 0
+		  mail = deliver_device_offline(user, device)
+	  end
+	  if priority >= user.notificationmode.sms and user.notificationmode.sms != 0
+		  msgText = device.name + ' appears to be OFFLINE. It has not reported since : ' + device.last_online_time.to_s
+		  Text_Message_Webservice.sendMessage(user.cellphone.to_s, msgText)
+		  # mail = deliver_notify_reading(user, action, reading)
+	  end
+	  if priority >= user.notificationmode.voice and user.notificationmode.voice != 0
+		  # mail = deliver_notify_reading(user, action, reading)
+	  end
+	  if priority >= user.notificationmode.report and user.notificationmode.report != 0
+		  #save_notification( user, action, reading)
+	  end
+  end
  
  def self.send_notify_task_to_users(action,task)
     task.device.account.users.each do |user|

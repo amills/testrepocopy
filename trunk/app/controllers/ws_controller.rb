@@ -21,7 +21,9 @@ class WsController < ApplicationController
 	  reading.gpio2 = params[:gpio2]
 	  reading.ignition = params[:ign]
       reading.device_id = device.id
-	  if reading.ignition.nil?
+	  if params[:evt]
+		  reading.event_type = params[:evt]
+	  elsif reading.ignition.nil?
 		reading.event_type = "NORMAL"
 	  elsif reading.ignition
 		reading.event_type = "engine on"
