@@ -1,0 +1,26 @@
+<div id="header">
+	<div style="float:right;padding-top:37px;width: 230px;">
+	<div>
+		<div style="padding-right: 15px; width: 55px; float: left;"><a style="font-family: arial; font-size: 10px; color: #FFFFFF; text-decoration: none;" href="https://navseeker.com/how_to_buy/activation_01/activate.html"><center>Activate<br /><img border="none" src="http://navseeker.ublip.com/images/navseeker_activate.png"></center></a></div>
+		<div style="padding-right: 15px; width: 55px; float: left;"><a style="font-family: arial; font-size: 10px; color: #FFFFFF; text-decoration: none;" href="/home"><center>Locate<br /><img border="none" src="http://navseeker.ublip.com/images/navseeker_locate.png"></center></a></div>
+		<div style="width: 55px; float: left; margin: 0; padding-right: 0;"><a style="font-family: arial; font-size: 10px; color: #FFFFFF; text-decoration: none;" href="/users"><center>My Account<br /><img border="none" src="http://navseeker.ublip.com/images/navseeker_accounts.png"></center></a></div>
+	</div>
+	</div>
+	
+	<div id="company" ><%= session[:company] %></div>
+	
+	<div style="clear:both;"></div>
+
+	<% page_name = request.path_info.split("/")[1]  %>
+	<% page_action = request.path_info.split("/")[2]  %>
+	
+	<div id="nav_tabs">
+		<ul>
+			<li style="margin-left: 10px"><a href="http://www.navseeker.com">Home</a></li>
+	   		<li <% if page_name.blank? or page_name == 'home' %> class="selected "<% end %>><a href="/home"><%= "Summary".t %></a></li>
+			<li <% if page_name == 'reports' %> class="selected"<% end %>><a href="/reports"><%= "History".t %></a></li>
+			<li <% if page_name == 'geofence' %> class="selected"<% end %>><a href="/geofence"><%= "Geofence".t %></a></li>
+			<li <% if page_name == 'alerts' %> class="selected"<% end %>><a href="/alerts"><%= "Alerts".t %></a></li>
+			<li <% if page_name == 'locators' %> class="selected"<% end %>><a href="/locators"><%= "Customize".t %></a></li>			
+		</ul>     
+</div>
