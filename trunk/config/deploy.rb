@@ -50,12 +50,12 @@ end
 
 # Leaving as "staging" for now since customer is already doing deployments with this task
 task :staging do
-  set :deploy_to, DeployManagerClient.get_staging_app_directory(customer_name)
+  set :deploy_to, "/opt/ublip/rails"
   set :monited, 'n' # Because this staging is on SH
   set :rails_env, 'slicehost'
-  role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
-  role :app, DeployManagerClient.get_staging_app_server(customer_name), :mongrel => true
-  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/trunk"
+  role :db, "intouchmvc.ublip.com", :primary => true
+  role :app, "intouchmvc.ublip.com", :mongrel => true
+  set :repository, "https://ublip.svn.ey01.engineyard.com/Ublip_v2/branches/intouchmvc.ublip.com/trunk"
 end
 
 # =============================================================================
