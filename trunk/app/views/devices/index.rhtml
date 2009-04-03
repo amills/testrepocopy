@@ -31,6 +31,7 @@
     <tr class="header">
       <td></td>
       <td>Name</td>
+	  <td>VIN</td>
       <td>IMEI</td>
       <td>Group</td>
       <td>Geofences</td>			
@@ -44,6 +45,7 @@
           	<% if device.request_location? %>&nbsp;&nbsp;<a href="/devices/find_now/<%= device.id %>" title="Request a location for this device">find now</a><% end %>
 		  </td> 
           <td><a href="/reports/all/<%= device.id %>" title="View reports for this device"><%= device.name %></a></td>
+		  <td><%= device.vin %></td>
           <td><%= device.imei %></td>
           <td><% if !device.group.nil? %><a href="/devices/edits_group?group_id=<%= device.group.id %>" title="Edit this group"><%= device.group.name %></a><% else %>Default<% end %></td>
          <td>
