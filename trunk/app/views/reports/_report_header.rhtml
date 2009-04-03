@@ -5,7 +5,7 @@
         <span class="dark_blue_header">For: </span>              
         <select onchange="changeDevice(this.options[this.selectedIndex].value, '<%= params[:action] %>', '<%= @start_date %>', '<%= @end_date%>');">
           <% for device in @device_names %>
-            <option value="<%= device.id %>" <% if params[:id].to_i == device.id %>selected="selected"<% end %>><%= device.vin %></option>
+            <option value="<%= device.id %>" <% if params[:id].to_i == device.id %>selected="selected"<% end %>><%= current_account.dealer ? device.vin : device.name %></option>
           <% end %>
         </select>              
 

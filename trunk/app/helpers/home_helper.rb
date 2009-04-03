@@ -30,7 +30,7 @@ module HomeHelper
 
     content << %(<td>)
     if device.latest_gps_reading
-      content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{device.vin}</a>)
+      content << %(<a href="javascript:centerMap(#{device.id});highlightRow(#{device.id});" title="Center map on this device" class="link-all1">#{current_account.dealer ? device.vin : device.name}</a>)
     else
       content << %(#{device.vin})
     end      

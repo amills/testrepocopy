@@ -9,7 +9,7 @@ class Admin::AccountsController < ApplicationController
   end
   
   def index
-    @accounts = Account.find(:all, :order => "subdomain", :conditions => "is_deleted=0")
+    @accounts = Account.find(:all, :order => "dealer desc,company", :conditions => "is_deleted=0")
   end
 
   def new

@@ -5,7 +5,7 @@
   <%= render :partial => 'device_summary_header',:locals =>{:column_span => 5,:sub_heading => nil} %>
   <tr>
   	<th style="width:60px;">&nbsp;</th>
-    <th>VIN</th>        
+    <th><% if current_account.dealer %>VIN<% else %>Device<% end %></th>        
     <th>Last Location</th>
     <th>Last Status</th>
     <th>Last Report</th>

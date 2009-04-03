@@ -17,7 +17,7 @@
     <ul>
       <% for device in @devices %>
         <li>
-          <a href="/reports/all/<%= device.id %>"><%= device.vin %></a> - 
+          <a href="/reports/all/<%= device.id %>"><%= current_account.dealer ? device.vin : device.name %></a> - 
           <% if device.latest_gps_reading %>reported <%= time_ago_in_words device.latest_gps_reading.created_at%> ago<% else %>no report yet<% end %>
         </li>
       <% end %>

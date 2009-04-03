@@ -31,6 +31,13 @@ class Device < ActiveRecord::Base
   has_many :stop_events, :order => "created_at desc"
   has_many :trip_events, :order => "created_at desc"
   has_many :pending_tasks,:class_name => "MaintenanceTask",:conditions => "completed_at is null",:order => "pastdue_notified desc,reminder_notified desc,established_at desc"
+
+  def self.find_device_by_vin(vin)
+    matching_device = Xirgo::Device.find_device_by_vin(vin)
+    return unless matching_device
+    result = logical_device_for_gateway_device(matching_device)
+    return result unless result.new_record?
+  end
   
   def self.logical_device_for_gateway_device(gateway_device)
     return gateway_device.logical_device if gateway_device.logical_device
