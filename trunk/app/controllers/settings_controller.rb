@@ -3,13 +3,13 @@ class SettingsController < ApplicationController
     @account = Account.find(session[:account_id])
     @user = User.find(session[:user_id])
     @groups = Group.find(:all,:conditions=>["account_id=?",session[:account_id]])
-		if @user.notificationmode.nil?
-		mode = NotificationMode.new
-		mode.user_id = @user.id
-		mode.save
-		redirect_to :action => 'index'
-		#@user.notificationmode.new
-		end
+#		if @user.notificationmode.nil?
+#		mode = NotificationMode.new
+#		mode.user_id = @user.id
+#		mode.save
+#		redirect_to :action => 'index'
+#		#@user.notificationmode.new
+#		end
 	if request.post?
       if session[:is_admin]
         @account.update_attribute('company', params[:company])
@@ -37,14 +37,16 @@ class SettingsController < ApplicationController
   end
   
   def  update_notification_mode
-	  NotificationMode.delete_all "user_id = #{@user.id}"
-	  notification_mode = NotificationMode.new
-	  notification_mode.user_id = @user.id
-	  notification_mode.report = params[:Reports]
-	  notification_mode.email = params[:Email]
-	  notification_mode.sms = params[:SMS]
-	  notification_mode.voice = params[:Voice]
-	  notification_mode.save
+	 @user.update_attributes!(:byemail => params[:Email], :byreport => params[:Reports], :bysms => params[:SMS], :byvoice => params[:Voice])
+			
+	#  NotificationMode.delete_all "user_id = #{@user.id}"
+	#  notification_mode = NotificationMode.new
+	#  notification_mode.user_id = @user.id
+	#  notification_mode.report = params[:Reports]
+	#  notification_mode.email = params[:Email]
+	#  notification_mode.sms = params[:SMS]
+	#  notification_mode.voice = params[:Voice]
+	#  notification_mode.save
   end
 
 end

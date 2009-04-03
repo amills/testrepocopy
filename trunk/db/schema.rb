@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090311204326) do
+ActiveRecord::Schema.define(:version => 20090319223027) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company",            :limit => 75
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20090311204326) do
     t.decimal  "longitude",                         :precision => 15, :scale => 10
     t.decimal  "latitude",                          :precision => 15, :scale => 10
     t.string   "address"
+    t.boolean  "transient"
   end
 
   add_index "devices", ["imei"], :name => "imei", :unique => true
@@ -243,6 +244,10 @@ ActiveRecord::Schema.define(:version => 20090311204326) do
     t.boolean  "is_super_admin",                          :default => false
     t.string   "access_key"
     t.string   "cellphone",                 :limit => 20
+    t.integer  "byreport",                  :limit => 1,  :default => 1
+    t.integer  "byemail",                   :limit => 1,  :default => 1
+    t.integer  "bysms",                     :limit => 1,  :default => 0
+    t.integer  "byvoice",                   :limit => 1,  :default => 0
   end
 
 end

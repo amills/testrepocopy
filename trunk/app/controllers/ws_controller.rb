@@ -30,7 +30,7 @@ class WsController < ApplicationController
 	  else
 		reading.event_type = "engine off"
 	  end
-      
+	
       # Save the reading
       if reading.save
         # Save the reading id with the device

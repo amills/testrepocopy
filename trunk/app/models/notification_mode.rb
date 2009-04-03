@@ -1,5 +1,5 @@
 class NotificationMode < ActiveRecord::Base
-	belongs_to :user
+#	belongs_to :user
 	
 	PRIORITY_NONE = 0
 	PRIORITY_INFO = 1

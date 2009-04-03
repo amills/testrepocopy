@@ -40,44 +40,44 @@
 		 <div>View Notifications in Report</div>
 
 	<select name="Reports">
-		<option value="0" <%if @user.notificationmode.report == 0 %> selected="selected"<% end %>>Disabled</option>
-		<option value="1" <%if @user.notificationmode.report == 1 %> selected="selected"<% end %>>Info</option>
-		<option value="2" <%if @user.notificationmode.report == 2 %> selected="selected"<% end %>>Warning</option>
-		<option value="3" <%if @user.notificationmode.report == 3 %> selected="selected"<% end %>>Error</option>
-		<option value="4" <%if @user.notificationmode.report == 4 %> selected="selected"<% end %>>Critical</option>
-		<option value="5" <%if @user.notificationmode.report == 5 %> selected="selected"<% end %>>Down</option>
+		<option value="0" <%if @user.byreport == 0 %> selected="selected"<% end %>>Disabled</option>
+		<option value="1" <%if @user.byreport == 1 %> selected="selected"<% end %>>Info</option>
+		<option value="2" <%if @user.byreport == 2 %> selected="selected"<% end %>>Warning</option>
+		<option value="3" <%if @user.byreport == 3 %> selected="selected"<% end %>>Error</option>
+		<option value="4" <%if @user.byreport == 4 %> selected="selected"<% end %>>Critical</option>
+		<option value="5" <%if @user.byreport == 5 %> selected="selected"<% end %>>Down</option>
 	</select>    
 	<div>
 	<div>Receive Notifications by Email</div>
 	<select name="Email">
-		<option value="0" <%if @user.notificationmode.email == 0 %> selected="selected"<% end %>>Disabled</option>
-		<option value="1" <%if @user.notificationmode.email == 1 %> selected="selected"<% end %>>Info</option>
-		<option value="2" <%if @user.notificationmode.email == 2 %> selected="selected"<% end %>>Warning</option>
-		<option value="3" <%if @user.notificationmode.email == 3 %> selected="selected"<% end %>>Error</option>
-		<option value="4" <%if @user.notificationmode.email == 4 %> selected="selected"<% end %>>Critical</option>
-		<option value="5" <%if @user.notificationmode.email == 5 %> selected="selected"<% end %>>Down</option>
+		<option value="0" <%if @user.byemail == 0 %> selected="selected"<% end %>>Disabled</option>
+		<option value="1" <%if @user.byemail == 1 %> selected="selected"<% end %>>Info</option>
+		<option value="2" <%if @user.byemail == 2 %> selected="selected"<% end %>>Warning</option>
+		<option value="3" <%if @user.byemail == 3 %> selected="selected"<% end %>>Error</option>
+		<option value="4" <%if @user.byemail == 4 %> selected="selected"<% end %>>Critical</option>
+		<option value="5" <%if @user.byemail == 5 %> selected="selected"<% end %>>Down</option>
 	</select>
 	</div>
 	<div>
 	<div>Receive Notifications by SMS</div>
 	<select name="SMS">
-		<option value="0" <%if @user.notificationmode.sms == 0 %> selected="selected"<% end %>>Disabled</option>
-		<option value="1" <%if @user.notificationmode.sms == 1 %> selected="selected"<% end %>>Info</option>
-		<option value="2" <%if @user.notificationmode.sms == 2 %> selected="selected"<% end %>>Warning</option>
-		<option value="3" <%if @user.notificationmode.sms == 3 %> selected="selected"<% end %>>Error</option>
-		<option value="4" <%if @user.notificationmode.sms == 4 %> selected="selected"<% end %>>Critical</option>
-		<option value="5" <%if @user.notificationmode.sms == 5 %> selected="selected"<% end %>>Down</option>
+		<option value="0" <%if @user.bysms == 0 %> selected="selected"<% end %>>Disabled</option>
+		<option value="1" <%if @user.bysms == 1 %> selected="selected"<% end %>>Info</option>
+		<option value="2" <%if @user.bysms == 2 %> selected="selected"<% end %>>Warning</option>
+		<option value="3" <%if @user.bysms == 3 %> selected="selected"<% end %>>Error</option>
+		<option value="4" <%if @user.bysms == 4 %> selected="selected"<% end %>>Critical</option>
+		<option value="5" <%if @user.bysms == 5 %> selected="selected"<% end %>>Down</option>
 	</select>
 	</div>
 	<div>
 	<div>Receive Notifications by Voice</div>
 	<select name="Voice">
-		<option value="0" <%if @user.notificationmode.voice == 0 %> selected="selected"<% end %>>Disabled</option>
-		<option value="1" <%if @user.notificationmode.voice == 1 %> selected="selected"<% end %>>Info</option>
-		<option value="2" <%if @user.notificationmode.voice == 2 %> selected="selected"<% end %>>Warning</option>
-		<option value="3" <%if @user.notificationmode.voice == 3 %> selected="selected"<% end %>>Error</option>
-		<option value="4" <%if @user.notificationmode.voice == 4 %> selected="selected"<% end %>>Critical</option>
-		<option value="5" <%if @user.notificationmode.voice == 5 %> selected="selected"<% end %>>Down</option>
+		<option value="0" <%if @user.byvoice == 0 %> selected="selected"<% end %>>Disabled</option>
+		<option value="1" <%if @user.byvoice == 1 %> selected="selected"<% end %>>Info</option>
+		<option value="2" <%if @user.byvoice == 2 %> selected="selected"<% end %>>Warning</option>
+		<option value="3" <%if @user.byvoice == 3 %> selected="selected"<% end %>>Error</option>
+		<option value="4" <%if @user.byvoice == 4 %> selected="selected"<% end %>>Critical</option>
+		<option value="5" <%if @user.byvoice == 5 %> selected="selected"<% end %>>Down</option>
 	</select>
 	</div>
 </div>     

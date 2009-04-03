@@ -15,7 +15,7 @@ development:
   adapter: mysql
   database: ublip_v2_development
   username: root
-  password:
+  password: 1210dpbt
   socket: /tmp/mysql.sock
 
 
