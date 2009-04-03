@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090112141802) do
+ActiveRecord::Schema.define(:version => 20090402195450) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company",          :limit => 75
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20090112141802) do
     t.boolean  "show_statistics",                 :default => false
     t.boolean  "show_maintenance",                :default => false
     t.integer  "max_speed",        :limit => 11
+    t.boolean  "dealer",                          :default => true,  :null => false
   end
 
   create_table "device_profiles", :force => true do |t|
@@ -56,12 +57,13 @@ ActiveRecord::Schema.define(:version => 20090112141802) do
     t.integer  "icon_id",             :limit => 11, :default => 1
     t.integer  "group_id",            :limit => 11
     t.integer  "is_public",           :limit => 11, :default => 0
-    t.integer  "profile_id",          :limit => 11, :default => 1,  :null => false
+    t.integer  "profile_id",          :limit => 11, :default => 1,    :null => false
     t.boolean  "last_gpio1"
     t.boolean  "last_gpio2"
     t.string   "gateway_name"
     t.datetime "speeding_at"
     t.boolean  "transient"
+    t.boolean  "dealer",                            :default => true, :null => false
   end
 
   add_index "devices", ["imei"], :name => "imei", :unique => true
