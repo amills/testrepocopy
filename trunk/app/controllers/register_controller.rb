@@ -10,7 +10,7 @@ class RegisterController < ApplicationController
   def info
     @device = Device.find(params[:id])
     @device.name = params[:device_name].blank? ? @device.vin : params[:device_name]
-    return redirect_to(:action => 'index') unless @device and @device.dealer and @device.account.dealer
+    return redirect_to(:action => 'index') unless @device and @device.dealer
     @user = User.new(params[:user])
     return unless request.post?
     raise 'Your password and confirmation did not match' + params[:user][:password].to_s + ':' + params[:confirm_password].to_s if params[:user].nil? or params[:user][:password] != params[:confirm_password]

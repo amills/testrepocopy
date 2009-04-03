@@ -61,6 +61,8 @@ class Admin::DevicesController < ApplicationController
       
       # Let's determine if the device is being moved between accounts. If so, we need to nil the group_id
       if device.account_id.to_s != params[:device][:account_id]
+        new_account = Account.find(params[:device][:account_id]) if params[:device][:account_id] != '0'
+        params[:device][:dealer] = (new_account.nil? || new_account.dealer)
         params[:device][:group_id] = nil
       end
       

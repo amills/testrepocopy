@@ -79,8 +79,10 @@ class Admin::AccountsController < ApplicationController
     if request.post?
       account = Account.find(params[:id])
       account.update_attribute(:is_deleted, 1)
+      previous_subdomain = account.subdomain
+      account.update_attribute(:subdomain,"#{account.subdomain}-deleted-#{Time.now.strftime('%Y-%m-%d-%H:%M:%S')}")
       account.save
-      flash[:success] = "#{account.subdomain} deleted successfully"
+      flash[:success] = "#{previous_subdomain} deleted successfully"
     end
     redirect_to :action => 'index'
   end
