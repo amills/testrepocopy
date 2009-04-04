@@ -12,17 +12,17 @@
 				<a href="/emergency/contacts/<%= driver.id %>">contacts</a>&nbsp;
 				<a href="/emergency/info/<%= driver.id %>">information</a>
 			<table class="form_table">
-				<tr><th>Name:</th><td><%= driver.name or '&nbsp;' %></td></tr>
-				<tr><th>Address:</th><td><%= driver.address or '&nbsp;' %></td></tr>
-				<tr><th>City:</th><td><%= driver.city or '&nbsp;' %></td></tr>
-				<tr><th>State:</th><td><%= driver.state or '&nbsp;' %></td></tr>
-				<tr><th>Zip:</th><td><%= driver.zip or '&nbsp;' %></td></tr>
+				<tr><th>Name:</th><td><%= driver.name %>&nbsp;</td></tr>
+				<tr><th>Address:</th><td><%= driver.address %>&nbsp;</td></tr>
+				<tr><th>City:</th><td><%= driver.city %>&nbsp;</td></tr>
+				<tr><th>State:</th><td><%= driver.state %>&nbsp;</td></tr>
+				<tr><th>Zip:</th><td><%= driver.zip %>&nbsp;</td></tr>
 				<tr><td>&nbsp;</td></tr>
-				<tr><th>Home Phone:</th><td><%= driver.home_phone or '&nbsp;' %></td></tr>
-				<tr><th>Office Phone:</th><td><%= driver.office_phone or '&nbsp;' %></td></tr>
-				<tr><th>Mobile Phone:</th><td><%= driver.mobile_phone or '&nbsp;' %></td></tr>
+				<tr><th>Home Phone:</th><td><%= driver.home_phone %>&nbsp;</td></tr>
+				<tr><th>Office Phone:</th><td><%= driver.office_phone %>&nbsp;</td></tr>
+				<tr><th>Mobile Phone:</th><td><%= driver.mobile_phone %>&nbsp;</td></tr>
 				<tr><td>&nbsp;</td></tr>
-				<tr <% if driver.primary %>style="visibility:hidden;"<% end%>><th>Relationship To<br/>Primary Driver:</th><td><%= driver.relationship or '&nbsp;' %></td></tr>
+				<tr <% if driver.primary %>style="visibility:hidden;"<% end%>><th>Relationship To<br/>Primary Driver:</th><td><%= driver.relationship %>&nbsp;</td></tr>
 			</table>
 		</li>
     <% end %>
