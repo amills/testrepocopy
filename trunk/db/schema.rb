@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090402195450) do
+ActiveRecord::Schema.define(:version => 20090404163942) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company",          :limit => 75
@@ -71,6 +71,49 @@ ActiveRecord::Schema.define(:version => 20090402195450) do
   create_table "devices_users", :force => true do |t|
     t.integer "device_id", :limit => 11
     t.integer "user_id",   :limit => 11
+  end
+
+  create_table "drivers", :force => true do |t|
+    t.integer  "account_id",               :limit => 11,                      :null => false
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "home_phone"
+    t.string   "office_phone"
+    t.string   "mobile_phone"
+    t.string   "relationship"
+    t.string   "emergency_contacts_notes", :limit => 4096
+    t.boolean  "primary",                                  :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "emergency_contacts", :force => true do |t|
+    t.integer  "driver_id",    :limit => 11, :null => false
+    t.string   "name"
+    t.string   "home_phone"
+    t.string   "office_phone"
+    t.string   "mobile_phone"
+    t.string   "relationship"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "emergency_infos", :force => true do |t|
+    t.integer  "driver_id",       :limit => 11,   :null => false
+    t.integer  "age",             :limit => 11
+    t.datetime "dob"
+    t.string   "illnesses",       :limit => 4096
+    t.string   "medications",     :limit => 4096
+    t.string   "alergies",        :limit => 4096
+    t.string   "blood_type"
+    t.string   "physician_name"
+    t.string   "physician_phone"
+    t.string   "notes",           :limit => 4096
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "geofence_violations", :id => false, :force => true do |t|

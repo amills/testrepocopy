@@ -125,6 +125,14 @@ private
     end
   end
   
+  def authorize_driver
+    return if params[:id].blank?
+    driver = Driver.find(params[:id])
+    unless driver.account_id == session[:account_id]
+      redirect_back_or_default "/index"
+    end
+  end
+  
   def authorize_user
     user = User.find(params[:id])
     unless user.account_id == session[:account_id]
