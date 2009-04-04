@@ -1,0 +1,46 @@
+<tr>
+	<th>Name:</th>
+	<td><input type="text" name="driver[name]" class="input" value="<%= @driver.name %>" style="width: 162px;"/></td>
+</tr>
+
+<tr>
+	<th>Address:</th>
+	<td><input type="text" name="driver[address]" class="input" value="<%= @driver.address %>" style="width: 162px;"/></td>
+</tr>
+
+<tr>
+	<th>City:</th>
+	<td><input type="text" name="driver[city]" class="input" value="<%= @driver.city %>" style="width: 162px;"/></td>
+</tr>
+
+<tr>
+	<th>State:</th>
+	<td><input type="text" name="driver[state]" class="input" value="<%= @driver.state %>" style="width: 80px;"/></td>
+</tr>
+
+<tr>
+	<th>Zip:</th>
+	<td><input type="text" name="driver[zip]" class="input" value="<%= @driver.zip %>" style="width: 80px;"/></td>
+</tr>
+
+<tr>
+	<th>Home Phone:</th>
+	<td><input type="text" name="driver[home_phone]" class="input" value="<%= @driver.home_phone %>" style="width: 80px;"/></td>
+</tr>
+
+<tr>
+	<th>Office Phone:</th>
+	<td><input type="text" name="driver[office_phone]" class="input" value="<%= @driver.office_phone %>" style="width: 80px;"/></td>
+</tr>
+
+<tr>
+	<th>Mobile Phone:</th>
+	<td><input type="text" name="driver[mobile_phone]" class="input" value="<%= @driver.mobile_phone %>" style="width: 80px;"/></td>
+</tr>
+
+<% unless @driver.primary %>
+	<tr>
+		<th>Relationship To Primary Driver:</th>
+		<td><input type="text" name="driver[relationship]" class="input" value="<%= @driver.relationship %>" style="width: 80px;"/></td>
+	</tr>
+<% end %>
