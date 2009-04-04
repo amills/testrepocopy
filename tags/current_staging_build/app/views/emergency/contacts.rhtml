@@ -1,0 +1,25 @@
+<% if @current_driver.nil? %>
+	<%= render :partial=>"/layouts/flash_message" %>    
+<% else %>
+	<h3>Emergency Contacts for <%= render :partial => 'select_driver' %></h3>
+
+	<%= render :partial=>"/layouts/flash_message" %>    
+	
+	<ul class="list">
+		<% index = 0 %>
+	    <% for contact in @current_driver.emergency_contacts %>
+	        <li style="float:left;min-width:440px;margin-right:20px;">
+	        	<% index += 1 %>
+	        	<strong>Emergency Contact #<%= index %></strong> -
+				<a href="/emergency/edit_contact/<%= contact.id %>">edit</a>
+				<table class="form_table">
+					<tr><th>Name:</th><td><%= contact.name or '&nbsp;' %></td></tr>
+					<tr><th>Home Phone:</th><td><%= contact.home_phone or '&nbsp;' %></td></tr>
+					<tr><th>Office Phone:</th><td><%= contact.office_phone or '&nbsp;' %></td></tr>
+					<tr><th>Mobile Phone:</th><td><%= contact.mobile_phone or '&nbsp;' %></td></tr>
+					<tr><th>Relationship To Driver:</th><td><%= contact.relationship or '&nbsp;' %></td></tr>
+				</table>
+			</li>
+	    <% end %>
+	</ul>
+<% end %>
