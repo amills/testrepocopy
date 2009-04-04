@@ -1,0 +1,36 @@
+<tr>
+	<th>Age:</th>
+	<td><input type="text" name="info[age]" class="input" value="<%= @info.age %>" style="width: 80px;"<% unless @driver %> disabled<% end %>/></td>
+</tr>
+
+<tr>
+	<th>Date Of Birth:</th>
+	<td><%= select_date(@info.dob, :order=>[:month,:day,:year],:use_short_month => true,:prefix=>"dob",:disabled => @driver.nil?) %></td>
+</tr>
+
+<tr><th>Medical Conditions:</th><td>(Known medical illnesses and/or medical conditions for this driver)</td><tr>
+<tr><th>&nbsp;</th><td><textarea style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.illnesses %></textarea></td></tr>
+
+<tr><th>Medications:</th><td>(Any medications this driver is taking)</td><tr>
+<tr><th>&nbsp;</th><td><textarea style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.medications %></textarea></td></tr>
+
+<tr><th>Alergies:</th><td>(Any know alergies to medications for this driver)</td><tr>
+<tr><th>&nbsp;</th><td><textarea style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.alergies %></textarea></td></tr>
+
+<tr>
+	<th>Blood Type:</th>
+	<td><input type="text" name="info[blood_type]" class="input" value="<%= @info.blood_type %>" style="width: 80px;"<% unless @driver %> disabled<% end %>/></td>
+</tr>
+
+<tr>
+	<th>Physician Name:</th>
+	<td><input type="text" name="info[physician_name]" class="input" value="<%= @info.physician_name %>" style="width: 162px;"<% unless @driver %> disabled<% end %>/> (The name of this driver's primary physician)</td>
+</tr>
+
+<tr>
+	<th>Physician Phone:</th>
+	<td><input type="text" name="info[physician_phone]" class="input" value="<%= @info.physician_phone %>" style="width: 80px;"<% unless @driver %> disabled<% end %>/> (The phone number of this driver's primary physician)</td>
+</tr>
+
+<tr><th>Important Notes:</th><td>(Any other important emergency information regarding this driver)</td><tr>
+<tr><th>&nbsp;</th><td><textarea style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.notes %></textarea></td></tr>
