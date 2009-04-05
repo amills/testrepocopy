@@ -9,13 +9,13 @@
 </tr>
 
 <tr><th>Medical Conditions:</th><td>(Known medical illnesses and/or medical conditions for this driver)</td><tr>
-<tr><th>&nbsp;</th><td><textarea style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.illnesses %></textarea></td></tr>
+<tr><th>&nbsp;</th><td><textarea name="info[illnesses]" style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.illnesses %></textarea></td></tr>
 
 <tr><th>Medications:</th><td>(Any medications this driver is taking)</td><tr>
-<tr><th>&nbsp;</th><td><textarea style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.medications %></textarea></td></tr>
+<tr><th>&nbsp;</th><td><textarea name="info[medications]" style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.medications %></textarea></td></tr>
 
-<tr><th>Alergies:</th><td>(Any know alergies to medications for this driver)</td><tr>
-<tr><th>&nbsp;</th><td><textarea style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.alergies %></textarea></td></tr>
+<tr><th>Alergies To Medicine:</th><td>(Any know alergies to medications for this driver)</td><tr>
+<tr><th>&nbsp;</th><td><textarea name="info[alergies]" style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.alergies %></textarea></td></tr>
 
 <tr>
 	<th>Blood Type:</th>
@@ -33,4 +33,4 @@
 </tr>
 
 <tr><th>Important Notes:</th><td>(Any other important emergency information regarding this driver)</td><tr>
-<tr><th>&nbsp;</th><td><textarea style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.notes %></textarea></td></tr>
+<tr><th>&nbsp;</th><td><textarea name="info[notes]" style="width:100%;"<% unless @driver %> disabled<% end %>><%= @info.notes %></textarea></td></tr>
