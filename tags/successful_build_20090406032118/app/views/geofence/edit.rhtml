@@ -1,0 +1,68 @@
+<div class="container">
+<div id="ub_account_tbl">
+    <div><h3>Edit Geofence</h3></div>
+    <div>
+   	<form method="post" id="geofence_form" onSubmit="return validate();">
+		<div><strong>This geofence applies to:</strong></div>	 			
+   	
+		<input type="radio" id="radio" name="radio" value="1" <% if @geofence.account_id != 0 %>checked<%end%> onclick="enableDevice(this);"/> All NavSeeker Locators<br/>
+		<input type="radio" id="radio" name="radio" onclick="<%if @devices.empty?%>alert('You can\'t create device level geofence.');<%else%>enableDevice(this);<%end%>" value="2" <% if @geofence.device_id != 0 %>checked<%end%> /> A Single NavSeeker Locator
+    
+    <div class="ub_editform">
+		<select id="device" name="device" class="text_width" <% if @geofence.account_id != 0 && @geofence.device_id == 0%>disabled<% end %>>
+		<% @devices.each do |device| %>
+			<option value="<%= device.id %>" <%= "selected='selected'" if @geofence.device_id == device.id %>><%= device.name %></option>
+		<% end %>	
+		</select>	  
+    </div>
+	
+    <div><strong>Geofence name:</strong> <br/>
+      <input   name="name" type="text" class="text_width" value="<%= @geofence.name %>" />
+    </div>
+	<input type="hidden" name="ref_url" value="<%= session[:referral_url] %>">
+    
+    <div><strong>Geofence address:</strong> <br/>
+		<input  id="address" name="address" class="text_width" value="<%= @geofence.address %>" type="text" />
+    </div>
+
+    <div>
+		<input type="button" class="blue_button" value="Preview" onclick="geocode(document.getElementById('address').value); return false;" />
+    </div>
+
+	
+    <div><strong>Radius:</strong> <br/>
+		<select id="radius" name="radius" >                
+                 <% RADIUS_ARRAY.each do |rad|%>
+			      <option value="<%=rad%>" <%= "selected='selected'" if @geofence.radius == rad %>><%= rad%></option>
+                <%end%>
+		</select> (miles)
+    </div>
+  </div>
+  
+  <input type="hidden" name="bounds" />
+  
+  <div>
+	<input type="submit" class="green_button" value="Update Geofence" />	    
+	<input type="button" class="red_button" value="Cancel" onclick="window.location = '<%= session[:referral_url] %>'; return false;"/>
+  </div>
+  </form>
+</div>
+
+<div class="main_map">
+        <div id="geofence_map" class="googlemap"></div>
+      </div>
+</div>
+
+<% if !@geofence.nil? %>
+    <script>     
+      var device_flag = 1
+      var remove_listener = 'false'
+         <% if @geofence.device && @geofence.device.latest_gps_reading %>
+              var device = {name: '<%= escape_javascript(@geofence.device.name ) %>', lat: <%= @geofence.device.latest_gps_reading.latitude %>, lng: <%= @geofence.device.latest_gps_reading.longitude %>, address: '<%= @geofence.device.latest_gps_reading.short_address %>'}; 
+         <% else %>
+              var device = {name: '<%= escape_javascript @geofence.name %>', lat: <%= @geofence.latitude %>, lng: <%= @geofence.longitude %>};
+         <%end%>     
+         var gf_index = 0;	
+         geofences.push({id: <%= @geofence.id%>, name: '<%= escape_javascript(@geofence.name) %>', bounds: '<%= @geofence.bounds %>'});	
+    </script>
+<% end %>
