@@ -7,7 +7,7 @@ class Notifier < ActionMailer::Base
     logger.info("Notification needed for #{readings_to_notify.size.to_s} readings\n")
     
     readings_to_notify.each do |reading|
-      action = reading.event_type.include?('exit') ? "exited geofence " : "entered geofence "
+      action = reading.event_type.include?('exit') ? "Exited geofence " : "Entered geofence "
       action += reading.get_fence_name unless reading.get_fence_name.nil?
       send_notify_reading_to_users(action,reading,1)
     end
@@ -94,7 +94,7 @@ class Notifier < ActionMailer::Base
             reading.event_type = 'speeding'
             reading.save
           end
-          send_notify_reading_to_users("maximum speed of #{device.account.max_speed} MPH exceeded",reading,1)
+          send_notify_reading_to_users("Maximum speed of #{device.account.max_speed} MPH exceeded", reading, 1)
         end
       end
     end
@@ -120,7 +120,7 @@ class Notifier < ActionMailer::Base
 		  mail = deliver_notify_reading(user, action, reading)
 	  end
 	  if priority >= user.bysms and user.bysms != 0
-		  msgText = reading.device.name + ' has reported ' + action + ' at: ' + reading.get_local_time(reading.created_at.in_time_zone.inspect) 
+		  msgText = reading.device.name + ' has reported: ' + action + ' at ' + reading.get_local_time(reading.created_at.in_time_zone.inspect) 
 		  Text_Message_Webservice.sendMessage(user.cellphone.to_s, msgText)
 		  # mail = deliver_notify_reading(user, action, reading)
 	  end
@@ -137,7 +137,7 @@ class Notifier < ActionMailer::Base
 		 mail = deliver_notify_task(user, action, task)
 	 end
 	 if priority >= user.bysms and user.bysms != 0
-		 msgText = task.device.name + ' has reported ' + action + ' at: ' + task.get_local_time(task.reviewed_at.in_time_zone.inspect) 
+		 msgText = task.device.name + ' has reported: ' + action + ' at ' + task.get_local_time(task.reviewed_at.in_time_zone.inspect) 
 		 Text_Message_Webservice.sendMessage(user.cellphone.to_s, msgText)
 		 # mail = deliver_notify_reading(user, action, reading)
 	 end
@@ -154,7 +154,7 @@ class Notifier < ActionMailer::Base
 		  mail = deliver_device_offline(user, device)
 	  end
 	  if priority >= user.bysms and user.bysms != 0
-		  msgText = device.name + ' appears to be OFFLINE. It has not reported since : ' + device.last_online_time.to_s
+		  msgText = device.name + ' appears to be offline. It has not reported since : ' + device.last_online_time.to_s
 		  Text_Message_Webservice.sendMessage(user.cellphone.to_s, msgText)
 		  # mail = deliver_notify_reading(user, action, reading)
 	  end
