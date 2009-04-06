@@ -127,27 +127,27 @@ div {
 	}
 
 input.disabled_button {
-	background-color: #4D4D4D;
+	background: transparent url(/images/navseeker_button_grey.png) repeat-x scroll 0 0;
 	color: #FFFFFF;
 	padding: 2px;
 }
 
 input.blue_button {
-	background-color: #0066FF;
+	background: transparent url(/images/navseeker_button_blue.png) repeat-x scroll 0 0;
 	color: #FFFFFF;
 	padding: 2px;
 	cursor:pointer;
 }
 
 input.green_button {
-	background-color: #5ABD5A;
+	background: transparent url(/images/navseeker_button_green.png) repeat-x scroll 0 0;
 	color: #FFFFFF;
 	padding: 2px;
 	cursor:pointer;
 }
 
 input.red_button {
-	background-color: #FF0000;
+	background: transparent url(/images/navseeker_button_red.png) repeat-x scroll 0 0;
 	color: #FFFFFF;
 	padding: 2px;
 	cursor:pointer;
