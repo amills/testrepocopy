@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20090112141802) do
   end
 
   create_table "device_profiles", :force => true do |t|
-    t.string  "name",                            :null => false
+    t.string  "name",         :default => "",    :null => false
     t.boolean "speeds",       :default => false, :null => false
     t.boolean "stops",        :default => false, :null => false
     t.boolean "idles",        :default => false, :null => false
@@ -121,9 +121,9 @@ ActiveRecord::Schema.define(:version => 20090112141802) do
 
   create_table "maintenance_tasks", :force => true do |t|
     t.integer  "device_id",         :limit => 11
-    t.string   "description",                                    :null => false
-    t.integer  "task_type",         :limit => 11, :default => 0, :null => false
-    t.datetime "established_at",                                 :null => false
+    t.string   "description",                     :default => "", :null => false
+    t.integer  "task_type",         :limit => 11, :default => 0,  :null => false
+    t.datetime "established_at",                                  :null => false
     t.datetime "remind_at"
     t.integer  "remind_runtime",    :limit => 11
     t.datetime "target_at"

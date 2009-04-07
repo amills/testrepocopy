@@ -80,8 +80,9 @@ function geocode(address) {
 				var r = document.getElementById("radius")[document.getElementById("radius").selectedIndex].value;
 				drawGeofence(point, r);
 				setZoomFromRadius(r);
-        gmap.panTo(point, zoom);
-
+				gmap.setZoom(zoom);
+				gmap.panTo(point);
+				
 				// Populate the bounds field
 				form.bounds.value = point.lat() + ',' + point.lng() + ',' + r;            
 				// Display the last location for the device                
@@ -96,7 +97,7 @@ function geocode(address) {
 
 function setZoomFromRadius(r) {
 	if(parseInt(r) > 25) {
-          zoom = 3;
+          zoom = 5;
   }
   else if(parseInt(r) > 5) {
           zoom = 7;

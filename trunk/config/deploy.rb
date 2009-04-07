@@ -10,6 +10,7 @@ set(:customer_name) do
   Capistrano::CLI.ui.ask "Enter Customer name: "
 end
 
+=begin
 set(:rails_env) do
   Capistrano::CLI.ui.ask "Rails Environment [staging, production, slicehost]: "
 end
@@ -17,6 +18,7 @@ end
 set(:monited) do
   Capistrano::CLI.ui.ask "start mongrels using monit (y/n): "
 end
+=end
 
 set :keep_releases, 5
 set :application,   'ublip'
@@ -30,6 +32,20 @@ set :monit_group,   'mongrel'
 set :scm,           :subversion
 set :runner, 'ublip'
 
+# Using this hack until we have our own infrastructure. cap doesn't expect globals such as deploy_to to vary between servers
+if variables[:target] == "production" # EY production
+  set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
+  set :monited, 'y'
+  set :rails_env, 'production'
+elsif variables[:target] == "staging" # EY staging
+  set :deploy_to, DeployManagerClient.get_staging_app_directory(customer_name)
+  set :monited, 'y'
+  set :rails_env, 'staging'
+else # Default to SH if nothing is specified, to be safe
+  set :deploy_to, DeployManagerClient.get_staging_app_directory(customer_name)
+  set :monited, 'n'
+  set :rails_env, 'slicehost'
+end
 
 # Staging DB vars
 set :staging_database, "ublip_prod"
@@ -48,7 +64,6 @@ ssh_options[:paranoid] = false
 # what the purpose of each machine is. You can also specify options that can
 # be used to single out a specific subset of boxes in a particular role, like
 # :primary => true.
-set :deploy_to, DeployManagerClient.get_app_directory(customer_name)
 set :db_admin, DeployManagerClient.get_db_admin(customer_name)
 
 task :production do
@@ -65,6 +80,12 @@ task :production do
 end
 
 task :staging do
+  role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
+  role :app, DeployManagerClient.get_staging_app_server(customer_name), :mongrel => true
+  set :repository, "#{DeployManagerClient.get_repo(customer_name)}/tags/current_staging_build"
+end
+
+task :slicehost do
   role :db, DeployManagerClient.get_staging_app_server(customer_name), :primary => true
   role :app, DeployManagerClient.get_staging_app_server(customer_name), :mongrel => true
   set :repository, "#{DeployManagerClient.get_repo(customer_name)}/tags/current_staging_build"

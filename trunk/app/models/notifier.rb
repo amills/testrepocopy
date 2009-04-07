@@ -9,7 +9,7 @@ class Notifier < ActionMailer::Base
     readings_to_notify.each do |reading|
       action = reading.event_type.include?('exit') ? "exited geofence " : "entered geofence "
       action += reading.get_fence_name unless reading.get_fence_name.nil?
-      send_notify_reading_to_users(action,reading)
+      send_notify_reading_to_users(action,reading) unless reading.device.provision_status_id == Device::STATUS_DELETED
     end
   end
 

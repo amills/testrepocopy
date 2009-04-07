@@ -9,6 +9,8 @@ class GeofenceNotificationTest < Test::Unit::TestCase
   
   context "A geofence notification" do
     setup do
+      @device = Factory(:device, :account => @account)
+      @deleted_device = Factory(:device, :account => @account, :provision_status_id => Device::STATUS_DELETED)
       Reading.delete_all
       #mock out send method for testing
       Notifier.class_eval do
@@ -37,7 +39,12 @@ class GeofenceNotificationTest < Test::Unit::TestCase
         create_reading(@device, 2)
         assert_equal 1, @notified_actions.size
       end
-      
+
+      should "not notify on a device marked for deletion" do
+        create_reading(@deleted_device, 2)
+        assert_equal 0, @notified_actions.size
+      end
+
     end
     
     
