@@ -14,9 +14,10 @@ xml.readingFeed{
             xml.createdUtc(reading.created_at.utc.strftime("%Y-%m-%dT%H:%M:%SZ"))
             xml.latitude(reading.latitude.to_s)
             xml.longitude(reading.longitude.to_s)
-            xml.readingType(reading.event_type.to_s)
             xml.battLevel(reading.battery_status.to_s)
             xml.seqNum(reading.message_count.to_s)
+            xml.inMotionFlag(reading.in_motion.to_s)
+            xml.subsequentMessageFlag(reading.subsequent_message.to_s)            
           end
         end
     end
