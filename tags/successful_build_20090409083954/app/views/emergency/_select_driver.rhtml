@@ -1,0 +1,5 @@
+<select style="font-size:18px;" onchange="document.location.href='/emergency/<%= params[:action] %>/' + this.options[this.selectedIndex].value;" style="margin-left: 10px;">
+	<% for driver in @drivers %>
+		<option value="<%= driver.id %>" <%if @current_driver.id == driver.id %>selected class="bgcolor"<%end%>><%= driver.name %></option>
+	<% end %>
+</select>

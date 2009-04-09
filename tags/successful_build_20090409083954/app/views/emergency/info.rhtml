@@ -1,0 +1,7 @@
+<h3>Emergency Information for <%= render :partial => 'select_driver' %></h3>
+
+<%= render :partial=>"/layouts/flash_message" %>
+
+<table class="form_table" style="width:80%;">
+	<% if @info %><%= render :partial => 'info_form' %><% end %>
+</table>
