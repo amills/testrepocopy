@@ -5,7 +5,18 @@
 	<table>
     	<tr><th>First Name</th><td><input type="text" name="user[first_name]" size="20" value="<%= @user.first_name %>" /></td></tr>
     	<tr><th>Last Name</th><td><input type="text" name="user[last_name]" size="20" value="<%= @user.last_name %>" /></td></tr>
-    	<tr><th>Email</th><td><input type="text" name="user[email]" title="Email" id="email" size="20" value="<%= @user.email %>" /></td></tr>
+    	<tr><th>Email</th><td><input type="text" name="user[email]" title="Email" size="20" value="<%= @user.email %>" /></td></tr>
+    	<tr><th>SMS Number</th><td><input type="text" name="user[sms_number]" title="SMS Number" size="15" value="<%= @user.sms_number %>" /></td></tr>
+    	<tr><th>SMS Carrier</th>
+			<td>
+				<select name="user[sms_domain]">
+					<option value=""<% if @user.sms_domain.blank? %> selected<% end%>>None</option>
+					<% for carrier in SmsCarrier.all_carriers %>
+						<option value="<%= carrier.domain %>"<% if carrier.domain == @user.sms_domain %> selected<% end %>><%= h carrier.name %></option>
+					<% end %>
+				</select>
+			</td>
+		</tr>
     	<tr><th>Password</th><td><input type="password" name="user[password]" size="20" value="<%= @user.password %>" /></td></tr>
     	<tr><th>Confirm Password</th><td><input type="password" name="user[password_confirmation]" size="20" /></td>    	
 		<tr><td colspan="2" align="right"><input type="submit" value="add" />&nbsp;&nbsp;&nbsp;<a href="/users">cancel</a></td></tr>

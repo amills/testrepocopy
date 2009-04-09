@@ -59,7 +59,6 @@ class UsersControllerTest < Test::Unit::TestCase
   def test_short_password
     params = {:first_name => "qwerty", :last_name => "asdf", :email =>"asdf"}
     post :edit, {:id => 1, :user => params, :password_checkbox => "checked", :existing_password => "test"}, {:user => users(:testuser), :account_id => 1, :is_admin => users(:testuser).is_admin}
-    assert_redirected_to :controller => "users", :action => "edit", :id => 1
     assert_equal flash[:error], "Your existing password must match what's currently stored in our system"
   end
   

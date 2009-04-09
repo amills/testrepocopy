@@ -8,50 +8,38 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(:first, :conditions => ["id = ? and account_id = ?", params[:id], session[:account_id]])
     if request.post?
-      user = User.find(:first, :conditions => ["id = ? and account_id = ?", params[:id], session[:account_id]])
-      
-      unless user.id == session[:user_id] or session[:is_admin]
+      unless @user.id == session[:user_id] or session[:is_admin]
         flash[:error] = 'Only administrators can edit a user other than himself'
-        return redirect_to(:controller => 'users', :action => 'edit', :id => user)
+        return redirect_to(:controller => 'users', :action => 'edit', :id => @user)
       end
-      
-      user.update_attributes(params[:user])
-      params[:is_admin] ? user.is_admin = 1 : user.is_admin = 0
 
-      # Update the existing password
-      if !params[:password_checkbox].nil?
-        # First make sure the existing password is correct
-        if user.crypted_password == user.encrypt(params[:password])
-          # Let's verify that the new password and confirmation match
-          if params[:new_password] == params[:confirm_new_password] and !params[:new_password].blank? and !params[:confirm_new_password].blank?
-            user.password = params[:new_password]
-            # Try and save the updated password with the user info
-            if params[:new_password].length > 5
+      last_sms_notify = @user.sms_notify
+      @user.sms_notify,@user.sms_confirmed = false,false unless @user.sms_number == params[:user][:sms_number] and @user.sms_domain == params[:user][:sms_domain]
+      @user.update_attributes(params[:user])
+      params[:is_admin] ? @user.is_admin = 1 : @user.is_admin = 0
 
-              user.save
-              flash[:success] = user.first_name + ' ' + user.last_name + ' was updated successfully'
-              redirect_to :controller => 'users'
-            else # Password can't be saved
-              flash[:error] = 'Passwords must be between 6 and 30 characters'
-              redirect_to :controller => 'users', :action => 'edit', :id => user
-            end
-          else
-            flash[:error] = 'Your new password and confirmation must match'
-            redirect_to :controller => 'users', :action => 'edit', :id => user
-          end
-        else # The existing password doesn't match what's in the system
-          flash[:error] = 'Your existing password must match what\'s currently stored in our system'
-          redirect_to :controller => 'users', :action => 'edit', :id => user
-        end
-      else # Update when the password checkbox is not checked
-        if user.save
-          flash[:success] = user.first_name + ' ' + user.last_name + ' was updated successfully'
-          redirect_to :controller => 'users'
+      if params[:password_checkbox]
+        if @user.crypted_password != @user.encrypt(params[:password])
+          return flash[:error] = 'Your existing password must match what\'s currently stored in our system'
+        elsif params[:new_password] != params[:confirm_new_password] or params[:new_password].blank? or params[:confirm_new_password].blank?
+          return flash[:error] = 'Your new password and confirmation must match'
+        elsif params[:new_password].length < 6 or params[:new_password].length > 30
+          return flash[:error] = 'Passwords must be between 6 and 30 characters'
+        else
+          @user.password = params[:new_password]
         end
       end
-    else
-      @user = User.find(:first, :conditions => ["id = ? and account_id = ?", params[:id], session[:account_id]])
+      if @user.save
+        flash[:success] = @user.first_name + ' ' + @user.last_name + ' was updated successfully'
+        flash[:error] = 'NOTE: Your SMS number/carrier has changed and you must reselect SMS notifications <a href="/settings">here</a>' if last_sms_notify != @user.sms_notify
+        redirect_to :controller => 'users'
+      else
+        errors = []
+        @user.errors.each{ |field, msg| errors.push(msg) }
+        flash[:error] = errors.join('<br/>')
+      end
     end
   end
 

@@ -9,7 +9,9 @@ class SettingsController < ApplicationController
         @account.update_attribute('company', params[:company])
         session[:company] = params[:company]
       end
-      params[:time_zone] = NIL if params[:time_zone] == ''
+      params[:time_zone] = nil if params[:time_zone] == ''
+      @user.sms_notify = params[:sms_notify] != nil
+      @user.sms_confirmed ||= params[:sms_confirmed] != nil
       @user.update_attributes!(:time_zone => params[:time_zone], :enotify => params[:notify])
       update_group_notifications if @user.enotify == 2
       flash[:success] = 'Settings saved successfully'

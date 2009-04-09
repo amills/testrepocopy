@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_confirmation_of :password
   validates_length_of :password, :within => 6..30, :if => :password_required?
+  validates_format_of :sms_number,:with => /^[1-9][0-9]{9,9}$/,:if => :validate_sms?,:message => 'SMS Number must be only 10 numeric digits, not starting with 0'
+  validates_presence_of :sms_domain,:if => :validate_sms?,:message => 'You must select an SMS Carrier if you provide an SMS Number'
   before_save :encrypt_password
   
   TimeZoneMapping = {
@@ -89,6 +91,11 @@ class User < ActiveRecord::Base
        TimeZoneMapping["#{self.time_zone}"]
   end
   
+  def notification_email
+    return "#{sms_number}@#{sms_domain}" if sms_notify and sms_confirmed and not sms_number.blank? and not sms_domain.blank?
+    email
+  end
+  
   protected
     # before filter 
     def encrypt_password
@@ -99,5 +106,9 @@ class User < ActiveRecord::Base
     
     def password_required?
       crypted_password.blank? || !password.blank?
-    end
+  end
+  
+  def validate_sms?
+    !self.sms_number.blank?
+  end
 end

@@ -161,7 +161,7 @@ class Notifier < ActionMailer::Base
   end
 
   def notify_reading(user, action, reading)
-    @recipients = user.email
+    @recipients = user.notification_email
     @from = "alerts@ublip.com"
     @subject = reading.device.name + ' ' + action
     @body["action"] = action
@@ -176,7 +176,7 @@ class Notifier < ActionMailer::Base
   end
 
   def notify_task(user,action,task)
-    @recipients = user.email
+    @recipients = user.notification_email
     @from = "alerts@ublip.com"
     @subject = task.device.name + ' ' + action
     @body["action"] = action
@@ -191,7 +191,7 @@ class Notifier < ActionMailer::Base
   end
 
   def device_offline(user, device)
-    @recipients =user.email
+    @recipients = user.notification_email
     @from = "alerts@ublip.com"
     @subject = "Device Offline Notification"
     @body["device_name"] = device.name
@@ -200,7 +200,7 @@ class Notifier < ActionMailer::Base
   end
 
   def setup_email(user)
-    @recipients = "#{user.email}"
+    @recipients = user.notification_email
     @from       = "support@ublip.com"
     @sent_on    = Time.now
     @headers['Content-Type'] = "text/plain; charset=utf-16"

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090404163942) do
+ActiveRecord::Schema.define(:version => 20090408191530) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company",          :limit => 75
@@ -246,6 +246,13 @@ ActiveRecord::Schema.define(:version => 20090404163942) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
+  create_table "sms_carriers", :force => true do |t|
+    t.string   "name"
+    t.string   "domain"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "stop_events", :force => true do |t|
     t.float    "latitude"
     t.float    "longitude"
@@ -281,6 +288,10 @@ ActiveRecord::Schema.define(:version => 20090404163942) do
     t.string   "time_zone"
     t.boolean  "is_super_admin",                          :default => false
     t.string   "access_key"
+    t.string   "sms_number"
+    t.string   "sms_domain"
+    t.boolean  "sms_notify",                              :default => false, :null => false
+    t.boolean  "sms_confirmed",                           :default => false, :null => false
   end
 
 end

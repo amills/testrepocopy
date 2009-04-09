@@ -37,6 +37,34 @@
      </div>     
 </div>
 
+<div class="settings_box">
+	<h2>SMS Notification</h2>
+	<% if @user.sms_number.blank? %>
+		If you wish to receive notifications by SMS text message, you will need to provide an SMS number and carrier <a href="/users/edit/<%= @user.id %>">here</a>.
+	<% elsif @user.sms_notify %>
+		<% if @user.sms_confirmed %>
+			You will receive notifications by SMS text message.
+		<% else %>
+			You have chosen to receive notifications by SMS text message.
+			However, you need to confirm that you have received a test message.
+			If you have not received a test SMS text message, click "save" again and another test message will be sent to you.
+		<% end %>
+		If you no longer wish to receive notifications by SMS text message, uncheck the box below:
+		<br/><br/>
+		<input type="checkbox" name="sms_notify" checked/> Receive notifications by SMS text message
+		<br/>
+		<input type="checkbox" name="sms_confirmed"<% if @user.sms_confirmed %> checked disabled<% end %>/> You have received a test SMS text message
+	<% else %>
+		If you wish to receive notifications by SMS text message, check the box below and the click "save".
+		<% unless @user.sms_confirmed %>
+			You will then be sent a test SMS text message.
+			After receiving the test message, return to this page and confirm that you have received it.	
+		<% end %>
+		<br/><br/>
+		<input type="checkbox" name="sms_notify"/> Receive notifications by SMS text message
+	<% end %>
+</div>
+
 <% if session[:is_admin] or (@account.max_speed and @account.max_speed > 0) %>     
 <div class="settings_box">
 	<h2>Speed Threshold</h2>
@@ -46,8 +74,8 @@
 		Whenever a device exceeds the speed threshold, users will be sent an email if they have chosen to receive notifications.
 	<% end %>
 	<br /><br />    
-	<input type="text" <% unless session[:is_admin] %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="max_speed" value="<%= @account.max_speed %>" /></td><td>MPH</td></tr>
-</div><br />
+	<input type="text" <% unless session[:is_admin] %>class="disabled" disabled="disabled"<% else %>class="input"<% end %> name="max_speed" value="<%= @account.max_speed %>" /> MPH</td>
+</div>
 <% end %>
      
 <div class="settings_box">
