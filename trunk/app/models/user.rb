@@ -1,5 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
+  has_and_belongs_to_many :dealers  #optional relationship, to grant users access to view multiple dealers
   belongs_to :account
   attr_accessor :password
   validates_presence_of :first_name, :last_name, :email

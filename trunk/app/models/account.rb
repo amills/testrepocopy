@@ -1,4 +1,5 @@
 class Account < ActiveRecord::Base
+  belongs_to :dealer #an umbrella to aggregate accounts together
   has_many :devices
   has_many :users
   has_many :groups
