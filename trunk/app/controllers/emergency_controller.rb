@@ -1,6 +1,6 @@
 class EmergencyController < ApplicationController
   before_filter :authorize
-  before_filter :authorize_driver,:except => [:edit_contact]
+  before_filter :authorize_driver,:except => [:edit_contact,:delete_contact]
 
   def index
     @drivers = Driver.find(:all,:conditions => {:account_id => session[:account_id]})
@@ -48,6 +48,20 @@ class EmergencyController < ApplicationController
     flash[:error] = $!.to_s
   end
   
+  def delete_driver
+    unless session[:is_admin]
+      flash[:error] = 'Only administrators can delete drivers'
+      return redirect_to(:action => 'index')
+    end
+      
+    if request.post?
+      driver = Driver.find(params[:id])
+      driver.destroy
+      flash[:success] = 'Driver was deleted successfully'
+      redirect_to :action => 'index'
+    end
+  end
+  
   def new_contact
     flash[:error] = nil
     @driver = Driver.find(params[:id])
@@ -70,6 +84,20 @@ class EmergencyController < ApplicationController
     redirect_to :action => 'contacts',:id => @contact.driver_id
   rescue
     flash[:error] = $!.to_s
+  end
+  
+  def delete_contact
+    unless session[:is_admin]
+      flash[:error] = 'Only administrators can delete emergency contacts'
+      return redirect_to(:action => 'index')
+    end
+      
+    if request.post?
+      contact = EmergencyContact.find(params[:id])
+      contact.destroy
+      flash[:success] = 'Emergency contact was deleted successfully'
+      redirect_to :action => 'index'
+    end
   end
   
   def update_info
